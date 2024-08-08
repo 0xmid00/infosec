@@ -49,14 +49,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/README.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "9625b9afd28137dd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "windows-hardening/windows-local-privilege-escalation/README.md",
                 "mode": "preview",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -122,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md"
+                "file": "windows-hardening/windows-local-privilege-escalation/README.md"
               }
             }
           }
@@ -183,10 +195,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "d70dffacd7bfde3c",
+  "active": "9625b9afd28137dd",
   "lastOpenFiles": [
-    "windows-hardening/windows-local-privilege-escalation/README.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "windows-hardening/windows-local-privilege-escalation/README.md",
     "windows-hardening/checklist-windows-privilege-escalation.md",
     "Untitled.md",
     "2024-08-04.md",

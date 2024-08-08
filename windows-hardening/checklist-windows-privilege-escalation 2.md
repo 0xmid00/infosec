@@ -22,4 +22,5 @@ of Privilege' --exploits-only | le`
 
 ## Passwords
 
-* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^39c818|Generic Password search in files and registry]]                                                                                                                                      - `.\winPEASany.exe quiet filesinfo userinfo`
+* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^39c818|Searching the Registry for Passwords]]                                                                                                                                      - `.\winPEASany.exe quiet filesinfo userinfo`
+* [ ]  [[windows-hardening/windows-local-privilege-escalation/README#^a378c5|Saved Creds]] - `winPEASany.exe quiet cmd windowscreds`
