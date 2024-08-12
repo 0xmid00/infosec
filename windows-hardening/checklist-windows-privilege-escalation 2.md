@@ -29,4 +29,6 @@ of Privilege' --exploits-only | le`
 - `.\winPEASany.exe quiet cmd searchfast filesinfo`
 - `dir /s *pass* == *.config`
 - `findstr /si password *.xml *.ini *.txt`
-* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^eea1bf|SAM & SYSTEM backups]] - `.\winPEASany.exe quiet filesinfo
+* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^eea1bf|SAM & SYSTEM backups]] - `.\winPEASany.exe quiet filesinfo`
+***
+* [ ] [[privilege-escalation-with-autorun-binaries#^bf7821|Scheduled Tasks]] - `schtasks /query /fo LIST /v`

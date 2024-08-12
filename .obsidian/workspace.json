@@ -13,7 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "0c4a33d66ce0e7bb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "windows-hardening/windows-local-privilege-escalation/README.md",
                 "mode": "preview",
                 "source": false
               }
@@ -25,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/windows-local-privilege-escalation/README.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
                 "mode": "preview",
                 "source": false
               }
@@ -38,18 +50,6 @@
               "type": "markdown",
               "state": {
                 "file": "windows-hardening/checklist-windows-privilege-escalation.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "7877fd43d5ae8b63",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/brute-force.md",
                 "mode": "preview",
                 "source": false
               }
@@ -121,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md"
+                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md"
               }
             }
           }
@@ -185,11 +185,12 @@
   "active": "e0d40647d03ea0e7",
   "lastOpenFiles": [
     "windows-hardening/windows-local-privilege-escalation/README.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "windows-hardening/checklist-windows-privilege-escalation.md",
     "generic-methodologies-and-resources/brute-force.md",
     "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/basic-forensic-methodology/README.md",
-    "windows-hardening/checklist-windows-privilege-escalation.md",
     "Untitled.md",
     "2024-08-04.md",
     "network-services-pentesting/pentesting-smb/README.md",

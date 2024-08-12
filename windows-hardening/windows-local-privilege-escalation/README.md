@@ -1414,9 +1414,7 @@ admin:1001:aad3b435b51404eeaad3b435b51404ee:a9fdfa038c4b75ebc76dc855dd74f0da:::
 ```bash
 john --wordlist=/usr/share/wordlists/rockyou.txt --show hash.txt 
 #or 
-hashcat -m 1000 --force
-a9fdfa038c4b75ebc76dc855dd74f0da
-/usr/share/wordlists/rockyou.txt
+hashcat -m 1000 --force <NT_HASH> /usr/share/wordlists/rockyou.txt
 ```
 
 ***Passing the Hash***
@@ -1469,7 +1467,7 @@ Search in `C:\ProgramData\Microsoft\Group Policy\history` or in _**C:\Documents 
 
 * Groups.xml
 * Services.xml
-* Scheduledtasks.xml
+* Scheduledtasks.xml ^6daff1
 * DataSources.xml
 * Printers.xml
 * Drives.xml
@@ -1721,12 +1719,6 @@ where /R C:\ *.ini
 2. The Unattend.xml file was found. View the contents:
 > `type C:\Windows\Panther\Unattend.xml`
 
-***important directorie***
-```bash
-
-```
-
- 
 ### ***Searching the Registry for Passwords***
 
 ^39c818
