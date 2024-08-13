@@ -88,6 +88,142 @@ Get-ChildItem "C:\Users\All Users\Start Menu\Programs\Startup"
 Get-ChildItem "C:\Users\$env:USERNAME\Start Menu\Programs\Startup"
 ```
 
+
+ script can filter files by whether they are writable, have denied remove permissions, or can be moved. It outputs the results into separate files for each category and may allows for easy identification of potential custom scheduled tasks
+ 
+```powershell
+param (
+    [switch]$W,     # Writable files
+    [switch]$R,     # Files with remove permissions denied
+    [switch]$M      # Movable files
+)
+
+# Set the number of files you want to retrieve
+$FileCount = 2000  # Change to 100 if you want only the last 100 files
+$TempFolder = "C:\Temp\MoveTest"  # Temporary folder for testing if files can be moved
+
+# Create the temporary folder if it doesn't exist
+if (-not (Test-Path -Path $TempFolder)) {
+    New-Item -Path $TempFolder -ItemType Directory
+}
+
+# Initialize arrays for results
+$Results = @()
+$writableFiles = @()
+$removeDeniedFiles = @()
+$movableFiles = @()
+
+# Search and sort the files, suppressing permission errors
+try {
+    $Results = Get-ChildItem -Path "C:\" -Recurse -File -ErrorAction SilentlyContinue | 
+    Sort-Object LastWriteTime -Descending | 
+    Select-Object -First $FileCount
+} catch {
+    Write-Host "An error occurred: $_"
+}
+
+# Check if results were found
+if ($Results) {
+    $Results | Format-Table FullName, LastWriteTime -AutoSize |
+    Out-File -FilePath "C:\Temp\LastModifiedFiles.txt"
+    Write-Host "Results saved to C:\Temp\LastModifiedFiles.txt"
+
+    # Read the saved file
+    $fileList = Get-Content -Path "C:\Temp\LastModifiedFiles.txt"
+
+    foreach ($line in $fileList) {
+        # Extract file path from the line
+        $filePath = ($line -split "\s+")[0] # Adjust if the format is different
+
+        if ($filePath -match "\.bat$|\.ps1$|\.exe$") {
+            if ($W) {
+                # Check if the file is writable
+                try {
+                    $file = Get-Item -Path $filePath
+                    if ($file.Attributes -notmatch "ReadOnly") {
+                        $writableFiles += $filePath
+                    }
+                } catch {
+                    Write-Host "Could not access file: $filePath"
+                }
+            }
+
+            if ($R) {
+                # Check if remove permission is denied
+                try {
+                    $acl = Get-Acl -Path $filePath
+                    $accessRules = $acl.Access
+
+                    foreach ($rule in $accessRules) {
+                        if ($rule.FileSystemRights -match "Delete" -and $rule.AccessControlType -eq "Deny") {
+                            $removeDeniedFiles += $filePath
+                            break
+                        }
+                    }
+                } catch {
+                    Write-Host "Could not access ACL for file: $filePath"
+                }
+            }
+
+            if ($M) {
+                # Check if file can be moved
+                try {
+                    $tempPath = Join-Path -Path $TempFolder -ChildPath (Split-Path -Path $filePath -Leaf)
+                    Move-Item -Path $filePath -Destination $tempPath -ErrorAction SilentlyContinue
+                    if (Test-Path -Path $tempPath) {
+                        Remove-Item -Path $tempPath  # Cleanup after test
+                        $movableFiles += $filePath
+                    }
+                } catch {
+                    Write-Host "Could not move file: $filePath"
+                }
+            }
+        }
+    }
+
+    # Print writable files if requested
+    if ($W -and $writableFiles.Count -gt 0) {
+        Write-Host "Writable .bat, .ps1, and .exe files:"
+        $writableFiles | ForEach-Object { Write-Host $_ }
+        $writableFiles | Out-File -FilePath "C:\Temp\WritableFiles.txt"
+        Write-Host "Writable .bat, .ps1, and .exe files saved to C:\Temp\WritableFiles.txt"
+    }
+
+    # Print files with remove permissions denied if requested
+    if ($R -and $removeDeniedFiles.Count -gt 0) {
+        Write-Host "Files with remove permissions denied:"
+        $removeDeniedFiles | ForEach-Object { Write-Host $_ }
+        $removeDeniedFiles | Out-File -FilePath "C:\Temp\RemoveDeniedFiles.txt"
+        Write-Host "Files with remove permissions denied saved to C:\Temp\RemoveDeniedFiles.txt"
+    }
+
+    # Print movable files if requested
+    if ($M -and $movableFiles.Count -gt 0) {
+        Write-Host "Movable .bat, .ps1, and .exe files:"
+        $movableFiles | ForEach-Object { Write-Host $_ }
+        $movableFiles | Out-File -FilePath "C:\Temp\MovableFiles.txt"
+        Write-Host "Movable .bat, .ps1, and .exe files saved to C:\Temp\MovableFiles.txt"
+    }
+
+    # Clean up the temporary folder
+    Remove-Item -Path $TempFolder -Recurse -Force
+} else {
+    Write-Host "No results found or access was denied to all directories."
+}
+
+```
+
+`powershell -File script.ps1 -ArgumentList "W", "R", "M"` 
+ Parameters:
+- `-W`  
+    **Include writable files (not read-only).**
+    
+- `-R`  
+    **Include files with denied remove permissions.**
+    
+- `-M`  
+    **Include files that can be moved.**
+    
 ## Registry
 
 {% hint style="info" %}

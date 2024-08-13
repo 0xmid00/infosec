@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
-                "mode": "preview",
+                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -101,7 +101,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -121,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
+                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
+                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -161,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md"
+                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md"
               }
             }
           }
@@ -185,8 +186,10 @@
   "active": "e0d40647d03ea0e7",
   "lastOpenFiles": [
     "windows-hardening/windows-local-privilege-escalation/README.md",
-    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
+    "1911-pentesting-fox.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.md",
     "windows-hardening/checklist-windows-privilege-escalation.md",
     "generic-methodologies-and-resources/brute-force.md",
     "linux-hardening/useful-linux-commands.md",

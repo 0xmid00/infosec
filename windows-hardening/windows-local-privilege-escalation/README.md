@@ -505,9 +505,33 @@ procdump.exe -accepteula -ma <proc_name_tasklist>
 
 ### Insecure GUI apps
 
+On some (older) versions of Windows, users could be granted the
+permission to run certain GUI apps with administrator privileges.
+There are often numerous ways to spawn command prompts from
+within GUI apps, including using native Windows functionality.
+Since the parent process is running with administrator privileges, the
+spawned command prompt will also run with these privileges.
+I call this the “Citrix Method” because it uses many of the same
+techniques used to break out of Citrix environments.
+
 **Applications running as SYSTEM may allow an user to spawn a CMD, or browse directories.**
 
 Example: "Windows Help and Support" (Windows + F1), search for "command prompt", click on "Click to open Command Prompt"
+
+***example 2***
+1. Log into the Windows VM using the GUI with the “user”
+account.
+2. Double click on the “AdminPaint” shortcut on the
+Desktop.
+3. Open a command prompt and run:
+`tasklist /V | findstr mspaint.exe`
+>Note that mspaint.exe is running with admin privileges.
+Running         WIN-QBA94KB3IOF\admin
+
+1. 4. In Paint, click File, then Open.
+2. 5. In the navigation input, replace the contents with:
+`file://c:/windows/system32/cmd.exe`
+6. Press Enter. A command prompt should open running with admin privileges.
 
 ## Services
 

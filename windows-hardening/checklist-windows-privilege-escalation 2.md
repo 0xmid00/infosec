@@ -32,3 +32,8 @@ of Privilege' --exploits-only | le`
 * [ ] [[windows-hardening/windows-local-privilege-escalation/README#^eea1bf|SAM & SYSTEM backups]] - `.\winPEASany.exe quiet filesinfo`
 ***
 * [ ] [[privilege-escalation-with-autorun-binaries#^bf7821|Scheduled Tasks]] - `schtasks /query /fo LIST /v`
+***
+* [ ]  [[windows-hardening/windows-local-privilege-escalation/README#^a378c5|Saved Creds]] 
+-`1.open shortcut or gui app.exe`
+-`tasklist /V | findstr app.exe
+***
