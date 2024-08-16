@@ -33,7 +33,9 @@ of Privilege' --exploits-only | le`
 ***
 * [ ] [[privilege-escalation-with-autorun-binaries#^bf7821|Scheduled Tasks]] - `schtasks /query /fo LIST /v`
 ***
-* [ ]  [[windows-hardening/windows-local-privilege-escalation/README#^a378c5|Saved Creds]] 
+* [ ]  [[windows-hardening/windows-local-privilege-escalation/README#^2987ff| Insecure GUI Apps]] 
 -`1.open shortcut or gui app.exe`
--`tasklist /V | findstr app.exe
+-`tasklist /V | findstr app.exe`
 ***
+* [ ] [[privilege-escalation-with-autorun-binaries#^c48dcd|Startup Apps]] 
+* `.\accesschk.exe /accepteula -d "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"`

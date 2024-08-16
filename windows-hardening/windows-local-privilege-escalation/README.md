@@ -505,6 +505,8 @@ procdump.exe -accepteula -ma <proc_name_tasklist>
 
 ### Insecure GUI apps
 
+^2987ff
+
 On some (older) versions of Windows, users could be granted the
 permission to run certain GUI apps with administrator privileges.
 There are often numerous ways to spawn command prompts from

