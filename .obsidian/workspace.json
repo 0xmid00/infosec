@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
                 "mode": "preview",
                 "source": false
               }
@@ -39,6 +39,18 @@
               "state": {
                 "file": "windows-hardening/checklist-windows-privilege-escalation.md",
                 "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "adb91c31f4320caf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -72,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp",
+                "query": "potato priv esc",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,7 +105,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 391.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -109,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md"
+                "file": "windows-hardening/windows-local-privilege-escalation/Hot Potato.md"
               }
             }
           }
@@ -172,10 +184,17 @@
   },
   "active": "e0d40647d03ea0e7",
   "lastOpenFiles": [
-    "windows-hardening/windows-local-privilege-escalation/README.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
-    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
+    "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
     "windows-hardening/checklist-windows-privilege-escalation.md",
+    "windows-hardening/windows-local-privilege-escalation/seimpersonate-from-high-to-system.md",
+    "windows-hardening/windows-local-privilege-escalation/windows-c-payloads.md",
+    "windows-hardening/windows-local-privilege-escalation/juicypotato.md",
+    "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
+    "windows-hardening/active-directory-methodology/abusing-ad-mssql.md",
+    "linux-hardening/linux-post-exploitation/pam-pluggable-authentication-modules.md",
+    "windows-hardening/windows-local-privilege-escalation/README.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
     "generic-methodologies-and-resources/exfiltration.md",
     "1911-pentesting-fox.md",
     "windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.md",

