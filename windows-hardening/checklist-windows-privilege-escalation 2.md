@@ -39,3 +39,5 @@ of Privilege' --exploits-only | le`
 ***
 * [ ] [[privilege-escalation-with-autorun-binaries#^c48dcd|Startup Apps]] 
 * `.\accesschk.exe /accepteula -d "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"`
+***
+* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^65e359|Exploit Installed Applications]] - `.\winPEASany.exe quiet procesinfo`

@@ -26,18 +26,6 @@
               "type": "markdown",
               "state": {
                 "file": "windows-hardening/windows-local-privilege-escalation/README.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "7944f6bd6fa5ace2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
                 "mode": "source",
                 "source": false
               }
@@ -53,26 +41,6 @@
                 "mode": "preview",
                 "source": false
               }
-            }
-          },
-          {
-            "id": "ce2951172ac177eb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/exfiltration.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "c7ac39b622c582e0",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
             }
           }
         ]
@@ -204,9 +172,9 @@
   },
   "active": "e0d40647d03ea0e7",
   "lastOpenFiles": [
-    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
-    "windows-hardening/checklist-windows-privilege-escalation 2.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
+    "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
     "windows-hardening/checklist-windows-privilege-escalation.md",
     "generic-methodologies-and-resources/exfiltration.md",
     "1911-pentesting-fox.md",
