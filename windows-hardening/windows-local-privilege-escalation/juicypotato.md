@@ -101,7 +101,7 @@ Optional args:
 
 [**From juicy-potato Readme**](https://github.com/ohpe/juicy-potato/blob/master/README.md#final-thoughts)**:**
 
-If the user has `SeImpersonate` or `SeAssignPrimaryToken` privileges then you are **SYSTEM**.
+If the user has `SeImpersonate` or `SeAssignPrimaryToken` privileges then you are **SYSTEM** (use `whoami /priv` to check).
 
 It’s nearly impossible to prevent the abuse of all these COM Servers. You could think about modifying the permissions of these objects via `DCOMCNFG` but good luck, this is gonna be challenging.
 
@@ -128,6 +128,9 @@ Testing {4991d34b-80a1-4291-83b6-3328366b9097} 1337
 c:\Users\Public>
 ```
 
+If the CLSID ({03ca...) doesn’t work for you, either check this list:
+https://github.com/ohpe/juicy-potato/blob/master/CLSID/README.md
+or run the GetCLSID.ps1 PowerShell script.
 ### Powershell rev
 
 ```

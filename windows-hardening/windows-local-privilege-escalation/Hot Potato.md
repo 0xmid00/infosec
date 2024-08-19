@@ -2,7 +2,7 @@
 Hot Potato is the name of an attack that uses a spoofing attack along with an NTLM relay attack to gain SYSTEM privileges.
 The attack tricks Windows into authenticating as the SYSTEM user to a fake HTTP server using NTLM. The NTLM credentials then get relayed to SMB in order to gain command execution.
 
-This attack works on Windows 7, 8, early versions of Windows 10, and their server counterparts.
+***This attack works on Windows 7, 8, early versions of Windows 10, win Server 2008, and Server 2012. and their server counterparts.***
 
 ![hot potato](https://jlajara.gitlab.io/assets/images/posts/20201122/Diagram_1.png)
 
