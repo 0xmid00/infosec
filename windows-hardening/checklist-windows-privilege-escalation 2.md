@@ -48,5 +48,5 @@
 
 #### Services , `SeImpersonate` or `SeAssignPrimaryToken` privileges 
   `whoami /priv` ->  1. be instantiable by the current user, normally a “service user” which has impersonation privileges ,`SeImpersonate` or `SeAssignPrimaryToken` privileges
-* [ ] [[juicypotato|Juicy Potato]] 
-* [ ] [[roguepotato-and-printspoofer|Rogue Potato]] 
+* [ ] [[juicypotato|Juicy Potato]] ` doesn't work** on Windows Server 2019 and Windows 10 build 1809 onwards.`
+* [ ] [[roguepotato-and-printspoofer|Rogue Potato]]  `can be used to abuse impersonation privileges on Windows 10 and Server 2019 hosts where JuicyPotato no longer works.`
