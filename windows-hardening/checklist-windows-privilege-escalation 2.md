@@ -45,6 +45,8 @@
 ###  Potatoes
 * [ ] [[Hot Potato|Hot potato]] 
 *` Windows 7, 8, early versions of Windows 10, win Server 2008, and Server 2012. and their server counterparts`
-* [ ] [[juicypotato|Juicy Potato]] 
-*  `meterpreter> whoami /priv` ->  1. be instantiable by the current user, normally a “service user” which has impersonation privileges ,`SeImpersonate` or `SeAssignPrimaryToken` privileges
 
+#### Services , `SeImpersonate` or `SeAssignPrimaryToken` privileges 
+  `whoami /priv` ->  1. be instantiable by the current user, normally a “service user” which has impersonation privileges ,`SeImpersonate` or `SeAssignPrimaryToken` privileges
+* [ ] [[juicypotato|Juicy Potato]] 
+* [ ] [[roguepotato-and-printspoofer|Rogue Potato]] 

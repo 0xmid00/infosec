@@ -191,6 +191,8 @@ kali_op1> impacket-smbserver -smb2support kali `pwd` # Share current directory
 kali_op2> smbserver.py -smb2support name /path/folder # Share a folder
 #For new Win10 versions
 impacket-smbserver -smb2support -user test -password test test `pwd`
+# or 
+python /usr/share/doc/python3-impacket/examples/smbserver.py tmp .
 ```
 
 Or create a smb share **using samba**:
