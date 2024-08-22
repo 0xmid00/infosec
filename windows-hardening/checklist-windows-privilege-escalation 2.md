@@ -1,5 +1,8 @@
 # Checklist - Local Windows Privilege Escalation
 ***
+## “getsystem”  Meterpreter
+`meterpreter> getsystem`
+***
 ##  Kernel Exploits
 
 * [ ] [[windows-hardening/windows-local-privilege-escalation/README#^01782b|Kernel Exploits]] - `python wes.py systeminfo.txt -i 'Elevation of Privilege' --exploits-only | less`
@@ -51,3 +54,54 @@
 * [ ] [[juicypotato|Juicy Potato]] ` doesn't work** on Windows Server 2019 and Windows 10 build 1809 onwards.`
 * [ ] [[roguepotato-and-printspoofer#^0e832b|Rogue Potato]]  `can be used to abuse impersonation privileges on Windows 10 and Server 2019 hosts where JuicyPotato no longer works.`
 * [ ] [[roguepotato-and-printspoofer#^c42fff|PrintSpoofer]]   `Windows 10 and Server 2016/2019..`
+***
+## Strategy
+```text
+Enumeration
+1. Check your user (whoami) and groups (net user <username>)
+2. Run winPEAS with fast, searchfast, and cmd options.
+3. Run Seatbelt & other scripts as well!
+4. If your scripts are failing and you don’t know why, you can always run the
+manual commands from this course, and other Windows PrivEsc cheatsheets
+online (e.g.
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Method
+ology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md)
+
+Strategy
+Spend some time and read over the results of your
+enumeration.
+If WinPEAS or another tool finds something interesting, make
+a note of it.
+Avoid rabbit holes by creating a checklist of things you need
+for the privilege escalation method to work.
+
+Strategy
+Have a quick look around for files in your user’s desktop
+and other common locations (e.g. C:\ and C:\Program
+Files).
+Read through interesting files that you find, as they may
+contain useful information that could help escalate
+privileges.
+
+Strategy
+Try things that don’t have many steps first, e.g. registry
+exploits, services, etc.
+Have a good look at admin processes, enumerate their
+versions and search for exploits.
+Check for internal ports that you might be able to forward to
+your attacking machine.
+
+Strategy
+If you still don’t have an admin shell, re-read your full
+enumeration dumps and highlight anything that seems odd.
+This might be a process or file name you aren’t familiar with
+or even a username.
+At this stage you can also start to think about Kernel Exploits.
+
+Don’t Panic
+Privilege Escalation is tricky.
+Practice makes perfect.
+Remember: in an exam setting, it might take a while to
+find the method, but the exam is always intended to be
+completed within a timeframe. Keep searching!
+```

