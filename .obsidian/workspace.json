@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
                 "mode": "preview",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "file": "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md"
+                "file": "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md"
               }
             }
           }
@@ -197,8 +197,8 @@
   },
   "active": "c75a1e083807b30f",
   "lastOpenFiles": [
-    "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
     "windows-hardening/windows-local-privilege-escalation/juicypotato.md",
     "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
     "windows-hardening/checklist-windows-privilege-escalation.md",
