@@ -32,6 +32,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 
 ### **Best tool to look for Linux local privilege escalation vectors:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
+`curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh`
 ### [System Information](privilege-escalation/#system-information)
 
 * [ ] Get **OS information**

@@ -22,11 +22,22 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 Let's start gaining some knowledge of the OS running
 
 ```bash
+
+
+msf > use post/linux/gather/enum_system #metasploit module 
+
+
 (cat /proc/version || uname -a ) 2>/dev/null
 lsb_release -a 2>/dev/null # old, not by default on many systems
 cat /etc/os-release 2>/dev/null # universal on modern systems
 ```
 
+ ***metasploit - enum_system***
+ 
+The enum_system module gathers system information. It collects installed packages, installed services, mount information, user list, user bash history and cron jobs.
+```shell
+use post/linux/gather/enum_system
+```
 ### Path
 
 If you **have write permissions on any folder inside the `PATH`** variable you may be able to hijack some libraries or binaries:

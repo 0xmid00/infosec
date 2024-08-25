@@ -193,6 +193,10 @@ kali_op2> smbserver.py -smb2support name /path/folder # Share a folder
 impacket-smbserver -smb2support -user test -password test test `pwd`
 # or 
 python /usr/share/doc/python3-impacket/examples/smbserver.py tmp .
+
+#then to take a copy of a file from the shared folder 
+smbclient //localhost/tmp -U guest -c 'get file.txt'
+
 ```
 
 Or create a smb share **using samba**:
