@@ -75,8 +75,9 @@ curl https://raw.githubusercontent.com/lucyoa/kernel-exploits/master/README.md 2
 
 Tools that could help to search for kernel exploits are:
 
-[linux-exploit-suggester.sh](https://github.com/mzet-/linux-exploit-suggester)\
-[linux-exploit-suggester2.pl](https://github.com/jondonas/linux-exploit-suggester-2)\
+`use post/multi/recon/local_exploit_suggester`
+[linux-exploit-suggester.sh](https://github.com/mzet-/linux-exploit-suggester)
+[linux-exploit-suggester2.pl](https://github.com/jondonas/linux-exploit-suggester-2) (the best)
 [linuxprivchecker.py](http://www.securitysift.com/download/linuxprivchecker.py) (execute IN victim,only checks exploits for kernel 2.x)
 
 Always **search the kernel version in Google**, maybe your kernel version is written in some kernel exploit and then you will be sure that this exploit is valid.

