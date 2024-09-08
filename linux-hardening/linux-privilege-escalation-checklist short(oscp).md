@@ -33,6 +33,13 @@ Stay informed with the newest bug bounties launching and crucial platform update
 ### **Best tool to look for Linux local privilege escalation vectors:** [**LinPEAS**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS)
 
 `curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh`
+***
 ###  Kernel exploits
-- [ ] Search for [[linux-hardening/privilege-escalation/README#Kernel exploits| Kernel exploits]]  `uname -a`
+- [ ] [[linux-hardening/privilege-escalation/README#Kernel exploits| Kernel exploits]]  
+`uname -a`
 `searchsploit linux kernel 2.6.32 priv esc (DirtyCow?)`
+### Service & softwares Exploits
+- [ ] [[linux-hardening/privilege-escalation/README#Service & softwares Exploits| Service & softwares Exploits]]  
+`ps aux | grep "^root”` OR `<program> --version`
+`seachsploit <softwawre/service> priv esc`
+    

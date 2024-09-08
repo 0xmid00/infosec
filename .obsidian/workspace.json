@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/linux-privilege-escalation-checklist.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               }
             }
@@ -44,7 +44,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "smbclient",
+                "query": "arp spoofing",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -94,7 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 391.5
+    "width": 200
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+                "file": "linux-hardening/privilege-escalation/README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+                "file": "linux-hardening/privilege-escalation/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md"
+                "file": "linux-hardening/privilege-escalation/README.md"
               }
             }
           }
@@ -171,33 +171,33 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4beddcde1eaf3f8a",
+  "active": "899022cf016b5a5b",
   "lastOpenFiles": [
     "linux-hardening/linux-privilege-escalation-checklist.md",
-    "post-exploitation.md",
     "privilege-escalation.md",
-    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "linux-hardening/privilege-escalation/README.md",
-    "generic-methodologies-and-resources/exfiltration.md",
+    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/pentesting-network/README.md",
     "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
+    "generic-methodologies-and-resources/pentesting-methodology.md",
+    "todo/more-tools.md",
+    "network-services-pentesting/ipsec-ike-vpn-pentesting.md",
+    "pentesting-web/hacking-jwt-json-web-tokens.md",
+    "windows-hardening/active-directory-methodology/asreproast.md",
+    "network-services-pentesting/49-pentesting-tacacs+.md",
+    "macos-hardening/macos-security-and-privilege-escalation/macos-proces-abuse/macos-ipc-inter-process-communication/README.md",
+    "network-services-pentesting/pentesting-smtp/README.md",
+    "mobile-pentesting/android-app-pentesting/README.md",
+    "generic-methodologies-and-resources/phishing-methodology/phishing-documents.md",
+    "binary-exploitation/windows-exploiting-basic-guide-oscp-lvl.md",
+    "binary-exploitation/basic-stack-binary-exploitation-methodology/README.md",
+    "post-exploitation.md",
+    "generic-methodologies-and-resources/exfiltration.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
     "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-fs-tricks/macos-xattr-acls-extra-stuff.md",
     "macos-hardening/macos-security-and-privilege-escalation/macos-privilege-escalation.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-proces-abuse/macos-library-injection/macos-dyld-hijacking-and-dyld_insert_libraries.md",
-    "linux-hardening/privilege-escalation/euid-ruid-suid.md",
-    "windows-hardening/windows-local-privilege-escalation/dll-hijacking.md",
-    "linux-hardening/privilege-escalation/d-bus-enumeration-and-command-injection-privilege-escalation.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "windows-hardening/windows-local-privilege-escalation/juicypotato.md",
-    "windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer.md",
-    "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
-    "windows-hardening/checklist-windows-privilege-escalation.md",
-    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens/README.md",
-    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.md",
-    "windows-hardening/windows-local-privilege-escalation/seimpersonate-from-high-to-system.md",
-    "windows-hardening/windows-local-privilege-escalation/windows-c-payloads.md",
-    "windows-hardening/active-directory-methodology/abusing-ad-mssql.md",
-    "linux-hardening/linux-post-exploitation/pam-pluggable-authentication-modules.md"
+    "macos-hardening/macos-security-and-privilege-escalation/macos-proces-abuse/macos-library-injection/macos-dyld-hijacking-and-dyld_insert_libraries.md"
   ]
 }

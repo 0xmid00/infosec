@@ -62,11 +62,20 @@ ssh -Y -C <user>@<ip> #-Y is less secure but faster than -X
 Open new Port in SSH Server --> Other port
 
 ```bash
+#Local Machine (localhost:1521) --(over SSH)---> Remote Machine (remote_machine:10521)
 ssh -R 0.0.0.0:10521:127.0.0.1:1521 user@10.0.0.1 #Local port 1521 accessible in port 10521 from everywhere
+
+
+ssh -L [local_port]:[destination_address]:[destination_port] [username]@[ssh_server]
+ssh -L 8080:192.168.1.100:80 user@remote_server
 ```
 
 ```bash
+#Remote Machine (remote_machine:1521) <--(over SSH)-- Local Machine (localhost:10521)
 ssh -R 0.0.0.0:10521:10.0.0.1:1521 user@10.0.0.1 #Remote port 1521 accessible in port 10521 from everywhere
+
+ssh -R [remote_port]:[destination_address]:[local_port] [username]@[ssh_server]
+ssh -R 80:192.168.1.10:8080 user@123.45.67.89
 ```
 
 ### Port2Port
