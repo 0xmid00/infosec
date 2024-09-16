@@ -32,13 +32,13 @@
             }
           },
           {
-            "id": "899022cf016b5a5b",
+            "id": "5917c7626925c1eb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/privilege-escalation/README.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -94,7 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 346.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -175,6 +175,7 @@
   "lastOpenFiles": [
     "linux-hardening/privilege-escalation/README.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+    "generic-methodologies-and-resources/exfiltration.md",
     "linux-hardening/linux-privilege-escalation-checklist.md",
     "privilege-escalation.md",
     "linux-hardening/useful-linux-commands.md",
@@ -193,7 +194,6 @@
     "binary-exploitation/windows-exploiting-basic-guide-oscp-lvl.md",
     "binary-exploitation/basic-stack-binary-exploitation-methodology/README.md",
     "post-exploitation.md",
-    "generic-methodologies-and-resources/exfiltration.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
     "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-fs-tricks/macos-xattr-acls-extra-stuff.md",

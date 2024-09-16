@@ -58,5 +58,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `sudo -l` ->  `https://gtfobins.github.io/`
 - [ ] [[linux-hardening/privilege-escalation/README#Abusing Intended Functionality| Abusing Intended Functionality]]  
 `sudo -l -> https://gtfobins.github.io/ -> NO shell escape sequence -> searching manuely If we can use program read/write files owned by root`
-
-
+- [ ] [[linux-hardening/privilege-escalation/README#LD_PRELOAD| LD_PRELOAD]]  
+`sudo -l -> env_keep+=LD_PRELOAD`
+- [ ] [[linux-hardening/privilege-escalation/README#LD_LIBRARY_PATH|LD_LIBRARY_PATH]]  
+`sudo -l -> env_keep+=LD_LIBRARY_PATH`
