@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/linux-privilege-escalation-checklist.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -38,13 +38,13 @@
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/privilege-escalation/README.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
+                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
+                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md"
+                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md"
               }
             }
           }
@@ -171,12 +171,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "899022cf016b5a5b",
+  "active": "4beddcde1eaf3f8a",
   "lastOpenFiles": [
-    "linux-hardening/linux-privilege-escalation-checklist.md",
-    "privilege-escalation.md",
     "linux-hardening/privilege-escalation/README.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+    "linux-hardening/linux-privilege-escalation-checklist.md",
+    "privilege-escalation.md",
     "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/pentesting-network/README.md",
     "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",

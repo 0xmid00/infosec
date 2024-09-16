@@ -42,4 +42,21 @@ Stay informed with the newest bug bounties launching and crucial platform update
 - [ ] [[linux-hardening/privilege-escalation/README#Service & softwares Exploits| Service & softwares Exploits]]  
 `ps aux | grep "^root”` OR `<program> --version`
 `seachsploit <softwawre/service> priv esc`
-    
+
+### Weak files permissions
+- [ ] [[linux-hardening/privilege-escalation/README#readable /etc/shadow| Readable /etc/shadow]]  
+`ls -l /etc/shadow -> -rw-r—r-`
+- [ ] [[linux-hardening/privilege-escalation/README#Writable /etc/shadow| writeable /etc/shadow]]  
+`ls -l /etc/shadow -> -rw-r—w-`
+- [ ] [[linux-hardening/privilege-escalation/README#Writable /etc/passwd| writeable /etc/passwd]]  
+`ls -l /etc/passwd -> -rw-r—w-`
+- [ ] [[linux-hardening/privilege-escalation/README#**Backups**|Backups]] `searching manuely ` 
+### Sudo
+- [ ] [[linux-hardening/privilege-escalation/README#Known Password| Known Password]]  
+`sudo su`
+- [ ] [[linux-hardening/privilege-escalation/README#Shell Escape Sequences(NOPASSWD)| Shell Escape Sequences]]
+`sudo -l` ->  `https://gtfobins.github.io/`
+- [ ] [[linux-hardening/privilege-escalation/README#Abusing Intended Functionality| Abusing Intended Functionality]]  
+`sudo -l -> https://gtfobins.github.io/ -> NO shell escape sequence -> searching manuely If we can use program read/write files owned by root`
+
+
