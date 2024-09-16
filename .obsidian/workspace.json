@@ -26,7 +26,7 @@
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               }
             }
@@ -44,7 +44,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+                "file": "linux-hardening/privilege-escalation/README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+                "file": "linux-hardening/privilege-escalation/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md"
+                "file": "linux-hardening/privilege-escalation/README.md"
               }
             }
           }
@@ -171,12 +171,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4beddcde1eaf3f8a",
+  "active": "5917c7626925c1eb",
   "lastOpenFiles": [
+    "linux-hardening/privilege-escalation/wildcards-spare-tricks.md",
     "linux-hardening/privilege-escalation/README.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-    "generic-methodologies-and-resources/exfiltration.md",
     "linux-hardening/linux-privilege-escalation-checklist.md",
+    "generic-methodologies-and-resources/exfiltration.md",
     "privilege-escalation.md",
     "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/pentesting-network/README.md",
@@ -197,7 +198,6 @@
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
     "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-fs-tricks/macos-xattr-acls-extra-stuff.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-privilege-escalation.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-proces-abuse/macos-library-injection/macos-dyld-hijacking-and-dyld_insert_libraries.md"
+    "macos-hardening/macos-security-and-privilege-escalation/macos-privilege-escalation.md"
   ]
 }

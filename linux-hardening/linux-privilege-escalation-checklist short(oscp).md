@@ -62,3 +62,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `sudo -l -> env_keep+=LD_PRELOAD`
 - [ ] [[linux-hardening/privilege-escalation/README#LD_LIBRARY_PATH|LD_LIBRARY_PATH]]  
 `sudo -l -> env_keep+=LD_LIBRARY_PATH`
+
+### Cron Jobs
+- [ ] [[linux-hardening/privilege-escalation/README#Cron script overwriting and symlink| Cron script overwriting and symlink]]  
+`cat /etc/crontab -> writable by others: -rwxr--rw- root /usr/local/bin/overwrite.sh`
