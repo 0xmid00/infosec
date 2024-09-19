@@ -66,3 +66,16 @@ Stay informed with the newest bug bounties launching and crucial platform update
 ### Cron Jobs
 - [ ] [[linux-hardening/privilege-escalation/README#Cron script overwriting and symlink| Cron script overwriting and symlink]]  
 `cat /etc/crontab -> writable by others: -rwxr--rw- root /usr/local/bin/overwrite.sh`
+- [ ] [[linux-hardening/privilege-escalation/README#The crontab PATH environment variable| PATH Environment Variable]]  
+`cat /etc/crontab -> does not use an absolute path: * * * * * root overwrite.sh & PATH=/home/user /home/user directory (which we can write to)`
+
+- [ ] [[linux-hardening/privilege-escalation/README#Cron using a script with a wildcard (Wildcard Injection)| Wildcards]]  
+`cat /etc/crontab ->  * * * * * root /usr/local/bin/compress.sh -> tar czf /tmp/backup.tar.gz *`
+
+## SUID/GUID files
+- `find / -type f \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null`
+- [ ] [[linux-hardening/privilege-escalation/README#Shell Escape Sequences| Shell Escape Sequences]]  `https://gtfobins.github.io/`
+- [ ] [[linux-hardening/privilege-escalation/README#Known Exploits for SUID/SGID Files| Known Exploits ]]  `searchsploit <suid/sgid_file>`
+- [ ] [[linux-hardening/privilege-escalation/README#Shared Object Hijacking| Shared Object Hijacking]]  
+- `trace /usr/local/bin/<suid-file> 2>&1 | grep -iE "open|access|no such file"#-> The libcalc.so shared object could not be found, and the program is looking in our user’s home directory, which we can write to.`
+
