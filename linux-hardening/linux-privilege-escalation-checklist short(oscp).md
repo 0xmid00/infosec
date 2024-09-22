@@ -1,4 +1,4 @@
-# Checklist - Linux Privilege Escalation
+.# Checklist - Linux Privilege Escalation
 
 {% hint style="success" %}
 Learn & practice AWS Hacking:<img src="/.gitbook/assets/arte.png" alt="" data-size="line">[**HackTricks Training AWS Red Team Expert (ARTE)**](https://training.hacktricks.xyz/courses/arte)<img src="/.gitbook/assets/arte.png" alt="" data-size="line">\
@@ -86,3 +86,12 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `Bash <4.2-048 & strings/strace <suid_file> -> /bin/<absolute_path>/excutable_file_called`
 - [ ] [[linux-hardening/privilege-escalation/README#SUID binary (Abusing Shell Features Bash <4.4)| SUID binary (Abusing Shell Features Bash <4.4)]] 
 `Bash <4.4`
+## passwords & keys
+
+- [ ] [[linux-hardening/privilege-escalation/README#Known files containing passwords| knows files Passwords]] ***+*** [[linux-hardening/privilege-escalation/README#Generic Creds Search/Regex| Generic Creds Search/Regex]] `just search.. `
+- [ ] [[linux-hardening/privilege-escalation/README#* _history, .sudo _as _admin _successful, profile, bashrc, httpd.conf, .plan, .htpasswd, .git-credentials, .rhosts, hosts.equiv, Dockerfile, docker-compose.yml files| History Files]] `cat $HOME/.*history| less`
+- [ ] [[linux-hardening/privilege-escalation/README#Config Files| Config Files]] `just search.. `
+- [ ] [[linux-hardening/privilege-escalation/README#ssh privet key| ssh keys]] `just search.. `
+### NFS 
+- [ ] [[nfs-no_root_squash-misconfiguration-pe]] `cat /etc/exportst -> /tmp *(rw,sync,insecure,no_root_squash,no_subtree_check) ` 
+   `no_root_squash is an NFS configuration option which turns root squashing off.`

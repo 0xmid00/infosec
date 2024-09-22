@@ -26,7 +26,7 @@
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -38,7 +38,7 @@
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/privilege-escalation/README.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -173,8 +173,13 @@
   },
   "active": "4beddcde1eaf3f8a",
   "lastOpenFiles": [
-    "linux-hardening/privilege-escalation/README.md",
+    "linux-hardening/privilege-escalation/nfs-no_root_squash-misconfiguration-pe.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+    "nfs no_root_squash misconfiguration.md",
+    "linux-hardening/privilege-escalation/README.md",
+    "nfs-no/_root/_squash-misconfiguration-pe.md",
+    "nfs-no/_root",
+    "nfs-no",
     "linux-hardening/linux-privilege-escalation-checklist.md",
     "linux-hardening/privilege-escalation/payloads-to-execute.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
@@ -195,9 +200,6 @@
     "network-services-pentesting/pentesting-smtp/README.md",
     "mobile-pentesting/android-app-pentesting/README.md",
     "generic-methodologies-and-resources/phishing-methodology/phishing-documents.md",
-    "binary-exploitation/windows-exploiting-basic-guide-oscp-lvl.md",
-    "binary-exploitation/basic-stack-binary-exploitation-methodology/README.md",
-    "post-exploitation.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-fs-tricks/macos-xattr-acls-extra-stuff.md"
+    "binary-exploitation/windows-exploiting-basic-guide-oscp-lvl.md"
   ]
 }
