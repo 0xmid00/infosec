@@ -8,36 +8,36 @@
         "type": "tabs",
         "children": [
           {
-            "id": "0c4a33d66ce0e7bb",
+            "id": "6e3067758187dfe4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist.md",
+                "file": "post-exploitation.md",
                 "mode": "preview",
                 "source": false
               }
             }
           },
           {
-            "id": "4beddcde1eaf3f8a",
+            "id": "5312b61cb11764a8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Post Exploitation/maintaining access.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "cf7e03bd7472c331",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "146a86a0819d3dd5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
                 "mode": "preview",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+                "file": "Post Exploitation/maintaining access.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+                "file": "Post Exploitation/maintaining access.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md"
+                "file": "Post Exploitation/maintaining access.md"
               }
             }
           }
@@ -171,12 +171,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4beddcde1eaf3f8a",
+  "active": "5312b61cb11764a8",
   "lastOpenFiles": [
-    "linux-hardening/privilege-escalation/nfs-no_root_squash-misconfiguration-pe.md",
+    "Post Exploitation/README.md",
+    "Post Exploitation/maintaining access.md",
+    "post-exploitation.md",
+    "Post Exploitation",
+    "windows-hardening/Untitled",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-    "nfs no_root_squash misconfiguration.md",
     "linux-hardening/privilege-escalation/README.md",
+    "linux-hardening/privilege-escalation/nfs-no_root_squash-misconfiguration-pe.md",
+    "nfs no_root_squash misconfiguration.md",
     "nfs-no/_root/_squash-misconfiguration-pe.md",
     "nfs-no/_root",
     "nfs-no",
@@ -197,9 +202,6 @@
     "windows-hardening/active-directory-methodology/asreproast.md",
     "network-services-pentesting/49-pentesting-tacacs+.md",
     "macos-hardening/macos-security-and-privilege-escalation/macos-proces-abuse/macos-ipc-inter-process-communication/README.md",
-    "network-services-pentesting/pentesting-smtp/README.md",
-    "mobile-pentesting/android-app-pentesting/README.md",
-    "generic-methodologies-and-resources/phishing-methodology/phishing-documents.md",
-    "binary-exploitation/windows-exploiting-basic-guide-oscp-lvl.md"
+    "network-services-pentesting/pentesting-smtp/README.md"
   ]
 }
