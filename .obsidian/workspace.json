@@ -38,7 +38,7 @@
               "type": "markdown",
               "state": {
                 "file": "Post Exploitation/maintaining access.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -173,9 +173,12 @@
   },
   "active": "7e8fabd9b8db6fe1",
   "lastOpenFiles": [
-    "network-services-pentesting/pentesting-smb/README.md",
+    "network-services-pentesting/pentesting-jdwp-java-debug-wire-protocol.md",
+    "network-services-pentesting/pentesting-631-internet-printing-protocol-ipp.md",
+    "1911-pentesting-fox.md",
     "Post Exploitation/maintaining access.md",
     "Post Exploitation/README.md",
+    "network-services-pentesting/pentesting-smb/README.md",
     "post-exploitation.md",
     "windows-hardening/lateral-movement/psexec-and-winexec.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
@@ -199,9 +202,6 @@
     "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
     "generic-methodologies-and-resources/pentesting-methodology.md",
     "todo/more-tools.md",
-    "network-services-pentesting/ipsec-ike-vpn-pentesting.md",
-    "pentesting-web/hacking-jwt-json-web-tokens.md",
-    "windows-hardening/active-directory-methodology/asreproast.md",
-    "network-services-pentesting/49-pentesting-tacacs+.md"
+    "network-services-pentesting/ipsec-ike-vpn-pentesting.md"
   ]
 }
