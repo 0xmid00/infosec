@@ -30,21 +30,9 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "7e8fabd9b8db6fe1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Post Exploitation/maintaining access.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -110,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Post Exploitation/maintaining access.md",
+                "file": "Post Exploitation/README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Post Exploitation/maintaining access.md",
+                "file": "Post Exploitation/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Post Exploitation/maintaining access.md"
+                "file": "Post Exploitation/README.md"
               }
             }
           }
@@ -171,15 +159,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7e8fabd9b8db6fe1",
+  "active": "5312b61cb11764a8",
   "lastOpenFiles": [
+    "Post Exploitation/Pillaging.md",
+    "Post Exploitation/README.md",
+    "Post Exploitation/maintaining access.md",
+    "Post Exploitation/Untitled",
+    "post-exploitation.md",
     "network-services-pentesting/pentesting-jdwp-java-debug-wire-protocol.md",
     "network-services-pentesting/pentesting-631-internet-printing-protocol-ipp.md",
     "1911-pentesting-fox.md",
-    "Post Exploitation/maintaining access.md",
-    "Post Exploitation/README.md",
     "network-services-pentesting/pentesting-smb/README.md",
-    "post-exploitation.md",
     "windows-hardening/lateral-movement/psexec-and-winexec.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "Post Exploitation",
@@ -201,7 +191,6 @@
     "generic-methodologies-and-resources/pentesting-network/README.md",
     "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
     "generic-methodologies-and-resources/pentesting-methodology.md",
-    "todo/more-tools.md",
-    "network-services-pentesting/ipsec-ike-vpn-pentesting.md"
+    "todo/more-tools.md"
   ]
 }
