@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "post-exploitation.md",
+                "file": "Post Exploitation/README.md",
                 "mode": "preview",
                 "source": false
               }
@@ -25,14 +25,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Post Exploitation/README.md",
-                "mode": "preview",
+                "file": "Post Exploitation/Pillaging.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "e4b22c96225ee530",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Post Exploitation/Exploitation & Pivoting.md",
+                "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -98,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Post Exploitation/README.md",
+                "file": "Post Exploitation/Exploitation & Pivoting.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Post Exploitation/README.md",
+                "file": "Post Exploitation/Exploitation & Pivoting.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Post Exploitation/README.md"
+                "file": "Post Exploitation/Exploitation & Pivoting.md"
               }
             }
           }
@@ -159,13 +171,15 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5312b61cb11764a8",
+  "active": "e4b22c96225ee530",
   "lastOpenFiles": [
+    "Post Exploitation/Internal Network Scan.md",
+    "Post Exploitation/Exploitation & Pivoting.md",
     "Post Exploitation/Pillaging.md",
-    "Post Exploitation/README.md",
     "Post Exploitation/maintaining access.md",
-    "Post Exploitation/Untitled",
+    "Post Exploitation/README.md",
     "post-exploitation.md",
+    "Post Exploitation/Untitled",
     "network-services-pentesting/pentesting-jdwp-java-debug-wire-protocol.md",
     "network-services-pentesting/pentesting-631-internet-printing-protocol-ipp.md",
     "1911-pentesting-fox.md",
@@ -189,8 +203,6 @@
     "privilege-escalation.md",
     "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/pentesting-network/README.md",
-    "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
-    "generic-methodologies-and-resources/pentesting-methodology.md",
-    "todo/more-tools.md"
+    "generic-methodologies-and-resources/tunneling-and-port-forwarding.md"
   ]
 }
