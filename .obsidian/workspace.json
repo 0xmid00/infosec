@@ -20,13 +20,13 @@
             }
           },
           {
-            "id": "5312b61cb11764a8",
+            "id": "2ac8cdfa36ea2635",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Post Exploitation/Pillaging.md",
-                "mode": "source",
+                "file": "Post Exploitation/maintaining access.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -38,7 +38,7 @@
               "type": "markdown",
               "state": {
                 "file": "Post Exploitation/Exploitation & Pivoting.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -173,11 +173,11 @@
   },
   "active": "e4b22c96225ee530",
   "lastOpenFiles": [
+    "Post Exploitation/maintaining access.md",
+    "Post Exploitation/README.md",
     "Post Exploitation/Internal Network Scan.md",
     "Post Exploitation/Exploitation & Pivoting.md",
     "Post Exploitation/Pillaging.md",
-    "Post Exploitation/maintaining access.md",
-    "Post Exploitation/README.md",
     "post-exploitation.md",
     "Post Exploitation/Untitled",
     "network-services-pentesting/pentesting-jdwp-java-debug-wire-protocol.md",
