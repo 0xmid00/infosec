@@ -5,7 +5,7 @@
 ***
 ##  Kernel Exploits
 
-* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^01782b|Kernel Exploits]] - `python wes.py systeminfo.txt -i 'Elevation of Privilege' --exploits-only | less`
+* [ ] [[windows-hardening/windows-local-privilege-escalation/README#^01782b|Kernel Exploits]] - `python wes.py systeminfo.txt -i 'Elevation of Privilege' --exploits-only | less , or  use post/multi/recon/local_exploit_suggester  `
 ***
 ## Services
  -  `.\winPEASany.exe quiet servicesinfo`
@@ -59,6 +59,12 @@ From LOCAL/NETWORK SERVICE to SYSTEM by abusing  `SeImpersonate` or `SeAssignPri
 * [ ] [[roguepotato-and-printspoofer#^4a5e0b|PrintSpoofer]]   `Windows 10 and Server 2016/2019..`
 
 ***
+### auto 
++ metasploit `use post/multi/recon/local_exploit_suggester`
+- PowerUp `https://powersploit.readthedocs.io/en/latest/Privesc/`
+*** 
+
+```
 ## Strategy
 ```text
 Enumeration

