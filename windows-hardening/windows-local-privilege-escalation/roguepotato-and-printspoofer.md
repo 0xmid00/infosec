@@ -37,7 +37,9 @@ You can check their website and try their engine for **free** at:
 
 ### PrintSpoofer
 
-^c42fff
+^4a5e0b
+
+
 From LOCAL/NETWORK SERVICE to SYSTEM by abusing `SeImpersonatePrivilege` on Windows 10 and Server 2016/2019.
 
 PrintSpoofer is an exploit that leverages the SeImpersonatePrivilege on Windows systems. By abusing the Print Spooler service, a low-privileged user can escalate their privileges to SYSTEM. The exploit works by creating a named pipe, tricking the service into connecting to it, and then impersonating the SYSTEM token, allowing the attacker to execute commands with the highest level of privilege
@@ -61,7 +63,7 @@ NULL
 
 ### RoguePotato
 
-^0e832b
+^1b33dc
 
 ***user privilege that allows this exploit to work: SeImpersonatePrivilege,SeAssignPrimaryTokenPrivilege***
 

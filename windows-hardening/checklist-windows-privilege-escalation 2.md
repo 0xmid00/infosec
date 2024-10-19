@@ -45,15 +45,19 @@
 * [ ] [[windows-hardening/windows-local-privilege-escalation/README#^65e359|Exploit Installed Applications]] - `.\winPEASany.exe quiet procesinfo`
 ***
 ## Token Impersonation
-###  Potatoes
-* [ ] [[Hot Potato|Hot potato]] 
-*` Windows 7, 8, early versions of Windows 10, win Server 2008, and Server 2012. and their server counterparts`
 
-#### From LOCAL/NETWORK SERVICE to SYSTEM by abusing  `SeImpersonate` or `SeAssignPrimaryToken` privileges 
-  `whoami /priv` ->  1. be instantiable by the current user, normally a “service user” which has impersonation privileges ,`SeImpersonate` or `SeAssignPrimaryToken` privileges
+From LOCAL/NETWORK SERVICE to SYSTEM by abusing  `SeImpersonate` or `SeAssignPrimaryToken` privileges 
+  `whoami /priv ` ->  1. be instantiable by the current user, normally a “service user” which has impersonation privileges ,`SeImpersonate` or `SeAssignPrimaryToken` privileges
+
+  * [ ] [[Incognito|incognito]]  `auto using metasploit`
+###  Potatoes
+
+  * [ ] [[Hot Potato|Hot potato]] 
+*` Windows 7, 8, early versions of Windows 10, win Server 2008, and Server 2012. and their server counterparts + user has “SEImpersonatePrivilege”`
 * [ ] [[juicypotato|Juicy Potato]] ` doesn't work** on Windows Server 2019 and Windows 10 build 1809 onwards.`
-* [ ] [[roguepotato-and-printspoofer#^0e832b|Rogue Potato]]  `can be used to abuse impersonation privileges on Windows 10 and Server 2019 hosts where JuicyPotato no longer works.`
-* [ ] [[roguepotato-and-printspoofer#^c42fff|PrintSpoofer]]   `Windows 10 and Server 2016/2019..`
+* [ ] [[roguepotato-and-printspoofer#^1b33dc|Rogue Potato]]  `can be used to abuse impersonation privileges on Windows 10 and Server 2019 hosts where JuicyPotato no longer works.`
+* [ ] [[roguepotato-and-printspoofer#^4a5e0b|PrintSpoofer]]   `Windows 10 and Server 2016/2019..`
+
 ***
 ## Strategy
 ```text
