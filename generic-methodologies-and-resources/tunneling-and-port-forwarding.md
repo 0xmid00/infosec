@@ -63,7 +63,7 @@ Open new Port in SSH Server --> Other port
 
 ```bash
 #Local Machine (localhost:1521) --(over SSH)---> Remote Machine (remote_machine:10521)
-ssh -R 0.0.0.0:10521:127.0.0.1:1521 user@10.0.0.1 #Local port 1521 accessible in port 10521 from everywhere
+ssh -L 0.0.0.0:10521:127.0.0.1:1521 user@10.0.0.1 #Local port 1521 accessible in port 10521 from everywhere
 
 
 ssh -L [local_port]:[destination_address]:[destination_port] [username]@[ssh_server]
