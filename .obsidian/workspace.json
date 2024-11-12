@@ -20,8 +20,19 @@
               "icon": "lucide-file",
               "title": "Exploitation & Pivoting"
             }
+          },
+          {
+            "id": "4b399036feb33b89",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -77,8 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -163,10 +173,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9ea6a34d1c630a76",
+  "active": "4b399036feb33b89",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
     "Post Exploitation/Exploitation & Pivoting.md",
+    "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
     "windows-hardening/basic-cmd-for-pentesters.md",
     "windows-hardening/windows-local-privilege-escalation/Hot Potato.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
