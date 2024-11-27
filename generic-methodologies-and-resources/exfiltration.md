@@ -85,7 +85,7 @@ python3 -m uploadserver
 # python3 -m uploadserver --basic-auth hello:world
 
 # Send a file
-curl -X POST http://HOST/upload -H -F 'files=@file.txt' 
+curl -X POST http://HOST/upload -F 'files=@file.txt' 
 # With basic auth:
 # curl -X POST http://HOST/upload -H -F 'files=@file.txt' -u hello:world
 ```

@@ -23,6 +23,75 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
+
+## useful commands 
+
+```bash
+# Current user info
+id
+uname -a  # Kernel version
+echo $PATH  # Path
+
+# Network
+ifconfig
+traceroute -n <ip>
+cat /etc/resolv.conf  # DNS server
+arp -a  # ARP cache info
+netstat -auntp  # List the processes & ports
+ss -twurp  # List the live processes & ports
+nmap -sT -p4444-4450 portquiz.net  # Check if we can access the internet
+
+# User info
+grep $USER /etc/passwd  # Current user info for /etc/passwd
+lastlog  # Most recent log
+w  # Who is currently logged into the system
+last  # Last logged-on users
+for user in $(cat /etc/passwd | cut -f 1 -d ":"); do id $user; done  # All users UID and GID info
+cat /etc/passwd | cut -f 1,3,4 -d ":" | grep "0:0" | cut -f 1 -d ":" | awk '{print $1}'
+cat /etc/passwd  # /etc/passwd file
+cat /etc/shadow  # Passwords
+sudo -l  # What we can sudo without a password
+cat /etc/sudoers  # Can we read the sudoers file?
+cat /root/.bash_history
+find /home/* -name *.*history* -print 2> /dev/null
+cat /etc/issue
+cat /etc*-release  # Operating system
+
+# Cron jobs
+cat /etc/crontab && ls -als /etc/cron*
+find /etc/cron* -type f -perm -o+w -exec ls -l {} \;
+
+# Running processes
+ps auxwww  # List running processes
+ps -u root  # List processes running as root
+ps -u $USER  # List all processes running as the current user
+
+# File permissions
+find / -perm -4000 -type f 2> /dev/null  # Find SUID files
+find / -uid 0 -perm -4000 -type f 2> /dev/null  # Find UID owned by root
+find / -perm -2000 -type f 2> /dev/null  # Find SGID files
+find -perm 2 -type f 2> /dev/null  # Find read-writable files
+
+# Configuration files
+ls -al /etc/*.conf  # List all conf files in /etc
+grep pass* /etc/*.conf  # Find conf files that contain the string "pass"
+lsof -n  # List open files
+
+# Installed packages (Debian)
+dpkg -l  # List installed packages
+
+# Common software versions
+sudo -v
+httpd -v
+apache2 -v
+mysql -v
+sendmail -d.1
+
+# Process binaries/paths and permissions
+ps aux | awk '{print $11}' | xargs -r ls -la 2> /dev/null | awk '!x[$0]++'
+
+
+```
 ## Common Bash
 
 ```bash
@@ -145,8 +214,6 @@ sudo chattr -i file.txt #Remove the bit so you can delete it
 ```
 
 <figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
-
-\
 Use [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
 Get Access Today:
 
