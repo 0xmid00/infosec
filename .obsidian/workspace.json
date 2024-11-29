@@ -8,20 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "f3c811c33e23a755",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/nfs-service-pentesting.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "nfs-service-pentesting"
-            }
-          },
-          {
             "id": "0e54fc7f5c08955b",
             "type": "leaf",
             "state": {
@@ -64,63 +50,49 @@
             }
           },
           {
-            "id": "4603206938baf090",
+            "id": "6d97e54c1753f0a8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SUMMARY.md",
+                "file": "windows-hardening/active-directory-methodology/password-spraying.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SUMMARY"
+              "title": "password-spraying"
             }
           },
           {
-            "id": "b7fef8892059ace2",
+            "id": "a3ed4dd0f0b903ba",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "basic-cmd-for-pentesters"
-            }
-          },
-          {
-            "id": "4faf6dc3677edf14",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "basic-cmd-for-pentesters"
-            }
-          },
-          {
-            "id": "99ffcc0c7abd1d0b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Post Exploitation/Internal Network Scan.md",
+                "file": "linux-hardening/linux-exploitation/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Internal Network Scan"
+              "title": "README"
+            }
+          },
+          {
+            "id": "31669a9a558dc486",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "checklist-windows-privilege-escalation 2"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -151,7 +123,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ifconfig",
+                "query": "tag:#Password",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -172,8 +144,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -262,34 +233,35 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "26f113cb630b396a",
+  "active": "a3ed4dd0f0b903ba",
   "lastOpenFiles": [
+    "linux-hardening/linux-exploitation/password-spray.md",
+    "linux-hardening/useful-linux-commands.md",
+    "windows-hardening/active-directory-methodology/password-spraying.md",
+    "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "linux-hardening/linux-exploitation/README.md",
+    "linux-hardening/privilege-escalation/README.md",
+    "Password Spray Attack.md",
+    "windows-hardening/active-directory-methodology/README.md",
+    "linux-hardening/linux-exploitation",
+    "network-services-pentesting/pentesting-smtp/README.md",
+    "network-services-pentesting/pentesting-smb/README.md",
+    "linux-hardening/bypass-bash-restrictions/README.md",
+    "windows-hardening/windows-security-controls/uac-user-account-control.md",
+    "1911-pentesting-fox.md",
+    "windows-hardening/av-bypass.md",
+    "windows-hardening/lateral-movement/smbexec.md",
+    "windows-hardening/lateral-movement/winrm.md",
+    "windows-hardening/lateral-movement/psexec-and-winexec.md",
+    "windows-hardening/active-directory-methodology/kerberos-authentication.md",
+    "linux-hardening/linux-post-exploitation/README.md",
+    "linux-hardening/linux-post-exploitation/pam-pluggable-authentication-modules.md",
+    "network-services-pentesting/nfs-service-pentesting.md",
     "windows-hardening/basic-cmd-for-pentesters.md",
     "Post Exploitation/Internal Network Scan.md",
-    "network-services-pentesting/5984-pentesting-couchdb.md",
-    "linux-hardening/useful-linux-commands.md",
     "SUMMARY.md",
+    "network-services-pentesting/5984-pentesting-couchdb.md",
     "generic-methodologies-and-resources/basic-forensic-methodology/linux-forensics.md",
-    "stealing-sensitive-information-disclosure-from-a-web.md",
-    "README.md",
-    "burp-suite.md",
-    "online-platforms-with-api.md",
-    "other-web-tricks.md",
-    "pentesting-dns.md",
-    "post-exploitation.md",
-    "generic-methodologies-and-resources/external-recon-methodology/README.md",
-    "generic-methodologies-and-resources/pentesting-methodology.md",
-    "forensics/basic-forensic-methodology/linux-forensics.md",
-    "linux-hardening/privilege-escalation/socket-command-injection.md",
-    "linux-hardening/privilege-escalation/README.md",
-    "linux-hardening/useful-linux-commands/README.md",
-    "network-services-pentesting/pentesting-dns.md",
-    "macos-hardening/macos-useful-commands.md",
-    "network-services-pentesting/pentesting-smtp/README.md",
-    "Post Exploitation/README.md",
-    "Post Exploitation/Pillaging.md",
-    "Post Exploitation/Exploitation & Pivoting.md",
-    "Post Exploitation/maintaining access.md",
     "Post Exploitation/Untitled",
     "Post Exploitation",
     "windows-hardening/Untitled",
