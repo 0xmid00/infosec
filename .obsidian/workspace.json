@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "a8f7042f7185d614",
+        "id": "3db328f600ce95d9",
         "type": "tabs",
         "children": [
           {
-            "id": "0c8c0cbc2f7f1d95",
+            "id": "79f728b9bf776971",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -22,21 +22,16 @@
             }
           },
           {
-            "id": "02ae5d9af2b6796a",
+            "id": "b1d54cbae86ebe43",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/pentesting-methodology.md",
-                "mode": "preview",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "pentesting-methodology"
+              "title": "New tab"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -92,7 +87,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 408.5
+    "width": 322.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -177,36 +172,36 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "02ae5d9af2b6796a",
+  "active": "79f728b9bf776971",
   "lastOpenFiles": [
-    "Post Exploitation/README.md",
-    "Post Exploitation/Persistence.md",
-    "generic-methodologies-and-resources/exfiltration.md",
-    "Post Exploitation/Data Exfiltration.md",
     "generic-methodologies-and-resources/pentesting-methodology.md",
-    "Post Exploitation/Lateral Movement.md",
-    "generic-methodologies-and-resources/pentesting-network/README.md",
-    "Post Exploitation/Information Gathering.md",
-    "Post Exploitation/Pillaging.md",
-    "generic-methodologies-and-resources/pentesting-wifi/README.md",
+    "pentesting-dns.md",
+    "post-exploitation.md",
+    "generic-methodologies-and-resources/exfiltration.md",
+    "generic-methodologies-and-resources/search-exploits.md",
+    "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
+    "windows-hardening/windows-local-privilege-escalation/named-pipe-client-impersonation.md",
+    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
+    "windows-hardening/windows-local-privilege-escalation/leaked-handle-exploitation.md",
+    "windows-hardening/windows-local-privilege-escalation/Incognito.md",
+    "windows-hardening/windows-local-privilege-escalation/msi-wrapper.md",
+    "windows-hardening/windows-local-privilege-escalation/juicypotato.md",
+    "README.md",
+    "stealing-sensitive-information-disclosure-from-a-web.md",
+    "other-web-tricks.md",
+    "online-platforms-with-api.md",
+    "emails-vulns.md",
+    "generic-methodologies-and-resources/external-recon-methodology/README.md",
+    "macos-hardening/macos-security-and-privilege-escalation/macos-files-folders-and-binaries/macos-installers-abuse.md",
+    "macos-hardening/macos-security-and-privilege-escalation/macos-files-folders-and-binaries/macos-sensitive-locations.md",
+    "windows-hardening/active-directory-methodology/asreproast.md",
+    "windows-hardening/active-directory-methodology/ad-dns-records.md",
+    "windows-hardening/active-directory-methodology/ad-certificates/domain-persistence.md",
+    "windows-hardening/active-directory-methodology/ad-certificates/certificate-theft.md",
+    "interesting-http.md",
+    "burp-suite.md",
     "package.json",
     "package-lock.json",
-    "linux-hardening/linux-exploitation/README.md",
-    "welcome/hacktricks-values-and-faq.md",
-    "welcome/about-the-author.md",
-    "network-services-pentesting/pentesting-web/tomcat/README.md",
-    "hardware-physical-access/escaping-from-gui-applications.md",
-    "network-services-pentesting/pentesting-smb/README.md",
-    "SUMMARY.md",
-    "linux-hardening/linux-exploitation/password-spray.md",
-    "linux-hardening/linux-exploitation/Shellshock.md",
-    "linux-hardening/linux-exploitation/Samba Exploitation.md",
-    "network-services-pentesting/pentesting-web/tomcat.md",
-    "linux-hardening/linux-exploitation/Heartbleed.md",
-    "network-services-pentesting/pentesting-web/tomcat/basic-tomcat-info.md",
-    "network-services-pentesting/8009-pentesting-apache-jserv-protocol-ajp.md",
-    "linux-hardening/linux-exploitation/Java RMI Registry.md",
-    "generic-methodologies-and-resources/shells/full-ttys.md",
     "linux-hardening/linux-exploitation/smb",
     "linux-hardening/linux-exploitation",
     "Post Exploitation/Untitled",
