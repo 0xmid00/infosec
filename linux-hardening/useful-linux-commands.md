@@ -2,7 +2,8 @@
 
 <figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
-\
+
+
 Use [**Trickest**](https://trickest.com/?utm\_campaign=hacktrics\&utm\_medium=banner\&utm\_source=hacktricks) to easily build and **automate workflows** powered by the world's **most advanced** community tools.\
 Get Access Today:
 
@@ -23,14 +24,13 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 </details>
 {% endhint %}
 
-
 ## useful commands 
-
 ```bash
 # Current user info
 id
 uname -a  # Kernel version
 echo $PATH  # Path
+
 
 # Network
 ifconfig
@@ -38,8 +38,10 @@ traceroute -n <ip>
 cat /etc/resolv.conf  # DNS server
 arp -a  # ARP cache info
 netstat -auntp  # List the processes & ports
+netstat -rn # Show networks accessible 
 ss -twurp  # List the live processes & ports
 nmap -sT -p4444-4450 portquiz.net  # Check if we can access the internet
+
 
 # User info
 grep $USER /etc/passwd  # Current user info for /etc/passwd
@@ -57,6 +59,7 @@ find /home/* -name *.*history* -print 2> /dev/null
 cat /etc/issue
 cat /etc*-release  # Operating system
 
+
 # Cron jobs
 cat /etc/crontab && ls -als /etc/cron*
 find /etc/cron* -type f -perm -o+w -exec ls -l {} \;
@@ -66,19 +69,23 @@ ps auxwww  # List running processes
 ps -u root  # List processes running as root
 ps -u $USER  # List all processes running as the current user
 
+
 # File permissions
 find / -perm -4000 -type f 2> /dev/null  # Find SUID files
 find / -uid 0 -perm -4000 -type f 2> /dev/null  # Find UID owned by root
 find / -perm -2000 -type f 2> /dev/null  # Find SGID files
 find -perm 2 -type f 2> /dev/null  # Find read-writable files
 
+
 # Configuration files
 ls -al /etc/*.conf  # List all conf files in /etc
 grep pass* /etc/*.conf  # Find conf files that contain the string "pass"
 lsof -n  # List open files
 
+
 # Installed packages (Debian)
 dpkg -l  # List installed packages
+
 
 # Common software versions
 sudo -v
@@ -87,10 +94,29 @@ apache2 -v
 mysql -v
 sendmail -d.1
 
+
 # Process binaries/paths and permissions
 ps aux | awk '{print $11}' | xargs -r ls -la 2> /dev/null | awk '!x[$0]++'
 
+## Pentesting Commands
 
+# Service Scanning
+
+nmap 10.129.42.253 # Run Nmap on an IP  
+nmap -sV -sC -p- 10.129.42.253 # Run Nmap script scan on an IP  
+locate scripts/citrix # List available Nmap scripts  
+nmap --script smb-os-discovery.nse -p445 10.10.10.40 # Run specific Nmap script on an IP  
+netcat 10.10.10.10 22 # Grab port banner
+
+# SMB Scanning
+
+smbclient -N -L \\10.129.42.253 # List SMB shares  
+smbclient -U bob \\\\10.129.42.253\\users # Connect to an SMB share
+
+# SNMP Scanning
+
+snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0 # Scan SNMP on an IP  
+onesixtyone -c dict.txt 10.129.42.254 # Brute force SNMP secret string
 ```
 ## Common Bash
 
