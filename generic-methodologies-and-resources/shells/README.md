@@ -19,6 +19,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 # [**Shells - Linux**](linux.md)
 
 # [**Shells - Windows**](windows.md)
+#  [[web shells]]
 
 # [**MSFVenom - CheatSheet**](msfvenom.md)
 

@@ -8,27 +8,13 @@
         "type": "tabs",
         "children": [
           {
-            "id": "cefcef345decc3ee",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/brute-force.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "brute-force"
-            }
-          },
-          {
             "id": "df5a8f7ec1fd6cbc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/useful-linux-commands.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -36,21 +22,21 @@
             }
           },
           {
-            "id": "fef5b3c5bbc60330",
+            "id": "2d8c25e5a8153d63",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "network-services-pentesting/pentesting-smb/README.md",
+                "file": "generic-methodologies-and-resources/shells/full-ttys.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "full-ttys"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,7 +67,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tomcat",
+                "query": "",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -191,34 +177,34 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "fef5b3c5bbc60330",
+  "active": "2d8c25e5a8153d63",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/brute-force.md",
     "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/shells/full-ttys.md",
+    "generic-methodologies-and-resources/shells/linux.md",
+    "generic-methodologies-and-resources/shells/msfvenom.md",
+    "generic-methodologies-and-resources/shells/README.md",
+    "generic-methodologies-and-resources/shells/web shells.md",
+    "generic-methodologies-and-resources/shells/windows.md",
+    "generic-methodologies-and-resources/brute-force.md",
+    "Post Exploitation/README.md",
+    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+    "windows-hardening/active-directory-methodology/README.md",
+    "stealing-sensitive-information-disclosure-from-a-web.md",
+    "c2/cobalt-strike.md",
+    "linux-hardening/privilege-escalation/README.md",
+    "post-exploitation.md",
     "network-services-pentesting/pentesting-smb/README.md",
     "network-services-pentesting/pentesting-snmp/README.md",
     "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
     "network-services-pentesting/pentesting-ftp/README.md",
     "generic-methodologies-and-resources/pentesting-network/lateral-vlan-segmentation-bypass.md",
-    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "generic-methodologies-and-resources/pentesting-network/network-protocols-explained-esp.md",
     "network-services-pentesting/pentesting-snmp/snmp-rce.md",
-    "Post Exploitation/README.md",
     "generic-methodologies-and-resources/pentesting-methodology.md",
     "pentesting-dns.md",
-    "post-exploitation.md",
     "generic-methodologies-and-resources/exfiltration.md",
     "generic-methodologies-and-resources/search-exploits.md",
-    "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
-    "windows-hardening/windows-local-privilege-escalation/named-pipe-client-impersonation.md",
-    "windows-hardening/windows-local-privilege-escalation/privilege-escalation-with-autorun-binaries.md",
-    "windows-hardening/windows-local-privilege-escalation/leaked-handle-exploitation.md",
-    "windows-hardening/windows-local-privilege-escalation/Incognito.md",
-    "windows-hardening/windows-local-privilege-escalation/msi-wrapper.md",
-    "windows-hardening/windows-local-privilege-escalation/juicypotato.md",
-    "README.md",
-    "stealing-sensitive-information-disclosure-from-a-web.md",
-    "other-web-tricks.md",
     "package.json",
     "package-lock.json",
     "linux-hardening/linux-exploitation/smb",

@@ -99,7 +99,6 @@ sendmail -d.1
 ps aux | awk '{print $11}' | xargs -r ls -la 2> /dev/null | awk '!x[$0]++'
 
 ## Pentesting Commands
-
 # Service Scanning
 
 nmap 10.129.42.253 # Run Nmap on an IP  
@@ -109,14 +108,15 @@ nmap --script smb-os-discovery.nse -p445 10.10.10.40 # Run specific Nmap script 
 netcat 10.10.10.10 22 # Grab port banner
 
 # SMB Scanning
-
-smbclient -N -L \\10.129.42.253 # List SMB shares  
-smbclient -U bob \\\\10.129.42.253\\users # Connect to an SMB share
+# the \\ in linux shell => \
+smbclient -N -L \\<IP> # List SMB shares  
+smbclient -U bob \\\\<IP>\\users # Connect to an SMB share
 
 # SNMP Scanning
-
-snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0 # Scan SNMP on an IP  
 onesixtyone -c dict.txt 10.129.42.254 # Brute force SNMP secret string
+snmpbulkwalk -c [COMM_STRING] -v [VERSION] [IP] . #Don't forget the final dot
+snmpbulkwalk -c public -v2c 10.10.11.136 .
+snmpwalk -v [VERSION_SNMP] -c [COMM_STRING] [DIR_IP] .1 #Enum all
 ```
 ## Common Bash
 
