@@ -1037,16 +1037,29 @@ If for some reason the su program is not allowed, there are many other ways to e
 ```bash
 sudo -s
 sudo -i
+sudo su 
+sudo su -
 sudo /bin/bash
 sudo passwd
 ```
+### Summary of Differences:
+
+|Command|Privileges|Environment Variables|Login Shell|Purpose|
+|---|---|---|---|---|
+|`sudo -s`|Root|User's|No|Run commands as root with user’s env|
+|`sudo -i`|Root|Root’s|Yes|Simulate root login session|
+|`sudo su`|Root|User's|No|Switch to root user quickly|
+|`sudo su -`|Root|Root’s|Yes|Switch to root with full environment|
+
+Each command has specific use cases depending on whether you need to retain your environment or use root's environment.
+
 ***Even if there are no “obvious” methods for escalating privileges, we may be able to use a shell escape sequence.***
 
 #### Shell Escape Sequences(NOPASSWD)
 
 Sudo configuration might allow a user to execute some command with another user's privileges without knowing the password.
 Even if we are restricted to running certain programs via sudo, it is sometimes possible to “escape” the program and spawn a shell.
-```
+```bash
 $ sudo -l
 User demo may run the following commands on crashlab:
     (root) NOPASSWD: /usr/bin/vim
@@ -1054,13 +1067,13 @@ User demo may run the following commands on crashlab:
 
 In this example the user `demo` can run `vim` as `root`, it is now trivial to get a shell by adding an ssh key into the root directory or by calling `sh`.
 
-```
-sudo vim -c '!sh'
+```bash
+sudo vim -c '!sh' # or sudo -u root vim -c '!sh' , for 'root' user
 ```
 Since the initial program runs with root privileges, so does the spawned shell.
 
 ***A list of programs with their shell escape sequences can be found here:*** 
-https://gtfobins.gi..thub.io/
+https://gtfobins.github.io/
 #### Abusing Intended Functionality
 If a program doesn’t have an escape sequence, it may still be possible to use it to escalate privileges.
 If we can read files owned by root, we may be able to extract useful information (e.g. passwords, hashes, keys).
@@ -1068,7 +1081,6 @@ If we can write to files owned by root, we may be able to insert or modify infor
 1. List the programs your user is allowed to run via sudo:
 ```bash 
 sudo -l
-...
 (root) NOPASSWD: /usr/sbin/apache2
 ```
 >Note that apache2 is in the list.
@@ -1934,12 +1946,21 @@ SSH keys can be used instead of passwords to authenticate users using SSH. These
 
 ***
 
+#### ssh public  key 
 
-Specifies files that contain the public keys that can be used for user authentication. It can contain tokens like `%h`, which will be replaced by the home directory. **You can indicate absolute paths** (starting in `/`) or **relative paths from the user's home**. For example:
+* If we find ourselves with write access to a users`/.ssh/` directory, we can place our public key in the user's ssh directory at `/home/user/.ssh/authorized_keys`. This technique is usually used to gain ssh access after gaining a shell as that user. The current SSH configuration will not accept keys written by other users, so it will only work if we have already gained control over that user. We must first create a new key with `ssh-keygen` and the `-f` flag to specify the output file:
 
+| command                                                                      | comment                                          |
+| ---------------------------------------------------------------------------- | ------------------------------------------------ |
+| `ssh-keygen -f key`                                                          | Create a new SSH key                             |
+| `echo "ssh-rsa AAAAB...SNIP...M= user@parrot" >> /root/.ssh/authorized_keys` | Add the generated public key to the user         |
+| `ssh root@10.10.10.10 -i key`                                                | SSH to the server with the generated private key |
+
++ Specifies files that contain the public keys that can be used for user authentication. It can contain tokens like `%h`, which will be replaced by the home directory. **You can indicate absolute paths** (starting in `/`) or **relative paths from the user's home**. For example:
 ```bash
-AuthorizedKeysFile    .ssh/authorized_keys access
+    AuthorizedKeysFile    .ssh/authorized_keys access
 ```
+   
 
 That configuration will indicate that if you try to login with the **private** key of the user "**testusername**" ssh is going to compare the public key of your key with the ones located in `/home/testusername/.ssh/authorized_keys` and `/home/testusername/access`
 

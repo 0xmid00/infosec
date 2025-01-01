@@ -40,7 +40,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `searchsploit linux kernel 2.6.32 priv esc (DirtyCow?)`
 ### Service & softwares Exploits
 - [ ] [[linux-hardening/privilege-escalation/README#Service & softwares Exploits| Service & softwares Exploits]]  
-`ps aux | grep "^root”` OR `<program> --version`
+`ps aux | grep "^root”` OR `<program> --version` OR `dpkg -l`
 `seachsploit <softwawre/service> priv esc`
 
 ### Weak files permissions
@@ -52,6 +52,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `ls -l /etc/passwd -> -rw-r—w-`
 - [ ] [[linux-hardening/privilege-escalation/README#**Backups**|Backups]] `searching manuely ` 
 ### Sudo
+
 - [ ] [[linux-hardening/privilege-escalation/README#Known Password| Known Password]]  
 `sudo su`
 - [ ] [[linux-hardening/privilege-escalation/README#Shell Escape Sequences(NOPASSWD)| Shell Escape Sequences]]
