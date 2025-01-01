@@ -40,7 +40,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `searchsploit linux kernel 2.6.32 priv esc (DirtyCow?)`
 ### Service & softwares Exploits
 - [ ] [[linux-hardening/privilege-escalation/README#Service & softwares Exploits| Service & softwares Exploits]]  
-`ps aux | grep "^root”` OR `<program> --version` OR `dpkg -l`
+`ps aux | grep '^root'` OR `<program> --version` OR `dpkg -l`
 `seachsploit <softwawre/service> priv esc`
 
 ### Weak files permissions
@@ -68,7 +68,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 
 ### Cron Jobs
 - [ ] [[linux-hardening/privilege-escalation/README#Cron script overwriting and symlink| Cron script overwriting and symlink]]  
-`cat /etc/crontab -> writable by others: -rwxr--rw- root /usr/local/bin/overwrite.sh`
+`ls /etc/crontab -> writable by others: -rwxr--rw- root /usr/local/bin/overwrite.sh`
 - [ ] [[linux-hardening/privilege-escalation/README#The crontab PATH environment variable| PATH Environment Variable]]  
 `cat /etc/crontab -> does not use an absolute path: * * * * * root overwrite.sh & PATH=/home/user /home/user directory (which we can write to)`
 
@@ -87,6 +87,8 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `Bash <4.2-048 & strings/strace <suid_file> -> /bin/<absolute_path>/excutable_file_called`
 - [ ] [[linux-hardening/privilege-escalation/README#SUID binary (Abusing Shell Features Bash <4.4)| SUID binary (Abusing Shell Features Bash <4.4)]] 
 `Bash <4.4`
+
+> `-p`  example `/bin/bash -p` used only  on binary shells to spawn a root shell **not in all suid files**
 ## passwords & keys
 
 - [ ] [[linux-hardening/privilege-escalation/README#Known files containing passwords| knows files Passwords]] ***+*** [[linux-hardening/privilege-escalation/README#Generic Creds Search/Regex| Generic Creds Search/Regex]] `just search.. `

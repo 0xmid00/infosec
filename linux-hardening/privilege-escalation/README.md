@@ -1450,6 +1450,7 @@ find / -type f \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 
 Use **GTFOBins** for programs that support escape sequences:  
 - [https://gtfobins.github.io/](https://gtfobins.github.io/)
+>**SUID on `sudo`**: Allows it to run as root, but user needs permissions in `/etc/sudoers` to execute commands or exploit misconfigurations/vulnerabilities.
 
 ---
 
