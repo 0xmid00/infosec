@@ -4,46 +4,78 @@
 ![privesc_mindmap](privesc.png)
 
 >full image [[privesc.png]] 
-# Compact Privilege Escalation Mindmap
+Here's a compact privilege escalation mindmap separated into Linux and Windows sections:
+
+---
+
+## ** Privilege Escalation Mindmap**
+### linux
+- **Enumeration**
+  - **Auto Scripts**
+    - LinEnum (`./LinEnum.sh`)
+    - LinPEAS (`./linpeas.sh`)
+  - **Manual Commands**
+    - `uname -a`
+    - `env`
+    - `find / -perm -4000 -type f 2>/dev/null`
+    - `cat /etc/crontab`
+    - `dpkg -l`
+
+- **Kernel Exploits**
+  - Use `uname -r` to find kernel version
+  - Search for exploits using `searchsploit`
+
+- **Sudo**
+  - Check permissions with `sudo -l`
+  - Full access: `sudo su -`
+  - Use GTFOBins for specific command exploitation
+
+- **SUID**
+  - Find SUID files: `find / -perm -u=s -type f 2>/dev/null`
+  - Check GTFOBins for exploitation techniques
+
+- **Scheduled Tasks**
+  - Check crontab: `cat /etc/crontab`, `/var/spool/cron/`
+
+- **Credential Hunting**
+  - Search for passwords: `grep -ir "password" /etc/`, `~/.ssh/`, `~/.bash_history`
+
+- **SSH**
+  - Read keys: `cat /home/[user]/.ssh/id_rsa`
+  - Use key: `chmod 600 id_rsa; ssh -i id_rsa user@ip`
+
+- **Resources**
+  - GTFOBins
+  - PEASS-ng Suite
+  - ExploitDB, CVE databases
 
 
-## Linux Enumeration
-- **Auto Scripts:** LinEnum (`./LinEnum.sh`), LinPEAS (`./linpeas.sh`)
-- **Manual:** `uname -a`, `env`, `find / -perm -4000 -type f 2>/dev/null`, `cat /etc/crontab`, `dpkg -l`
+### Windows
 
-## Windows Enumeration
-- **Auto:** WinPEAS (`winpeas.exe`)
-- **Manual:** `systeminfo`, `whoami /priv`, `schtasks /query /fo LIST /v`, `wmic product get name,version`
+- **Enumeration**
+  - **Auto Scripts**
+    - WinPEAS (`winpeas.exe`)
+  - **Manual Commands**
+    - `systeminfo`
+    - `whoami /priv`
+    - `schtasks /query /fo LIST /v`
+    - `wmic product get name,version`
 
-## Kernel Exploits
-- Linux: `uname -r` → searchsploit
-- Windows: `systeminfo | findstr /B /C:"OS Name" /C:"OS Version"` → exploit-db
+- **Kernel Exploits**
+  - Use `systeminfo | findstr /B /C:"OS Name" /C:"OS Version"`
+  - Search for exploits on exploit-db
 
-## Sudo (Linux)
-- Check: `sudo -l`
-- Full access: `sudo su -`
-- GTFOBins for specific commands
+- **Windows Privileges**
+  - Check privileges: `whoami /priv`
+  - Tools: JuicyPotato, RoguePotato
 
-## SUID (Linux)
-- Find: `find / -perm -u=s -type f 2>/dev/null`
-- Check GTFOBins for exploitation
+- **Scheduled Tasks**
+  - Check tasks: `schtasks /query /fo LIST /v`
 
-## Windows Privileges
-- Check: `whoami /priv`
-- Tools: JuicyPotato, RoguePotato
+- **Credential Hunting**
+  - Check directories: `C:\Program Files`, `AppData`
 
-## Scheduled Tasks
-- Linux: `cat /etc/crontab`, `/var/spool/cron/`
-- Windows: `schtasks /query /fo LIST /v`
-
-## Credential Hunting
-- Linux: `grep -ir "password" /etc/`, `~/.ssh/`, `~/.bash_history`
-- Windows: Check `C:\Program Files`, `AppData`
-
-## SSH
-- Read keys: `cat /home/[user]/.ssh/id_rsa`
-- Use key: `chmod 600 id_rsa; ssh -i id_rsa user@ip`
-
-## Resources
-- GTFOBins, LOLBAS, PEASS-ng Suite
-- ExploitDB, CVE databases
+- **Resources**
+  - LOLBAS
+  - PEASS-ng Suite
+  - ExploitDB, CVE databases

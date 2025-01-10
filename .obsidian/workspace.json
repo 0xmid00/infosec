@@ -8,91 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "df5a8f7ec1fd6cbc",
+            "id": "b72f8ebfdb1da7a0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux-hardening/useful-linux-commands.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "useful-linux-commands"
-            }
-          },
-          {
-            "id": "e01d81315f7bcf83",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/Privesc Mindmap.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Privesc Mindmap"
-            }
-          },
-          {
-            "id": "5bb2af4d1fa8544f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/checklist-windows-privilege-escalation 2.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "checklist-windows-privilege-escalation 2"
-            }
-          },
-          {
-            "id": "f4ec4e5c8fd529b9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
+                "file": "generic-methodologies-and-resources/bash/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "README"
             }
-          },
-          {
-            "id": "446b734f6158114a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/shells/full-ttys.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "full-ttys"
-            }
-          },
-          {
-            "id": "c267c107401f1778",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/exfiltration.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "exfiltration"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -233,36 +162,39 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e01d81315f7bcf83",
+  "active": "b72f8ebfdb1da7a0",
   "lastOpenFiles": [
+    "welcome/hacktricks-values-and-faq.md",
+    "welcome/about-the-author.md",
+    "physical-attacks/physical-attacks.md",
+    "exploiting/tools/README.md",
+    "exploiting/linux-exploiting-basic-esp/README.md",
+    "exploiting/linux-exploiting-basic-esp/fusion.md",
+    "blockchain/blockchain-and-crypto-currencies/README.md",
+    "exploiting/tools/pwntools.md",
     "images/privesc.png",
-    "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "misc/references.md",
+    "generic-methodologies-and-resources/bash/README.md",
+    "generic-methodologies-and-resources/python/README.md",
+    "generic-methodologies-and-resources/bash",
+    "generic-methodologies-and-resources/python/bypass-python-sandboxes/README.md",
+    "generic-methodologies-and-resources/python/basic-python.md",
+    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "linux-hardening/privilege-escalation/README.md",
     "linux-hardening/useful-linux-commands.md",
+    "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "generic-methodologies-and-resources/brute-force.md",
+    "generic-methodologies-and-resources/search-exploits.md",
+    "generic-methodologies-and-resources/pentesting-methodology.md",
     "generic-methodologies-and-resources/exfiltration.md",
     "generic-methodologies-and-resources/shells/full-ttys.md",
-    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "generic-methodologies-and-resources/Privesc Mindmap.md",
+    "images/markdown-map(6).png",
     "windows-hardening/checklist-windows-privilege-escalation.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
     "images/markdown-map(4).png",
     "images",
     "windows-local-privilege-escalation.md",
-    "linux-hardening/linux-privilege-escalation-checklist.md",
-    "generic-methodologies-and-resources/shells/linux.md",
-    "generic-methodologies-and-resources/shells/msfvenom.md",
-    "generic-methodologies-and-resources/shells/README.md",
-    "generic-methodologies-and-resources/shells/web shells.md",
-    "generic-methodologies-and-resources/shells/windows.md",
-    "generic-methodologies-and-resources/brute-force.md",
-    "Post Exploitation/README.md",
-    "windows-hardening/active-directory-methodology/README.md",
-    "stealing-sensitive-information-disclosure-from-a-web.md",
-    "c2/cobalt-strike.md",
-    "post-exploitation.md",
-    "network-services-pentesting/pentesting-smb/README.md",
-    "network-services-pentesting/pentesting-snmp/README.md",
-    "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
     "package.json",
     "package-lock.json",
     "linux-hardening/linux-exploitation/smb",
@@ -270,7 +202,6 @@
     "Post Exploitation/Untitled",
     "Post Exploitation",
     "windows-hardening/Untitled",
-    "nfs-no/_root",
-    "nfs-no"
+    "nfs-no/_root"
   ]
 }
