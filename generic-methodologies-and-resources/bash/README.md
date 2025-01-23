@@ -114,3 +114,104 @@ echo "what is your name?" ; read -r name ; echo "your name is ${name}" # read -r
 whoami ; echo "the exit code was $?"
 echo "exit code 233" ; exit 233 ; echo $? #  setting script exit code 
 ```
+
+
+# Flow control and text processing 
+## Test operators 
+### Files test operators 
+```bash
+test [option] <file>
+-d #Checks whether the file is a directory
+-r #Checks whether the file is readable
+-x #Checks whether the file is executable
+-w #Checks whether the file is writable
+-f #Checks whether the file is a regular file
+-s #Checks whether the file size is greater than zero
+```
+### string comparison operators 
+```bash
+=   #Checks whether a string is equal to another string
+==  #Synonym of = when used within [[ ]] constructs
+!=  #Checks whether a string is not equal to another string
+<   #Checks whether a string comes before another string (in alphabetical order)
+>   #Checks whether a string comes after another string( in alphabetical order)
+-z  #Checks whether a string is null
+-n  #Checks whether a string is not null
+```
+
+### Integer Comparison Operator 
+```bash
+-ep # check if the number is eqaul to another number
+-ne # Checks whether a number is not equal to another number
+-ge # Checks whether a number is greater than or equal to another number
+-gt # Checks whether a number is greater than another numbe
+-lt # Checks whether a number is less than another number
+-le # Checks whether a number is less than or equal to another number
+```
+### if condition 
+```bash
+if [[ condition ]] ; then 
+  # do somthing 
+else 
+  # do something
+fi
+----------------------------
+#  files
+filename="file.txt"
+if [[ -f "${filename}" ] ; then
+  echo "file ${filename} existe !!"
+  exit 1
+else
+  touch "${filename}"
+  fi  
+----------------------------
+# the NOT Operatour (!)
+filename="file.txt"
+if [[ ! -f "${filename}" ]] ;then 
+  touch file.txt
+fi
+----------------------------
+#  strings 
+variable1="ahmed" ; variable2="ahmxed"
+if [[ "${variable1}" == "${variable2}"  ]] ;then
+  echo "there are eqaul"
+fi
+----------------------------
+var1="1" ; var2="2"
+if [[  "${var2}" -gt "${var1}" ]] ;then
+  echo "${var2} greater then ${var1}"
+```
+#### Linking Condition 
+AND (***&&***) , OR (***||***) 
+```bash
+echo "hello" > file.txt
+if [[ -f "file.txt" ]] && [[ -s "file.txt" ]] ;then 
+echo "OK"
+fi
+```
+#### Testing Command success
+```bash
+if [command]; then 
+  # command success 
+fi  
+
+#example
+if touch file.txt; then 
+  echo "file created"
+fi  
+```
+#### checking subsequent condition
+```bash
+user_input=${1} 
+if [[ -z "${user_input}" ]]; then 
+  echo "you should provid an argument"
+fi
+
+if [[ -f "${user_input}" ]]; then
+  echo "the argument is a file"
+elif [[ -d "${user_input}" ]]; then
+  echo "the file is directory"
+else
+echo "${user_input} is not file and not a directory"
+fi
+```
