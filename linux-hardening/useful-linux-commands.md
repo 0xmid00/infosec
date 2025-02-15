@@ -33,10 +33,13 @@ echo $PATH  # Path
 ifconfig
 traceroute -n <ip>
 cat /etc/resolv.conf  # DNS server
-arp -a  # ARP cache info
+arp -a  # ARP cache info # list the oprn ports
+netstat -tulnp
 netstat -auntp  # List the processes & ports
 netstat -rn # Show networks accessible 
+ss -tulnp # list the open ports
 ss -twurp  # List the live processes & ports
+lsof  # List the live processes & ports
 nmap -sT -p4444-4450 portquiz.net  # Check if we can access the internet
 
 
@@ -73,6 +76,12 @@ find / -uid 0 -perm -4000 -type f 2> /dev/null  # Find UID owned by root
 find / -perm -2000 -type f 2> /dev/null  # Find SGID files
 find -perm 2 -type f 2> /dev/null  # Find read-writable files
 
+# chnge the file permissions 
+chmod +x <file>
+
+chown root /u        Change the owner of /u to "root".
+chown root:staff /u  Likewise, but also change its group to "staff".
+
 
 # Configuration files
 ls -al /etc/*.conf  # List all conf files in /etc
@@ -104,6 +113,7 @@ locate scripts/citrix # List available Nmap scripts
 nmap --script smb-os-discovery.nse -p445 10.10.10.40 # Run specific Nmap script on an IP  
 netcat 10.10.10.10 22 # Grab port banner
 
+
 # SMB Scanning
 # the \\ in linux shell => \
 smbclient -N -L \\<IP> # List SMB shares  
@@ -134,10 +144,13 @@ echo -n -e
 wc -l <file> #Lines
 wc -c #Chars
 
+# compare files line by line
+diff <file1>  <file2>
+
 #Sort
 sort -nr #Sort by number and then reverse
 cat file | sort | uniq #Sort and delete duplicates
-
+cat file | sort | uniq -u # sort and displays the lines that appear once
 #Replace in file
 sed -i 's/OLD/NEW/g' path/file #Replace string inside a file
 
@@ -158,8 +171,10 @@ lsof -i :80 #Files uses by networks processes
 fuser -nv tcp 80
 
 #Decompress
+tar -xvf file.tar
 tar -xvzf /path/to/yourfile.tgz
 tar -xvjf /path/to/yourfile.tbz
+tar -xvJf file.tar.xz
 bzip2 -d /path/to/yourfile.bz2
 tar jxf file.tar.bz2
 gunzip /path/to/yourfile.gz
@@ -349,6 +364,41 @@ egrep -a -o "\bISBN(?:-1[03])?:? (?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13
 ## Find
 
 ```bash
+find [path] [options] [expression]
+find /path/to/search -name "file.txt"
+find /path/to/search -iname "file.txt" # Case-insensitive search.
+find /path/to/search -type f -name "*.txt" # Finds all `.txt` files
+
+find /path/to/search -type f -size 100k # Finds files that are 100 KB
+# Size units in find:
+# c - Bytes, k - KB (1024 bytes), M - MB (1024 KB), G - GB (1024 MB)
+find /path/to/search -size +50M # Finds files larger than **50MB**
+find /path/to/search -size -100k # # Finds files smaller than **100KB**.
+
+find /path/to/search -mtime -7 # Finds files modified within the last 7 days
+find /path/to/search -atime +30 # Finds files accessed more than 30 days ago
+
+find /path -type f ! -perm /[Symb Perms]=x[user]
+Symb Perms:
+u -> User (Owner)
+g -> Group
+o -> Others
+a -> All (user + group + others)
+
+r -> Read
+w -> Write
+x -> Execute
+
+Example:
+find /path -type f ! -perm /a=x
+#/a=x -> Any user must have execute (x)
+#! -perm -> Files without execute permission
+find /path -type f -perm /a=rw ! -perm /a=x # Find files that are only readable and writable (no execute)
+find /path/to/search -perm 777 # Finds files with full permissions (rwxrwxrwx)
+
+find /path/to/search -type f -user username # find file by user owner 
+find /path/to/search -type f -group groupname # find file by group owner
+
 # Find SUID set files.
 find / -perm /u=s -ls 2>/dev/null
 

@@ -111,7 +111,7 @@ echo "what is your name?" ; read -r name ; echo "your name is ${name}" # read -r
 ### Exit codes 
 ```bash
 0 -> seccess , 1 -> failure # (0-255)
-whoami ; echo "the exit code was $?"
+ls /jajaja/ja ; echo "the exit code was $?"
 echo "exit code 233" ; exit 233 ; echo $? #  setting script exit code 
 ```
 
@@ -214,4 +214,217 @@ elif [[ -d "${user_input}" ]]; then
 else
 echo "${user_input} is not file and not a directory"
 fi
+```
+
+### functions 
+```bash
+hello() {
+echo "hello"
+}
+hello
+```
+#### return values 
+```bash
+# this function check if the user is root
+check_root() {
+if [[ "${EUID}" -eq "0" ]] ; then
+  return 0
+else 
+  return 1
+fi
+}
+if check_root; then 
+  echo "root"
+else 
+  echo "not root"
+fi
+```
+#### accepting  the arguments 
+```bash
+print_args() {
+echo "${1} ${2} ${3}"
+}
+print_args ahmed mido levi
+```
+### Loops
+#### while 
+```bash
+while some_condition; do
+  # run commands 
+done  
+
+#example
+while true; do
+  echo "looping.."
+  sleep 2
+done  
+
+# example 2
+file='stop_loop.txt'
+while [[ ! -f "$file" ]]; do
+  echo "file not exist "
+  echo "check the file again.."
+  sleep 2
+done 
+echo 'file exist'
+```
+#### until 
+```bash
+until [[ condition ]]; do 
+  # run commands until the contition is no longer false 
+done  
+
+#example 1
+file="output.txt"
+touch ${file}
+until [[ -s "${file}" ]]; do
+  echo "file is empty"
+  echo "check again after 2 secounds.."
+  sleep 2
+done 
+echo "file is not empty.."
+```
+#### for 
+```bash 
+for variable_name in LIST; do
+# Run some commands for each item in the sequence.
+done
+
+#example 1 
+for index in $(seq 1 10); do
+  echo ${index}
+done
+
+#example 2 
+for ip in ${@}; do 
+  echo "taking some action on the ip address ${ip}"
+done
+
+#example 3
+for file in $(ls .); do
+  echo "file : ${file} ""
+done
+```
+#### break and continue
+provides an alternative to the exit command
+```bash 
+# break
+while true; do
+  echo "looping.." 
+  break
+done   
+
+#continue
+touch file1 file2 file3
+files="$(ls . | grep file)"
+echo ${files}
+for file in ${files};do
+  if [[ "${file}" == "file1" ]]; then
+    echo "Skipping the first file"
+    continue
+  fi
+  echo "${RANDOM}" > "${file}"
+done
+```
+#### case
+```bash
+case EXPRESSION in
+PATTERN1)
+# Do something if the first condition is met.
+;;
+PATTERN2)
+# Do something if the second condition is met.
+;;
+esac
+
+#xeample 
+ip=${1}
+case ${ip} in 
+  192.168.*)
+    echo "the ip in in local network"
+ ;;
+  168.*)
+    echo "the netwok 2"
+ ;; 
+ *)
+   echo "network undifined"
+esac
+```
+### text processing 
+#### grep (extract lines)
+```bash
+grep "35.237.4.214" log.txt
+grep "162.158.203.24\|73.166.162.225" log.txt # multiple grep patterns
+grep -e "162.158.203.24" -e "73.166.162.225" log.txt
+grep -i "test" test.txt # insensi-tive  search
+grep -v "test" test.txt # exclude lines containing test
+```
+#### filtering (extract content)
+```bash
+awk '{print $1}' log.txt # extracte only the first word 
+awk '{$1,$2}' log.txt #we can print additional fields
+awk '{print $1,$NF}' log.txt # print the first and last field
+awk -F',' '{print $1}' example_csv.txt #change the default delimiter to ","
+grep "42.236.10.117" log.txt | awk '{print $7}' # combine grep and awk. For example, you might want to first find the lines in a file containing the IP address 42.236.10.117 and then print the HTTP paths requested by this IP:
+
+cut -f 1 -d ":" 
+
+```
+#### sed (modify)
+```bash
+sed 's/Mozilla/Godzilla/g' log.txt > > newlog.txt # replace  Mozilla  with Godzilla
+sed 's/ //g' log.txt # remove any whitespace
+sed '1d' log.txt # delect the first line
+sed '$d' log.txt # delete the last line
+sed '5,7d' log.txt # delect the line 5 and 7 
+sed -i '1d' log.txt # -i argument, it will make the changes to original file
+
+# tr
+echo "HELLO WORLD" | tr 'A-Z' 'a-z' # Convert Uppercase to Lowercase
+echo "hello123world" | tr -d '0-9' #Delete Specific Characters
+echo "aaabbbccc" | tr -s 'abc' #Remove Duplicate Characters
+```
+### job control 
+```bash
+sleep 100 & # run command in the background
+ps -ef | grep sleep  # check the command runnin gin the background
+jobs # get the  background  commands id ex.(id =1 )
+fg %1 # migrate the job from backgroud to foreground 
+CTRL+Z # suspend the process 
+bg %1 #  send the process to the background again
+nohub [command or script] & # keeping jobs running after logout or exit from the terminal 
+```
+### bash customizing  for penetration testing
+```bash
+alias test="nmap localhost" ; test # shortening the commmand to save time
+# set a value in terminal
+test="127.0.0.1" # exit adn open new terminal 
+source ~/.bashrc 
+echo ${test}
+# importing custom bash sesssion file
+source ./file.sh #OR using the dote ". ./file.sh"
+
+#Capturing Terminal Session Activity
+#!/bin/bash
+FILENAME=$(date +%m_%d_%Y_%H:%M:%S).log
+if [[ ! -­d ~/sessions ]]; then
+mkdir ~/sessions
+fi
+# Starting a script session
+if [[ -­z $SCRIPT ]]; then
+export SCRIPT="/home/kali/sessions/${FILENAME}"
+script -­q -­f "${SCRIPT}"
+fi
+
+#Penetration testing often involves having dozens of terminals open simulta-
+neously, all running many tools that can produce a lot of output. When we
+find something of interest, we may need some of that output as evidence for
+later. To avoid losing track of an important piece of information, we can use
+some clever bash.
+The script command allows us to capture terminal session activity. One
+approach is to load a small bash script that uses script to save every session
+to a file for later inspection,Having ~/.bashrc load this script, as shown earlier, will result in the cre-
+ation of the ~/sessions directory, containing each terminal session capture in
+a separate file. The recording stops when you enter exit in the terminal or
+close the terminal window.
 ```
