@@ -209,6 +209,8 @@
   "active": "f22b8a6b90d4ba86",
   "lastOpenFiles": [
     "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/bash/README.md",
     "generic-methodologies-and-resources/python/basics.md",
     "generic-methodologies-and-resources/python/README.md",
     "generic-methodologies-and-resources/python/python-internal-read-gadgets.md",
@@ -218,9 +220,7 @@
     "generic-methodologies-and-resources/python/bruteforce-hash-few-chars.md",
     "generic-methodologies-and-resources/shells/linux.md",
     "linux-hardening/privilege-escalation/README.md",
-    "generic-methodologies-and-resources/bash/README.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-    "linux-hardening/useful-linux-commands.md",
     "network-services-pentesting/pentesting-telnet.md",
     "welcome/hacktricks-values-and-faq.md",
     "welcome/about-the-author.md",
