@@ -40,6 +40,11 @@ netstat -rn # Show networks accessible
 ss -tulnp # list the open ports
 ss -twurp  # List the live processes & ports
 lsof  # List the live processes & ports
+
+# Kill the process
+lsof -i -P -n #  shows all open network connections.
+kill -9 1234 # Kill the process
+
 nmap -sT -p4444-4450 portquiz.net  # Check if we can access the internet
 
 

@@ -21,6 +21,7 @@ y += 1 # add 1 to y
 # strings operator (in , " + ,*" )
 # \n indicates a new line
 # \t indicates a tab
+x.strip() # removes any whitespace characters, including `"\n"`, `"\t"`, and spaces
 
 x = "0xmid00"
 x + ", leet hacker" # Assigns a new value to x.
@@ -237,6 +238,15 @@ if user in function_switch:
   print("the resultes is :", resulte)
 else:
   print("wrong input !")
+
+def func_test():
+    return 10, 20  # This returns a tuple (10, 20)
+
+a, b = func_test()
+
+print(a)  # Output: 10
+print(b)  # Output: 20
+
 ```
 
 ## Modules
@@ -265,4 +275,27 @@ print(some_value) #-> ahmed
 # from module_name import *
 from my_module import *
 print(some_value) #-> ahmed
+```
+## scripting for pentesters
+### Network sockets 
+#### server
+```python
+#!/bin/python
+import socket
+
+srv_addr = input("entre the server ip addr: ")
+srv_port = int(input("entre the  server port: "))
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((srv_addr, srv_port))
+s.listen(1)
+print("listing ..")
+connection, address =  s.accept()
+print('Clinet connect with address ', address)
+while 1:
+  data = connection.recv(1024)
+  if not data: break
+  connection.sendall(b'--message reseived--\n')
+  print(data.decode("utf-8"))
+connection.close
 ```
