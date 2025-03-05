@@ -53,7 +53,8 @@ control the program execution and flow, such as conditional and loop ..
 ### condition 
 ```python
 # Boolean values
-• 0
+• 0 # false
+• 1 # true 
 • False
 • None
 • “” - Empty string
@@ -202,6 +203,62 @@ else:
   print("wrong input")
 ```
 
+## files 
+```python
+
+## 1. Open a File
+f = open("file.txt", "r")  # Read mode
+f = open("file.txt", "w")  # Write mode (overwrites file)
+f = open("file.txt", "a")  # Append mode (adds to file)
+f = open("file.txt", "rb") # Read binary mode
+
+## 2. Read a File
+content = f.read()         # Read full content
+line = f.readline()        # Read one line
+lines = f.readlines()      # Read all lines as a list
+f.close()                 # Always close the file
+
+## 3. Write to a File
+f = open("file.txt", "w")
+f.write("New content\n")  # Overwrites file
+f.close()
+
+## 4. Append to a File
+f = open("file.txt", "a")
+f.write("Appending data\n")  
+f.close()
+
+## 5. Using 'with' (Auto Close)
+with open("file.txt", "r") as f:
+    content = f.read()
+
+## 6. Read File as Bytes (For Exploit Development)
+with open("exploit.bin", "rb") as f:
+    data = f.read()
+
+## 7. Write Binary Data (Payloads)
+with open("shellcode.bin", "wb") as f:
+    f.write(b"\x90\x90\x90")  # Writing NOP sled
+
+## 8. Check If File Exists
+import os
+if os.path.exists("file.txt"):
+    print("File found!")
+
+## 9. List Files in a Directory
+import os
+files = os.listdir("/tmp")  # List all files in /tmp
+
+## 10. Read System Files (Linux PrivEsc)
+with open("/etc/passwd", "r") as f:
+    print(f.read())
+
+# Notes:
+# - Use 'rb' mode for binary payloads.
+# - Use '/etc/passwd', '/etc/shadow', 'C:\\Windows\\System32\\drivers\\etc\\hosts' for info gathering.
+# - Combine with os, subprocess for enumeration.
+```
+
 ## Functions 
 ```python
 def function_name(parameter1, parameter2,...):
@@ -267,7 +324,7 @@ print(my_module.double(5)) #-> 10
 print(my_module.__doc__) #-> my module
 ****************************
 # we had to write the module name each time we wanted to use an object. In order to directly use an object, we can use the following syntax:
- 
+
 # from module_name import object_name1, object_name2,...
 from my_module import some_value
 print(some_value) #-> ahmed
@@ -276,11 +333,21 @@ print(some_value) #-> ahmed
 from my_module import *
 print(some_value) #-> ahmed
 ```
+
+## Classes 
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p1 = Person("Ahmed", 25)
+print(p1.name, p1.age)  # Output: Ahmed 25
+```
 ## scripting for pentesters
 ### Network sockets 
 #### server
 ```python
-#!/bin/python
 import socket
 
 srv_addr = input("entre the server ip addr: ")
@@ -298,4 +365,137 @@ while 1:
   connection.sendall(b'--message reseived--\n')
   print(data.decode("utf-8"))
 connection.close
+```
+#### client 
+```python
+import socket
+
+srv = input("entre the srv ")
+port = int(input("enter the port number"))
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((srv, port))
+print("connected") 
+s.sendall(b'hello')
+data = s.recv(1024)
+if data:
+  print("recv:",data.decode("utf-8"))
+s.close 
+```
+
+#### examples scripts 
+
+penetration testing notes in a structured, easy-to-read text format:
+
+```python
+┌───────────────────────────────────────────────────────┐
+│                🛠 Python Libraries for Pentesting    │
+└───────────────────────────────────────────────────────┘
+
+📌 1. socket (Network Communication)
+────────────────────────────────────────
+- Used for scanning, creating connections, sending/receiving data.
+
+🔹 Create a TCP socket:
+  socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+🔹 Connect to a target:
+  s.connect(("target.com", 80))
+
+🔹 Send HTTP request:
+  s.send(b"GET / HTTP/1.1\r\nHost: target.com\r\n\r\n")
+
+🔹 Receive response:
+  response = s.recv(1024).decode()
+
+🔹 Bind & Listen (Simple Server):
+  s.bind(("0.0.0.0", 4444))
+  s.listen(5)
+  conn, addr = s.accept()
+
+✅ Used for port scanning, banner grabbing, reverse shell connections.
+
+---------------------------------------------------------
+📌 2. os (System Commands & File Interaction)
+────────────────────────────────────────
+- Interacts with the OS: executes commands, manipulates files.
+
+🔹 Execute a system command:
+  os.system("whoami")
+
+🔹 Get current user & path:
+  os.getlogin(), os.getcwd()
+
+🔹 List files in a directory:
+  os.listdir("/home/user")
+
+🔹 Create, delete, rename files:
+  os.mkdir("test"), os.rename("test", "new_test"), os.remove("file.txt")
+
+🔹 Check if running as root:
+  os.geteuid() == 0  → "Running as root!"
+
+✅ Used for privilege checks, command execution, persistence.
+
+---------------------------------------------------------
+📌 3. platform (System Information)
+────────────────────────────────────────
+- Retrieves OS details, architecture, and hardware info.
+
+🔹 Get OS information:
+  platform.system(), platform.release(), platform.version()
+
+🔹 Get CPU & architecture:
+  platform.architecture(), platform.processor()
+
+🔹 Get hostname & machine:
+  platform.machine(), platform.node()
+
+🔹 Get full system info:
+  platform.uname()
+
+✅ Used for target enumeration, identifying OS vulnerabilities.
+
+---------------------------------------------------------
+✅ Summary:
+✔ socket    → Network tasks (scanning, shells)
+✔ os        → System interaction (commands, files)
+✔ platform  → System info (OS, CPU, architecture)
+```
+
+
+###### port scanner
+```python
+#!/bin/python
+import socket
+
+ip = input("entre the ip addr: ")
+port_range = input("entre the ports rang, ex 10-50 :")
+
+low_port = int(port_range.split("-") [0])
+high_port = int(port_range.split("-") [1]) 
+
+print ("\nscan from low_port:", low_port,"to high_port:", high_port) 
+
+for port in range(low_port, high_port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    status = not (s.connect_ex((ip, port)))
+    if status:
+        print ("[+] PORT:", port,"OPEN")
+    s.close
+```
+
+### HTTP Request
+```python
+# simple GET request
+
+conn = http.client.HTTPSConnection("www.example.com")
+conn.request("GET", "/")
+response = conn.getresponse()
+print(response.status, response.reason)
+data = response.read()
+print(data.decode())
+conn.close()
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# 
 ```
