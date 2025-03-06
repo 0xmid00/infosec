@@ -28,11 +28,23 @@
               "type": "markdown",
               "state": {
                 "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "basic-cmd-for-pentesters"
+            }
+          },
+          {
+            "id": "2dc33789a8694ce6",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.8.9"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.8.9"
             }
           }
         ],
