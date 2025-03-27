@@ -26,6 +26,18 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ## Common Bash
 
 ```bash
+# Change Permissions
+chmod 755 /path/to/file  # Owner: all, Others: read & execute
+chmod 600 /path/to/file  # Owner: read & write
+
+# Change Ownership
+chown user /path/to/file  # Change owner
+chown user:group /path/to/file  # Change owner & group
+
+# Modify Specific Permissions
+chmod u+x /path/to/file  # Add execute to owner
+chmod o-w /path/to/file  # Remove write from others
+
 #Exfiltration using Base64
 base64 -w 0 file
 
