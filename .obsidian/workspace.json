@@ -56,14 +56,15 @@
               "type": "markdown",
               "state": {
                 "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "basic-cmd-for-pentesters"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -205,13 +206,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "075fe8ace52d369a",
+  "active": "022f7e122224b16a",
   "lastOpenFiles": [
-    "pass.zip",
-    "linux-hardening/useful-linux-commands.md",
+    "windows-hardening/basic-powershell-for-pentesters/README.md",
     "windows-hardening/basic-cmd-for-pentesters.md",
     "generic-methodologies-and-resources/bash/README.md",
-    "windows-hardening/basic-powershell-for-pentesters/README.md",
+    "pass.zip",
+    "linux-hardening/useful-linux-commands.md",
     "linux-hardening/useful-linux-commands/README.md",
     "1911-pentesting-fox.md",
     "windows-hardening/checklist-windows-privilege-escalation 2.md",
@@ -244,7 +245,6 @@
     "linux-hardening/linux-exploitation",
     "Post Exploitation/Untitled",
     "generic-methodologies-and-resources/Post Exploitation",
-    "windows-hardening/Untitled",
-    "nfs-no/_root"
+    "windows-hardening/Untitled"
   ]
 }
