@@ -89,6 +89,8 @@ by
 EOF
 
 ls -l | grep "bin" # pip
+cmd1 && cmd2      # Run cmd2 only if cmd1 succeeds
+cmd1 || cmd2      # Run cmd2 only if cmd1 fails
 ```
 ### Positional arguments 
 ```bash

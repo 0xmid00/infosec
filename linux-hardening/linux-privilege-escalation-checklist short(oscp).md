@@ -51,6 +51,12 @@ Stay informed with the newest bug bounties launching and crucial platform update
 - [ ] [[linux-hardening/privilege-escalation/README#Writable /etc/passwd| writeable /etc/passwd]]  
 `ls -l /etc/passwd -> -rw-r—w-`
 - [ ] [[linux-hardening/privilege-escalation/README#**Backups**|Backups]] `searching manuely ` 
+```bash
+⚠️ #  i have write permission and  still unable to write to the file ?
+lsattr suid.sh  # 'i' means immutable
+ls -ld /tmp  # 't' means only owners can modify
+```
+
 ### Sudo
 
 - [ ] [[linux-hardening/privilege-escalation/README#Known Password| Known Password]]  
@@ -63,6 +69,8 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `sudo -l -> env_keep+=LD_PRELOAD`
 - [ ] [[linux-hardening/privilege-escalation/README#LD_LIBRARY_PATH|LD_LIBRARY_PATH]]  
 `sudo -l -> env_keep+=LD_LIBRARY_PATH`
+- [ ] **Writable File as Root**  
+`sudo permission is given to a writable file (root) NOPASSWD: <file> => edit file`
 - [ ] [[linux-hardening/privilege-escalation/README#Sudo command/SUID binary without command path| Sudo command without command path]]  
 `sudo permission is given to a single command without specifying the path hacker10 ALL= (root) less`
 
@@ -88,7 +96,11 @@ Stay informed with the newest bug bounties launching and crucial platform update
 - [ ] [[linux-hardening/privilege-escalation/README#SUID binary (Abusing Shell Features Bash <4.4)| SUID binary (Abusing Shell Features Bash <4.4)]] 
 `Bash <4.4`
 
-> `-p`  example `/bin/bash -p` used only  on binary shells to spawn a root shell **not in all suid files**
+```bash
+⚠️ -p  example `/bin/bash -p` used only  on binary shells to spawn a root shell **not in all suid files
+⚠️ SUID works on C programs, ignored on scripts—use a C wrapper for Bash.
+```
+
 ## passwords & keys
 
 - [ ] [[linux-hardening/privilege-escalation/README#Known files containing passwords| knows files Passwords]] ***+*** [[linux-hardening/privilege-escalation/README#Generic Creds Search/Regex| Generic Creds Search/Regex]] `just search.. `

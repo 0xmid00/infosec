@@ -563,6 +563,28 @@ Read the following page for more wildcard exploitation tricks:
 
 ### Cron script overwriting and symlink
 
+example :
+```bash
+# m h dom mon dow user    command
+
+m:   Minute (0 - 59)
+h:   Hour (0 - 23)
+dom: Day of the month (1 - 31)
+mon: Month (1 - 12)
+dow: Day of the week (0 - 7) (0 and 7 represent Sunday)
+user: User under which the command will run (for system-wide crontab)
+command: Command to be executed
+
+Example: 
+17 * * * * root cd / && run-parts --report /etc/cron.hourly
+
+Explanation:
+- 17 (minute): Runs at the 17th minute.
+- * (hour): Runs every hour.
+- * (day of the month): Runs every day.
+- * (month): Runs every month.
+- * (day of the week): Runs every day of the week.
+```
 If you **can modify a cron script** executed by root, you can get a shell very easily:
 
 ```bash
