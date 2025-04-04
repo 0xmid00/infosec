@@ -70,7 +70,7 @@
   * [Web Requests](generic-methodologies-and-resources/python/web-requests.md)
   * [Bruteforce hash (few chars)](generic-methodologies-and-resources/python/bruteforce-hash-few-chars.md)
   * [Basic Python](generic-methodologies-and-resources/python/basic-python.md)
-* [Exfiltration](generic-methodologies-and-resources/exfiltration.md)
+* [Exfiltration](Exfiltration.md)
 * [Tunneling and Port Forwarding](generic-methodologies-and-resources/tunneling-and-port-forwarding.md)
 * [Threat Modeling](generic-methodologies-and-resources/threat-modeling.md)
 * [Search Exploits](generic-methodologies-and-resources/search-exploits.md)

@@ -50,6 +50,7 @@ sudo ip route add <destination_network> via <gateway> dev <interface> # sudo ip 
 sudo ip addr add 192.168.1.100/24 dev eth0  # Assigns a static IP
 sudo ip route add default via 192.168.1.1  # Sets the default gateway
 traceroute 8.8.8.8  # Shows the route taken to reach the destination
+sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28 # Captures between the ips
 sudo tcpdump -i eth0 -nn -s0 -v  # Captures live packets on eth0
 # -i eth0 → Interface to listen on
 # -nn → No DNS resolution (faster)
@@ -182,7 +183,7 @@ cat file | sort | uniq #Sort and delete duplicates
 cat file | sort | uniq -u # sort and displays the lines that appear once
 #Replace in file
 sed -i 's/OLD/NEW/g' path/file #Replace string inside a file
-echo "mido ahmed rawen 2002" | awk '{print $1}' log.txt # rawen
+echo "mido ahmed rawen 2002" | awk '{print $1}'  # mido
 echo "hate rawen : love rawen" | cut -f 2 -d ":" # love rawen
 
 #Download in RAM
