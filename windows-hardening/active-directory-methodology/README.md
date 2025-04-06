@@ -57,7 +57,7 @@ If you just have access to an AD environment but you don't have any credentials/
   * Scan the network, find machines and open ports and try to **exploit vulnerabilities** or **extract credentials** from them (for example, [printers could be very interesting targets](ad-information-in-printers.md).
   * Enumerating DNS could give information about key servers in the domain as web, printers, shares, vpn, media, etc.
     * `gobuster dns -d domain.local -t 25 -w /opt/Seclist/Discovery/DNS/subdomain-top2000.txt`
-  * Take a look to the General [**Pentesting Methodology**](../../generic-methodologies-and-resources/pentesting-methodology.md) to find more information about how to do this.
+  * Take a look to the General [**Pentesting Methodology**](pentesting-methodology.md) to find more information about how to do this.
 * **Check for null and Guest access on smb services** (this won't work on modern Windows versions):
   * `enum4linux -a -u "" -p "" <DC IP> && enum4linux -a -u "guest" -p "" <DC IP>`
   * `smbmap -u "" -p "" -P 445 -H <DC IP> && smbmap -u "guest" -p "" -P 445 -H <DC IP>`

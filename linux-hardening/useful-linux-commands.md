@@ -178,6 +178,7 @@ wc -c #Chars
 diff <file1>  <file2>
 
 #Sort
+sort -u # removes any duplicate lines after sorting
 sort -nr #Sort by number and then reverse
 cat file | sort | uniq #Sort and delete duplicates
 cat file | sort | uniq -u # sort and displays the lines that appear once

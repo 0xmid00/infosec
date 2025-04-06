@@ -11,7 +11,7 @@ _Hacktricks logos & motion design by_ [_@ppiernacho_](https://www.instagram.com/
 To get started follow this page where you will find the **typical flow** that **you should follow when pentesting** one or more **machines:**
 
 {% content-ref url="generic-methodologies-and-resources/pentesting-methodology.md" %}
-[pentesting-methodology.md](generic-methodologies-and-resources/pentesting-methodology.md)
+[pentesting-methodology.md](pentesting-methodology.md)
 {% endcontent-ref %}
 
 ## Corporate Sponsors

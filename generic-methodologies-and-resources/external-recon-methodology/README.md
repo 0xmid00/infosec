@@ -197,9 +197,17 @@ Apparently is common for people to assign subdomains to IPs that belongs to clou
 [**This post**](https://kmsec.uk/blog/passive-takeover/) explains a store about it and propose a script that **spawns a VM in DigitalOcean**, **gets** the **IPv4** of the new machine, and **searches in Virustotal for subdomain records** pointing to it.
 
 ### **Other ways**
+### SSL Cert
 
 **Note that you can use this technique to discover more domain names every time you find a new domain.**
 
+***Cert.sh***
+```bash
+curl -s "https://crt.sh/?q=inlanefreight.com&output=json" | jq .
+# Extract subdomains
+curl -s "https://crt.sh/?q=inlanefreight.com&output=json" \
+| jq . | grep name | cut -d: -f2 | grep -v "CN=" | cut -d'"' -f2 | sort -u 
+```
 **Shodan**
 
 As you already know the name of the organisation owning the IP space. You can search by that data in shodan using: `org:"Tesla, Inc."` Check the found hosts for new unexpected domains in the TLS certificate.

@@ -8,59 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "87a8580de5cbcb42",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/pentesting-network/README.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
-            "id": "f82a1d1495562ccf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "nmap-summary-esp"
-            }
-          },
-          {
             "id": "5bcdee8c41c8c14d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/Penetration Testing Process/Domain Information.md",
+                "file": "generic-methodologies-and-resources/Penetration Testing Methodology/Domain Information.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "Domain Information"
-            }
-          },
-          {
-            "id": "1d2bbba95b1c7579",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "binary-exploitation/arbitrary-write-2-exec/www2exec-.dtors-and-.fini_array.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "www2exec-.dtors-and-.fini_array"
             }
           },
           {
@@ -70,11 +28,39 @@
               "type": "markdown",
               "state": {
                 "file": "generic-methodologies-and-resources/external-recon-methodology/README.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "README"
+            }
+          },
+          {
+            "id": "02362d87910feb3b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux-hardening/useful-linux-commands.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "useful-linux-commands"
+            }
+          },
+          {
+            "id": "f4bc2df8dd188e27",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/Penetration Testing Methodology/Staff.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Staff"
             }
           }
         ],
@@ -110,7 +96,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "environment variables",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -220,8 +206,28 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "63fbe1d6766e4684",
+  "active": "f4bc2df8dd188e27",
   "lastOpenFiles": [
+    "generic-methodologies-and-resources/Penetration Testing Methodology/README.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/Staff.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/Domain Information.md",
+    "generic-methodologies-and-resources/external-recon-methodology/README.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/Cloud Resource.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/enumeration methodology.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/Post Exploitation/README.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/pentesting-methodology.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/Legal Considerations.md",
+    "linux-hardening/useful-linux-commands/README.md",
+    "generic-methodologies-and-resources/Privesc Mindmap.md",
+    "pentesting-network.md",
+    "generic-methodologies-and-resources/bash/README.md",
+    "generic-methodologies-and-resources/pentesting-network/README.md",
+    "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
+    "network-services-pentesting/2375-pentesting-docker.md",
+    "generic-methodologies-and-resources/bash",
+    "generic-methodologies-and-resources/Untitled.md",
+    "binary-exploitation/arbitrary-write-2-exec/www2exec-.dtors-and-.fini_array.md",
     "network-services-pentesting/pentesting-voip/basic-voip-protocols/sip-session-initiation-protocol.md",
     "binary-exploitation/format-strings/README.md",
     "crypto-and-stego/cryptographic-algorithms/README.md",
@@ -229,27 +235,8 @@
     "reversing-and-exploiting/linux-exploiting-basic-esp/format-strings/README.md",
     "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-gatekeeper.md",
     "macos-hardening/macos-auto-start-locations.md",
-    "generic-methodologies-and-resources/shells/linux.md",
-    "backdoors/icmpsh.md",
-    "c2/icmpsh.md",
-    "network-services-pentesting/pentesting-web/h2-java-sql-database.md",
-    "network-services-pentesting/pentesting-web/php-tricks-esp/php-useful-functions-disable_functions-open_basedir-bypass/disable_functions-bypass-dl-function.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-apps-inspecting-debugging-and-fuzzing/arm64-basic-assembly.md",
-    "network-services-pentesting/pentesting-web/wordpress.md",
-    "todo/radio-hacking/sub-ghz-rf.md",
-    "forensics/basic-forensic-methodology/pcap-inspection/README.md",
-    "generic-methodologies-and-resources/basic-forensic-methodology/pcap-inspection/README.md",
-    "generic-methodologies-and-resources/external-recon-methodology/README.md",
-    "generic-methodologies-and-resources/pentesting-wifi/README.md",
-    "linux-hardening/privilege-escalation/README.md",
-    "macos-hardening/macos-red-teaming/README.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-tcc/README.md",
-    "windows-hardening/active-directory-methodology/README.md",
-    "linux-hardening/useful-linux-commands.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "post-exploitation.md",
     "generic-methodologies-and-resources/Untitled.canvas",
-    "generic-methodologies-and-resources/Penetration Testing Process",
+    "generic-methodologies-and-resources/Penetration Testing Methodology",
     "pass.zip",
     "images/privesc.png",
     "generic-methodologies-and-resources/bash",
@@ -260,7 +247,6 @@
     "package-lock.json",
     "linux-hardening/linux-exploitation/smb",
     "linux-hardening/linux-exploitation",
-    "Post Exploitation/Untitled",
-    "generic-methodologies-and-resources/Penetration Testing Process/Post Exploitation"
+    "Post Exploitation/Untitled"
   ]
 }
