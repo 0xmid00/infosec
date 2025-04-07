@@ -24,9 +24,9 @@
 gather comprehensive domain and online presence data by examining SSL certificates, DNS records, and subdomain information through tools like crt.sh and Shodan. It emphasizes understanding a company's infrastructure and the technologies behind its services
 #### [[Cloud Resource]]
 Many companies rely on cloud services like AWS, Azure, and GCP for flexibility, but misconfigurations—especially in storage like S3 buckets—can expose sensitive data. Attackers often use tools like Google Dorks, GrayHatWarfare, and source code analysis to discover publicly accessible cloud resources and leaked credentials.
-##### [[Staff]]
-#### Host-based
-#### OS-based
+#### [[Staff]]
+### Host-based
+### OS-based
 
 
 
