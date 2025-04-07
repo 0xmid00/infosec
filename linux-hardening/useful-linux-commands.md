@@ -45,6 +45,10 @@ netstat -rn # Show networks accessible
 ss -tulnp # list the open ports
 ss -twurp  # List the live processes & ports
 lsof  # List the live processes & ports
+
+systemctl list-units --type=service -all # list all services
+service --status-all # list all servies 
+
 ip route  # Displays current routing table
 sudo ip route add <destination_network> via <gateway> dev <interface> # sudo ip route add 192.168.1.0/24 via 192.168.0.1 dev eth0
 sudo ip addr add 192.168.1.100/24 dev eth0  # Assigns a static IP
