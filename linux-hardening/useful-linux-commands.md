@@ -223,6 +223,7 @@ sudo apt-get install xz-utils; unxz file.xz
 
 #Add new user
 useradd -p 'openssl passwd -1 <Password>' hacker  
+sudo useradd -u 65534 myuser # create a user with a specific `UID`
 
 #Clipboard
 xclip -sel c < cat file.txt
