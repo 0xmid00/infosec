@@ -29,6 +29,7 @@ Many companies rely on cloud services like AWS, Azure, and GCP for flexibility, 
 #### [[network-services-pentesting/pentesting-ftp/README|FTP]]
 #### [[network-services-pentesting/pentesting-smb/README|SMB]]
 #### [[nfs-service-pentesting|NFS]]
+#### [[network-services-pentesting/pentesting-dns|DNS]]
 
 ### OS-based
 

