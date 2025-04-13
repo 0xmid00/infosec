@@ -189,6 +189,7 @@ cat file | sort | uniq #Sort and delete duplicates
 cat file | sort | uniq -u # sort and displays the lines that appear once
 #Replace in file
 sed -i 's/OLD/NEW/g' path/file #Replace string inside a file
+sed -r '/^\s*$/d' # **deletes empty lines or lines that contain only whitespace** (spaces, tabs, etc.)
 echo "mido ahmed rawen 2002" | awk '{print $1}'  # mido
 echo "hate rawen : love rawen" | cut -f 2 -d ":" # love rawen
 cat file.json | jq . # output the results in JSON format
