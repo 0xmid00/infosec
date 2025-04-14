@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/useful-linux-commands.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -23,6 +23,20 @@
           },
           {
             "id": "dfed7300d95cc8fe",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "network-services-pentesting/pentesting-ssh.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "pentesting-ssh"
+            }
+          },
+          {
+            "id": "2746093dd009f89f",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -36,35 +50,65 @@
             }
           },
           {
-            "id": "0dd505b4eb49df53",
+            "id": "47880a179e20e625",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "network-services-pentesting/pentesting-mysql.md",
+                "file": "network-services-pentesting/512-pentesting-rexec.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pentesting-mysql"
+              "title": "512-pentesting-rexec"
             }
           },
           {
-            "id": "2746093dd009f89f",
+            "id": "c195954473ee9dfb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "network-services-pentesting/pentesting-mssql-microsoft-sql-server/README.md",
-                "mode": "preview",
+                "file": "network-services-pentesting/pentesting-rlogin.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "pentesting-rlogin"
+            }
+          },
+          {
+            "id": "5c00572e6fcdb2bf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "network-services-pentesting/pentesting-rsh.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "pentesting-rsh"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
+      },
+      {
+        "id": "dcbbd4af277cba5d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "281c04a937543baf",
+            "type": "leaf",
+            "state": {
+              "type": "mindmap-nextgen-plugin",
+              "state": {},
+              "icon": "dot-network",
+              "title": "README"
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -96,7 +140,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "mssql pent",
+                "query": "514",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -121,7 +165,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 322.5
+    "width": 295.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -208,32 +252,32 @@
   },
   "active": "2746093dd009f89f",
   "lastOpenFiles": [
-    "network-services-pentesting/pentesting-mysql.md",
-    "network-services-pentesting/pentesting-mssql-microsoft-sql-server/README.md",
-    "windows-hardening/active-directory-methodology/abusing-ad-mssql.md",
-    "windows-hardening/active-directory-methodology/README.md",
-    "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
+    "network-services-pentesting/3299-pentesting-saprouter.md",
+    "network-services-pentesting/512-pentesting-rexec.md",
+    "network-services-pentesting/pentesting-rlogin.md",
+    "network-services-pentesting/515-pentesting-line-printer-daemon-lpd.md",
+    "network-services-pentesting/pentesting-ssh.md",
     "generic-methodologies-and-resources/Penetration Testing Methodology/README.md",
-    "linux-hardening/useful-linux-commands.md",
+    "network-services-pentesting/pentesting-rsh.md",
+    "linux-hardening/privilege-escalation/docker-security/docker-breakout-privilege-escalation/README.md",
+    "windows-hardening/active-directory-methodology/README.md",
+    "network-services-pentesting/873-pentesting-rsync.md",
+    "network-services-pentesting/137-138-139-pentesting-netbios.md",
+    "[ssh.md",
+    "network-services-pentesting/623-udp-ipmi.md",
+    "network-services-pentesting/1521-1522-1529-pentesting-oracle-listener/README.md",
+    "network-services-pentesting/pentesting-mssql-microsoft-sql-server/README.md",
+    "network-services-pentesting/pentesting-mysql.md",
     "network-services-pentesting/pentesting-snmp/README.md",
-    "network-services-pentesting/pentesting-imap.md",
-    "network-services-pentesting/pentesting-smtp/README.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology/pentesting-methodology.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology/Staff.md",
-    "generic-methodologies-and-resources/basic-forensic-methodology/README.md",
-    "generic-methodologies-and-resources/pentesting-network/README.md",
+    "linux-hardening/useful-linux-commands.md",
     "network-services-pentesting/pentesting-pop.md",
-    "generic-methodologies-and-resources/pentesting-network/pentesting-ipv6.md",
-    "generic-methodologies-and-resources/brute-force.md",
-    "network-services-pentesting/pentesting-smtp/smtp-commands.md",
-    "network-services-pentesting/pentesting-dns.md",
-    "network-services-pentesting/pentesting-smb/README.md",
+    "network-services-pentesting/pentesting-imap.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/pentesting-methodology.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/enumeration methodology.md",
+    "network-services-pentesting/pentesting-smtp/README.md",
     "network-services-pentesting/nfs-service-pentesting.md",
-    "linux-hardening/privilege-escalation/nfs-no_root_squash-misconfiguration-pe.md",
-    "linux-hardening/linux-privilege-escalation-checklist.md",
-    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-    "linux-hardening/privilege-escalation/payloads-to-execute.md",
-    "generic-methodologies-and-resources/pentesting-network/ids-evasion.md",
+    "network-services-pentesting/pentesting-smb/README.md",
+    "windows-hardening/active-directory-methodology/abusing-ad-mssql.md",
     "generic-methodologies-and-resources/bash",
     "generic-methodologies-and-resources/Untitled.canvas",
     "generic-methodologies-and-resources/Penetration Testing Methodology",

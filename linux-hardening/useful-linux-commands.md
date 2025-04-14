@@ -30,6 +30,7 @@ echo $PATH  # Path
 
 # System Info:
 uname -a         # Show system info + kernal version
+hostnamectl  # system inforamtion
 uptime           # Show system uptime
 free -h          # Show memory usage
 df -h            # Show disk space
@@ -199,6 +200,7 @@ grep "ahmed" -rw .  # finds all files in the current directory and subfolders th
 -w  Match whole words only (not part of another word)
 -i Ignore case (don’t use if you want case-sensitive)
 -x Match exact full line
+- n show the line number 
 -------
  # search 
 
