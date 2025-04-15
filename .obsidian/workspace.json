@@ -42,73 +42,85 @@
               "type": "markdown",
               "state": {
                 "file": "generic-methodologies-and-resources/Penetration Testing Methodology/README.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
-            "id": "47880a179e20e625",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/512-pentesting-rexec.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "512-pentesting-rexec"
+              "title": "README"
             }
           },
           {
-            "id": "c195954473ee9dfb",
+            "id": "f0b1c1680402b43c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "network-services-pentesting/pentesting-rlogin.md",
-                "mode": "source",
+                "file": "network-services-pentesting/5985-5986-pentesting-winrm.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pentesting-rlogin"
+              "title": "5985-5986-pentesting-winrm"
             }
           },
           {
-            "id": "5c00572e6fcdb2bf",
+            "id": "c6ab662aa3be9f32",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "network-services-pentesting/pentesting-rsh.md",
+                "file": "network-services-pentesting/pentesting-rdp.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "pentesting-rdp"
+            }
+          },
+          {
+            "id": "fbf122a0d1a427df",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "network-services-pentesting/5985-5986-pentesting-winrm.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pentesting-rsh"
+              "title": "5985-5986-pentesting-winrm"
+            }
+          },
+          {
+            "id": "14b2c9a2a0986dd3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "windows-hardening/lateral-movement/wmiexec.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "wmiexec"
+            }
+          },
+          {
+            "id": "8528621b2e357c42",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "network-services-pentesting/pentesting-smb.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "pentesting-smb"
             }
           }
         ],
         "currentTab": 2
-      },
-      {
-        "id": "dcbbd4af277cba5d",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "281c04a937543baf",
-            "type": "leaf",
-            "state": {
-              "type": "mindmap-nextgen-plugin",
-              "state": {},
-              "icon": "dot-network",
-              "title": "README"
-            }
-          }
-        ]
       }
     ],
     "direction": "vertical"
@@ -140,7 +152,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "514",
+                "query": "wmiexec",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -161,7 +173,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -252,12 +265,24 @@
   },
   "active": "2746093dd009f89f",
   "lastOpenFiles": [
-    "network-services-pentesting/3299-pentesting-saprouter.md",
+    "windows-hardening/lateral-movement/wmiexec.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology/README.md",
+    "windows-hardening/ntlm/wmiexec.md",
+    "network-services-pentesting/5985-5986-pentesting-winrm.md",
+    "network-services-pentesting/pentesting-smb.md",
+    "network-services-pentesting/pentesting-rdp.md",
+    "network-services-pentesting/pentesting-smb/README.md",
+    "windows-hardening/active-directory-methodology/over-pass-the-hash-pass-the-key.md",
+    "network-services-pentesting/135-pentesting-msrpc.md",
+    "mobile-pentesting/android-app-pentesting/README.md",
+    "windows-hardening/windows-local-privilege-escalation/README.md",
+    "windows-hardening/active-directory-methodology/rdp-sessions-abuse.md",
+    "physical-attacks/escaping-from-gui-applications/README.md",
     "network-services-pentesting/512-pentesting-rexec.md",
+    "network-services-pentesting/3299-pentesting-saprouter.md",
     "network-services-pentesting/pentesting-rlogin.md",
     "network-services-pentesting/515-pentesting-line-printer-daemon-lpd.md",
     "network-services-pentesting/pentesting-ssh.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology/README.md",
     "network-services-pentesting/pentesting-rsh.md",
     "linux-hardening/privilege-escalation/docker-security/docker-breakout-privilege-escalation/README.md",
     "windows-hardening/active-directory-methodology/README.md",
@@ -266,18 +291,6 @@
     "[ssh.md",
     "network-services-pentesting/623-udp-ipmi.md",
     "network-services-pentesting/1521-1522-1529-pentesting-oracle-listener/README.md",
-    "network-services-pentesting/pentesting-mssql-microsoft-sql-server/README.md",
-    "network-services-pentesting/pentesting-mysql.md",
-    "network-services-pentesting/pentesting-snmp/README.md",
-    "linux-hardening/useful-linux-commands.md",
-    "network-services-pentesting/pentesting-pop.md",
-    "network-services-pentesting/pentesting-imap.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology/pentesting-methodology.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology/enumeration methodology.md",
-    "network-services-pentesting/pentesting-smtp/README.md",
-    "network-services-pentesting/nfs-service-pentesting.md",
-    "network-services-pentesting/pentesting-smb/README.md",
-    "windows-hardening/active-directory-methodology/abusing-ad-mssql.md",
     "generic-methodologies-and-resources/bash",
     "generic-methodologies-and-resources/Untitled.canvas",
     "generic-methodologies-and-resources/Penetration Testing Methodology",

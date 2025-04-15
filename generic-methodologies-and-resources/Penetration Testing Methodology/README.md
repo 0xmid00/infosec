@@ -46,6 +46,11 @@ Many companies rely on cloud services like AWS, Azure, and GCP for flexibility, 
 ###### [[512-pentesting-rexec|rexec]] (512)
 ###### [[pentesting-rlogin|rlogin]] (513)
 ###### [[pentesting-rsh|rsh]] (514)
+#### windows remote management system
+##### [[pentesting-rdp|RDP]] (3389)
+##### [[5985-5986-pentesting-winrm|WinRM]] (5985,5986)
+##### [[windows-hardening/lateral-movement/wmiexec|WMI]] (135)
+
 ### OS-based
 
 
