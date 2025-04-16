@@ -27,100 +27,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "network-services-pentesting/pentesting-ssh.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "pentesting-ssh"
-            }
-          },
-          {
-            "id": "2746093dd009f89f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/Penetration Testing Methodology/README.md",
+                "file": "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "README"
             }
-          },
-          {
-            "id": "f0b1c1680402b43c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/5985-5986-pentesting-winrm.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "5985-5986-pentesting-winrm"
-            }
-          },
-          {
-            "id": "c6ab662aa3be9f32",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/pentesting-rdp.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "pentesting-rdp"
-            }
-          },
-          {
-            "id": "fbf122a0d1a427df",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/5985-5986-pentesting-winrm.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "5985-5986-pentesting-winrm"
-            }
-          },
-          {
-            "id": "14b2c9a2a0986dd3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/lateral-movement/wmiexec.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "wmiexec"
-            }
-          },
-          {
-            "id": "8528621b2e357c42",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/pentesting-smb.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "pentesting-smb"
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -152,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "wmiexec",
+                "query": "odat",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -173,12 +89,11 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 295.5
+    "width": 544.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -263,37 +178,38 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "2746093dd009f89f",
+  "active": "dfed7300d95cc8fe",
   "lastOpenFiles": [
-    "windows-hardening/lateral-movement/wmiexec.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology/README.md",
-    "windows-hardening/ntlm/wmiexec.md",
-    "network-services-pentesting/5985-5986-pentesting-winrm.md",
-    "network-services-pentesting/pentesting-smb.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/1-  Penetration Testing Process/Legal Considerations.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/1-  Penetration Testing Process",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/1- Penetration Testing Process.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/README.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/pentesting-methodology.md",
+    "network-services-pentesting/pentesting-imap.md",
+    "network-services-pentesting/pentesting-pop.md",
+    "network-services-pentesting/pentesting-ssh.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Domain Information.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/enumeration methodology.md",
+    "generic-methodologies-and-resources/external-recon-methodology/github-leaked-secrets.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Staff.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Cloud Resource.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/Post Exploitation/README.md",
+    "network-services-pentesting/pentesting-mysql.md",
+    "linux-hardening/useful-linux-commands.md",
+    "network-services-pentesting/pentesting-snmp/README.md",
+    "generic-methodologies-and-resources/brute-force.md",
     "network-services-pentesting/pentesting-rdp.md",
     "network-services-pentesting/pentesting-smb/README.md",
-    "windows-hardening/active-directory-methodology/over-pass-the-hash-pass-the-key.md",
-    "network-services-pentesting/135-pentesting-msrpc.md",
-    "mobile-pentesting/android-app-pentesting/README.md",
-    "windows-hardening/windows-local-privilege-escalation/README.md",
-    "windows-hardening/active-directory-methodology/rdp-sessions-abuse.md",
-    "physical-attacks/escaping-from-gui-applications/README.md",
-    "network-services-pentesting/512-pentesting-rexec.md",
-    "network-services-pentesting/3299-pentesting-saprouter.md",
-    "network-services-pentesting/pentesting-rlogin.md",
-    "network-services-pentesting/515-pentesting-line-printer-daemon-lpd.md",
-    "network-services-pentesting/pentesting-ssh.md",
-    "network-services-pentesting/pentesting-rsh.md",
-    "linux-hardening/privilege-escalation/docker-security/docker-breakout-privilege-escalation/README.md",
-    "windows-hardening/active-directory-methodology/README.md",
-    "network-services-pentesting/873-pentesting-rsync.md",
+    "network-services-pentesting/pentesting-mssql-microsoft-sql-server/README.md",
+    "windows-hardening/lateral-movement/wmiexec.md",
+    "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
     "network-services-pentesting/137-138-139-pentesting-netbios.md",
-    "[ssh.md",
-    "network-services-pentesting/623-udp-ipmi.md",
-    "network-services-pentesting/1521-1522-1529-pentesting-oracle-listener/README.md",
+    "network-services-pentesting/pentesting-smtp/README.md",
+    "network-services-pentesting/nfs-service-pentesting.md",
     "generic-methodologies-and-resources/bash",
     "generic-methodologies-and-resources/Untitled.canvas",
-    "generic-methodologies-and-resources/Penetration Testing Methodology",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)",
     "pass.zip",
     "images/privesc.png",
     "generic-methodologies-and-resources/bash",
@@ -302,8 +218,6 @@
     "images",
     "package.json",
     "package-lock.json",
-    "linux-hardening/linux-exploitation/smb",
-    "linux-hardening/linux-exploitation",
-    "Post Exploitation/Untitled"
+    "linux-hardening/linux-exploitation/smb"
   ]
 }

@@ -52,13 +52,4 @@ Many companies rely on cloud services like AWS, Azure, and GCP for flexibility, 
 ##### [[windows-hardening/lateral-movement/wmiexec|WMI]] (135)
 
 ### OS-based
-
-
-
-
-
-
-
-
-## [[Legal Considerations]]
-
+`The goal here is to see how the administrators manage the systems and what sensitive internal information we can glean from them.`
