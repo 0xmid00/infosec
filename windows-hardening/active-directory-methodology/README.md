@@ -362,7 +362,7 @@ Usually users will access the system via RDP, so here you have how to performa c
 **LAPS** provides a system for managing the **local Administrator password** on domain-joined computers, ensuring it's **randomized**, unique, and frequently **changed**. These passwords are stored in Active Directory and access is controlled through ACLs to authorized users only. With sufficient permissions to access these passwords, pivoting to other computers becomes possible.
 
 {% content-ref url="laps.md" %}
-[laps.md](laps.md)
+[laps.md](windows-hardening/active-directory-methodology/laps.md)
 {% endcontent-ref %}
 
 ### Certificate Theft
@@ -516,7 +516,7 @@ Previously we have discussed about how to escalate privileges if you have **enou
 Check:
 
 {% content-ref url="laps.md" %}
-[laps.md](laps.md)
+[laps.md](windows-hardening/active-directory-methodology/laps.md)
 {% endcontent-ref %}
 
 ## Forest Privilege Escalation - Domain Trusts

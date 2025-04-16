@@ -1,0 +1,61 @@
+{
+  "cascadeColors": false,
+  "colorBackground": false,
+  "palette": [
+    {
+      "id": "NonuPRb6FU0P_Z2Wu0y9U",
+      "name": "",
+      "value": "#f00000"
+    },
+    {
+      "id": "jpbFgz8AsuspPnGflM8kX",
+      "name": "",
+      "value": "#1c00f0"
+    },
+    {
+      "id": "CeBNZ5qbSJ7XCeWtxMd_E",
+      "name": "",
+      "value": "#04e600"
+    },
+    {
+      "id": "z7gu5KHxCtD3SsMhQ5hTO",
+      "name": "",
+      "value": "#b400f5"
+    },
+    {
+      "id": "SPXBtbBqgOiZ2D9mNxBN-",
+      "name": "",
+      "value": "#d4f000"
+    }
+  ],
+  "fileColors": [
+    {
+      "path": "generic-methodologies-and-resources",
+      "color": "NonuPRb6FU0P_Z2Wu0y9U"
+    },
+    {
+      "path": "network-services-pentesting",
+      "color": "jpbFgz8AsuspPnGflM8kX"
+    },
+    {
+      "path": "windows-hardening",
+      "color": "CeBNZ5qbSJ7XCeWtxMd_E"
+    },
+    {
+      "path": "linux-hardening",
+      "color": "z7gu5KHxCtD3SsMhQ5hTO"
+    },
+    {
+      "path": "generic-methodologies-and-resources/CPTS",
+      "color": "jpbFgz8AsuspPnGflM8kX"
+    },
+    {
+      "path": "network-services-pentesting/pentesting-web",
+      "color": "SPXBtbBqgOiZ2D9mNxBN-"
+    },
+    {
+      "path": "network-services-pentesting/pentesting-web/README.md",
+      "color": "CeBNZ5qbSJ7XCeWtxMd_E"
+    }
+  ]
+}
