@@ -27,7 +27,21 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/README.md",
+                "file": "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/3- Information Gathering - Web Edition/README.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
+            }
+          },
+          {
+            "id": "1bc1725c9620fba7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/external-recon-methodology/README.md",
                 "mode": "preview",
                 "source": false
               },
@@ -36,7 +50,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -68,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "odat",
+                "query": "",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 544.5
+    "width": 437.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -178,35 +192,37 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "dfed7300d95cc8fe",
+  "active": "1bc1725c9620fba7",
   "lastOpenFiles": [
+    "windows-hardening/active-directory-methodology/README.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/3- Information Gathering - Web Edition/README.md",
+    "generic-methodologies-and-resources/Privesc Mindmap.md",
+    "exploiting/tools/pwntools.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/README.md",
+    "network-services-pentesting/623-udp-ipmi.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Staff.md",
+    "todo/6881-udp-pentesting-bittorrent.md",
+    "todo/hardware-hacking/README.md",
+    "todo/android-forensics.md",
+    "todo/burp-suite.md",
+    "todo/rust-basics.md",
+    "todo/post-exploitation.md",
+    "stego/esoteric-languages.md",
+    "stego/stego-tricks.md",
+    "radio-hacking/pentesting-rfid.md",
+    "generic-methodologies-and-resources/external-recon-methodology/README.md",
+    "generic-methodologies-and-resources/external-recon-methodology/wide-source-code-search.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/pentesting-methodology.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/enumeration methodology.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Domain Information.md",
+    "network-services-pentesting/pentesting-ssh.md",
+    "network-services-pentesting/pentesting-rpcbind.md",
+    "generic-methodologies-and-resources/shells/linux.md",
+    "network-services-pentesting/43-pentesting-whois.md",
+    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/3- Information Gathering - Web Edition",
     "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/1-  Penetration Testing Process/Legal Considerations.md",
     "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/1-  Penetration Testing Process",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/1- Penetration Testing Process.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/README.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/pentesting-methodology.md",
-    "network-services-pentesting/pentesting-imap.md",
-    "network-services-pentesting/pentesting-pop.md",
-    "network-services-pentesting/pentesting-ssh.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Domain Information.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/enumeration methodology.md",
-    "generic-methodologies-and-resources/external-recon-methodology/github-leaked-secrets.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Staff.md",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting/Cloud Resource.md",
     "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/2- Footprinting",
-    "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)/Post Exploitation/README.md",
-    "network-services-pentesting/pentesting-mysql.md",
-    "linux-hardening/useful-linux-commands.md",
-    "network-services-pentesting/pentesting-snmp/README.md",
-    "generic-methodologies-and-resources/brute-force.md",
-    "network-services-pentesting/pentesting-rdp.md",
-    "network-services-pentesting/pentesting-smb/README.md",
-    "network-services-pentesting/pentesting-mssql-microsoft-sql-server/README.md",
-    "windows-hardening/lateral-movement/wmiexec.md",
-    "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
-    "network-services-pentesting/137-138-139-pentesting-netbios.md",
-    "network-services-pentesting/pentesting-smtp/README.md",
-    "network-services-pentesting/nfs-service-pentesting.md",
     "generic-methodologies-and-resources/bash",
     "generic-methodologies-and-resources/Untitled.canvas",
     "generic-methodologies-and-resources/Penetration Testing Methodology (CPTS)",
@@ -217,7 +233,6 @@
     "images/markdown-map(4).png",
     "images",
     "package.json",
-    "package-lock.json",
-    "linux-hardening/linux-exploitation/smb"
+    "package-lock.json"
   ]
 }
