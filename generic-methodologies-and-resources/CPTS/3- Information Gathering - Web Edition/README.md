@@ -40,3 +40,17 @@ There are several tools available that excel at brute-force enumeration:
 |[amass](https://github.com/owasp-amass/amass)|Actively maintained tool focused on subdomain discovery, known for its integration with other tools and extensive data sources.|
 |[assetfinder](https://github.com/tomnomnom/assetfinder)|Simple yet effective tool for finding subdomains using various techniques, ideal for quick and lightweight scans.|
 |[puredns](https://github.com/d3mondev/puredns)|Powerful and flexible DNS brute-forcing tool, capable of resolving and filtering results effectively.|
+ #### [[generic-methodologies-and-resources/external-recon-methodology/README#DNS Zone Transfer|DNS Zone Transfer]]
+ #### [[generic-methodologies-and-resources/external-recon-methodology/README#**VHosts / Virtual Hosts**|Virtual Hosts]]
+`virtual hosting` is the ability of web servers to distinguish between multiple websites or applications sharing the same IP address. This is achieved by leveraging the `HTTP Host` header.
+
+**Types of Virtual Hosting:**
+1. `Name-Based Virtual Hosting`
+2. `IP-Based Virtual Hosting`
+3. `Port-Based Virtual Hosting`
+
+There are a couple of things you need to prepare to brute force `Host` headers:
+1. `Target Identification: find the domain ip add add it to /etc/hosts
+2. `Wordlist Preparation`
+ #### [[generic-methodologies-and-resources/external-recon-methodology/README#Certificate Transparency Logs|Certificate Transparency Logs]]
+ 

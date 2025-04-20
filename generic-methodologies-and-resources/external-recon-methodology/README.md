@@ -207,10 +207,11 @@ Apparently is common for people to assign subdomains to IPs that belongs to clou
 [**This post**](https://kmsec.uk/blog/passive-takeover/) explains a store about it and propose a script that **spawns a VM in DigitalOcean**, **gets** the **IPv4** of the new machine, and **searches in Virustotal for subdomain records** pointing to it.
 
 ### **Other ways**
-### SSL Cert
+#### Certificate Transparency Logs
 
-**Note that you can use this technique to discover more domain names every time you find a new domain.**
 
+[Censys](https://search.censys.io/) Quick and easy searches, identifying subdomains, checking certificate issuance history.
+https://search.censys.io/ Powerful search engine for internet-connected devices, advanced filtering by domain, IP, certificate attributes.
 ***Cert.sh***
 ```bash
 curl -s "https://crt.sh/?q=inlanefreight.com&output=json" | jq .
@@ -262,6 +263,12 @@ dig -x 134.209.24.248 # PTR record (reverse dns)
 Let's try to get **subdomains** from the **DNS** records. We should also try for **Zone Transfer** (If vulnerable, you should report it).
 ```bash
 dnsrecon -a -d tesla.com
+```
+
+#### DNS Zone Transfer 
+```bash
+dig axfr @<dns.server> <domaine> 
+dig axfr @nsztm1.digi.ninja zonetransfer.me
 ```
 
 ### **OSINT**
@@ -546,6 +553,10 @@ If you found an IP address containing **one or several web pages** belonging to 
 You can find some **VHosts in IPs using** [**HostHunter**](https://github.com/SpiderLabs/HostHunter) **or other APIs**.
 
 **Brute Force**
+> first add the domain to  /etc/hosts (if the domain are not resolved)
+```bash
+sudo echo "94.237.55.96        inlanefreight.htb" >> /etc/hosts
+```
 
 If you suspect that some subdomain can be hidden in a web server you could try to brute force it:
 
@@ -553,6 +564,9 @@ If you suspect that some subdomain can be hidden in a web server you could try t
 ffuf -c -w /path/to/wordlist -u http://victim.com -H "Host: FUZZ.victim.com"
 
 gobuster vhost -u https://mysite.com -t 50 -w subdomains.txt
+
+gobuster vhost -u http://<target_IP_address> -w <wordlist_file> --append-domain
+# In newer versions of Gobuster, the --append-domain flag is required to append the base domain to each word in the wordlist when performing virtual host discovery.
 
 wfuzz -c -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-20000.txt --hc 400,404,403 -H "Host: FUZZ.example.com" -u http://example.com -t 100
 
