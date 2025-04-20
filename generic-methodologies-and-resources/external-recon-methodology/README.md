@@ -77,6 +77,16 @@ bbot -t tesla.com -f subdomain-enum
 You can find the IP ranges of an organisation also using [http://asnlookup.com/](http://asnlookup.com) (it has free API).\
 You can fins the IP and ASN of a domain using [http://ipv4info.com/](http://ipv4info.com).
 
+### WHOIS 
+
+```bash
+whois tesla.com 
+```
+** Why WHOIS Matters for Web Recon:** 
+Identifying Key Personnel
+Discovering Network Infrastructure
+Historical Data Analysis
+
 ### **Looking for vulnerabilities**
 
 At this point we known **all the assets inside the scope**, so if you are allowed you could launch some **vulnerability scanner** (Nessus, OpenVAS) over all the hosts.\
@@ -208,6 +218,7 @@ curl -s "https://crt.sh/?q=inlanefreight.com&output=json" | jq .
 curl -s "https://crt.sh/?q=inlanefreight.com&output=json" \
 | jq . | grep name | cut -d: -f2 | grep -v "CN=" | cut -d'"' -f2 | sort -u 
 ```
+
 **Shodan**
 
 As you already know the name of the organisation owning the IP space. You can search by that data in shodan using: `org:"Tesla, Inc."` Check the found hosts for new unexpected domains in the TLS certificate.
@@ -239,11 +250,16 @@ It's time to find all the possible subdomains of each found domain.
 {% hint style="success" %}
 Note that some of the tools and techniques to find domains can also help to find subdomains!
 {% endhint %}
-
 ### **DNS**
 
-Let's try to get **subdomains** from the **DNS** records. We should also try for **Zone Transfer** (If vulnerable, you should report it).
+** dig**
+Manual DNS queries
+```bash
+dig google.com
+dig -x 134.209.24.248 # PTR record (reverse dns)
+```
 
+Let's try to get **subdomains** from the **DNS** records. We should also try for **Zone Transfer** (If vulnerable, you should report it).
 ```bash
 dnsrecon -a -d tesla.com
 ```
@@ -428,6 +444,11 @@ sed 's/$/.domain.com/' subdomains.txt > bf-subdomains.txt
 grep -E "tesla.com. [0-9]+ IN A .+" /tmp/results.txt
 ```
 
+* [**dnsenum**](https://github.com/fwaeytens/dnsenum):   supports DNS record enumeration, zone transfer attempts, subdomain brute-forcing, Google scraping, reverse lookups, and WHOIS queries.
+
+```
+dnsenum --enum inlanefreight.com -f /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -r
+```
 * [**gobuster**](https://github.com/OJ/gobuster): This one I think just uses 1 resolver
 
 ```

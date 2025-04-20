@@ -35,7 +35,7 @@ Stay informed with the newest bug bounties launching and crucial platform update
 `curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh`
 ***
 ###  Kernel exploits
-- [x] [[linux-hardening/privilege-escalation/README#Kernel exploits| Kernel exploits]]  
+- [ ] [[linux-hardening/privilege-escalation/README#Kernel exploits| Kernel exploits]]  
 `uname -a`
 `searchsploit linux kernel 2.6.32 priv esc (DirtyCow?)`
 ### Service & softwares Exploits
@@ -59,9 +59,9 @@ ls -ld /tmp  # 't' means only owners can modify
 
 ### Sudo,
 
-- [x] [[linux-hardening/privilege-escalation/README#Known Password| Known Password]]  
+- [ ] [[linux-hardening/privilege-escalation/README#Known Password| Known Password]]  
 `sudo su`
-- [x] [[linux-hardening/privilege-escalation/README#Shell Escape Sequences(NOPASSWD)| Shell Escape Sequences]]
+- [ ] [[linux-hardening/privilege-escalation/README#Shell Escape Sequences(NOPASSWD)| Shell Escape Sequences]]
 `sudo -l` ->  `https://gtfobins.github.io/`
 - [ ] [[linux-hardening/privilege-escalation/README#Abusing Intended Functionality| Abusing Intended Functionality]]  
 `sudo -l -> https://gtfobins.github.io/ -> NO shell escape sequence -> searching manuely If we can use program read/write files owned by root`

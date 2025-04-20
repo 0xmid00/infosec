@@ -56,6 +56,14 @@
     {
       "path": "network-services-pentesting/pentesting-web/README.md",
       "color": "CeBNZ5qbSJ7XCeWtxMd_E"
+    },
+    {
+      "path": "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+      "color": "NonuPRb6FU0P_Z2Wu0y9U"
+    },
+    {
+      "path": "generic-methodologies-and-resources/external-recon-methodology/README.md",
+      "color": "z7gu5KHxCtD3SsMhQ5hTO"
     }
   ]
 }

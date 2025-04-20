@@ -1,40 +1,42 @@
+# Information Gathering - Web Edition
+## [[Introduction]]
+## [[generic-methodologies-and-resources/external-recon-methodology/README#WHOIS|WHOIS]]
+## subdomains & DNS 
+ ### [[DNS|DNS ]]
+ ### [[generic-methodologies-and-resources/external-recon-methodology/README#**DNS**|DIGGING DNS ]]
+ 
+DNS reconnaissance involves utilizing specialized tools designed to query DNS servers and extract valuable information. Here are some of the most popular and versatile tools in the arsenal of web recon professionals.
 
-## Introduction
-- First step in penetration testing.
-- Gathers info on target websites/apps.
-- Prepares for later exploitation.
+| Tool                       | Key Features                                                                                            | Use Cases                                                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `dig`                      | Versatile DNS lookup tool that supports various query types (A, MX, NS, TXT, etc.) and detailed output. | Manual DNS queries, zone transfers (if allowed), troubleshooting DNS issues, and in-depth analysis of DNS records.                      |
+| `nslookup`                 | Simpler DNS lookup tool, primarily for A, AAAA, and MX records.                                         | Basic DNS queries, quick checks of domain resolution and mail server records.                                                           |
+| `host`                     | Streamlined DNS lookup tool with concise output.                                                        | Quick checks of A, AAAA, and MX records.                                                                                                |
+| `dnsenum`                  | Automated DNS enumeration tool, dictionary attacks, brute-forcing, zone transfers (if allowed).         | Discovering subdomains and gathering DNS information efficiently.                                                                       |
+| `fierce`                   | DNS reconnaissance and subdomain enumeration tool with recursive search and wildcard detection.         | User-friendly interface for DNS reconnaissance, identifying subdomains and potential targets.                                           |
+| `dnsrecon`                 | Combines multiple DNS reconnaissance techniques and supports various output formats.                    | Comprehensive DNS enumeration, identifying subdomains, and gathering DNS records for further analysis.                                  |
+| `theHarvester`             | OSINT tool that gathers information from various sources, including DNS records (email addresses).      | Collecting email addresses, employee information, and other data associated with a domain from multiple sources.                        |
+| Online DNS Lookup Services | User-friendly interfaces for performing DNS lookups.                                                    | Quick and easy DNS lookups, convenient when command-line tools are not available, checking for domain availability or basic information |
+### subdomain
+Subdomains often host valuable information and resources that aren't directly linked from the main website. This can include:
+    `Development and Staging Environments`
+    `Hidden Login Portals`
+    `Legacy Applications`
+    `Sensitive Information`
 
-## Goals
-- **Identify Assets**: Web pages, subdomains, IPs, tech.
-- **Find Hidden Info**: Backups, configs, docs.
-- **Attack Surface**: Look for weak points.
-- **Intel**: Emails, employee names, behavior.
+There are two main approaches to subdomain enumeration:
+ 1. Active Subdomain Enumeration : dns zone transfer,  brute-force enumeration (fuff, gobuster 
+2. Passive Subdomain Enumeration: Certificate Transparency (CT) logs , search engines, online databases 
 
-## Recon Types
+ #### [[generic-methodologies-and-resources/external-recon-methodology/README#**DNS Brute force**|DNS Brute forcing ]]
+ A DNS query is performed for each potential subdomain to check if it resolves to an IP address. This is typically done using the A or AAAA record type.
+There are several tools available that excel at brute-force enumeration:
 
-### Active Recon
-- **Direct interaction** with the target.
-- Risk of detection is **high**.
-
-| Technique         | Tools                     | Notes                                 |
-|------------------|---------------------------|----------------------------------------|
-| Port Scanning     | Nmap, Masscan             | Find open ports/services               |
-| Vuln Scanning     | Nessus, Nikto             | Detect known vulnerabilities           |
-| Network Mapping   | Traceroute, Nmap          | Map network paths                      |
-| Banner Grabbing   | Netcat, curl              | Get service info                       |
-| OS Fingerprinting | Nmap -O                   | Identify target OS                     |
-| Service Enum      | Nmap -sV                  | Get service versions                   |
-| Web Spidering     | Burp, ZAP, Scrapy         | Crawl site for pages/files             |
-
-### Passive Recon
-- **No interaction** with the target.
-- **Very low** risk of detection.
-
-| Technique          | Tools                    | Notes                                  |
-|-------------------|--------------------------|-----------------------------------------|
-| Search Queries     | Google, Shodan           | Find public info                        |
-| WHOIS              | whois cmd, online tools  | Domain owner, contact info              |
-| DNS Analysis       | dig, nslookup, dnsenum   | Subdomains, mail servers                |
-| Web Archives       | Wayback Machine          | Old site versions                       |
-| Social Media       | LinkedIn, Twitter        | Employee names, roles                   |
-| Code Repos         | GitHub, GitLab           | Look for secrets in code                |
+|Tool|Description|
+|---|---|
+|[dnsenum](https://github.com/fwaeytens/dnsenum)|Comprehensive DNS enumeration tool that supports dictionary and brute-force attacks for discovering subdomains.|
+|[fierce](https://github.com/mschwager/fierce)|User-friendly tool for recursive subdomain discovery, featuring wildcard detection and an easy-to-use interface.|
+|[dnsrecon](https://github.com/darkoperator/dnsrecon)|Versatile tool that combines multiple DNS reconnaissance techniques and offers customisable output formats.|
+|[amass](https://github.com/owasp-amass/amass)|Actively maintained tool focused on subdomain discovery, known for its integration with other tools and extensive data sources.|
+|[assetfinder](https://github.com/tomnomnom/assetfinder)|Simple yet effective tool for finding subdomains using various techniques, ideal for quick and lightweight scans.|
+|[puredns](https://github.com/d3mondev/puredns)|Powerful and flexible DNS brute-forcing tool, capable of resolving and filtering results effectively.|
