@@ -97,3 +97,13 @@ The information obtained from the `openid-configuration` endpoint provides multi
 4. `Algorithm Details`: Information about supported signing algorithms can be crucial for understanding the security measures in place.
 ### [[network-services-pentesting/pentesting-web/README#Spidering|Creepy Crawlies]]
 ### [[network-services-pentesting/pentesting-web/README#Google Dorking|Search Engine Discovery]]
+### Web Archives
+```bash
+https://web.archive.org/
+```
+a unique opportunity to revisit the past and explore the digital footprints of websites as they once were, providing valuable insights that may not be readily apparent in its current state:
+
+1. `Uncovering Hidden Assets and Vulnerabilities`
+2. `Tracking Changes and Identifying Patterns`
+3. `Gathering Intelligence`
+4. `Stealthy Reconnaissance`

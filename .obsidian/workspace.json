@@ -35,7 +35,8 @@
               "title": "README"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -108,7 +109,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/README.md",
+                "file": "network-services-pentesting/pentesting-web/README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -182,10 +183,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "c099dd99e97c951a",
+  "active": "ae57ed5de5ceb1f9",
   "lastOpenFiles": [
-    "network-services-pentesting/pentesting-web/README.md",
     "generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/README.md",
+    "network-services-pentesting/pentesting-web/README.md",
     "generic-methodologies-and-resources/external-recon-methodology/README.md",
     "network-services-pentesting/pentesting-snmp/README.md",
     "pentesting-web/ssrf-server-side-request-forgery/README.md",
