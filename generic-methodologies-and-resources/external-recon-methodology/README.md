@@ -770,6 +770,41 @@ There are several tools out there that will perform part of the proposed actions
 * [**https://github.com/six2dez/reconftw**](https://github.com/six2dez/reconftw)
 * [**https://github.com/hackerspider1/EchoPwn**](https://github.com/hackerspider1/EchoPwn) - A little old and not updated
 
+**more tools:**
+- [FinalRecon](https://github.com/thewhiteh4t/FinalRecon): A Python-based reconnaissance tool offering a range of modules for different tasks like SSL certificate checking, Whois information gathering, header analysis, and crawling. Its modular structure enables easy customisation for specific needs.
+```bash
+./finalrecon.py --url <url> --full
+```
+
+- [Recon-ng](https://github.com/lanmaster53/recon-ng): A powerful framework written in Python that offers a modular structure with various modules for different reconnaissance tasks. It can perform DNS enumeration, subdomain discovery, port scanning, web crawling, and even exploit known vulnerabilities.
+```bash	
+help  # Display all available commands
+marketplace install all  # Install all available modules
+workspaces create recon-cars  # Create a new workspace named 'recon-cars'
+db schema  # View the schema of the database tables
+db insert domains (tesla.com)  # Insert a domain (tesla.com) into the domains table
+show domains  # Show the contents of the domains table
+modules search hack  # Search for modules related to 'hack'
+modules load recon/domains-hosts/hackertarget  # Load the 'hackertarget' module
+info  # Show detailed information about the loaded module
+options list  # List available options for the loaded module
+options set SOURCE default  # Set SOURCE to 'default' (use all domains in DB)
+run  # Run the loaded module
+options unset SOURCE  # Unset the current value of SOURCE
+options set SOURCE tesla.com  # Set SOURCE to a specific domain (tesla.com)
+options set SOURCE /path/to/targets.txt  # Set SOURCE to a file containing target domains
+options set SOURCE query select domain from domains where rowid=2  # Set SOURCE using an SQL query
+show hosts  # Display the hosts discovered by the module
+---------------------
+modules search reporting  # Search for reporting modules
+marketplace install reporting  # Install reporting modules
+modules load reporting/html  # Load the HTML reporting module
+options set FILENAME /path/to/recon-cars-results.html  # Set the output file path for the report
+run  # Generate the HTML report
+```
+- [theHarvester](https://github.com/laramies/theHarvester): Specifically designed for gathering email addresses, subdomains, hosts, employee names, open ports, and banners from different public sources like search engines, PGP key servers, and the SHODAN database. It is a command-line tool written in Python.
+- [SpiderFoot](https://github.com/smicallef/spiderfoot): An open-source intelligence automation tool that integrates with various data sources to collect information about a target, including IP addresses, domain names, email addresses, and social media profiles. It can perform DNS lookups, web crawling, port scanning, and more.
+- [OSINT Framework](https://osintframework.com/): A collection of various tools and resources for open-source intelligence gathering. It covers a wide range of information sources, including social media, search engines, public records, and more.
 ## **References**
 
 * All free courses of [**@Jhaddix**](https://twitter.com/Jhaddix) like [**The Bug Hunter's Methodology v4.0 - Recon Edition**](https://www.youtube.com/watch?v=p4JgIu1mceI)

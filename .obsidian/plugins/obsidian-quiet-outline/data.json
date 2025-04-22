@@ -1,7 +1,7 @@
 {
   "patch_color": true,
-  "primary_color_light": "#18a058",
-  "primary_color_dark": "#1e12ca",
+  "primary_color_light": "#ff0000",
+  "primary_color_dark": "#1000f5",
   "rainbow_line": true,
   "rainbow_color_1": "#25fb09",
   "rainbow_color_2": "#0110e4",

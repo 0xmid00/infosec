@@ -96,8 +96,8 @@ The information obtained from the `openid-configuration` endpoint provides multi
 3. `Supported Scopes and Response Types`: Understanding which scopes and response types are supported helps in mapping out the functionality and limitations of the OpenID Connect implementation.
 4. `Algorithm Details`: Information about supported signing algorithms can be crucial for understanding the security measures in place.
 ### [[network-services-pentesting/pentesting-web/README#Spidering|Creepy Crawlies]]
-### [[network-services-pentesting/pentesting-web/README#Google Dorking|Search Engine Discovery]]
-### Web Archives
+## [[generic-methodologies-and-resources/external-recon-methodology/README#Secrets Leaks|Search Engine Discovery]]
+## Web Archives
 ```bash
 https://web.archive.org/
 ```
@@ -107,3 +107,4 @@ a unique opportunity to revisit the past and explore the digital footprints of w
 2. `Tracking Changes and Identifying Patterns`
 3. `Gathering Intelligence`
 4. `Stealthy Reconnaissance`
+## [[generic-methodologies-and-resources/external-recon-methodology/README#**Full Recon Automatic Tools**|Automating Recon]]
