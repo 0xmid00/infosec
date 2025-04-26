@@ -129,9 +129,11 @@ sendEmail -t to@email.com -f from@email.com -s 192.168.8.131 -u Subject -a file.
 #DD copy hex bin file without first X (28) bytes
 dd if=file.bin bs=28 skip=1 of=blob
 
+mount -t nfs 10.129.190.232:/TechSupport mount -o nolock  # nsf mount  
 #Mount .vhd files (virtual hard drive)
 sudo apt-get install libguestfs-tools
 guestmount --add NAME.vhd --inspector --ro /mnt/vhd #For read-only, create first /mnt/vhd
+
 
 # ssh-keyscan, help to find if 2 ssh ports are from the same host comparing keys
 ssh-keyscan 10.10.10.101

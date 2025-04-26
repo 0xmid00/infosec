@@ -441,6 +441,8 @@ For this action you will need some **common subdomains wordlists like**:
 
 And also IPs of good DNS resolvers. In order to generate a list of trusted DNS resolvers you can download the resolvers from [https://public-dns.info/nameservers-all.txt](https://public-dns.info/nameservers-all.txt) and use [**dnsvalidator**](https://github.com/vortexau/dnsvalidator) to filter them. Or you could use: [https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt](https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt)
 
+ >⚠️ WARNING: Don't forget to check for sub-subdomains (e.g., sub.sub.domain.com)!
+
 The most recommended tools for DNS brute-force are:
 
 * [**massdns**](https://github.com/blechschmidt/massdns): This was the first tool that performed an effective DNS brute-force. It's very fast however it's prone to false positives.
@@ -548,6 +550,7 @@ Check this blog post I wrote about how to **automate the subdomain discovery** f
 
 If you found an IP address containing **one or several web pages** belonging to subdomains, you could try to **find other subdomains with webs in that IP** by looking in **OSINT sources** for domains in an IP or by **brute-forcing VHost domain names in that IP**.
 
+ >⚠️ WARNING: Don't forget to check for sub-subdomains (e.g., sub.sub.domain.com)!
 #### OSINT
 
 You can find some **VHosts in IPs using** [**HostHunter**](https://github.com/SpiderLabs/HostHunter) **or other APIs**.

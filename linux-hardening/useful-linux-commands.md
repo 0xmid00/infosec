@@ -47,9 +47,6 @@ ss -tulnp # list the open ports
 ss -twurp  # List the live processes & ports
 lsof  # List the live processes & ports
 
-systemctl list-units --type=service -all # list all services
-service --status-all # list all servies 
-
 ip route  # Displays current routing table
 sudo ip route add <destination_network> via <gateway> dev <interface> # sudo ip route add 192.168.1.0/24 via 192.168.0.1 dev eth0
 sudo ip addr add 192.168.1.100/24 dev eth0  # Assigns a static IP
@@ -126,7 +123,11 @@ lsof -n  # List open files
 
 # Installed packages (Debian)
 dpkg -l  # List installed packages
+sudo dpkg -i nessus.deb # install pkg 
 
+systemctl list-units --type=service -all # list all active services
+systemctl list-unit-files | grep -i nessusd #  list all  services
+service --status-all # list all servies 
 
 # Common software versions
 sudo -v
@@ -159,6 +160,8 @@ onesixtyone -c dict.txt 10.129.42.254 # Brute force SNMP secret string
 snmpbulkwalk -c [COMM_STRING] -v [VERSION] [IP] . #Don't forget the final dot
 snmpbulkwalk -c public -v2c 10.10.11.136 .
 snmpwalk -v [VERSION_SNMP] -c [COMM_STRING] [DIR_IP] .1 #Enum all
+
+xfreerdp /u:<username> /p:<password> /v:<IP> # connect to RDP 
 ```
 ## Common Bash
 
@@ -257,6 +260,7 @@ sendEmail -t to@email.com -f from@email.com -s 192.168.8.131 -u Subject -a file.
 #DD copy hex bin file without first X (28) bytes
 dd if=file.bin bs=28 skip=1 of=blob
 
+mount -t nfs 10.129.190.232:/TechSupport mount -o nolock # nfs mount
 #Mount .vhd files (virtual hard drive)
 sudo apt-get install libguestfs-tools
 guestmount --add NAME.vhd --inspector --ro /mnt/vhd #For read-only, create first /mnt/vhd

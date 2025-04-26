@@ -29,17 +29,19 @@ There are two main approaches to subdomain enumeration:
 2. Passive Subdomain Enumeration: Certificate Transparency (CT) logs , search engines, online databases 
 
  ### [[generic-methodologies-and-resources/external-recon-methodology/README#**DNS Brute force**|DNS Brute forcing ]]
- A DNS query is performed for each potential subdomain to check if it resolves to an IP address. This is typically done using the A or AAAA record type.
+ A DNS query is performed for each potential subdomain to check if it resolves to an IP address. This is typically done using the A or AAAA record type
 There are several tools available that excel at brute-force enumeration:
 
-|Tool|Description|
-|---|---|
-|[dnsenum](https://github.com/fwaeytens/dnsenum)|Comprehensive DNS enumeration tool that supports dictionary and brute-force attacks for discovering subdomains.|
-|[fierce](https://github.com/mschwager/fierce)|User-friendly tool for recursive subdomain discovery, featuring wildcard detection and an easy-to-use interface.|
-|[dnsrecon](https://github.com/darkoperator/dnsrecon)|Versatile tool that combines multiple DNS reconnaissance techniques and offers customisable output formats.|
-|[amass](https://github.com/owasp-amass/amass)|Actively maintained tool focused on subdomain discovery, known for its integration with other tools and extensive data sources.|
-|[assetfinder](https://github.com/tomnomnom/assetfinder)|Simple yet effective tool for finding subdomains using various techniques, ideal for quick and lightweight scans.|
-|[puredns](https://github.com/d3mondev/puredns)|Powerful and flexible DNS brute-forcing tool, capable of resolving and filtering results effectively.|
+| Tool                                                    | Description                                                                                                                     |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| [dnsenum](https://github.com/fwaeytens/dnsenum)         | Comprehensive DNS enumeration tool that supports dictionary and brute-force attacks for discovering subdomains.                 |
+| [fierce](https://github.com/mschwager/fierce)           | User-friendly tool for recursive subdomain discovery, featuring wildcard detection and an easy-to-use interface.                |
+| [dnsrecon](https://github.com/darkoperator/dnsrecon)    | Versatile tool that combines multiple DNS reconnaissance techniques and offers customisable output formats.                     |
+| [amass](https://github.com/owasp-amass/amass)           | Actively maintained tool focused on subdomain discovery, known for its integration with other tools and extensive data sources. |
+| [assetfinder](https://github.com/tomnomnom/assetfinder) | Simple yet effective tool for finding subdomains using various techniques, ideal for quick and lightweight scans.               |
+| [puredns](https://github.com/d3mondev/puredns)          | Powerful and flexible DNS brute-forcing tool, capable of resolving and filtering results effectively.                           |
+ >⚠️ WARNING: Don't forget to check for sub-subdomains (e.g., sub.sub.domain.com)!
+ 
  ### [[generic-methodologies-and-resources/external-recon-methodology/README#DNS Zone Transfer|DNS Zone Transfer]]
  ### [[generic-methodologies-and-resources/external-recon-methodology/README#**VHosts / Virtual Hosts**|Virtual Hosts]]
 `virtual hosting` is the ability of web servers to distinguish between multiple websites or applications sharing the same IP address. This is achieved by leveraging the `HTTP Host` header.
@@ -52,6 +54,7 @@ There are several tools available that excel at brute-force enumeration:
 There are a couple of things you need to prepare to brute force `Host` headers:
 1. Target Identification: find the domain ip add add it to /etc/hosts
 2. `Wordlist Preparation`
+ >⚠️ WARNING: Don't forget to check for sub-subdomains (e.g., sub.sub.domain.com)!
  ### [[generic-methodologies-and-resources/external-recon-methodology/README#Certificate Transparency Logs|Certificate Transparency Logs]]
 
 ## Fingerprinting
@@ -67,7 +70,8 @@ There are a couple of things you need to prepare to brute force `Host` headers:
 ### [[network-services-pentesting/pentesting-web/README#Initial checks|robots.txt]]
 it a file  contains instructions in the form of "directives" that tell bots which parts of the website they can and cannot crawl, can serves as a valuable source of intelligence:
 `Uncovering Hidden Directories`,`Mapping Website Structure`, `Detecting Crawler Traps`
-### [[network-services-pentesting/pentesting-web/README#Initial checks|robots.txt]]
+
+ >⚠️ WARNING: Don't forget to Brute forcing the directories in disallowed paths 
 ### [[network-services-pentesting/pentesting-web/README#Initial checks|well-known]]
 accessible via the `/.well-known/` path on a web server, centralizes a website's critical metadata, including configuration files and information related to its services, protocols, and security mechanisms.(ex. `/.well-known/openid-configuration`)
 
