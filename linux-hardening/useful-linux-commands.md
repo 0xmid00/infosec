@@ -234,6 +234,7 @@ bzip2 -d /path/to/yourfile.bz2
 tar jxf file.tar.bz2
 gunzip /path/to/yourfile.gz
 unzip file.zip
+gunzip -S .zip <file>.zip
 7z -x file.7z
 sudo apt-get install xz-utils; unxz file.xz
 

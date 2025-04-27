@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/Exfiltration.md",
-                "mode": "preview",
+                "file": "generic-methodologies-and-resources/CPTS/5-File Transfers/Miscellaneous File Transfer Methods.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Exfiltration"
+              "title": "Miscellaneous File Transfer Methods"
             }
           },
           {
@@ -36,27 +36,13 @@
             }
           },
           {
-            "id": "fea6348f42b5d348",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "basic-cmd-for-pentesters"
-            }
-          },
-          {
             "id": "bb953ca99b5a1d93",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "linux-hardening/useful-linux-commands.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -64,7 +50,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -96,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "empire",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -137,13 +123,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "linux-hardening/useful-linux-commands.md",
+                "file": "generic-methodologies-and-resources/Exfiltration.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of useful-linux-commands"
+              "title": "Outline of Exfiltration"
             }
           },
           {
@@ -211,35 +197,35 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "bb953ca99b5a1d93",
+  "active": "e1cee3bf2233ad94",
   "lastOpenFiles": [
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/Miscellaneous File Transfer Methods.md",
+    "generic-methodologies-and-resources/Exfiltration.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/Linux File Transfer Methods.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/Transferring Files with Code.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/python/venv.md",
+    "generic-methodologies-and-resources/python/README.md",
+    "generic-methodologies-and-resources/python/class-pollution-pythons-prototype-pollution.md",
+    "generic-methodologies-and-resources/python/basic-python.md",
+    "generic-methodologies-and-resources/python/bruteforce-hash-few-chars.md",
+    "generic-methodologies-and-resources/python/python-internal-read-gadgets.md",
+    "generic-methodologies-and-resources/python/web-requests.md",
+    "generic-methodologies-and-resources/python/basics.md",
+    "windows-hardening/basic-cmd-for-pentesters.md",
     "linux-hardening/useful-linux-commands/README.md",
     "windows-hardening/basic-powershell-for-pentesters/README.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "generic-methodologies-and-resources/Exfiltration.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
-    "generic-methodologies-and-resources/python/basics.md",
-    "generic-methodologies-and-resources/python/basic-python.md",
-    "generic-methodologies-and-resources/python/README.md",
-    "generic-methodologies-and-resources/python/python-internal-read-gadgets.md",
     "generic-methodologies-and-resources/bash/README.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/README.md",
     "generic-methodologies-and-resources/shells/windows.md",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Reporting.md",
-    "linux-hardening/useful-linux-commands.md",
     "network-services-pentesting/pentesting-rdp.md",
     "network-services-pentesting/pentesting-smb/README.md",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Nessus Setting and scanning.md",
     "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/Staff.md",
-    "windows-hardening/ntlm/wmiexec.md",
-    "windows-hardening/lateral-movement/dcom-exec.md",
-    "windows-hardening/authentication-credentials-uac-and-efs.md",
-    "generic-methodologies-and-resources/shells/README.md",
-    "generic-methodologies-and-resources/shells/msfvenom.md",
-    "generic-methodologies-and-resources/shells/web shells.md",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Untitled",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment",
     "Untitled.canvas",
