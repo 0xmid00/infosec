@@ -186,6 +186,8 @@ wc -c #Chars
 # compare files line by line
 diff <file1>  <file2>
 
+hasher <file> # check MD5 message digest
+
 #Sort
 sort -u # removes any duplicate lines after sorting
 sort -nr #Sort by number and then reverse

