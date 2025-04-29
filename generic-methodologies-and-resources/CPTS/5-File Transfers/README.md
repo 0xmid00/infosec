@@ -4,3 +4,9 @@ Understanding different ways to perform file transfers and how networks operate 
 ##  [[Windows File Transfer Methods]]
 ## [[Linux File Transfer Methods]]
 ## [[Transferring Files with Code]]
+## [[Miscellaneous File Transfer Methods]]
+## [[Protected File Transfers]]
+## [[Catching Files over HTTPS]]
+## [[Detection]]
+
+## [[Evading Detection]]
