@@ -63,3 +63,7 @@ When considering how we will establish a shell session on a Unix/Linux system, w
 - What application is the system hosting?
 - Are there any known vulnerabilities?
 check => [[linux| NIX Shells]]
+##  Web Shells
+
+A `web shell` is a browser-based shell session we can use to interact with the underlying operating system of a web server
+ see more =>  [[web shells| Web Shells]]

@@ -457,6 +457,7 @@ grep -E "tesla.com. [0-9]+ IN A .+" /tmp/results.txt
 
 ```
 dnsenum --enum inlanefreight.com -f /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -r
+# u can spesify the dns server `--dnsserver`
 ```
 * [**gobuster**](https://github.com/OJ/gobuster): This one I think just uses 1 resolver
 

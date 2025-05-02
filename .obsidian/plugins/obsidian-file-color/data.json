@@ -72,6 +72,10 @@
     {
       "path": "windows-hardening/basic-powershell-for-pentesters/README.md",
       "color": "NonuPRb6FU0P_Z2Wu0y9U"
+    },
+    {
+      "path": "windows-hardening/basic-cmd-for-pentesters.md",
+      "color": "CeBNZ5qbSJ7XCeWtxMd_E"
     }
   ]
 }
