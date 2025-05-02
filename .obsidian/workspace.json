@@ -8,49 +8,48 @@
         "type": "tabs",
         "children": [
           {
-            "id": "00f9701e15a5a246",
+            "id": "062793d70b53a929",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/5-File Transfers/Evading Detection.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Evading Detection"
-            }
-          },
-          {
-            "id": "e1cee3bf2233ad94",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
+                "file": "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/READEME.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "READEME"
             }
           },
           {
-            "id": "be10ab03db02bb93",
+            "id": "8072639bb9d47346",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/Exfiltration.md",
+                "file": "generic-methodologies-and-resources/shells/full-ttys.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Exfiltration"
+              "title": "full-ttys"
+            }
+          },
+          {
+            "id": "037c822bb0e46b01",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux-hardening/useful-linux-commands.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "useful-linux-commands"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +81,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "nishang",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -107,7 +106,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 417.5
+    "width": 380.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -123,13 +122,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
+                "file": "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/READEME.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of README"
+              "title": "Outline of READEME"
             }
           },
           {
@@ -184,7 +183,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 361.5
+    "width": 467.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -197,36 +196,38 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e1cee3bf2233ad94",
+  "active": "062793d70b53a929",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Detection.md",
+    "generic-methodologies-and-resources/shells/linux.md",
+    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/READEME.md",
+    "generic-methodologies-and-resources/shells/full-ttys.md",
+    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Windows Shells.md",
+    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/NIX Shells.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
+    "generic-methodologies-and-resources/shells/README.md",
+    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Untitled",
+    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Introduction.md",
+    "generic-methodologies-and-resources/shells/windows.md",
+    "windows-hardening/basic-cmd-for-pentesters.md",
+    "windows-hardening/basic-powershell-for-pentesters/README.md",
+    "network-services-pentesting/pentesting-smb/README.md",
+    "windows-hardening/lateral-movement/wmiexec.md",
+    "generic-methodologies-and-resources/bash/README.md",
+    "generic-methodologies-and-resources/shells/msfvenom.md",
+    "exploiting/windows-exploiting-basic-guide-oscp-lvl.md",
+    "binary-exploitation/windows-exploiting-basic-guide-oscp-lvl.md",
+    "windows-hardening/active-directory-methodology/security-descriptors.md",
+    "windows-hardening/lateral-movement/README.md",
+    "windows-hardening/checklist-windows-privilege-escalation 2.md",
+    "windows-hardening/basic-powershell-for-pentesters/powerview.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/Transferring Files with Code.md",
     "generic-methodologies-and-resources/Exfiltration.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Evading Detection.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Catching Files over HTTPS.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Protected File Transfers.md",
-    "linux-hardening/useful-linux-commands.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Miscellaneous File Transfer Methods.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Transferring Files with Code.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Living Of The Land.md",
+    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Untitled",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Linux File Transfer Methods.md",
-    "generic-methodologies-and-resources/python/venv.md",
-    "generic-methodologies-and-resources/python/README.md",
-    "generic-methodologies-and-resources/python/class-pollution-pythons-prototype-pollution.md",
-    "generic-methodologies-and-resources/python/basic-python.md",
-    "generic-methodologies-and-resources/python/bruteforce-hash-few-chars.md",
-    "generic-methodologies-and-resources/python/python-internal-read-gadgets.md",
-    "generic-methodologies-and-resources/python/web-requests.md",
-    "generic-methodologies-and-resources/python/basics.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "linux-hardening/useful-linux-commands/README.md",
-    "windows-hardening/basic-powershell-for-pentesters/README.md",
-    "generic-methodologies-and-resources/bash/README.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers",
-    "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/README.md",
-    "generic-methodologies-and-resources/shells/windows.md",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Untitled",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment",
     "Untitled.canvas",
@@ -235,8 +236,6 @@
     "Excalidraw/Scripts/Downloaded",
     "Excalidraw/Scripts",
     "generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition",
-    "generic-methodologies-and-resources/CPTS/1-  Penetration Testing Process",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting",
     "generic-methodologies-and-resources/Untitled.canvas",
     "images/privesc.png",
     "images/markdown-map(6).png",

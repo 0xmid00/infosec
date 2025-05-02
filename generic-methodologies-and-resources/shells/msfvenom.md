@@ -43,6 +43,9 @@ One can also use the `-a` to specify the architecture or the `--platform`
 ```bash
 msfvenom -l payloads #Payloads
 msfvenom -l encoders #Encoders
+
+# staged : windows/meterpreter/reverse_tcp
+# stageless : windows/meterpreter_reverse_tcp
 ```
 
 ## Common params when creating a shellcode

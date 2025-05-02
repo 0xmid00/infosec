@@ -68,6 +68,10 @@
     {
       "path": "generic-methodologies-and-resources/tunneling-and-port-forwarding.md",
       "color": "SPXBtbBqgOiZ2D9mNxBN-"
+    },
+    {
+      "path": "windows-hardening/basic-powershell-for-pentesters/README.md",
+      "color": "NonuPRb6FU0P_Z2Wu0y9U"
     }
   ]
 }

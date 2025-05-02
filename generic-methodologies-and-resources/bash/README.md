@@ -76,7 +76,8 @@ echo "ahmed" >> file.txt # append the stdout to the file file.txt
  ls -l / 2> file.txt 
  
 # stdout + stderr (&>, >&)
-ls -l / &> stdout_stderr.txt # redirect the both stdout and stderr to the file 
+ls -l / &> stdout_stderr.txt # redirect the both stdout and stderr to the file
+ls -l / 2>&1 stdout_stderr.txt # redirect the both stdout and stderr to the file
 ls -l / 1> stdout.txt 2> stderr.txt # redirect the stdout to a file and the stderr to another file 
 
 # stdin ( < )

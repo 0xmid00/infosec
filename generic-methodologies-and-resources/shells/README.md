@@ -24,7 +24,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 # [**MSFVenom - CheatSheet**](msfvenom.md)
 
 # [**Full TTYs**](full-ttys.md)
-# villain
+
 
 # **Auto-generated shells**
 
@@ -38,6 +38,8 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 * [**https://weibell.github.io/reverse-shell-generator/**](https://weibell.github.io/reverse-shell-generator/)
 * [**https://github.com/t0thkr1s/revshellgen**](https://github.com/t0thkr1s/revshellgen)
 * [**https://github.com/mthbernardes/rsg**](https://github.com/mthbernardes/rsg)
+* [Villain](https://github.com/t3l3machus/Villain)
+* [**https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md**](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
 
 
 
