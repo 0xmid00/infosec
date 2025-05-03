@@ -13,64 +13,22 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/READEME.md",
+                "file": "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Detection & Prevention.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "READEME"
+              "title": "Detection & Prevention"
             }
           },
           {
-            "id": "7bc19576f954a6c2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/shells/web shells.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "web shells"
-            }
-          },
-          {
-            "id": "9e215fc6cea6238b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/shells/windows.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "windows"
-            }
-          },
-          {
-            "id": "f096d758ec0d1e88",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/basic-powershell-for-pentesters/README.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
-            "id": "11222d723d179ad3",
+            "id": "3dbdab74e5288d23",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -78,20 +36,21 @@
             }
           },
           {
-            "id": "7b24310e7f41853c",
+            "id": "5c2fba8e219383da",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "pentesting-web/file-upload/README.md",
-                "mode": "preview",
+                "file": "linux-hardening/useful-linux-commands.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "useful-linux-commands"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -123,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "nishang",
+                "query": "tomcat",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -148,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 453.5
+    "width": 381.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -164,13 +123,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/READEME.md",
+                "file": "windows-hardening/basic-cmd-for-pentesters.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of READEME"
+              "title": "Outline of basic-cmd-for-pentesters"
             }
           },
           {
@@ -225,7 +184,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 467.5
+    "width": 336.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -238,41 +197,41 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "062793d70b53a929",
+  "active": "3dbdab74e5288d23",
   "lastOpenFiles": [
-    "pentesting-web/file-upload/README.md",
-    "generic-methodologies-and-resources/shells/web shells.md",
-    "generic-methodologies-and-resources/shells/windows.md",
+    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Detection & Prevention.md",
     "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/READEME.md",
-    "network-services-pentesting/pentesting-web/README.md",
-    "network-services-pentesting/pentesting-web/tomcat.md",
-    "network-services-pentesting/pentesting-web/put-method-webdav.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "windows-hardening/basic-powershell-for-pentesters/README.md",
-    "windows-hardening/checklist-windows-privilege-escalation.md",
     "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Windows Shells.md",
+    "generic-methodologies-and-resources/shells/web shells.md",
     "generic-methodologies-and-resources/external-recon-methodology/README.md",
-    "generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/README.md",
-    "generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/Introduction.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
-    "generic-methodologies-and-resources/shells/README.md",
-    "generic-methodologies-and-resources/shells/full-ttys.md",
-    "generic-methodologies-and-resources/shells/linux.md",
-    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/NIX Shells.md",
+    "1911-pentesting-fox.md",
+    "windows-hardening/basic-cmd-for-pentesters.md",
+    "windows-hardening/lateral-movement/README.md",
+    "windows-hardening/authentication-credentials-uac-and-efs/README.md",
+    "linux-hardening/linux-exploitation/README.md",
     "linux-hardening/useful-linux-commands.md",
+    "network-services-pentesting/pentesting-web/README.md",
+    "network-services-pentesting/pentesting-web/tomcat/README.md",
+    "Untitled.canvas",
+    "linux-hardening/linux-post-exploitation/README.md",
+    "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Reporting.md",
+    "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/README.md",
+    "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Common Vulnerabilities and Exposures (CVE).md",
+    "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Assessment Standards.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/Staff.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/pentesting-methodology.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/Domain Information.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/enumeration methodology.md",
+    "generic-methodologies-and-resources/CPTS/1-  Penetration Testing Process/Legal Considerations.md",
+    "linux-hardening/linux-environment-variables.md",
+    "linux-hardening/linux-privilege-escalation-checklist.md",
     "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Untitled",
-    "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Introduction.md",
-    "network-services-pentesting/pentesting-smb/README.md",
-    "windows-hardening/lateral-movement/wmiexec.md",
-    "generic-methodologies-and-resources/bash/README.md",
-    "generic-methodologies-and-resources/shells/msfvenom.md",
-    "exploiting/windows-exploiting-basic-guide-oscp-lvl.md",
     "generic-methodologies-and-resources/CPTS/6-Shells & Payloads",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Untitled",
     "generic-methodologies-and-resources/CPTS/5-File Transfers",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Untitled",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment",
-    "Untitled.canvas",
     "Excalidraw",
     "Excalidraw/Scripts/Downloaded/Mindmap format.svg",
     "Excalidraw/Scripts/Downloaded",

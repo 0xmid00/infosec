@@ -76,6 +76,10 @@
     {
       "path": "windows-hardening/basic-cmd-for-pentesters.md",
       "color": "CeBNZ5qbSJ7XCeWtxMd_E"
+    },
+    {
+      "path": "linux-hardening/useful-linux-commands.md",
+      "color": "SPXBtbBqgOiZ2D9mNxBN-"
     }
   ]
 }
