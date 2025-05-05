@@ -29,6 +29,7 @@ id
 echo $PATH  # Path
 
 # System Info:
+cat /etc/os-release
 uname -a         # Show system info + kernal version
 hostnamectl  # system inforamtion
 uptime           # Show system uptime
@@ -335,6 +336,24 @@ python pyinstaller.py --onefile exploit.py
 #Compile for windows
 #sudo apt-get install gcc-mingw-w64-i686
 i686-mingw32msvc-gcc -o executable useradd.c
+
+# Compile malicious NSS module (shared object)
+gcc -O3 -static -shared -nostdlib -o libnss_x/x.so.2 shellcode.c
+# -O3        : Max optimization
+# -static    : Include all libs inside the file (no external .so needed)
+# -shared    : Build a shared object (.so file)
+# -nostdlib  : Don’t link standard C libraries (libc, etc.)
+# -o         : Output file
+# shellcode.c: Source file with payload or custom _start
+
+# Compile the main exploit binary
+gcc -O3 -static -o exploit exploit.c
+# -O3        : Max optimization
+# -static    : Statically link everything (no external dependencies)
+# -o         : Output file
+# exploit.c  : Source file for exploit logic
+# -m32       : Compile for 32-bit
+# -m64       : Compile for 64-bit
 ```
 
 ## Greps

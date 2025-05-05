@@ -117,6 +117,7 @@ Get Access Today:
 
 {% embed url="https://trickest.com/?utm_source=hacktricks&utm_medium=banner&utm_campaign=ppc&utm_content=brute-force" %}
 
+
 ## Services
 
 Ordered alphabetically by service name.
@@ -784,6 +785,140 @@ hash-identifier
 kwp64.exe basechars\custom.base keymaps\uk.keymap routes\2-to-10-max-3-direction-changes.route -o D:\Tools\keywalk.txt
 ```
 
+### John the Ripper
+```bash
+# John the Ripper:
+
+- Used to crack password hashes (brute force & dictionary attacks)
+- Open-source, started in 1996, mainly for UNIX
+- "Jumbo" version is better (extra features + 64-bit support)
+- Supports many hash formats (convert with tools if needed)
+- Regularly updated for latest security standards
+
+## Supported Encryption Types (Examples)
+- UNIX crypt(3)            -> 56-bit key
+- Traditional DES          -> DES algorithm
+- bigcrypt                 -> Extended DES, 128-bit
+- BSDI DES                 -> Extended DES, 168-bit
+- FreeBSD MD5 (Linux/Cisco)-> MD5, 128-bit
+- OpenBSD Blowfish         -> Blowfish, 448-bit
+- Kerberos/AFS             -> Secure auth systems
+- Windows LM               -> DES, 56-bit
+- DES tripcodes            -> Auth based on DES
+- SHA-crypt (Fedora/Ubuntu)-> 256-bit
+- SHA-crypt & SUNMD5       -> Used in Solaris
+## ...many more supported
+
+# Attack Methods
+## Dictionary Attack
+- Tries known/common passwords
+- Fast if password is weak
+- Fix: use strong, unique passwords + 2FA
+## Brute Force
+- Tries every possible combo
+- Very slow
+- Fix: long + complex passwords
+## Rainbow Table
+- Uses pre-made hash-password list
+- Fast but limited to known hashes
+- Fix: use salted hashes
+
+# Cracking Modes
+## Single Crack Mode :Tries passwords from one list , Basic but slow
+john --format=<hash_type> <hash_file>
+## Wordlist Mode :  Uses a list of words to crack passwords ,More effective than Single Crack Mode
+john --wordlist=<wordlist_file> --rules <hash_file>
+## Incremental Mode : Tries all possible character combinations , Slow, but effective for weak passwords
+john --incremental <hash_file>
+
+## Hash Formats :
+----------------
+afs             - AFS (Andrew File System) password hashes
+bfegg           - bfegg hashes used in Eggdrop IRC bots
+bf              - Blowfish-based crypt(3) hashes
+bsdi            - BSDi crypt(3) hashes
+crypt(3)        - Traditional Unix crypt(3) hashes
+des             - Traditional DES-based crypt(3) hashes
+dmd5            - DMD5 (Dragonfly BSD MD5) password hashes
+dominosec       - IBM Lotus Domino 6/7 password hashes
+episerver       - EPiServer SID (Security Identifier) password hashes
+hdaa            - hdaa password hashes used in Openwall GNU/Linux
+hmac-md5        - hmac-md5 password hashes
+hmailserver     - hmailserver password hashes
+ipb2            - Invision Power Board 2 password hashes
+krb4            - Kerberos 4 password hashes
+krb5            - Kerberos 5 password hashes
+LM              - LM (Lan Manager) password hashes
+lotus5          - Lotus Notes/Domino 5 password hashes
+mscash          - MS Cache password hashes
+mscash2         - MS Cache v2 password hashes
+mschapv2        - MS CHAP v2 password hashes
+mskr5           - MS Kerberos 5 password hashes
+mssql05         - MS SQL 2005 password hashes
+mssql           - MS SQL password hashes
+mysql-fast      - MySQL fast password hashes
+mysql           - MySQL password hashes
+mysql-sha1      - MySQL SHA1 password hashes
+netlm           - NETLM (NT LAN Manager) password hashes
+netlmv2         - NETLMv2 (NT LAN Manager version 2) password hashes
+netntlm         - NETNTLM (NT LAN Manager) password hashes
+netntlmv2       - NETNTLMv2 (NT LAN Manager version 2) password hashes
+nethalflm       - NEThalfLM (NT LAN Manager) password hashes
+md5ns           - md5ns (MD5 namespace) password hashes
+nsldap          - nsldap (OpenLDAP SHA) password hashes
+ssha            - ssha (Salted SHA) password hashes
+NT              - NT (Windows NT) password hashes
+openssha        - OPENSSH private key password hashes
+oracle11        - Oracle 11 password hashes
+oracle          - Oracle password hashes
+pdf             - PDF (Portable Document Format) password hashes
+phpass-md5      - PHPass-MD5 (Portable PHP password hashing framework) password hashes
+phps            - PHPS password hashes
+pix-md5         - Cisco PIX MD5 password hashes
+po              - Po (Sybase SQL Anywhere) password hashes
+rar             - RAR (WinRAR) password hashes
+raw-md4         - Raw MD4 password hashes
+raw-md5         - Raw MD5 password hashes
+raw-md5-unicode - Raw MD5 Unicode password hashes
+raw-sha1        - Raw SHA1 password hashes
+raw-sha224      - Raw SHA224 password hashes
+raw-sha256      - Raw SHA256 password hashes
+raw-sha384      - Raw SHA384 password hashes
+raw-sha512      - Raw SHA512 password hashes
+salted-sha      - Salted SHA password hashes
+sapb            - SAP CODVN B (BCODE) password hashes
+sapg            - SAP CODVN G (PASSCODE) password hashes
+sha1-gen        - Generic SHA1 password hashes
+skey            - S/Key (One-time password) hashes
+ssh             - SSH (Secure Shell) password hashes
+sybasease       - Sybase ASE password hashes
+xsha            - xsha (Extended SHA) password hashes
+zip             - ZIP (WinZip) password hashes
+
+# Cracking Files
+## Step 1: Convert file to hash
+<tool> <target_file> > file.hash
+pdf2john secret.pdf > secret.hash # Example: Crack a PDF
+john secret.hash
+john --wordlist=rockyou.txt secret.hash # OR with wordlist
+## Common *2john Tools:
+pdf2john             → PDF documents  
+ssh2john             → SSH private keys  
+mscash2john          → MS Cash hashes  
+keychain2john        → macOS keychains  
+rar2john             → RAR archives  
+pfx2john             → PKCS#12 certs (.pfx)  
+truecrypt_volume2john → TrueCrypt volumes  
+keepass2john         → KeePass DBs  
+vncpcap2john         → VNC PCAPs  
+putty2john           → PuTTY private keys  
+zip2john             → ZIP archives  
+hccap2john           → WPA/WPA2 handshakes  
+office2john          → MS Office docs  
+wpa2john             → WPA/WPA2 handshakes
+## 🔍 Find all conversion tools:
+locate *2john*
+```
 ### John mutation
 
 Read _**/etc/john/john.conf**_ and configure it
