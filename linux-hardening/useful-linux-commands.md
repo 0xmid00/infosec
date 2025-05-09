@@ -197,16 +197,18 @@ cat file | sort | uniq -u # sort and displays the lines that appear once
 #Replace in file
 sed -i 's/OLD/NEW/g' path/file #Replace string inside a file
 sed -r '/^\s*$/d' # **deletes empty lines or lines that contain only whitespace** (spaces, tabs, etc.)
+sed -ri '/^.{,9}$/d' mut_password.list # Remove all passwords shorter than 10 with sed -ri '/^.{,9}$/d' mut_password.list
+
 echo "mido ahmed rawen 2002" | awk '{print $1}'  # mido
 echo "hate rawen : love rawen" | cut -f 2 -d ":" # love rawen
 cat file.json | jq . # output the results in JSON format
 -------
-grep "ahmed" -rw .  # finds all files in the current directory and subfolders that contain the exact word "ahmed" and shows the matching lines with file paths
+grep "ahmed" -rwn .  # finds all files in the current directory and subfolders that contain the exact word "ahmed" and shows the matching lines with file paths
 -r  Search recursively in all subdirectories  
 -w  Match whole words only (not part of another word)
 -i Ignore case (don’t use if you want case-sensitive)
 -x Match exact full line
-- n show the line number 
+-n show the line number 
 -------
  # search 
 

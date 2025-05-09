@@ -273,7 +273,7 @@ impacket-smbserver -smb2support -user test -password test test `pwd`
 sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test # spesifice folder
 
 # or 
-python /usr/share/doc/python3-impacket/examples/smbserver.py tmp .
+python /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support tmp . 
 
 #copy of a file from the shared folder 
 smbclient //HOST/tmp -U guest -c 'get file.txt'

