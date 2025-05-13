@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "0cd77f750fbeabc2",
+            "id": "32feadc87da728e9",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -22,91 +22,35 @@
             }
           },
           {
-            "id": "00e90c364c0690a7",
+            "id": "d89d6bbd235d1108",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/brute-force.md",
+                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "brute-force"
+              "title": "Windows Lateral Movement"
             }
           },
           {
-            "id": "6ba14a80b5ebd289",
+            "id": "339dee0eaccd2f73",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/Remote Password Attacks.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Remote Password Attacks"
-            }
-          },
-          {
-            "id": "b4e95f8afbddc877",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "basic-cmd-for-pentesters"
-            }
-          },
-          {
-            "id": "6daf2095769755e1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/Exfiltration.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Exfiltration"
-            }
-          },
-          {
-            "id": "7cc11b01445bfea3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
+                "file": "windows-hardening/active-directory-methodology/constrained-delegation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
-            "id": "f0eb8162e61b5963",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "linux-hardening/useful-linux-commands.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "useful-linux-commands"
+              "title": "constrained-delegation"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -138,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "evil-winrm",
+                "query": "sekurlsa ekeys",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -163,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 381.5
+    "width": 313.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -179,13 +123,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/Remote Password Attacks.md",
+                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Remote Password Attacks"
+              "title": "Outline of Windows Lateral Movement"
             }
           },
           {
@@ -240,7 +184,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 420.5
+    "width": 462.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -253,34 +197,34 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "6ba14a80b5ebd289",
+  "active": "d89d6bbd235d1108",
   "lastOpenFiles": [
-    "linux-hardening/useful-linux-commands.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Remote Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Local Password Attacks.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
     "windows-hardening/stealing-credentials/README.md",
-    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
+    "windows-hardening/stealing-credentials/credentials-mimikatz.md",
+    "windows-hardening/stealing-credentials/credentials-protections.md",
+    "windows-hardening/active-directory-methodology/constrained-delegation.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
+    "windows-hardening/active-directory-methodology/README.md",
+    "windows-hardening/active-directory-methodology/laps.md",
+    "windows-hardening/active-directory-methodology/kerberos-authentication.md",
+    "windows-hardening/active-directory-methodology/golden-ticket.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Remote Password Attacks.md",
     "generic-methodologies-and-resources/Exfiltration.md",
-    "generic-methodologies-and-resources/brute-force.md",
-    "network-services-pentesting/5985-5986-pentesting-winrm.md",
-    "network-services-pentesting/pentesting-smb/README.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
-    "generic-methodologies-and-resources/CPTS/7.Using the Metasploit Framework/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Introduction.md",
-    "windows-hardening/active-directory-methodology/golden-ticket.md",
     "network-services-pentesting/pentesting-smb.md",
-    "network-services-pentesting/pentesting-mysql.md",
-    "generic-methodologies-and-resources/bash/README.md",
-    "network-services-pentesting/pentesting-rdp.md",
-    "network-services-pentesting/nfs-service-pentesting.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/Staff.md",
-    "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Common Vulnerability Scoring System (CVSS).md",
-    "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Common Vulnerabilities and Exposures (CVE).md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Catching Files over HTTPS.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Introduction.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Local Password Attacks.md",
+    "windows-hardening/ntlm/README.md",
+    "windows-hardening/lateral-movement/psexec-and-winexec.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/pentesting-methodology.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/enumeration methodology.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/Domain Information.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/Cloud Resource.md",
+    "windows-hardening/lateral-movement/wmiexec.md",
+    "generic-methodologies-and-resources/pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks",
     "generic-methodologies-and-resources/CPTS/7.Using the Metasploit Framework",
     "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Untitled",
