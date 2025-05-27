@@ -3,3 +3,5 @@
 
 ### [[Windows Local Password Attacks]]
 ## [[Linux Local Password Attacks]]
+## [[Windows Lateral Movement]]
+## [[Cracking Files]]

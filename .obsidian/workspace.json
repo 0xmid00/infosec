@@ -8,49 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "32feadc87da728e9",
+            "id": "ec76323e0a0166cb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows-hardening/stealing-credentials/README.md",
+                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
-            "id": "d89d6bbd235d1108",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Windows Lateral Movement"
-            }
-          },
-          {
-            "id": "339dee0eaccd2f73",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/active-directory-methodology/constrained-delegation.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "constrained-delegation"
+              "title": "4-SQL Databases"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "sekurlsa ekeys",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -107,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 313.5
+    "width": 250.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -123,13 +94,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
+                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Windows Lateral Movement"
+              "title": "Outline of 4-SQL Databases"
             }
           },
           {
@@ -184,7 +155,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 462.5
+    "width": 481.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -197,34 +168,36 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "d89d6bbd235d1108",
+  "active": "ec76323e0a0166cb",
   "lastOpenFiles": [
-    "windows-hardening/stealing-credentials/README.md",
-    "windows-hardening/stealing-credentials/credentials-mimikatz.md",
-    "windows-hardening/stealing-credentials/credentials-protections.md",
-    "windows-hardening/active-directory-methodology/constrained-delegation.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
-    "windows-hardening/active-directory-methodology/README.md",
-    "windows-hardening/active-directory-methodology/laps.md",
-    "windows-hardening/active-directory-methodology/kerberos-authentication.md",
-    "windows-hardening/active-directory-methodology/golden-ticket.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Remote Password Attacks.md",
-    "generic-methodologies-and-resources/Exfiltration.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/README.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
+    "generic-methodologies-and-resources/brute-force.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-smb.md",
     "network-services-pentesting/pentesting-smb.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Introduction.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Local Password Attacks.md",
-    "windows-hardening/ntlm/README.md",
-    "windows-hardening/lateral-movement/psexec-and-winexec.md",
+    "network-services-pentesting/pentesting-ftp/README.md",
+    "network-services-pentesting/pentesting-smb/rpcclient-enumeration.md",
     "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/pentesting-methodology.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/enumeration methodology.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/Domain Information.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/Cloud Resource.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
+    "network-services-pentesting/pentesting-voip/basic-voip-protocols/sip-session-initiation-protocol.md",
+    "windows-hardening/active-directory-methodology/kerberoast.md",
+    "windows-hardening/active-directory-methodology/external-forest-domain-oneway-inbound.md",
+    "network-services-pentesting/515-pentesting-line-printer-daemon-lpd.md",
+    "mobile-pentesting/ios-pentesting/ios-basics.md",
+    "windows-hardening/active-directory-methodology/README.md",
+    "reversing/reversing-tools/README.md",
+    "network-services-pentesting/pentesting-kerberos-88/README.md",
+    "mobile-pentesting/ios-pentesting/README.md",
+    "generic-methodologies-and-resources/pentesting-wifi/README.md",
+    "exploiting/linux-exploiting-basic-esp/README.md",
+    "linux-hardening/useful-linux-commands/README.md",
+    "network-services-pentesting/135-pentesting-msrpc.md",
     "windows-hardening/lateral-movement/wmiexec.md",
-    "generic-methodologies-and-resources/pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/pentesting-methodology.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-FTP.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services",
+    "Excalidraw",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks",
     "generic-methodologies-and-resources/CPTS/7.Using the Metasploit Framework",
     "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/Untitled",
@@ -234,9 +207,7 @@
     "generic-methodologies-and-resources/CPTS/5-File Transfers",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Untitled",
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment",
-    "Excalidraw",
     "Excalidraw/Scripts/Downloaded/Mindmap format.svg",
-    "Excalidraw/Scripts/Downloaded",
     "generic-methodologies-and-resources/Untitled.canvas",
     "images/privesc.png",
     "images/markdown-map(6).png",

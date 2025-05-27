@@ -318,6 +318,15 @@ Get Access Today:
 
 {% embed url="https://trickest.com/?utm_campaign=hacktrics&utm_medium=banner&utm_source=hacktricks" %}
 
+## Domain
+
+```bash
+realm list # Checking domain access setup
+id <user>@<domain> #  Checking what groups a user belongs to
+ps -ef | grep -i "winbind\|sssd" # Check If Linux Machine is Domain Joine
+
+
+```
 ## Bash for Windows
 
 ```bash
