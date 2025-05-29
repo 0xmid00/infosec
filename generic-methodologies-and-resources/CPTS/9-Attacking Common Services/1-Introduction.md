@@ -51,4 +51,9 @@ https://www.youtube.com/watch?v=gU6iQP5rFMw # dbeaver #  Video - Connecting to M
 https://www.youtube.com/watch?v=PeuWmz8S6G8 # Video - Connecting to MySQL DB using dbeaver
 ```
 
+## Latest Email Service Vulnerabilities
+```bash
 
+
+
+```

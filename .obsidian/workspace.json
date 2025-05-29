@@ -8,91 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ec76323e0a0166cb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/5-RDP.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "5-RDP"
-            }
-          },
-          {
-            "id": "21b453b84fcb72b5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/basic-cmd-for-pentesters.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "basic-cmd-for-pentesters"
-            }
-          },
-          {
-            "id": "7c851f74a898188c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "windows-hardening/basic-powershell-for-pentesters/README.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
-            "id": "4ab1815c1499df6d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/pentesting-rdp.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "pentesting-rdp"
-            }
-          },
-          {
             "id": "56f15d06b4a352c3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/5- DNS.md",
+                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/7- SMTP.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "5- DNS"
-            }
-          },
-          {
-            "id": "09b306cecdb5587b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "network-services-pentesting/pentesting-dns.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "pentesting-dns"
+              "title": "7- SMTP"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -165,13 +94,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/5- DNS.md",
+                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/7- SMTP.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 5- DNS"
+              "title": "Outline of 7- SMTP"
             }
           },
           {
@@ -241,32 +170,32 @@
   },
   "active": "56f15d06b4a352c3",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/5-RDP.md",
-    "network-services-pentesting/pentesting-dns.md",
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/5- DNS.md",
+    "network-services-pentesting/pentesting-smtp/README.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/7- SMTP.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/6-RDP.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/README.md",
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-FTP.md",
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-smb.md",
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/2-Protocol Specific Attacks.md",
+    "network-services-pentesting/pentesting-dns.md",
     "network-services-pentesting/pentesting-rdp.md",
     "windows-hardening/basic-powershell-for-pentesters/README.md",
     "windows-hardening/basic-cmd-for-pentesters.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/5- DNS.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-FTP.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-smb.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
     "Excalidraw/Drawing 2025-05-28 20.28.26.excalidraw.md",
     "generic-methodologies-and-resources/brute-force.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/Introduction.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/Cracking Files.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Local Password Attacks.md",
-    "network-services-pentesting/pentesting-smtp/README.md",
     "network-services-pentesting/pentesting-smb.md",
     "network-services-pentesting/pentesting-ftp/README.md",
     "network-services-pentesting/pentesting-smb/rpcclient-enumeration.md",
     "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
     "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
-    "network-services-pentesting/pentesting-voip/basic-voip-protocols/sip-session-initiation-protocol.md",
-    "windows-hardening/active-directory-methodology/kerberoast.md",
-    "windows-hardening/active-directory-methodology/external-forest-domain-oneway-inbound.md",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services",
     "Excalidraw",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks",
