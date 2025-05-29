@@ -52,6 +52,7 @@ crackmapexec smb 10.10.110.17 -u Administrator -H 2B576ACBE6BCFDA7294D6BD18041B8
 
 ----------------------------------
 ### Forced Authentication Attacks
+[+] # Suppose a user mistyped a shared folder's name `\\mysharefoder\` instead of `\\mysharedfolder\`. In that case, all name resolutions will fail because the name does not exist, and the machine will send a multicast query to all devices on the network, including us running our fake SMB server. This is a problem because no measures are taken to verify the integrity of the responses. Attackers can take advantage of this mechanism by listening in on such queries and spoofing responses,
   
 # creating a fake SMB Server to capture users' NetNTLM v1/v2 hashes.
 responder -I <interface name> #=> hash store in: /usr/share/responder/logs/
@@ -71,8 +72,9 @@ https://www.willhackforsushi.com/sec504/SMB-Access-from-Linux.pdf #Cheat Sheet
 ##  Latest SMB Vulnerabilities
 
 ```bash
-# SMBGhost (CVE-2020-0796) : unauthenticated RCE
-# version : SMB v3.1.1 () Windows 10 versions 1903 and 1909)  
-
-poc : https://www.exploit-db.com/exploits/48537
+# CVE-2020-0796 - SMBGhost RCE
+# Affects: SMB v3.1.1 (Win10 1903/1909)
+# Unauth buffer overflow via SMB
+# Attack: Sends crafted SMB packets causing buffer overflow to run code remotely
+# PoC: https://www.exploit-db.com/exploits/48537
 ```

