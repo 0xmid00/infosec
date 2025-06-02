@@ -5,7 +5,7 @@
   nmap -p53 -Pn -sV -sC <ip>
 
 ## DNS Zone Transfer
-  dig AXFR @sub.domain.com <sub>/domain.com
+  dig AXFR @sn.domain.com <sub>/domain.com
   fierce --domain zonetransfer.me # enum all DNS servers of the root domain and scan for a zone tran
 
 ## enum subdomians

