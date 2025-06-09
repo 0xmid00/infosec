@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
+                "file": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2-Choosing The Dig Site & Starting Our Tunnels"
+              "title": "README"
             }
           },
           {
@@ -63,8 +63,7 @@
               "title": "6-RDP"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -121,7 +120,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 271.5
+    "width": 294.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -137,13 +136,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/6-RDP.md",
+                "file": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 6-RDP"
+              "title": "Outline of README"
             }
           },
           {
@@ -211,18 +210,19 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "30fbb16c19852cb6",
+  "active": "56f15d06b4a352c3",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-smb.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
-    "Excalidraw/Drawing 2025-06-02 01.05.59.excalidraw.md",
-    "linux-hardening/useful-linux-commands.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
     "generic-methodologies-and-resources/CPTS/1-  Penetration Testing Process/Post Exploitation/Lateral Movement.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/6-RDP.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/3-smb.md",
+    "Excalidraw/Drawing 2025-06-02 01.05.59.excalidraw.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Lateral Movement.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/Windows Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/Linux Local Password Attacks.md",
     "generic-methodologies-and-resources/Exfiltration.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/1-Introduction.md",
     "Excalidraw/Drawing 2025-06-01 20.48.59.excalidraw.md",
     "Excalidraw/Drawing 2025-06-01 20.44.14.excalidraw.md",
@@ -246,7 +246,6 @@
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Transferring Files with Code.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Living Of The Land.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services",
     "Excalidraw",
