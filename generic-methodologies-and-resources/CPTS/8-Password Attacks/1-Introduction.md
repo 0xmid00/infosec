@@ -15,6 +15,11 @@ Tools like *HaveIBeenPwned* can show if your email/password was in a breach.
 Weak authentication leads to security gaps, which attackers exploit using password guessing and reuse attacks.
 
 ---
+###  Introduction to Password Cracking
+```bash
+echo -n Soccer06! | md5sum #  md5 hashing 
+echo -n Soccer06! | sha256sum # sha-256
+```
 
 ###  Credential Storage
 We  know that every operating system supports these types of authentication mechanisms. The stored credentials are therefore stored locally. Let's look at how these are created, stored, and managed by Windows and Linux-based systems in more detail.
@@ -223,4 +228,79 @@ office2john          → MS Office docs
 wpa2john             → WPA/WPA2 handshakes
 ## 🔍 Find all conversion tools:
 locate *2john*
+```
+
+###  Hashcat
+```bash
+hashcat -a 0 -m 0 <hashes> [wordlist, rule, mask, ...]
+  # -a attack mode
+  # -m hash type
+  # <hashes> string or file containing  hashes
+
+## Hash types
+  hashcat --help # list all the types 
+  https://hashcat.net/wiki/doku.php?id=example_hashes # all hashes types list
+  hashid -m '$1$FNr44XZC$wQxY6HHLrgrGX0e1195k.1' # identify the hashcat hash type 
+
+## Attack modes
+
+ -a 0 # Dictionary attack
+  # hashcat -a 0 -m 0 e3e3ec5831ad5e7288241960e5d4fdb8 /usr/share/wordlists/rockyou.txt
+
+ -a 3 # # Mask attack (Brute forcing all possible caracters)
+  # ?l abcdefghijklmnopqrstuvwxyz
+  # ?u ABCDEFGHIJKLMNOPQRSTUVWXYZ
+  # ?d 0123456789
+  # ?h 0123456789abcdef
+  # ?H 0123456789ABCDEF
+  # ?s «space»!"#$%&'()*+,-./:;<=>?@[]^_`{
+  # ?a ?l?u?d?s
+  # ?b 0x00 - 0xff
+
+  # example upper+4*lower+digit+symbol = ?u?l?l?l?l?d?s
+  # hashcat -a 3 -m 0 1e293d6912d074c0fd15844d803400dd '?u?l?l?l?l?d?s'
+
+## rules 
+  ls -l /usr/share/hashcat/rules # list all rules files
+  -r <ruleset>
+  # hashcat -a 0 -m 0 1b0556a75770563578569ae21392630c /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+  # Generate mutated password list with Hashcat rules 
+  hashcat --force password.list -r custom.rule --stdout | sort -u > mut_password.list
+```
+
+### Password Mutation
+```bash
+# Basic idea: Users make predictable password mutations (e.g. Name2024!, P@ssw0rd).
+# Use Hashcat rules to generate realistic mutations.
+
+# Sample password list
+cat password.list
+# rawen
+
+# Sample custom Hashcat rule file
+cat custom.rule
+# :
+# c                 # Capitalize first letter
+# so0               # Replace o with 0
+# sa@               # Replace a with @
+# $!                # Add '!' at the end
+# combinations like:
+# $! c so0 sa@      # Add '!', capitalize, o→0, a→@
+
+# Generate mutated password list with Hashcat rules
+hashcat --force password.list -r custom.rule --stdout | sort -u > mut_password.list
+
+# One of the most used rules is best64.rule, which can often lead to good results
+sed -ri '/^.{,9}$/d' mut_password.list  # Remove all passwords shorter than 10 with sed -ri '/^.{,9}$/d' mut_password.list 
+
+# Use existing rules (e.g., best64.rule)
+ls /usr/share/hashcat/rules/
+# best64.rule, toggles1.rule, leetspeak.rule, etc.
+
+# Extract potential keywords from a website using CeWL
+cewl https://www.inlanefreight.com -d 4 -m 6 --lowercase -w inlane.wordlist
+
+# Count words in generated list
+wc -l inlane.wordlist
+# Example output: 326
 ```

