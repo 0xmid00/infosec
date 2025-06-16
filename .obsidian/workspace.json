@@ -22,31 +22,17 @@
             }
           },
           {
-            "id": "70b11692cf869c90",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "6-Windows Lateral Movement"
-            }
-          },
-          {
             "id": "3ef648bbf8260eff",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
+                "file": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4-SQL Databases"
+              "title": "README"
             }
           }
         ],
@@ -123,13 +109,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
+                "file": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 6-Windows Lateral Movement"
+              "title": "Outline of README"
             }
           },
           {
@@ -197,11 +183,18 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "70b11692cf869c90",
+  "active": "3ef648bbf8260eff",
   "lastOpenFiles": [
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/3-Playing Pong with Socat.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/README.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/2-Protocol Specific Attacks.md",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
     "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/7-Cracking Files.md",
     "windows-hardening/basic-powershell-for-pentesters/README.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Protected File Transfers.md",
@@ -218,13 +211,6 @@
     "todo/post-exploitation.md",
     "windows-hardening/basic-cmd-for-pentesters.md",
     "windows-hardening/authentication-credentials-uac-and-efs/uac-user-account-control.md",
-    "network-services-pentesting/5985-5986-pentesting-winrm.md",
-    "windows-hardening/authentication-credentials-uac-and-efs/README.md",
-    "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-tcc/macos-tcc-bypasses/macos-apple-scripts.md",
-    "linux-hardening/privilege-escalation/README.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-tcc/README.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network",
     "asx.svg",
     "Untitled Diagram.svg",

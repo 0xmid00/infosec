@@ -1,2 +1,3 @@
-## [[generic-methodologies-and-resources/CPTS/9-Attacking Common Services/1-Introduction|1-Introduction]]
-## [[2-Protocol Specific Attacks]]
+## [[generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/1-Introduction|1-Introduction]]
+## [[2-Choosing The Dig Site & Starting Our Tunnels]]
+## [[3-Playing Pong with Socat]]
