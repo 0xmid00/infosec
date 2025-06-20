@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux-hardening/useful-linux-commands.md",
+                "file": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "useful-linux-commands"
+              "title": "2-Choosing The Dig Site & Starting Our Tunnels"
             }
           }
         ],
@@ -199,16 +199,16 @@
   },
   "active": "3ef648bbf8260eff",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/4-Pivoting Around Obstacles.md",
     "Pasted image 20250619144847.png",
-    "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/3-Playing Pong with Socat.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/README.md",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/1-Introduction.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/2-Protocol Specific Attacks.md",
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/4-SQL Databases.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
