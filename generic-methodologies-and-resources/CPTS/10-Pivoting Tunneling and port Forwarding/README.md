@@ -1,3 +1,4 @@
 ## [[generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/1-Introduction|1-Introduction]]
 ## [[2-Choosing The Dig Site & Starting Our Tunnels]]
 ## [[3-Playing Pong with Socat]]
+## [[4-Pivoting Around Obstacles]]
