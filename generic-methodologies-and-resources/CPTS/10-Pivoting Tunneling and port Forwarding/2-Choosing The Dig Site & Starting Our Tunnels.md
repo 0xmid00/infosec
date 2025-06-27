@@ -7,6 +7,7 @@
 
 ```bash
 #1- SSH Local Port Forwarding
+# (open a port on the client, and forward it to a remote machine)
  # SSH can listen on our local host and forward a service on the remote host to our port
   # ATTACKER 127.0.0.1:1234 ======> MACHINE_01 127.0.0.1:3036
 
@@ -57,7 +58,8 @@
 **Remote port forwarding**
 ![](https://academy.hackthebox.com/storage/modules/158/44.png)
 ```bash
-#2- Remote Port Forwarding
+#2- Remote/Reverse Port Forwarding
+# (open a port on the server, and forward it to client)
  # we want get reverse shell on the MACHINE 02 via pivot host (MACHINE 01)
  # Attacker(0.0.0.0:8000)<==MACHINE_01(172.16.5.x)<==MACHINE_02(172.16.5.x)
 

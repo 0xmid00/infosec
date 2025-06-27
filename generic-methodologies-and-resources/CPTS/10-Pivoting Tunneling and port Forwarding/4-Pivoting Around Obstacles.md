@@ -1,13 +1,13 @@
 ## SSH for Windows - plink.exe
 
 ```bash
-# in Windows Plink used to create dynamic port forwards and SOCKS proxies if SSH not available.
+# in Windows Plink used to create dynamic port forwards and SOCKS proxies if SSH not available. (https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 # HACKER : 10.10.x.x, M1:10.10.x.x/172.16.x.x, M2:172.16.x.x
 # HACKER(windows):9050==>M1(ubuntu):SOCKS==>M2(windows)
 
 cmd > plink -ssh -D 9050 M1-USER@<M1-ip> # dynamic port frw
 
-# then use Proxifier.exe (https://www.proxifier.com) to confige SOCKS server for 127.0.0.1 and port 9050, video https://www.youtube.com/watch?v=ujsb2pLZUiw
+# then use Proxifier.exe  AS Administrator (https://www.proxifier.com) to confige SOCKS server for 127.0.0.1 and port 9050, video https://www.youtube.com/watch?v=ujsb2pLZUiw
 mstsc.exe # RDP access to M2 
 ```
 ![](https://academy.hackthebox.com/storage/modules/158/66-1.png)
