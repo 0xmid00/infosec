@@ -91,6 +91,10 @@ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rocky
 ## Attacking Active Directory & NTDS.dit
 
 ```bash 
+# NTDS = _NT Directory Services_ (refers to Active Directory)
+    
+# .dit = _Directory Information Tree_ (the database format)
+
 ### search for usernames 
 
     # Common username conventions (example: Jane Jill Doe)

