@@ -83,6 +83,9 @@
 ## userPrincipalName
   # another way to identify users in AD. This attribute consists of a prefix (the user account name) and a suffix (the domain name) in the format of bjones@inlanefreight.local.This attribute is not mandatory.
 
+## Down-Level Logon Name
+  # NetBIOSDomainName\Username , Common in older Windows logins and NTLM-based apps.
+
 ## FSMO (Flexible Single Master Operation )Roles
   # FSMO roles are typically set when there is many DCs created , There are 5 FSMO roles, 2 per forest (Schema Master, Domain Naming Master) and 3 per domain (RID Master, PDC Emulator, Infrastructure Master), assigned to Domain Controllers to ensure smooth AD operations and replication. the first DC can have all the roles and the new others DCs will only have the 3 (RID Master, PDC Emulator, Infrastructure Master)
 
@@ -100,7 +103,7 @@
   # Replication happens in AD when AD objects are updated and transferred from one Domain Controller to another in the forest.Replication ensures that changes are synchronized with all other DCs in a forest, helping to create a backup in case one domain controller fails.
 
 ## Service Principal Name (SPN)
-  # uniquely identifies a service instance . eg : MSSQLSvc/sqlserver01.domain.local:1433, MSSQLSvc: serviece class, sqlserver01 is the server name run the sql service
+  # uniquely identifies a service instance . eg : MSSQLSvc/sqlserver01.domain.local:1433, MSSQLSvc: serviece class(service type), sqlserver01 is Fully Qualified Domain Name (FQDN) of the server = [host name].[domain name].[tld]
 
 ## Group Policy Object (GPO)
   # are virtual collections of policy settings for the users and computer names within the domain or defined more granularly at the OU level.A GPO can contain local file system settings or Active Directory settings.
@@ -111,7 +114,7 @@
   # each ACE in an ACL identifies a trustee (user account, group account, or logon session) and lists the access rights that are allowed, denied, or audited for the given trustee.
 
 ## Discretionary Access Control List (DACL)
-  # A specific type of ACL whose purpose is to **grant or deny** a trustee’s discretionary access rights to that object.
+  # A specific type of ACL whose purpose is to grant or deny a trustee’s discretionary access rights to that object.
 
 ## System Access Control Lists (SACL)
   # Allows for administrators to log access attempts that are made to secured objects. ACEs specify the types of access attempts that cause the system to generate a record in the security event log.
@@ -219,3 +222,126 @@
   # container that holds default groups in an AD domain. They are predefined when an AD domain is created.
 
 ```
+
+## Active Directory Functionality
+```bash
+# Active Directory Functionality:
+
+# roles may be assigned to specific DCs or as defaults each time a new DC is added
+## there are five Flexible Single Master Operation (FSMO) roles
+
+### Schema Master: 
+  # manages the read/write copy of the AD schema, which defines all attributes that can apply to an object in AD.
+
+### Domain Naming Master: 
+  # Manages domain names and ensures that two domains of the same name are not created in the same forest.
+
+### Relative ID (RID) Master: 
+  # SID = Domain SID + RID ,It gives out blocks of RIDs (Relative IDs) to other Domain Controllers, These RIDs are used to create unique SIDs for new AD objects 
+
+### PDC Emulator:
+  # the authoritative DC in the domain, respond to authentication requests, password changes, and manage Group Policy Objects (GPOs), maintains time within the domain.
+
+### Infrastructure Master:
+  # This role translates GUIDs, SIDs, and DNs between domains. This role is used in organizations with multiple domains in a single forest. The Infrastructure Master helps them to communicate. If this role is not functioning properly, Access Control Lists (ACLs) will show SIDs instead of fully resolved names.
+-------------------------
+
+## Domain and Forest Functional Levels 
+ # Functional levels define Active Directory Domain Services (AD DS) features and which Windows Server versions can run as Domain Controllers
+
+## Domain Functional Levels:
+
+ # Windows 2000 Native
+  # Supports: Universal groups, group nesting, SID history
+  # DCs: 2000, 2003, 2008, 2008 R2
+
+# Windows Server 2003
+  # Features: lastLogonTimestamp, selective authentication, Netdom tool
+  # DCs: 2003 to 2012 R2
+
+# Windows Server 2008
+  # Features: DFS-R, AES for Kerberos, fine-grained passwords
+  # DCs: 2008 to 2012 R2
+
+# Windows Server 2008 R2
+  # Features: Auth mechanism assurance, Managed Service Accounts
+  # DCs: 2008 R2 to 2012 R2
+
+# Windows Server 2012
+  # Features: Claims, compound auth, Kerberos armoring
+  # DCs: 2012, 2012 R2
+
+# Windows Server 2012 R2
+  # Features: Protected Users, Auth Policies/Silos
+  # DCs: 2012 R2 only
+
+# Windows Server 2016
+  # Features: Smart card login, new Kerberos & credential protection
+  # DCs: 2016, 2019
+
+
+# Forest Functional Levels
+
+# Windows Server 2003
+  # Saw the introduction of the forest trust, domain renaming, read-only domain controllers (RODC), and more.
+
+# Windows Server 2008
+  # All new domains added to the forest default to the Server 2008 domain functional level.
+  # No additional new features.
+
+# Windows Server 2008 R2
+  # Active Directory Recycle Bin provides the ability to restore deleted objects when AD DS is running.
+
+# Windows Server 2012
+  # All new domains added to the forest default to the Server 2012 domain functional level.
+  # No additional new features.
+
+# Windows Server 2012 R2
+  # All new domains added to the forest default to the Server 2012 R2 domain functional level.
+  # No additional new features.
+
+# Windows Server 2016
+  # Privileged access management (PAM) using Microsoft Identity Manager (MIM).
+-----------------------
+
+## Trusts
+  # establish forest-forest or domain-domain authentication, allowing users to access resources in (or administer) another domain outside of the domain their account resides
+
+### Types of Trusts
+
+# Active Directory Trust Types (Summary Notes)
+
+# Parent-Child Trust
+  # Between domains in the same forest
+  # Direction: Two-way
+  # Transitive: Yes
+
+# Cross-Link Trust
+  # Between child domains in different trees (same forest)
+  # Direction: Two-way (can be one-way)
+  # Transitive: Yes
+
+# External Trust
+  # Between domains in different forests (no forest trust)
+  # Direction: One-way or Two-way
+  # Transitive: No
+  # Notes: Uses SID filtering
+
+# Tree-Root Trust
+  # Between root of one tree and root of a new tree (same forest)
+  # Direction: Two-way
+  # Transitive: Yes
+
+# Forest Trust
+  # Between root domains of two separate forests
+  # Direction: One-way or Two-way
+  # Transitive: Yes (only between roots)
+
+#### Key Concepts
+  # Transitive =  extended to objects that the child domain trusts
+  #  Non-Transitive = only the child domain itself is trusted.
+
+  # One-Way = Only trusted domain users get access
+  # Two-Way = Both domains can access each other
+```
+![](https://academy.hackthebox.com/storage/modules/74/trusts-diagram.png)
