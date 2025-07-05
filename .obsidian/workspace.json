@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/3-Active Directory Protocols.md",
-                "mode": "preview",
+                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3-Active Directory Protocols"
+              "title": "5-All About Users"
             }
           },
           {
@@ -28,7 +28,7 @@
               "type": "markdown",
               "state": {
                 "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -47,6 +47,20 @@
               },
               "icon": "lucide-file",
               "title": "1-Introduction"
+            }
+          },
+          {
+            "id": "4419f533396cd157",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "windows-hardening/basic-powershell-for-pentesters/README.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
         ]
@@ -122,13 +136,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/3-Active Directory Protocols.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 3-Active Directory Protocols"
+              "title": "Outline of 5-All About Users"
             }
           },
           {
@@ -199,8 +213,17 @@
   "active": "640f28a503ab5749",
   "lastOpenFiles": [
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
+    "Pasted image 20250704214240.png",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/3-Active Directory Protocols.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Untitled.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
+    "windows-hardening/basic-powershell-for-pentesters/README.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/README.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/4-NTLM Authentication.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/3-Playing Pong with Socat.md",
+    "Pasted image 20250704112032.png",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/7-Cracking Files.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
@@ -208,9 +231,7 @@
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/2-Remote Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/README.md",
     "generic-methodologies-and-resources/CPTS/0-todo.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/6-Additional Considerations.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
     "pentesting-web/browser-extension-pentesting-methodology/README.md",
@@ -218,12 +239,6 @@
     "generic-methodologies-and-resources/pentesting-network/network-protocols-explained-esp.md",
     "generic-methodologies-and-resources/basic-forensic-methodology/pcap-inspection/suricata-and-iptables-cheatsheet.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/1-Introduction.md",
-    "linux-hardening/privilege-escalation/cisco-vmanage.md",
-    "linux-hardening/privilege-escalation/linux-active-directory.md",
-    "linux-hardening/privilege-escalation/ld.so.conf-example.md",
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/2-Protocol Specific Attacks.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/Untitled",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks",
@@ -243,7 +258,6 @@
     "Excalidraw/Scripts/Downloaded/Mindmap format.svg",
     "generic-methodologies-and-resources/Untitled.canvas",
     "images/privesc.png",
-    "images/markdown-map(6).png",
-    "images/markdown-map(4).png"
+    "images/markdown-map(6).png"
   ]
 }

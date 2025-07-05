@@ -183,7 +183,7 @@
   # Has a computer account (COMPUTERNAME$) with username/pass in AD
   # Computer account = low-priv AD user (like a standard domain user)
   # Can authenticate to AD, access resources, and enum AD
-  # SYSTEM on domain machine → uses COMPUTERNAME$ to auth over network
+  # SYSTEM on domain machine → uses COMPUTERNAME to auth over network
   # So if I get SYSTEM → I can enum AD & access domain shares
 
 
