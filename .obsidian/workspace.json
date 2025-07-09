@@ -13,20 +13,6 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "5-All About Users"
-            }
-          },
-          {
-            "id": "118224d452897ef6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
                 "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
                 "mode": "source",
                 "source": false
@@ -36,21 +22,21 @@
             }
           },
           {
-            "id": "2787e7eaef799d32",
+            "id": "20a5dcc8dbdb11c5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
+                "file": "windows-hardening/basic-powershell-for-pentesters/powerview.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1-Introduction"
+              "title": "powerview"
             }
           },
           {
-            "id": "4419f533396cd157",
+            "id": "1ea61c6005aa4bfe",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -63,7 +49,8 @@
               "title": "README"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -95,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "print bug",
+                "query": "Get-ObjectAcl",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -136,13 +123,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
+                "file": "windows-hardening/basic-powershell-for-pentesters/README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 5-All About Users"
+              "title": "Outline of README"
             }
           },
           {
@@ -210,16 +197,22 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "640f28a503ab5749",
+  "active": "1ea61c6005aa4bfe",
   "lastOpenFiles": [
+    "windows-hardening/basic-powershell-for-pentesters/powerview.md",
+    "windows-hardening/basic-powershell-for-pentesters/README.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
+    "windows-hardening/basic-cmd-for-pentesters.md",
+    "windows-hardening/active-directory-methodology/README.md",
+    "windows-hardening/active-directory-methodology/dcsync.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/6-Digging in Deeper.md",
+    "Pasted image 20250705174558.png",
+    "Pasted image 20250705163017.png",
     "Pasted image 20250704214240.png",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/3-Active Directory Protocols.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Untitled.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
-    "windows-hardening/basic-powershell-for-pentesters/README.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/README.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/4-NTLM Authentication.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/3-Playing Pong with Socat.md",
@@ -236,9 +229,6 @@
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
     "pentesting-web/browser-extension-pentesting-methodology/README.md",
     "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/README.md",
-    "generic-methodologies-and-resources/pentesting-network/network-protocols-explained-esp.md",
-    "generic-methodologies-and-resources/basic-forensic-methodology/pcap-inspection/suricata-and-iptables-cheatsheet.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/README.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/Untitled",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks",
@@ -256,8 +246,6 @@
     "generic-methodologies-and-resources/CPTS/9-Attacking Common Services",
     "Untitled.canvas",
     "Excalidraw/Scripts/Downloaded/Mindmap format.svg",
-    "generic-methodologies-and-resources/Untitled.canvas",
-    "images/privesc.png",
-    "images/markdown-map(6).png"
+    "generic-methodologies-and-resources/Untitled.canvas"
   ]
 }
