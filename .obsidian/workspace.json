@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
-                "mode": "source",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2-Active Directory Fundamentals"
+              "title": "1-Setting The Stage"
             }
           },
           {
@@ -48,9 +48,36 @@
               "icon": "lucide-file",
               "title": "README"
             }
+          },
+          {
+            "id": "62f7ecc90fd43749",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "windows-hardening/active-directory-methodology/README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
+            }
+          },
+          {
+            "id": "04097cbc94ce634b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "6-Windows Lateral Movement"
+            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +109,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Get-ObjectAcl",
+                "query": "path:Excalidraw path:Excalidraw path:",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -123,13 +150,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "windows-hardening/basic-powershell-for-pentesters/README.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of README"
+              "title": "Outline of 1-Setting The Stage"
             }
           },
           {
@@ -197,17 +224,22 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "1ea61c6005aa4bfe",
+  "active": "640f28a503ab5749",
   "lastOpenFiles": [
-    "windows-hardening/basic-powershell-for-pentesters/powerview.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/README.md",
+    "generic-methodologies-and-resources/CPTS/0-todo.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/6-Digging in Deeper.md",
+    "windows-hardening/active-directory-methodology/README.md",
     "windows-hardening/basic-powershell-for-pentesters/README.md",
+    "windows-hardening/basic-powershell-for-pentesters/powerview.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
     "windows-hardening/basic-cmd-for-pentesters.md",
-    "windows-hardening/active-directory-methodology/README.md",
     "windows-hardening/active-directory-methodology/dcsync.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/6-Digging in Deeper.md",
     "Pasted image 20250705174558.png",
     "Pasted image 20250705163017.png",
     "Pasted image 20250704214240.png",
@@ -219,16 +251,11 @@
     "Pasted image 20250704112032.png",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/7-Cracking Files.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/2-Remote Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/0-todo.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/6-Additional Considerations.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
-    "pentesting-web/browser-extension-pentesting-methodology/README.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/README.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/Untitled",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks",
