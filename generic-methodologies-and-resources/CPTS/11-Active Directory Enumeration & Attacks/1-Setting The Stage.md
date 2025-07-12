@@ -30,7 +30,7 @@
 | [2024](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/Microsoft.html) | [2](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/opov-1/Microsoft.html "Overflow vulnerabilities for 2024")   | [6](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/opmemc-1/Microsoft.html "Memory corruption vulnerabilities for 2024")   | 0                                                                                                                                          | [11](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/opxss-1/Microsoft.html "Cross site scripting vulnerabilities for 2024") | [2](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/opdirt-1/Microsoft.html "Directory traversal vulnerabilities for 2024") | 0                                                                                                                                              | [1](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/opcsrf-1/Microsoft.html "Cross site request forgery, CSRF, vulnerabilities for 2024") | 0                                                                                                                                                               | [2](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/opssrf-1/Microsoft.html "Server-side request forgery (SSRF) vulnerabilities for 2024") | 0                                                                                                                                             | [2](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2024/opinpv-1/Microsoft.html "Input valdiation vulnerabilities for 2024")  |
 | [2025](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2025/Microsoft.html) | [75](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2025/opov-1/Microsoft.html "Overflow vulnerabilities for 2025")  | [91](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2025/opmemc-1/Microsoft.html "Memory corruption vulnerabilities for 2025")  | [2](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2025/opsqli-1/Microsoft.html "Sql injection vulnerabilities for 2025") | [2](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2025/opxss-1/Microsoft.html "Cross site scripting vulnerabilities for 2025")  | [3](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2025/opdirt-1/Microsoft.html "Directory traversal vulnerabilities for 2025") | 0                                                                                                                                              | 0                                                                                                                                                              | 0                                                                                                                                                               | [5](https://www.cvedetails.com/vulnerability-list/vendor_id-26/year-2025/opssrf-1/Microsoft.html "Server-side request forgery (SSRF) vulnerabilities for 2025") | 0                                                                                                                                             | 0                                                                                                                                              |
 
-## Real-World Examples
+### Real-World Examples
 
 **Scenario 1 - Waiting On An Admin**
 > During this engagement, I compromised a single host and gained `SYSTEM` level access. Because this was a domain-joined host, I was able to use this access to enumerate the domain. I went through all of the standard enumeration, but did not find much. There were `Service Principal Names` (SPNs) present within the environment, and I was able to perform a Kerberoasting attack and retrieve TGS tickets for a few accounts. I attempted to crack these with Hashcat and some of my standard wordlists and rules, but was unsuccessful at first. I ended up leaving a cracking job running overnight with a very large wordlist combined with the [d3ad0ne](https://github.com/hashcat/hashcat/blob/master/rules/d3ad0ne.rule) rule that ships with Hashcat. The next morning I had a hit on one ticket and retrieved the cleartext password for a user account. This account did not give me significant access, but it did give me write access on certain file shares. I used this access to drop SCF files around the shares and left Responder going. After a while, I got a single hit, the `NetNTLMv2 hash` of a user. I checked through the BloodHound output and noticed that this user was actually a domain admin! Easy day from here.
@@ -41,3 +41,124 @@
 **Scenario 3 - Fighting In The Dark**
 
 >I had tried all of my standard ways to obtain a foothold on this third engagement, and nothing had worked. I decided that I would use the [Kerbrute](https://github.com/ropnop/kerbrute) tool to attempt to enumerate valid usernames and then, if I found any, attempt a targeted password spraying attack since I did not know the password policy and didn't want to lock any accounts out. I used the [linkedin2username](https://github.com/initstring/linkedin2username) tool to first mashup potential usernames from the company's LinkedIn page. I combined this list with several username lists from the [statistically-likely-usernames](https://github.com/insidetrust/statistically-likely-usernames) GitHub repo and, after using the `userenum` feature of Kerbrute, ended up with **516** valid users. I knew I had to tread carefully with password spraying, so I tried with the password `Welcome2021` and got a single hit! Using this account, I ran the Python version of BloodHound from my attack host and found that all domain users had RDP access to a single box. I logged into this host and used the PowerShell tool [DomainPasswordSpray](https://github.com/dafthack/DomainPasswordSpray) to spray again. I was more confident this time around because I could a) view the password policy and b) the DomainPasswordSpray tool will remove accounts close to lockout from the target list. Being that I was authenticated within the domain, I could now spray with all domain users, which gave me significantly more targets. I tried again with the common password Fall2021 and got several hits, all for users not in my initial wordlist. I checked the rights for each of these accounts and found that one was in the Help Desk group, which had [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) rights over the [Enterprise Key Admins](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#enterprise-key-admins) group. The Enterprise Key Admins group had GenericAll privileges over a domain controller, so I added the account I controlled to this group, authenticated again, and inherited these privileges. Using these rights, I performed the [Shadow Credentials](https://posts.specterops.io/shadow-credentials-abusing-key-trust-account-mapping-for-takeover-8ee1a53566ab) attack and retrieved the NT hash for the domain controller machine account. With this NT hash, I was then able to perform a DCSync attack and retrieve the NTLM password hashes for all users in the domain because a domain controller can perform replication, which is required for DCSync.
+
+---
+
+# Tools of the Trade
+
+| Tool | Description | Path |
+|------|-------------|------|
+| [PowerView](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)/[SharpView](https://github.com/dmchell/SharpView) | Situational awareness in AD. Useful for quick wins like Kerberoasting/ASREPRoasting. | /home/kali/tools/windows/post_exploitation/PowerView.ps1, /usr/share/windows-resources/powersploit/Recon/PowerView.ps1 |
+| [BloodHound](https://github.com/BloodHoundAD/BloodHound) | Graphical AD attack path analysis. |  |
+| [SharpHound](https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors) | BloodHound's C# collector for gathering AD data. | /usr/lib/bloodhound/resources/app/Collectors/SharpHound.exe, /usr/lib/bloodhound/resources/app/Collectors/DebugBuilds/SharpHound.exe, /usr/share/metasploit-framework/data/post/SharpHound.exe |
+| [BloodHound.py](https://github.com/fox-it/BloodHound.py) | Python version of SharpHound based on Impacket. | /tools/linux/AD/BloodHound.py/bloodhound.py |
+| [Kerbrute](https://github.com/ropnop/kerbrute) | Kerberos user enumeration, password spraying. | ~/go/bin/kerbrute |
+| [Impacket toolkit](https://github.com/SecureAuthCorp/impacket) | Toolkit for network protocol exploitation (SMB, Kerberos). | /usr/share/doc/python3-impacket/, /usr/lib/python3/dist-packages/impacket |
+| [Responder](https://github.com/lgandx/Responder) | Poisoning tool for LLMNR, NBT-NS, and MDNS. |  |
+| [Inveigh.ps1](https://github.com/Kevin-Robertson/Inveigh/blob/master/Inveigh.ps1) | PowerShell spoofing/poisoning tool. | /home/kali/tools/windows/post_exploitation/Empire/empire/server/data/module_source/collection/Invoke-Inveigh.ps1 |
+| [InveighZero (C#)](https://github.com/Kevin-Robertson/Inveigh/tree/master/Inveigh) | C# version of Inveigh with console interaction. |  |
+| [rpcinfo](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/rpcinfo) | Query status of RPC services. |  |
+| [rpcclient](https://www.samba.org/samba/docs/current/man-html/rpcclient.1.html) | Samba tool for remote AD enumeration. |  |
+| [CrackMapExec (CME)](https://github.com/byt3bl33d3r/CrackMapExec) | All-in-one AD enum + attack toolkit. |  |
+| [Rubeus](https://github.com/GhostPack/Rubeus) | C# tool for Kerberos abuse. |  |
+| [GetUserSPNs.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetUserSPNs.py) | Find SPNs for Kerberoasting. |  |
+| [Hashcat](https://hashcat.net/hashcat/) | GPU-based password cracker. |  |
+| [enum4linux](https://github.com/CiscoCXSecurity/enum4linux) | Enum Windows/Samba shares. |  |
+| [enum4linux-ng](https://github.com/cddmp/enum4linux-ng) | Enum4linux rewritten. |  |
+| [ldapsearch](https://linux.die.net/man/1/ldapsearch) | CLI LDAP queries. |  |
+| [windapsearch](https://github.com/ropnop/windapsearch) | Python LDAP AD enumeration. |  |
+| [DomainPasswordSpray.ps1](https://github.com/dafthack/DomainPasswordSpray) | PowerShell tool for password spraying. |  |
+| [LAPSToolkit](https://github.com/leoloobeek/LAPSToolkit) | PowerView-based LAPS auditing. |  |
+| [smbmap](https://github.com/ShawnDEvans/smbmap) | List SMB shares and permissions. |  |
+| [psexec.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/psexec.py) | Semi-interactive shell over SMB. |  |
+| [wmiexec.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/wmiexec.py) | Command exec via WMI. |  |
+| [Snaffler](https://github.com/SnaffCon/Snaffler) | Find juicy files on accessible shares. |  |
+| [smbserver.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/smbserver.py) | Host SMB server to transfer files. |  |
+| [setspn.exe](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731241\(v=ws.11\)) | Modify SPNs in AD. |  |
+| [Mimikatz](https://github.com/ParrotSec/mimikatz) | Credential dumping, pass-the-hash, Kerberos tickets. |  |
+| [secretsdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) | Dump SAM and LSA secrets remotely. |  |
+| [evil-winrm](https://github.com/Hackplayers/evil-winrm) | WinRM interactive shell. |  |
+| [mssqlclient.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py) | MSSQL shell and queries. |  |
+| [noPac.py](https://github.com/Ridter/noPac) | CVE-2021-42278/87 local privilege escalation. |  |
+| [rpcdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/rpcdump.py) | List RPC services. |  |
+| [CVE-2021-1675.py](https://github.com/cube0x0/CVE-2021-1675/blob/main/CVE-2021-1675.py) | PrintNightmare exploit PoC. |  |
+| [ntlmrelayx.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/ntlmrelayx.py) | SMB/HTTP relay attack tool. |  |
+| [PetitPotam.py](https://github.com/topotam/PetitPotam) | Coerce authentication via EFSRPC. |  |
+| [gettgtpkinit.py](https://github.com/dirkjanm/PKINITtools/blob/master/gettgtpkinit.py) | Forge TGTs with certificates. |  |
+| [getnthash.py](https://github.com/dirkjanm/PKINITtools/blob/master/getnthash.py) | Extract PAC via U2U from existing TGT. |  |
+| [adidnsdump](https://github.com/dirkjanm/adidnsdump) | Dump AD DNS records. |  |
+| [gpp-decrypt](https://github.com/t0thkr1s/gpp-decrypt) | Decrypt passwords in GPP XML files. |  |
+| [GetNPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) | ASREPRoasting attack tool. |  |
+| [lookupsid.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/lookupsid.py) | SID enumeration and bruteforce. |  |
+| [ticketer.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/ticketer.py) | Create fake TGTs/Golden Tickets. |  |
+| [raiseChild.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/raiseChild.py) | Child-to-parent AD privilege escalation. |  |
+| [Active Directory Explorer](https://docs.microsoft.com/en-us/sysinternals/downloads/adexplorer) | GUI for exploring and snapshotting AD databases. |  |
+| [PingCastle](https://www.pingcastle.com/documentation/) | Audit AD security level via CMMI framework. |  |
+| [Group3r](https://github.com/Group3r/Group3r) | GPO audit and misconfig finding tool. |  |
+| [ADRecon](https://github.com/adrecon/ADRecon) | Excel-based AD recon and analysis tool. |  |
+
+
+
+---
+
+# Scenario
+
+**Internal Penetration Testing Scenario – CAT-5 Security**
+
+**Overview:**  
+As penetration testers at CAT-5 Security, we have been assigned our first independent internal assessment after several successful engagements under supervision. The target is Inlanefreight, and the assessment involves simulating realistic attack scenarios to evaluate internal security posture, particularly around Active Directory (AD) environments.
+
+**Objectives:**
+
+- Perform domain enumeration
+    
+- Discover credentials
+    
+- Conduct lateral movement/
+- Gain Domain Admin access
+    
+
+The assessment will consist of two internal penetration test scenarios:
+
+1. Simulating a compromise from an external breach.
+    
+2. Starting from an internal attacker’s position within the network.
+    
+
+**Assessment Scope**
+
+_In-Scope Targets:_
+
+- `INLANEFREIGHT.LOCAL`: Main AD domain and web services
+    
+- `LOGISTICS.INLANEFREIGHT.LOCAL`: Subdomain
+    
+- `FREIGHTLOGISTICS.LOCAL`: Subsidiary company with forest trust
+    
+- Internal subnet `172.16.5.0/23`
+    
+
+_Out-of-Scope Targets:_
+
+- All other subdomains of `INLANEFREIGHT.LOCAL` or `FREIGHTLOGISTICS.LOCAL`
+    
+- Phishing or social engineering attacks
+    
+- Any IPs, domains, or subdomains not explicitly listed
+    
+- Real-world attacks against the public website `https://www.inlanefreight.com` (except passive reconnaissance)
+    
+
+**Authorized Testing Methods**
+
+_External Information Gathering:_  
+Only passive techniques are permitted. This includes open-source intelligence (OSINT) from public sources. No active scanning, port scanning, or attacks against real-world infrastructure.
+
+_Internal Testing:_  
+Simulates an insider threat or internal breach. Begins with no valid credentials and relies on discovered information to escalate access within the internal environment. Focus is on AD enumeration, privilege escalation, and domain compromise without disrupting services.
+
+_Password Testing:_  
+Captured password files may be decrypted offline and used for privilege escalation during the engagement. Data must remain confidential and stored securely on CAT-5 approved systems.
+
+**Purpose of the Module:**  
+This module is designed to solidify foundational knowledge in internal penetration testing within AD environments. It includes coverage of both manual and automated attack techniques, and builds the technical base for more advanced AD-focused penetration testing modules. It also familiarizes testers with typical scoping documentation and rules of engagement, which are standard in real-world engagements.
