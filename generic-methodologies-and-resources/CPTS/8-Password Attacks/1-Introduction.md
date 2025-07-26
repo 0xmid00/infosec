@@ -291,7 +291,7 @@ cat custom.rule
 hashcat --force password.list -r custom.rule --stdout | sort -u > mut_password.list
 
 # One of the most used rules is best64.rule, which can often lead to good results
-sed -ri '/^.{,9}$/d' mut_password.list  # Remove all passwords shorter than 10 with sed -ri '/^.{,9}$/d' mut_password.list 
+sed -ri '/^.{,5}$/d' mut_password.list  # Remove all passwords shorter than 10 with sed -ri '/^.{,9}$/d' mut_password.list 
 
 # Use existing rules (e.g., best64.rule)
 ls /usr/share/hashcat/rules/
