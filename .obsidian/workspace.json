@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/2-Initial Enumeration.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/5-Spray Responsibly.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2-Initial Enumeration"
+              "title": "5-Spray Responsibly"
             }
           },
           {
@@ -69,12 +69,40 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1-Setting The Stage"
+              "title": "1-Active Directory Overview"
+            }
+          },
+          {
+            "id": "d4db974f53ba56df",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "6-Windows Lateral Movement"
+            }
+          },
+          {
+            "id": "16d3861370048c3b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "network-services-pentesting/pentesting-smb/README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
         ]
@@ -109,7 +137,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "exploits.jpeg",
+                "query": "ldapsearch -x",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -134,7 +162,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 345.5
+    "width": 368.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -150,13 +178,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/2-Initial Enumeration.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/5-Spray Responsibly.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2-Initial Enumeration"
+              "title": "Outline of 5-Spray Responsibly"
             }
           },
           {
@@ -226,52 +254,52 @@
   },
   "active": "640f28a503ab5749",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
-    "generic-methodologies-and-resources/CPTS/0-todo.md",
-    "pentesting-dns.md",
-    "post-exploitation.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250705174558.png",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250704112032.png",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/6-Digging in Deeper.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/4-Sighting In, Hunting For A User.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/5-Spray Responsibly.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/5-Spray Responsibly",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/4-NTLM Authentication.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/6-Digging in Deeper.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/3-Active Directory Protocols.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/3-Sniffing out a Foothold.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/4-NTLM Authentication.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250619144847.png",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250704214240.png",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250705163017.png",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/exploits.jpeg",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/2-Initial Enumeration.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
+    "network-services-pentesting/pentesting-smb/README.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250705163017.png",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250704214240.png",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/README.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250619144847.png",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250704112032.png",
     "windows-hardening/active-directory-methodology/README.md",
-    "windows-hardening/basic-powershell-for-pentesters/README.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/README.md",
+    "network-services-pentesting/pentesting-ldap.md",
+    "network-services-pentesting/623-udp-ipmi.md",
+    "network-services-pentesting/nfs-service-pentesting.md",
+    "generic-methodologies-and-resources/CPTS/2- Footprinting/enumeration methodology.md",
+    "generic-methodologies-and-resources/Exfiltration.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Pasted image 20250730151232.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Pasted image 20250730152858.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Pasted image 20250730151905.png",
     "windows-hardening/basic-powershell-for-pentesters/powerview.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/7-Cracking Files.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
-    "Excalidraw/Drawing 2025-07-13 22.52.55.excalidraw.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "windows-hardening/active-directory-methodology/dcsync.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/exploits.jpeg",
+    "windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/3-Sniffing out a Foothold",
+    "generic-methodologies-and-resources/CPTS/0-todo.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/Pasted image 20250705174558.png",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/Untitled",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network",
     "asx.svg",
-    "Untitled Diagram.svg",
-    "test.svg",
     "Untitled 1",
     "Untitled",
-    "Excalidraw/Scripts/Downloaded/Create DrawIO file.svg",
     "Excalidraw/Scripts/Downloaded",
     "Excalidraw/Scripts",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding",
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services",
     "Untitled.canvas",
     "generic-methodologies-and-resources/Untitled.canvas"
   ]

