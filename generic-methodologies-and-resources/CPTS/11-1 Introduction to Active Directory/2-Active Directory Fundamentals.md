@@ -228,7 +228,7 @@
 # Active Directory Functionality:
 
 # roles may be assigned to specific DCs or as defaults each time a new DC is added
-## there are five Flexible Single Master Operation (FSMO) roles
+## there are 5 Flexible Single Master Operation (FSMO) roles
 
 ### Schema Master: 
   # manages the read/write copy of the AD schema, which defines all attributes that can apply to an object in AD.
@@ -244,6 +244,9 @@
 
 ### Infrastructure Master:
   # This role translates GUIDs, SIDs, and DNs between domains. This role is used in organizations with multiple domains in a single forest. The Infrastructure Master helps them to communicate. If this role is not functioning properly, Access Control Lists (ACLs) will show SIDs instead of fully resolved names.
+
+[+] the first doamin controller will have all the 5 roles. when new DC added it will only have the (Infrastructure Master,PDC Emulator,RID Master) roles
+
 -------------------------
 
 ## Domain and Forest Functional Levels 

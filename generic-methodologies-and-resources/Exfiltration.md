@@ -276,8 +276,17 @@ sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password te
 python /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support tmp . 
 
 #copy of a file from the shared folder 
-smbclient //HOST/tmp -U guest -c 'get file.txt'
+smbclient //HOST/tmp -U guest -c 'get file.txt' # download file
+smbclient //HOST/tmp -U guest -c 'put file.txt' # upload file
+
+python /usr/share/doc/python3-impacket/examples/smbclient.py ''@10.10.17.181
+use tmp
+get <file>
+put <file>
+
+
 sudo mount -t cifs //HOST/tmp /mnt -o user=guest
+  cp /path/to/file /mnt/
 ```
 
 Or create a smb share **using samba**:
