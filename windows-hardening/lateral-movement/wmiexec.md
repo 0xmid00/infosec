@@ -29,6 +29,8 @@ The initialization of the WMI communication always takes place on `TCP` port `13
 ```bash
 /usr/share/doc/python3-impacket/examples/wmiexec.py Cry0l1t3:"P455w0rD!"@10.129.201.248 "hostname"
 ```
+
+>The user needs to be in the **local Administrators group** on the target machine (either a local admin account or a domain account with admin rights there).
 ### Namespace
 
 Structured in a directory-style hierarchy, WMI's top-level container is \root, under which additional directories, referred to as namespaces, are organized.

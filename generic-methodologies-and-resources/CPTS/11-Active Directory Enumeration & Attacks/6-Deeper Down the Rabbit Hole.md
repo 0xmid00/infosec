@@ -3,6 +3,24 @@ After gaining a foothold, we could use this access to get a feeling for the defe
 
 >Note: This section is intended to showcase possible security controls in place within a domain, but does not have an interactive component. Enumerating and bypassing security controls are outside the scope of this module, but we wanted to give an overview of the possible technologies we may encounter during an assessment.
 
+##  authenticate to the domain
+```bash
+# --- Method 1: Run as domain user directly (on Windows domain-joined machine)
+runas /user:<DOMAIN>\<USER> cmd          # Opens a new CMD as <USER>, will ask for <PASSWORD>
+powershell                              # From inside CMD, launch PowerShell as <USER>
+
+# --- Method 2: Run with PSCredential (inside PowerShell)
+$SecPassword = ConvertTo-SecureString '<PASSWORD>' -AsPlainText -Force   # Store password securely
+$Cred = New-Object System.Management.Automation.PSCredential('<DOMAIN>\<USER>', $SecPassword)  
+Enter-PSSession -ComputerName <TARGET> -Credential $Cred                 # Remote session as <USER>
+
+# --- Method 3: Runas with /netonly (if machine is not domain-joined)
+runas /netonly /user:<DOMAIN>\<USER> powershell.exe   # Use <USER> creds only for network access
+
+# --- Method 4: Evil-WinRM (from attacker box like Kali/Parrot/Ubuntu)
+evil-winrm -i <TARGET-IP> -u <USER> -p '<PASSWORD>'   # Remote shell as <USER>
+```
+
 ## Windows Defender
 
 Windows Defender (or [Microsoft Defender](https://en.wikipedia.org/wiki/Microsoft_Defender) after the Windows 10 May 2020 Update) has greatly improved over the years and, by default, will block tools such as `PowerView`.
@@ -396,11 +414,14 @@ Snaffler.exe -s -d inlanefreight.local -o snaffler.log -v data
 
 ## BloodHound
 `Bloodhound` is an exceptional open-source tool that can identify attack paths within an AD environment by analyzing the relationships between objects.
- we must authenticate as a domain user from a Windows attack host positioned within the network (but not joined to the domain) or transfer the tool to a domain-joined host.
- ==For our purposes, we will work with SharpHound.exe already on the attack host,=
+ **we must authenticate as a domain user from a Windows attack host positioned within the network (but not joined to the domain) or transfer the tool to a domain-joined host.**
+ ==For our purposes, we will work with SharpHound.exe already on the attack host=
  
 ```powershell
-.\SharpHound.exe -c All --zipfilename <zipFileName>
+.\SharpHound.exe -c All --zipfilename <zipFileName> # on domain joined
+
+# remotly 
+.\SharpHound.exe -c All --zipfilename out --domain <DOMAIN.LOCAL> --ldapusername "<USER@DOMAIN.LOCAL>" --ldappassword '<PASSWORD>'
 ```
 
 Next, we can exfiltrate the dataset to our own VM or ingest it into the BloodHound GUI tool on MS01. We can do this on MS01 by typing `bloodhound` into a CMD or PowerShell console. The credentials should be saved, but enter `neo4j: HTB_@cademy_stdnt!` if a prompt appears. Next, click on the `Upload Data` button on the right-hand side, select the newly generated zip file, and click `Open`. An `Upload Progress` window will pop up. Once all .json files show 100% complete, click the X at the top of that window.
