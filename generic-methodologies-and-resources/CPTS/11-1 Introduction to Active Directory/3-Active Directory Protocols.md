@@ -23,7 +23,7 @@ Client             KDC                Service
   |<-- AS-REP ------|                   |  # Response:
   |                 |                   |     - TGT (encrypted w/ krbtgt hash)
   |                 |                   |     - Session Key (encrypted w/ user's NT hash)
-  |-- TGS-REQ ----->|                   |  # Send TGT + request for service ticket
+  |-- TGS-REQ ----->|                   |  # Send TGT + Session Key(Dycrepted)
   |<-- TGS-REP -----|                   |  # Response:
   |                 |                   |     - Service Ticket (encrypted w/ service account NT hash)
   |                 |                   |     - Session Key (encrypted w/ user's session key)

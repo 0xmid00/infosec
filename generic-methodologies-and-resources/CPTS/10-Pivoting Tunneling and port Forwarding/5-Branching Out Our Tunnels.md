@@ -363,4 +363,12 @@ for i in {1..254} ;do (ping -c 1 192.168.119.$i | grep "from" &) ;done
 for i in {1..254} ;do (ping -c 1 192.168.79.$i | grep "from" &) ;done 
 
 
+
+
+
+# remove 
+sudo ip route del 172.16.4.0/23 dev ligolo
+sudo ip link set ligolo down
+sudo ip link delete ligolo
+
 ```

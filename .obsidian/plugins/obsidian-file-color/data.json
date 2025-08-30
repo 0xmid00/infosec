@@ -80,6 +80,14 @@
     {
       "path": "linux-hardening/useful-linux-commands.md",
       "color": "SPXBtbBqgOiZ2D9mNxBN-"
+    },
+    {
+      "path": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
+      "color": "SPXBtbBqgOiZ2D9mNxBN-"
+    },
+    {
+      "path": "pentesting-web",
+      "color": "CeBNZ5qbSJ7XCeWtxMd_E"
     }
   ]
 }

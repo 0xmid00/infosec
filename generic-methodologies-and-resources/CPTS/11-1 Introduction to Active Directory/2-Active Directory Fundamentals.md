@@ -105,6 +105,8 @@
 ## Service Principal Name (SPN)
   # uniquely identifies a service instance . eg : MSSQLSvc/sqlserver01.domain.local:1433, MSSQLSvc: serviece class(service type), sqlserver01 is Fully Qualified Domain Name (FQDN) of the server = [host name].[domain name].[tld]
 
+#  Machine Principal Name:"COMPUTERNAME$"@hostname@doamin.lOCAL
+
 ## Group Policy Object (GPO)
   # are virtual collections of policy settings for the users and computer names within the domain or defined more granularly at the OU level.A GPO can contain local file system settings or Active Directory settings.
 

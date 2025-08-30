@@ -9,10 +9,10 @@ After gaining a foothold, we could use this access to get a feeling for the defe
 runas /user:<DOMAIN>\<USER> cmd          # Opens a new CMD as <USER>, will ask for <PASSWORD>
 powershell                              # From inside CMD, launch PowerShell as <USER>
 
-# --- Method 2: Run with PSCredential (inside PowerShell)
+# --- Method 2: WinRM:  Run with PSCredential (inside PowerShell)
 $SecPassword = ConvertTo-SecureString '<PASSWORD>' -AsPlainText -Force   # Store password securely
 $Cred = New-Object System.Management.Automation.PSCredential('<DOMAIN>\<USER>', $SecPassword)  
-Enter-PSSession -ComputerName <TARGET> -Credential $Cred                 # Remote session as <USER>
+Enter-PSSession -ComputerName <TARGET> -Credential $Cred    # Remote session as <USER>
 
 # --- Method 3: Runas with /netonly (if machine is not domain-joined)
 runas /netonly /user:<DOMAIN>\<USER> powershell.exe   # Use <USER> creds only for network access
