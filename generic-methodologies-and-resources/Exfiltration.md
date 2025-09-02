@@ -317,6 +317,7 @@ Windows
 CMD-Wind> net use Z: \\<ServerName>\<SharedFolder>
 CMD-Wind> net use Z: \\<ServerName>\<SharedFolder> /user:<username> <password> # For SMB using credentials
 2) #copy using  windwos 
+net use \\<IP>\tmp /user:test test #  Map the SMB Share with Credentials
 copy \\<ServerName>\<SharedFolder>\<FileName> <DestinationPath>
 copy C:\path\to\file.txt \\<Linux_IP>\shared\file.txt # from windows to linux
 
