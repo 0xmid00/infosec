@@ -18,7 +18,9 @@
 # Default access: Even low-privilege users can enumerate most AD objects.
 
 # AD Structure Example:
-# INLANEFREIGHT.LOCAL/
+# Forest :
+# domain 1= Tree 1 : ahmed.local
+# domain 2= Tree 2 : INLANEFREIGHT.LOCAL
 # ├── ADMIN.INLANEFREIGHT.LOCAL    (child domain)
 # │   └── EMPLOYEES → USERS, GROUPS, COMPUTERS
 # ├── CORP.INLANEFREIGHT.LOCAL

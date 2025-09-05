@@ -28,6 +28,9 @@ A **trust** links two domains so users from one can access resources or manage s
 >- **Trusted domain** = the domain whose users are **trusted**.
 >- **Trusting domain** = the domain that is **trusting** the other domain.
 
+**Bidirectional:** Parent-child, Cross-link, Tree-root, Forest  
+**One-way:** ==External==  
+
 Domain trusts, if misconfigured or unchecked, can create serious attack paths. Mergers and acquisitions often introduce bidirectional trusts that may expose an organization to risks from weaker, untested domains. Attackers can exploit these trusts—sometimes compromising a smaller, trusted domain to gain admin access to the main domain. Regular security reviews and careful planning are essential when setting up trust relationships.
 ## Enumerating Trust Relationships
 #### Using Get-ADTrust
