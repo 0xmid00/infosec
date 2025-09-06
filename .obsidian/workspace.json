@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/11-Breaking Down Boundaries.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/9-Stacking The Deck.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "11-Breaking Down Boundaries"
+              "title": "9-Stacking The Deck"
             }
           },
           {
@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/7-Cooking with Fire.md",
+                "file": "generic-methodologies-and-resources/Exfiltration.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7-Cooking with Fire"
+              "title": "Exfiltration"
             }
           },
           {
@@ -55,29 +55,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/6-Deeper Down the Rabbit Hole.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/8-An ACE in the Hole.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "6-Deeper Down the Rabbit Hole"
+              "title": "8-An ACE in the Hole"
             }
           },
           {
-            "id": "64c2dfff87ffe7a8",
+            "id": "78f29f89c31ab000",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/5-Spray Responsibly.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "5-Branching Out Our Tunnels"
+              "title": "5-Spray Responsibly"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -150,13 +151,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/11-Breaking Down Boundaries.md",
+                "file": "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/8-An ACE in the Hole.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 11-Breaking Down Boundaries"
+              "title": "Outline of 8-An ACE in the Hole"
             }
           },
           {
@@ -225,29 +226,37 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "7409617d82153dc6",
+  "active": "3403916e6f73a41b",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/10-Why So Trusting?.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/11-Breaking Down Boundaries.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
-    "Pasted image 20250905192540.png",
-    "Pasted image 20250905192536.png",
+    "Pasted image 20250907000513.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/6-Deeper Down the Rabbit Hole.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/7-Cooking with Fire.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/8-An ACE in the Hole.md",
-    "Pasted image 20250905145741.png",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/6-Deeper Down the Rabbit Hole.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
-    "generic-methodologies-and-resources/Exfiltration.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/9-Stacking The Deck.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/5-Spray Responsibly.md",
+    "generic-methodologies-and-resources/Exfiltration.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/12- Hardening Active Directory.md",
+    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/4-Sighting In, Hunting For A User.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/11-Breaking Down Boundaries.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/10-Why So Trusting?.md",
+    "Pasted image 20250906152649.png",
+    "Pasted image 20250906151345.png",
+    "Pasted image 20250906145941.png",
+    "Pasted image 20250906144621.png",
+    "Pasted image 20250906144541.png",
+    "Pasted image 20250906144500.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906143726.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/3-Sniffing out a Foothold.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250831174625.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250905145741.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250905192536.png",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/2-Active Directory Fundamentals.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/3-Active Directory Protocols.md",
     "generic-methodologies-and-resources/basic-forensic-methodology/README.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/3-Sniffing out a Foothold.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/4-Sighting In, Hunting For A User.md",
-    "Pasted image 20250831180821.png",
-    "Pasted image 20250831174625.png",
     "SUMMARY.md",
     "Untitled.md",
     "Untitled.base",
@@ -261,15 +270,8 @@
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/4-NTLM Authentication.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/5-All About Users.md",
     "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/6-Digging in Deeper.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/exploits.jpeg",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/ACEs Attacks mindmap.png",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/2-Initial Enumeration.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250730151232.png",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250809171821.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250730151905.png",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
     "Untitled 1.base",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/12-Stacking The Deck",
     "Untitled.canvas",

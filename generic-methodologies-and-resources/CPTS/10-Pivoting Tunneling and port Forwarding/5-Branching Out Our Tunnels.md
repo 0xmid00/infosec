@@ -201,6 +201,7 @@ https://freedium.cfd/https://medium.com/@issam.qsous/mastering-multi-pivot-strat
 `start` #establishing a connection between kai & Ligolo-1 
 
 #6.Add Route to New Subnet on Kali**:  
+# to get the subnet : ipcalc 172.16.5.225 255.255.254.0
 `sudo ip route add 192.168.8.0/24 dev ligolo`  
 
 #7.Ping the New Subnet:  

