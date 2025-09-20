@@ -15,7 +15,7 @@ as the following edges exist to show us what types of remote[[9-Stacking The Dec
 ## scan services & login
 **scan this services:**
 ```bash
-nmap -p 3389,5985,5986,445,1433 <target-ip> -sV -Pn
+nmap -p 3389,5985,5986,445,1433,53,88,135 <target-ip> -sV -Pn
 ```
 **login to the domain computers** 
 ```bash
@@ -115,6 +115,7 @@ We could also check the `Analysis` tab and run the pre-built queries ==Find Work
 
 ```bash
 xfreerdp /v:<TARGET_IP_OR_HOSTNAME> /u:<DOMAIN>\<USERNAME> /p:<PASSWORD>
+xfreerdp /v:target_host /u:username /pth:NTLM_HASH
 ```
 To test this access, we can either use a tool such as `xfreerdp` or `Remmina` from our VM or the Pwnbox or `mstsc.exe` if attacking from a Windows host.
 

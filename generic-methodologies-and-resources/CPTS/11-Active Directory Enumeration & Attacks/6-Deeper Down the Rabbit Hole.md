@@ -140,7 +140,7 @@ sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --groups
 
 #### CME - Domain Group Computers
 ```bash
-sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> ----computers
+sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --computers
 
 # list computers + revolsed ip
 Get-DomainComputer | % { "$($_.dnshostname) - $((Resolve-DnsName $_.dnshostname -EA SilentlyContinue).IPAddress)" }
@@ -170,6 +170,9 @@ Next, we can dig into the shares and spider each directory looking for files. Th
 `spider_plus` lists file names and metadata (size, timestamps) from an SMB share based on filters like extension and size. It saves this info in a JSON file located at `/tmp/cme_spider_plus/<ip of host>` but **does not download or save file contents**.
 ```bash
 sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 -M spider_plus --share 'Department Shares'  #  OUTPUT: /tmp/cme_spider_plus
+
+# modern with netexec + enum the hole subnet shars
+netexec smb 172.16.6.0/24 -u svc_sql -p "lucky7" -M spider_plus 
 
 # check OUTPUT(lists file names)
  head -n 10 /tmp/cme_spider_plus/172.16.5.5.json 
@@ -287,11 +290,12 @@ It was initially only released with a PowerShell collector, so it had to be run 
 `bloodhound-python` helped immensely during penetration tests ==when we have valid domain credentials, but do not have rights to access a domain-joined Windows host or do not have a Windows attack host to run the SharpHound collector from==. This also helps us not have to run the collector from a domain host,
 #### Executing BloodHound.py
 ```bash
+bloodhound-ce-python # for bloudhound comunity edition 
 bloodhound-python -h
   # -c : Which information to collect. -c all flag told the tool to run all checks
 
 # Executing BloodHound.py
-sudo bloodhound-python -u '<USER>' -p '<PASS>' -ns <DC-IP> -d <domain.local> -c all 
+sudo bloodhound-python -u '<USER@<DOMAIN.LOCAL>' -p '<PASS>' -ns <DC-IP> -d <domain.local> -c all 
 
 # Viewing the Results
 ls 
@@ -373,6 +377,7 @@ Get-Domain              # Will return the AD object for the current (or specifie
 Get-DomainController    # Return a list of the Domain Controllers for the specified domain
 Get-DomainUser          # Will return all users or specific user objects in AD
 Get-DomainComputer      # Will return all computers or specific computer objects in AD
+
 Get-DomainGroup         # Will return all groups or specific group objects in AD
 Get-DomainOU            # Search for all or specific OU objects in AD
 Find-InterestingDomainAcl # Finds object ACLs in the domain with modification rights set to non-built in objects

