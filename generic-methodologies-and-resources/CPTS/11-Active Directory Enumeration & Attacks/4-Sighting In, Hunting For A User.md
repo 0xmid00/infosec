@@ -115,6 +115,12 @@ enum4linux -P 172.16.5.5
 # Using enum4linux-ng (python version of enum4linux)
 enum4linux-ng -P 172.16.5.5 -oA ilfreight # -oA export data as YAML/JSON
 
+# with netexec 
+nxc smb 10.10.10.161 -u '' -p ''
+nxc smb 10.10.10.161 -u '' -p '' --shares
+nxc smb 10.10.10.161 -u '' -p '' --pass-pol
+nxc smb 10.10.10.161 -u '' -p '' --users
+nxc smb 10.10.10.161 -u '' -p '' --groups
 
 --------------
 # Enumerating Null Session - from Windows
@@ -240,7 +246,7 @@ enum4linux -U <DC-IP>  | grep "user:" | cut -f2 -d"[" | cut -f1 -d"]"
 # Using rpcclient
 rpcclient -U "" -N <DC-IP>
   $> enumdomusers
-  # if enumdomusers are available use queryuser <RID>
+  # if enumdomusers not available use queryuser <RID>
     for i in $(seq 500 1100);do rpcclient -N -U "" <DC-IP> -c "queryuser 0x$(printf '%x\n' $i)" | grep "User Name\|user_rid\|group_rid" && echo "";done
      # we can aslo use  lookupsid.py script (https://github.com/fortra/impacket/blob/master/examples/lookupsid.py)
 

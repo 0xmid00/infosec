@@ -29,6 +29,7 @@ impacket-mssqlclient -p 1433 julio@10.129.203.7
 #### connect to MSSQL server (windows auth mode)
 sqsh -S 10.129.203.7 -U .\\julio -P 'MyPassword!' -h # local windows auth
 sqsh -S 10.129.203.7 -U <domain_name>\\julio -P 'MyPassword!' -h # domain auth
+impacket-mssqlclient -p 1433 julio@10.129.203.7 -windows-auth
 
 ### SQL Default Databases:
 # MySQL 

