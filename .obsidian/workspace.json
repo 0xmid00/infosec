@@ -13,12 +13,24 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/0-todo.md",
-                "mode": "source",
+                "file": "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/2- Web Proxy.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "0-todo"
+              "title": "2- Web Proxy"
+            }
+          },
+          {
+            "id": "4fd59af4f25d2d9d",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.14"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.14"
             }
           }
         ]
@@ -94,13 +106,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/0-todo.md",
+                "file": "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/2- Web Proxy.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 0-todo"
+              "title": "Outline of 2- Web Proxy"
             }
           },
           {
@@ -169,8 +181,24 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "7409617d82153dc6",
+  "active": "63fbe1d6766e4684",
   "lastOpenFiles": [
+    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/3-Web Fuzzer.md",
+    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/4- Web Scanner.md",
+    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144500.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144541.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144621.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906151345.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906152649.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250907000513.png",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906145941.png",
+    "generic-methodologies-and-resources/CPTS/7.Using the Metasploit Framework/README.md",
+    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/4- web Scanner",
+    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/1-Getting Started.md",
+    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/2- Web Proxy.md",
+    "generic-methodologies-and-resources/CPTS/0-todo.md",
+    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/10-Why So Trusting?.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/3-Sniffing out a Foothold.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/9-Stacking The Deck.md",
@@ -190,20 +218,6 @@
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
     "windows-hardening/windows-local-privilege-escalation/README.md",
-    "network-services-pentesting/pentesting-smb.md",
-    "windows-hardening/windows-local-privilege-escalation/sedebug-+-seimpersonate-copy-token.md",
-    "windows-hardening/checklist-windows-privilege-escalation.md",
-    "windows-hardening/checklist-windows-privilege-escalation 2.md",
-    "windows-local-privilege-escalation.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "windows-hardening/windows-local-privilege-escalation/Incognito.md",
-    "Pasted image 20250907000513.png",
-    "Pasted image 20250906152649.png",
-    "Pasted image 20250906151345.png",
-    "Pasted image 20250906145941.png",
-    "Pasted image 20250906144621.png",
-    "Pasted image 20250906144541.png",
-    "Pasted image 20250906144500.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906143726.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250831174625.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250905145741.png",
@@ -215,8 +229,6 @@
     "Untitled 4.base",
     "Untitled 5.base",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images",
-    "Untitled 1.base",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/12-Stacking The Deck",
     "Untitled.canvas",
     "generic-methodologies-and-resources/Untitled.canvas"
   ]
