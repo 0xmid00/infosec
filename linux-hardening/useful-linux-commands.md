@@ -202,6 +202,7 @@ sed -r '/^\s*$/d' # **deletes empty lines or lines that contain only whitespace*
 sed -ri '/^.{,9}$/d' mut_password.list # Remove all passwords shorter than 10 with sed -ri '/^.{,9}$/d' mut_password.list
 
 echo "mido ahmed rawen 2002" | awk '{print $1}'  # mido
+awk '{ print tolower($0) }' list.txt > list--lower.txt # rewrite in lowercase
 echo "hate rawen : love rawen" | cut -f 2 -d ":" # love rawen
 cat file.json | jq . # output the results in JSON format
 -------
