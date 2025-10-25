@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/4-Parameter Fuzzing.md",
-                "mode": "preview",
+                "file": "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/1-Introduction.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4-Parameter Fuzzing"
+              "title": "1-Introduction"
             }
           },
           {
@@ -34,8 +34,51 @@
               "icon": "lucide-file",
               "title": "1-Introduction"
             }
+          },
+          {
+            "id": "d0da27d09182bb1e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/5-Custom Wordlists.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "5-Custom Wordlists"
+            }
+          },
+          {
+            "id": "6721e852b1711431",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux-hardening/useful-linux-commands.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "useful-linux-commands"
+            }
+          },
+          {
+            "id": "78daea2cab1c5f8d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "1-Introduction"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -92,7 +135,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 337.5
+    "width": 262.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -108,13 +151,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/4-Parameter Fuzzing.md",
+                "file": "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/5-Custom Wordlists.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 4-Parameter Fuzzing"
+              "title": "Outline of 5-Custom Wordlists"
             }
           },
           {
@@ -183,32 +226,38 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "7409617d82153dc6",
+  "active": "d0da27d09182bb1e",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/2-Basic Fuzzing.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/2-Remote Password Attacks.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/7-Cracking Files.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/5-Custom Wordlists.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/4-medusa.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/4-Pivoting Around Obstacles.md",
+    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/3-Playing Pong with Socat.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/3-Hydra.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/2-Brute Force Attacks.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/2-",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/3-Domain Fuzzing.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing",
+    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/Untitled",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/4-Parameter Fuzzing.md",
+    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/2-Basic Fuzzing.md",
     "generic-methodologies-and-resources/CPTS/0-todo.md",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/1-  Penetration Testing Process/Legal Considerations.md",
     "generic-methodologies-and-resources/CPTS/1-  Penetration Testing Process/Post Exploitation/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/2-Remote Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/7-Cracking Files.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/2-Initial Enumeration.md",
-    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with Ffuf/3-Basic Fuzzing.md",
-    "linux-hardening/useful-linux-commands.md",
-    "generic-methodologies-and-resources/bash/README.md",
-    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/4- Web Scanner.md",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff",
-    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/2- Web Proxy.md",
-    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/3-Web Fuzzer.md",
-    "generic-methodologies-and-resources/CPTS/11-1 Introduction to Active Directory/1-Active Directory Overview.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144500.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144541.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144621.png",
@@ -216,11 +265,8 @@
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906152649.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250907000513.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906145941.png",
-    "generic-methodologies-and-resources/CPTS/7.Using the Metasploit Framework/README.md",
     "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/4- web Scanner",
-    "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/1-Getting Started.md",
     "generic-methodologies-and-resources/CPTS/12-Using Web Proxies",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/10-Why So Trusting?.md",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906143726.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250831174625.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250905145741.png",
@@ -228,9 +274,6 @@
     "Untitled 7.base",
     "Untitled 6.base",
     "Untitled 2.base",
-    "Untitled 3.base",
-    "Untitled 4.base",
-    "Untitled 5.base",
     "Untitled.canvas",
     "generic-methodologies-and-resources/Untitled.canvas"
   ]

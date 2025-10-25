@@ -307,7 +307,7 @@ wc -l inlane.wordlist
 
 
 ------
-### search for usernames 
+### make a lists of usernames 
 
     # Common username conventions (example: Jane Jill Doe)
     jdoe         # first initial + last name

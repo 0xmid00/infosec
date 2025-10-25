@@ -27,3 +27,4 @@ Use VHost fuzzing (change Host header) and filter results by response size to fi
 ffuf -w /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:PORT/ -H 'Host: FUZZ.academy.htb' -fs 900  
 ```
 **Explanation: -H injects FUZZ into Host,  -fs 900 filters (exclude) out the default 900-byte fake responses so real VHosts show different sizes. Example found: admin -> add "SERVER_IP admin.academy.htb" to /etc/hosts and visit `http://admin.academy.htb:PORT/` to confirm (then run a recursive scan).**
+ 

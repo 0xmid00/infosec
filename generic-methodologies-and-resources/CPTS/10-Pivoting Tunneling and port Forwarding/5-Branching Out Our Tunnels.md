@@ -364,12 +364,16 @@ for i in {1..254} ;do (ping -c 1 192.168.119.$i | grep "from" &) ;done
 for i in {1..254} ;do (ping -c 1 192.168.79.$i | grep "from" &) ;done 
 
 
+===========================================================================
+
+# Access to agent's local ports (127.0.0.1)
+# If you need to access the local ports of the currently connected agent, there's a "magic" CIDR hardcoded in Ligolo-ng: _240.0.0.0/4_ (This is an unused IPv4 subnet). If you query an IP address on this subnet, Ligolo-ng will automatically redirect traffic to the agent's local IP address (127.0.0.1).
+sudo ip route add 240.0.0.1/32 dev ligolo
+nmap 240.0.0.1 -sV
 
 
-
-# remove 
+# remove  & clean up
 sudo ip route del 172.16.4.0/23 dev ligolo
 sudo ip link set ligolo down
 sudo ip link delete ligolo
-
 ```
