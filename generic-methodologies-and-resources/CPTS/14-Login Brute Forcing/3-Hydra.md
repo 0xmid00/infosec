@@ -20,7 +20,7 @@ Service-specific options: `/OPT` (e.g., HTTP form mapping)
 Hydra modules target different protocols (**ftp, ssh, http-get, http-post-form , smtp, pop3, imap, mysql, mssql, vnc, rdp**) so it can adapt to many auth mechanisms.
 #### examples usages
 ```bash
-# Brute-Forcing HTTP Authentication (user , pass lists against basic HTTP auth)
+#  basic HTTP auth
 hydra -L usernames.txt -P passwords.txt www.example.com http-get
 
 # Targeting Multiple SSH Servers (use a targets file to test many hosts at once)

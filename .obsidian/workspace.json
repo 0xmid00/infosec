@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/5-Custom Wordlists.md",
+                "file": "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/3-MySQL.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "5-Custom Wordlists"
+              "title": "3-MySQL"
             }
           },
           {
@@ -135,7 +135,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 262.5
+    "width": 384.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -151,13 +151,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/5-Custom Wordlists.md",
+                "file": "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/3-MySQL.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 5-Custom Wordlists"
+              "title": "Outline of 3-MySQL"
             }
           },
           {
@@ -212,7 +212,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 415.5
+    "width": 326.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -228,6 +228,16 @@
   },
   "active": "d0da27d09182bb1e",
   "lastOpenFiles": [
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/2-Databases.md",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/3-MySQL.md",
+    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/4-Sighting In, Hunting For A User.md",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251029155711.png",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals.md",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/3-Hydra.md",
+    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/5-Custom Wordlists.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/2-Remote Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/README.md",
@@ -237,13 +247,11 @@
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
-    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/5-Custom Wordlists.md",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/4-medusa.md",
     "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/2-Choosing The Dig Site & Starting Our Tunnels.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/4-Pivoting Around Obstacles.md",
     "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/3-Playing Pong with Socat.md",
-    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/3-Hydra.md",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/2-Brute Force Attacks.md",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/2-",
@@ -252,11 +260,6 @@
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/Untitled",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/4-Parameter Fuzzing.md",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/2-Basic Fuzzing.md",
-    "generic-methodologies-and-resources/CPTS/0-todo.md",
-    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/1-Introduction.md",
-    "generic-methodologies-and-resources/CPTS/1-  Penetration Testing Process/Legal Considerations.md",
-    "generic-methodologies-and-resources/CPTS/1-  Penetration Testing Process/Post Exploitation/README.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/2-Initial Enumeration.md",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144500.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906144541.png",
@@ -269,11 +272,8 @@
     "generic-methodologies-and-resources/CPTS/12-Using Web Proxies",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250906143726.png",
     "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250831174625.png",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/Images/Pasted image 20250905145741.png",
     "Untitled.base",
     "Untitled 7.base",
-    "Untitled 6.base",
-    "Untitled 2.base",
     "Untitled.canvas",
     "generic-methodologies-and-resources/Untitled.canvas"
   ]
