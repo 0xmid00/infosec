@@ -93,6 +93,7 @@ INSERT INTO logins(username, password) VALUES('a','x'),('b','y');
 Retrieve data.
 ```sql
 SELECT * FROM logins;                 -- all columns
+SELECT COUNT(*) FROM table_name       --- count the record in the table
 SELECT username, password FROM logins;-- specific columns
 ```
 #### DROP Statement
