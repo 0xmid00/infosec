@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/1-Getting Started.md",
-                "mode": "preview",
+                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/3-Database Enumeration.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1-Getting Started"
+              "title": "3-Database Enumeration"
             }
           }
         ],
@@ -165,13 +165,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/1-Getting Started.md",
+                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/3-Database Enumeration.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 1-Getting Started"
+              "title": "Outline of 3-Database Enumeration"
             }
           },
           {
@@ -242,8 +242,12 @@
   },
   "active": "a88d04fae8e24a57",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/4-SQL Injections.md",
+    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/2-Building Attacks.md",
+    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/3-Database Enumeration.md",
+    "generic-methodologies-and-resources/CPTS/0-todo.md",
     "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/1-Getting Started.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/4-SQL Injections.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/5-Exploitation.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/3-MySQL.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/2-Databases.md",
@@ -255,7 +259,6 @@
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251101171530.png",
     "generic-methodologies-and-resources/shells/web shells.md",
     "generic-methodologies-and-resources/CPTS/6-Shells & Payloads/READEME.md",
-    "generic-methodologies-and-resources/CPTS/0-todo.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251102172712.png",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251102172646.png",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251102172618.png",
@@ -278,9 +281,6 @@
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/10-Pivoting Tunneling and port Forwarding/5-Branching Out Our Tunnels.md",
-    "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/4-medusa.md",
-    "linux-hardening/useful-linux-commands.md",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/2-",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/Untitled",
