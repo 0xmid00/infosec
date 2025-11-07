@@ -93,8 +93,9 @@ Host: www.example.com
 
 Run with request file:
 ```bash
-sqlmap -r req.txt
+sqlmap -r req.txt  -p id
 ```
+>**==DON'T FORGET TO USE THE `-p id`==** 
 
 
 ---
@@ -162,7 +163,7 @@ sqlmap -u "www.example.com/?id=1" -v 3 --level=5 --risk=3
 - `--titles` — compare `<title>` values to detect differences.
 - `--string=<STR>` — base detection on presence of a string.
 - `--text-only` — strip HTML, compare text only.
-- `--technique=<letters>` — limit techniques (B=Boolean, E=Error, U=UNION, T=Time).
+- `--technique=BEUT` — limit techniques (B=Boolean, E=Error, U=UNION, T=Time).
 - `--flush-session` removes saved session data for the target so sqlmap will re-run discovery and data retrieval.
 #### UNION tuning
 - `--union-cols=<n>` — set column count for UNION.

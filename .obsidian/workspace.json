@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/3-Database Enumeration.md",
-                "mode": "source",
+                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/NOTES.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3-Database Enumeration"
+              "title": "NOTES"
             }
           }
         ],
@@ -165,13 +165,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/3-Database Enumeration.md",
+                "file": "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/NOTES.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 3-Database Enumeration"
+              "title": "Outline of NOTES"
             }
           },
           {
@@ -243,17 +243,20 @@
   "active": "a88d04fae8e24a57",
   "lastOpenFiles": [
     "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/2-Building Attacks.md",
+    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/NOTES.md",
     "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/3-Database Enumeration.md",
-    "generic-methodologies-and-resources/CPTS/0-todo.md",
-    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/1-Getting Started.md",
-    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/4- Advanced SQLMap Usage.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/4-SQL Injections.md",
+    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/1-Getting Started.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/5-Exploitation.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/3-MySQL.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/2-Databases.md",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/6-Mitigation SQL Injection.md",
+    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/4-",
+    "generic-methodologies-and-resources/CPTS/0-todo.md",
+    "generic-methodologies-and-resources/CPTS/9-Attacking Common Services/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials",
-    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/6-Mitigation SQL Injection.md",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251101171941.png",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251029155711.png",
     "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/images/Pasted image 20251101171530.png",
@@ -279,15 +282,12 @@
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/7-Cracking Files.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
     "generic-methodologies-and-resources/CPTS/8-Password Attacks/5-Extracting Passwords from the Network.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/4-Linux Local Password Attacks.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/3-Windows Local Password Attacks.md",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/2-",
     "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/Untitled",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff",
     "generic-methodologies-and-resources/CPTS/12-Using Web Proxies/4- web Scanner",
     "generic-methodologies-and-resources/CPTS/12-Using Web Proxies",
-    "Untitled.base",
     "Untitled.canvas",
     "generic-methodologies-and-resources/Untitled.canvas"
   ]
