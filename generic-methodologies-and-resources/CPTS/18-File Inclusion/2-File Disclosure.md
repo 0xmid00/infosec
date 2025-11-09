@@ -149,6 +149,11 @@ if  we can't bypass the appending the web language  extension to our LFI path (e
 ## 3- PHP Filters (read php files)
 [PHP Filters](https://www.php.net/manual/en/filters.php) are a type of PHP wrapper can  let PHP access different input/output streams (files, memory, STDIN/STDOUT). In web testing, these can turn a Local File Inclusion (LFI) into a more powerful exploit — e.g., reading PHP source code or helping achieve remote code execution. The text explains basic **PHP filters for reading source code** 
 
+`example.com/?language=en`
+```php
+include($_GET['language'] . ".php");
+```
+
  - ** if  we can't bypass the LFI Approved Path** , ==so w can only read the PHP files==
  - **example we try to read php file `xample.com/index.php?language=configure.php` so it will not display on the web page instead it will executed  **  ==solution ==> PHP filter==
 
@@ -165,7 +170,7 @@ Among the available filters (string, conversion, compression, encryption), the m
 #### Fuzzing for PHP Files
 Start by fuzzing for PHP files using tools like `ffuf` or `gobuster`:
 ```bash
-ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://<SERVER_IP>:<PORT>/FUZZ.php
+ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://<SERVER_IP>:<PORT>/FUZZ -e '.php'
   # config                  [Status: 302, Size: 0, Words: 1, Lines: 1]
 ```
 > Scan for all status codes (`200`, `301`, `302`, `403`) because LFI allows access even to restricted or redirected files. 
@@ -178,6 +183,7 @@ To read the PHP source instead of executing it, use the Base64 filter to encode 
 #### Source Code Disclosure
 Use the Base64 filter to read PHP source code through LFI:
 ```bash
+# example.com/?language=en
 # php filter payload
 # php://filter/read=convert.base64-encode/resource=config
 

@@ -1,5 +1,5 @@
 # Information Gathering - Web Edition
-## [[generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/Introduction]]
+## [[generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/Introduction| introduction]]
 ## [[generic-methodologies-and-resources/external-recon-methodology/README#WHOIS|WHOIS]]
 ## subdomains & DNS 
  ### [[DNS|DNS ]]
