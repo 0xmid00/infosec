@@ -14,6 +14,11 @@ Found hits (e.g., same deprecated param and "id"). Verify with curl:
 curl http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=key' -H 'Content-Type: application/x-www-form-urlencoded'
 ```
 **Response: "Invalid id!" — server recognizes the id parameter.**
+
+or using the file  request
+```bash
+ffuf -request req.txt -request-proto http -w /usr/share/wordlists/seclists/Fuzzing/LFI/LFI-Jhaddix.txt
+```
 ## 3- Value Fuzzing
 Create numeric wordlist:  
 ```bash
