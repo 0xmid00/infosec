@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/4-Other Upload Attacks.md",
+                "file": "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/3-Bypassing Filters.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4-Other Upload Attacks"
+              "title": "3-Bypassing Filters"
             }
           },
           {
@@ -107,14 +107,18 @@
             "id": "e0c4ef1755b66a10",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "pentesting-web/xxe-xee-xml-external-entity.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "xxe-xee-xml-external-entity"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -187,13 +191,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/4-Other Upload Attacks.md",
+                "file": "pentesting-web/xxe-xee-xml-external-entity.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 4-Other Upload Attacks"
+              "title": "Outline of xxe-xee-xml-external-entity"
             }
           },
           {
@@ -262,14 +266,18 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "78daea2cab1c5f8d",
+  "active": "e0c4ef1755b66a10",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/18-File Inclusion/Automation and Prevention.md",
-    "generic-methodologies-and-resources/CPTS/18-File Inclusion/3- Remote Code Execution.md",
-    "generic-methodologies-and-resources/CPTS/18-File Inclusion/1-Introduction.md",
-    "generic-methodologies-and-resources/CPTS/18-File Inclusion/2-File Disclosure.md",
+    "pentesting-web/file-upload/README.md",
+    "pentesting-web/file-upload/pdf-upload-xxe-and-cors-bypass.md",
     "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/4-Other Upload Attacks.md",
     "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/3-Bypassing Filters.md",
+    "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/5-Preventing File Upload Vulnerabilities.md",
+    "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/2-Basic Exploitation.md",
+    "generic-methodologies-and-resources/CPTS/18-File Inclusion/3- Remote Code Execution.md",
+    "generic-methodologies-and-resources/CPTS/18-File Inclusion/2-File Disclosure.md",
+    "generic-methodologies-and-resources/CPTS/18-File Inclusion/Automation and Prevention.md",
+    "generic-methodologies-and-resources/CPTS/18-File Inclusion/1-Introduction.md",
     "Pasted image 20251113233613.png",
     "Pasted image 20251113232702.png",
     "Pasted image 20251113232421.png",
@@ -277,7 +285,6 @@
     "Pasted image 20251113213650.png",
     "Pasted image 20251111200734.png",
     "Pasted image 20251111200637.png",
-    "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/2-Basic Exploitation.md",
     "generic-methodologies-and-resources/CPTS/0-todo.md",
     "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/1- Intro to File Upload Attacks.md",
     "generic-methodologies-and-resources/CPTS/18-File Inclusion/images/Pasted image 20251109211605.png",
@@ -300,9 +307,6 @@
     "generic-methodologies-and-resources/CPTS/4-Vulnerability Assessment/Reporting.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Evading Detection.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/4-Vulnerability Assessment 1/Vulnerability Assessment.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/4-Vulnerability Assessment 1/Security Assessments.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/4-Vulnerability Assessment 1/Reporting.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/4-Vulnerability Assessment 1/Common Vulnerability Scoring System (CVSS).md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/4-Vulnerability Assessment 1",
     "generic-methodologies-and-resources/CPTS/18-File Inclusion",
     "generic-methodologies-and-resources/CPTS/17-Cross-Site Scripting (XSS)",
