@@ -146,7 +146,7 @@ Get-ChildItem Env:
 ```
 
 Then extract any needed character.
-### Character Shifting (bypass /)
+### Character Shifting (bypass `\`)
 
 #### Linux Character Shift Trick
 You can generate characters by shifting ASCII values.
@@ -156,6 +156,8 @@ echo $(tr '!-}' '"-~'<<<[) # --> \
 ```
 
 
+
+> we can try also the **HTTP Verb Tampering** to bypass the filters
 ---
 
 ## 4- Bypassing Blacklisted Commands
