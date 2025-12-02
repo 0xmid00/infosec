@@ -8,129 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "7409617d82153dc6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/14-Login Brute Forcing/1-Introduction.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1-Introduction"
-            }
-          },
-          {
-            "id": "dd9ef5b3c2b37b89",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1-Introduction"
-            }
-          },
-          {
-            "id": "d0da27d09182bb1e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/5-Exploitation.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "5-Exploitation"
-            }
-          },
-          {
-            "id": "6721e852b1711431",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "linux-hardening/useful-linux-commands.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "useful-linux-commands"
-            }
-          },
-          {
-            "id": "78daea2cab1c5f8d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/3-Bypassing Filters.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "3-Bypassing Filters"
-            }
-          },
-          {
-            "id": "1801c124b80659a3",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.10.3"
-              },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.10.3"
-            }
-          },
-          {
-            "id": "a88d04fae8e24a57",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "nmap-summary-esp"
-            }
-          },
-          {
-            "id": "e0c4ef1755b66a10",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "generic-methodologies-and-resources/CPTS/0-todo.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "0-todo"
-            }
-          },
-          {
             "id": "7fc2608836ae7cae",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251121173652.png"
+                "file": "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/2-Content Management Systems (CMS).md",
+                "mode": "preview",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20251121173652"
+              "icon": "lucide-file",
+              "title": "2-Content Management Systems (CMS)"
             }
           }
-        ],
-        "currentTab": 8
+        ]
       }
     ],
     "direction": "vertical"
@@ -203,13 +94,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251121173652.png",
+                "file": "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/2-Content Management Systems (CMS).md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Pasted image 20251121173652"
+              "title": "Outline of 2-Content Management Systems (CMS)"
             }
           },
           {
@@ -278,11 +169,34 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "63fbe1d6766e4684",
+  "active": "7fc2608836ae7cae",
   "lastOpenFiles": [
+    "Pasted image 20251202142045.png",
+    "generic-methodologies-and-resources/CPTS/0-todo.md",
+    "generic-methodologies-and-resources/pentesting-network/nmap-summary-esp.md",
+    "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/3-Bypassing Filters.md",
+    "linux-hardening/useful-linux-commands.md",
+    "generic-methodologies-and-resources/CPTS/15-SQL Injection Fundamentals/5-Exploitation.md",
+    "generic-methodologies-and-resources/CPTS/8-Password Attacks/1-Introduction.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/2-Content Management Systems (CMS).md",
+    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/3-Domain Fuzzing.md",
+    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/4-Parameter Fuzzing.md",
+    "Pasted image 20251130193933.png",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/template_report.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/1-Setting the Stage.md",
+    "Pasted image 20251127204912.png",
+    "Pasted image 20251127192744.png",
+    "Pasted image 20251126215857.png",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications",
+    "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/2-Basic Exploitation.md",
+    "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/4-Other Upload Attacks.md",
+    "generic-methodologies-and-resources/CPTS/20-Command Injections/1-Intro to Command Injections.md",
+    "generic-methodologies-and-resources/CPTS/20-Command Injections/3-Filter Evasion.md",
+    "generic-methodologies-and-resources/CPTS/20-Command Injections/2-Exploitation.md",
+    "generic-methodologies-and-resources/CPTS/21-Web Attacks/4-XML.md",
+    "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251121173652.png",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/images",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/NOTES.md",
-    "generic-methodologies-and-resources/CPTS/21-Web Attacks/4-XML.md",
     "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
     "linux-hardening/privilege-escalation/README.md",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/3-Insecure Direct Object References (IDOR).md",
@@ -291,41 +205,18 @@
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251125133809.png",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251125125229.png",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251125125107.png",
-    "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251125124955.png",
-    "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251125124910.png",
-    "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251124200235.png",
-    "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251124114247.png",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/1-Introduction to Web Attacks.md",
-    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/4-Parameter Fuzzing.md",
-    "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/3-Domain Fuzzing.md",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/2-Basic Fuzzing.md",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/2 HTTP Verb Tampering.md",
     "generic-methodologies-and-resources/CPTS/20-Command Injections/NOTES.md",
-    "generic-methodologies-and-resources/CPTS/21-Web Attacks/images/Pasted image 20251121181820.png",
-    "generic-methodologies-and-resources/CPTS/20-Command Injections/3-Filter Evasion.md",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks",
-    "generic-methodologies-and-resources/CPTS/Untitled.md",
-    "generic-methodologies-and-resources/CPTS/20-Command Injections/4-Prevention.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/8-An ACE in the Hole.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/6-Deeper Down the Rabbit Hole.md",
     "generic-methodologies-and-resources/CPTS/20-Command Injections/images",
-    "generic-methodologies-and-resources/CPTS/20-Command Injections/2-Exploitation.md",
-    "generic-methodologies-and-resources/CPTS/20-Command Injections/1-Intro to Command Injections.md",
-    "linux-hardening/privilege-escalation/linux-active-directory.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/4-Sighting In, Hunting For A User.md",
-    "network-services-pentesting/pentesting-smb/README.md",
-    "generic-methodologies-and-resources/CPTS/11-Active Directory Enumeration & Attacks/1-Setting The Stage.md",
-    "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/NOTES.md",
     "generic-methodologies-and-resources/CPTS/19-File Upload Attacks/images",
-    "pentesting-web/xxe-xee-xml-external-entity.md",
     "generic-methodologies-and-resources/CPTS/20-Command Injections",
-    "pentesting-web/file-upload/README.md",
     "generic-methodologies-and-resources/CPTS/18-File Inclusion/images",
     "generic-methodologies-and-resources/CPTS/19-File Upload Attacks",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/4-Vulnerability Assessment 1",
     "generic-methodologies-and-resources/CPTS/18-File Inclusion",
-    "generic-methodologies-and-resources/CPTS/17-Cross-Site Scripting (XSS)",
-    "generic-methodologies-and-resources/CPTS/16-SQLMap Essentials/4-",
     "Untitled.canvas",
     "generic-methodologies-and-resources/Untitled.canvas"
   ]

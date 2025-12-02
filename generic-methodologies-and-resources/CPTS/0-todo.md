@@ -41,6 +41,7 @@ zephyr
 Enterprise
 reddish
 inception
+Delivery
 
 # easy box to practice exploiting public exploits using metasploit 
     Granny/Grandpa
