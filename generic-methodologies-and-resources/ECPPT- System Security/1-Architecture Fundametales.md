@@ -5,10 +5,10 @@
 ## 1.2 Architecture Fundametales
 ### 1.2.1 CPU,ISA,Assembly
 **CPU →** Executes machine code.  
-**Machine Code(OPCODE) →** Binary/hex CPU instructions.  
+**Machine Code →** Binary/hex CPU instructions.  
 **Instruction →** Basic CPU operation (data, arithmetic, flow).  
 **HEX →** Human-unfriendly machine code format.  
-**Assembly (ASM) →** Mnemonics for machine code (NASM/MASM).  
+**Assembly (ASM) →** Mnemonics for machine code or operation code (`opcode`)
 **NASM →** Netwide Assembler used here.  
 **Disassembly →** Machine code → ASM.  
 **ISA →** CPU instruction set (registers, memory, ops).  
