@@ -27,8 +27,8 @@ register = 4 bites = 32bites
 Format: [byte1]-[byte2]-[byte3]-[byte4]
 
 # 3. Hex Representation
-1 byte = 2 hex digits (e.g., 4F)
-4 bytes = 8 hex digits (e.g., 0x01020304)
+chat A; = 1 byte = 2 hex digits (e.g., 4F)
+int A; = 4 bytes = 8 hex digits (e.g., 0x01020304)
 
 # Example Hex for number 1234
 Addr   Hex
