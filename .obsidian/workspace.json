@@ -39,12 +39,14 @@
             "id": "c288b49b64137cf6",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209202310.png"
+                "file": "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/7-Thick Client Applications.md",
+                "mode": "preview",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20251209202310"
+              "icon": "lucide-file",
+              "title": "7-Thick Client Applications"
             }
           },
           {
@@ -67,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/Exfiltration.md",
+                "file": "windows-hardening/basic-cmd-for-pentesters.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Exfiltration"
+              "title": "basic-cmd-for-pentesters"
             }
           }
         ],
@@ -149,13 +151,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209202310.png",
+                "file": "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/7-Thick Client Applications.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Pasted image 20251209202310"
+              "title": "Outline of 7-Thick Client Applications"
             }
           },
           {
@@ -224,10 +226,18 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "63fbe1d6766e4684",
+  "active": "c288b49b64137cf6",
   "lastOpenFiles": [
-    "Pasted image 20251206115126.png",
+    "windows-hardening/basic-cmd-for-pentesters.md",
+    "generic-methodologies-and-resources/Exfiltration.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/7-Thick Client Applications.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/4-Infrastructure - Network Monitoring Tools.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/6- Common Gateway Interfaces.md",
+    "Pasted image 20251219184604.png",
+    "generic-methodologies-and-resources/CPTS/0-todo.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/1-Setting the Stage.md",
     "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209202310.png",
+    "Pasted image 20251206115126.png",
     "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209213515.png",
     "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209213620.png",
     "Pasted image 20251205152749.png",
@@ -235,9 +245,6 @@
     "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209213629.png",
     "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209214105.png",
     "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251209214424.png",
-    "generic-methodologies-and-resources/ECPPT- System Security/images/Pasted image 20251210151557.png",
-    "Pasted image 20251202230529.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/6- Common Gateway Interfaces.md",
     "generic-methodologies-and-resources/ECPPT- System Security/files/nasmx-1.4.zip",
     "generic-methodologies-and-resources/ECPPT- System Security/files/Dev-Cpp 5.11 TDM-GCC 4.9.2 Setup.exe",
     "generic-methodologies-and-resources/ECPPT- System Security/files/1- files.zip",
@@ -246,8 +253,6 @@
     "generic-methodologies-and-resources/ECPPT- System Security/3- Buffer Overflow.md",
     "generic-methodologies-and-resources/ECPPT- System Security/2-Assemblers, Debuggers And Tools Arsenal.md",
     "generic-methodologies-and-resources/ECPPT- System Security/1-Architecture Fundametales.md",
-    "windows-hardening/basic-cmd-for-pentesters.md",
-    "generic-methodologies-and-resources/Exfiltration.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Windows File Transfer Methods.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/README.md",
     "generic-methodologies-and-resources/CPTS/5-File Transfers/Living Of The Land.md",
@@ -266,9 +271,6 @@
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/2-Basic Fuzzing.md",
     "generic-methodologies-and-resources/CPTS/13-Attacking Web Applications with fuff/1-Introduction.md",
     "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/5-Customer Service Mgmt & Configuration Management.md",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/3-Servlet Containers - Software Development.md",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/4-Infrastructure - Network Monitoring Tools.md",
-    "windows-hardening/active-directory-methodology/password-spraying.md",
     "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks/images",
     "generic-methodologies-and-resources/CPTS/21-Web Attacks",
