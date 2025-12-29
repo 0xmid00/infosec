@@ -264,12 +264,10 @@ Reading the content of all the text files reveals that:
 - The login credentials for login in the client application are `qtc / clarabibi`.
 
 Let's run the `fatty-client.jar` file by double-clicking on it. Once the app is started, we can log in using the credentials `qtc / clarabibi`.
-
-![Login screen with fields for username and password. Error dialog displayed: 'Connection Error!'](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/err.png)
+![[Pasted image 20251228150930.png]]
 
 This is not successful, and the message `Connection Error!` is displayed. This is probably because the port pointing to the servers needs to be updated from `8000` to `1337`. Let's capture and analyze the network traffic using Wireshark to confirm this. Once Wireshark is started, we click on `Login` once again.
-
-![DNS query log showing standard queries and responses for server.fatty.htb and server.fatty.htb.localdomain, with results including 'No such name' and 'SUCCESS'.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/wireshark.png)
+![[Pasted image 20251228150942.png]]
 
 Below is showcased an example on how to approach DNS requests from applications in your favour. Verify the contents of the C:\Windows\System32\drivers\etc\hosts file where the IP 172.16.17.114 is pointed to fatty.htb and server.fatty.htb
 
@@ -282,8 +280,7 @@ C:\> echo 10.10.10.174    server.fatty.htb >> C:\Windows\System32\drivers\etc\ho
 ```
 
 Inspecting the traffic again reveals that the client is attempting to connect to port `8000`.
-
-![Network packet capture showing TCP communication between IPs 10.10.14.13 and 10.10.10.174 with SYN and RST, ACK flags.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/port.png)
+![[Pasted image 20251228150955.png]]
 
 The `fatty-client.jar` is a Java Archive file, and its content can be extracted by right-clicking on it and selecting `Extract files`.
 
@@ -370,7 +367,6 @@ SHA-256-Digest: h+JmFJqj0MnFbvd+LoFffOtcKcpbf/FD9h2AMOntcgw=
 
 Let's remove the hashes from `META-INF/MANIFEST.MF` and delete the `1.RSA` and `1.SF` files from the `META-INF` directory. The modified `MANIFEST.MF` should end with a new line.
 
-Code: txt
 
 ```txt
 Manifest-Version: 1.0
@@ -394,26 +390,26 @@ C:\> jar -cmf .\META-INF\MANIFEST.MF ..\fatty-client-new.jar *
 
 Then, we double-click on the `fatty-client-new.jar` file to start it and try logging in using the credentials `qtc / clarabibi`.
 
-![Login screen with fields for username and password. Success dialog displayed: 'Login Successful!'](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/login.png)
+![[Pasted image 20251228151314.png]]
 
 This time we get the message `Login Successful!`.
 #### Foothold
 
 Clicking on `Profile` -> `Whoami` reveals that the user `qtc` is assigned with the `user` role.
 
-![Screen showing username 'qtc' and rolename 'user'.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/profile1.png)
+![[Pasted image 20251228151325.png]]
 
 Clicking on the `ServerStatus,` we notice that we can't click on any options.
 
-![Menu with options: Uname, Users, Netstat, Ipconfig under 'ServerStatus' tab.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/status.png)
+![[Pasted image 20251228151356.png]]
 
 This implies that there might be another user with higher privileges that is allowed to use this feature. Clicking on the `FileBrowser` -> `Notes.txt` reveals the file `security.txt`. Clicking the `Open` option at the bottom of the window shows the following content.
 
-![Text interface showing a message about performing a penetration test due to sensitive data, with critical issues identified.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/security.png)
+![[Pasted image 20251228151437.png]]
 
 This note informs us that a few critical issues in the application still need to be fixed. Navigating to the `FileBrowser` -> `Mail` option reveals the `dave.txt` file containing interesting information. We can read its content by clicking the `Open` option at the bottom of the window.
 
-![Message from Dave about removing admin users due to pentest issues, leaving only user account 'qtc' with limited permissions and implementing login timeout to prevent SQL injection.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/dave.png)
+![[Pasted image 20251228151446.png]]
 
 The message from dave says that all `admin` users are removed from the database. It also refers to a timeout implemented in the login procedure to mitigate time-based SQL injection attacks.
 #### Path Traversal
@@ -422,11 +418,10 @@ Since we can read files, let's attempt a path traversal attack by giving the fol
 ../../../../../../etc/passwd
 ```
 
-![Error message: 'Failed to open file /opt/fatty/files/mail...etc/passwd'.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/passwd.png)
+![[Pasted image 20251228151501.png]]
 
 The server filters out the `/` character from the input. Let's decompile the application using [JD-GUI](http://java-decompiler.github.io/), by dragging and dropping the `fatty-client-new.jar` onto the `jd-gui`.
-
-![File explorer view of 'fatty-client.jar' showing contents: META-INF, htb.fatty, org, beans.xml, exit.png, fatty.p12, log4j.properties, module-info.class, spring-beans-3.0.xsd.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/jdgui.png)
+![[Pasted image 20251228151513.png]]
 
 Save the source code by pressing the `Save All Sources` option in `jdgui`. Decompress the `fatty-client-new.jar.src.zip` by right-clicking and selecting `Extract files`. The file `fatty-client-new.jar.src/htb/fatty/client/methods/Invoker.java` handles the application features. Reading its content reveals the following code.
 
@@ -507,12 +502,10 @@ C:\> jar -cmf META-INF\MANIFEST.MF traverse.jar .
 ```
 
 Let's log in to the application and navigate to `FileBrowser` -> `Config` option.
-
-![File list showing: logs, tar, start.sh, fatty-server.jar, files.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/traverse.png)
+![[Pasted image 20251228151542.png]]
 
 This is successful. We can now see the content of the directory `configs/../`. The files `fatty-server.jar` and `start.sh` look interesting. Listing the content of the `start.sh` file reveals that `fatty-server.jar` is running inside an Alpine Docker container.
-
-![Shell script to start cron, SSH, and Java application server on Alpine Docker.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/start.png)
+![[Pasted image 20251228151555.png]]
 
 We can modify the `open` function in `fatty-client-new.jar.src/htb/fatty/client/methods/Invoker.java` to download the file `fatty-server.jar` as follows.
 
@@ -546,8 +539,7 @@ public String open(String foldername, String filename) throws MessageParseExcept
 ```
 
 Rebuild the JAR file by following the same steps and log in again to the application. Then, navigate to `FileBrowser` -> `Config`, add the `fatty-server.jar` name in the input field, and click the `Open` button.
-
-![Text field with 'fatty-server.jar' and an 'Open' button.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/download.png)
+![[Pasted image 20251228151608.png]]
 
 The `fatty-server.jar` file is successfully downloaded onto our desktop, and we can start the examination.
 
@@ -581,7 +573,7 @@ public User checkLogin(User user) throws LoginException {
 
 Let's check how the client application sends credentials to the server. The login button creates the new object `ClientGuiTest.this.user` for the `User` class. It then calls the `setUsername()` and `setPassword()` functions with the respective username and password values. The values that are returned from these functions are then sent to the server.
 
-![Java code snippet for a login button action, handling username and password input, with connection error and success dialogs.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/logincode.png)
+![[Pasted image 20251228151622.png]]
 
 Let's check the `setUsername()` and `setPassword()` functions from `htb/fatty/shared/resources/user.java`.
 ```java
@@ -626,7 +618,7 @@ ClientGuiTest.this.currentFolder = "../logs";
 ```
 
 Listing the content of the `error-log.txt` file reveals the following message.
-![Log entries showing errors in FattyLogger with SQL syntax issues and exceptions during parsing and response generation.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/error.png)
+![[Pasted image 20251228151637.png]]
 
 This confirms that the username field is vulnerable to SQL Injection. However, login attempts using payloads such as `' or '1'='1` in both fields fail. Assuming that the username in the login form is `' or '1'='1`, the server will process the username as below.
 ```sql
@@ -701,10 +693,11 @@ public void setPassword(String password) {
   }
 ```
 We can now rebuild the JAR file and attempt to log in using the payload `abc' UNION SELECT 1,'abc','a@b.com','abc','admin` in the `username` field and the random text `abc` in the `password` field.
-![Login screen with SQL injection in username field and 'Login Successful!' dialog.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/bypass.png)
+![[Pasted image 20251228151653.png]]
 The server will eventually process the following query.
 ```sql
 select id,username,email,password,role from users where username='abc' UNION SELECT 1,'abc','a@b.com','abc','admin'
 ```
 The first select query fails, while the second returns valid user results with the role `admin` and the password `abc`. The password sent to the server is also `abc`, which results in a successful password comparison, and the application allows us to log in as the user `admin`.
-![ServerStatus menu open with options: Uname, Users, Netstat, Ipconfig. Directory listing shows 'total 4' and permissions for 'qtc'.](https://cdn.services-k8s.prod.aws.htb.systems/content/modules/113/thick_clients_web/admin.png)
+![[Pasted image 20251228151700.png]]
+

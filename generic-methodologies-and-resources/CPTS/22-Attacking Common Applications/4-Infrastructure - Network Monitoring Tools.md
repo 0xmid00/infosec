@@ -159,7 +159,7 @@ curl -s http://10.129.201.50:8080/index.htm -A "Mozilla/5.0 (compatible;  MSIE 7
 
 **Authenticated Command Injection (CVE-2018-9276)**
 
-- Located in **Notifications → Add new notification 
+- Located in **Notifications → Add new notification** 
 ![[Pasted image 20251204235153.png]]  
  ![[Pasted image 20251204235211.png]]
 

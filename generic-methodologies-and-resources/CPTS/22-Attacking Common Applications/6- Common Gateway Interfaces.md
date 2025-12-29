@@ -43,7 +43,7 @@ Using **ffuf** with common.txt:
 ffuf -w /usr/share/dirb/wordlists/common.txt -u http://10.129.204.227:8080/cgi/FUZZ.cmd
 ```
 ==Fuzzing .cmd (no results)==
-Since the operating system is Windows, we aim to fuzz for batch scripts(.bat):
+Since the operating system is Windows, we aim to fuzz for batch **scripts.bat:**
 ```shell
 ffuf -w common.txt -u http://10.129.204.227:8080/cgi/FUZZ.bat
   # Found: welcome.bat

@@ -343,6 +343,7 @@ proc.consumeProcessOutput(sout, serr)
 proc.waitForOrKill(1000)
 println sout
 ```
+![[Pasted image 20251228145316.png]]
 
 **or with metasploit:**
 ```bash

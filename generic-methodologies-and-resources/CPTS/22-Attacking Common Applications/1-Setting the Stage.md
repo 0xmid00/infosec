@@ -105,7 +105,7 @@ sudo nmap -p 80,443,8000,8080,8180,8888,10000 --open -oA web_discovery -iL scope
  #### Using EyeWitness
  Captures screenshots and fingerprints apps from Nmap/Nessus XML.
 ```bash
-# sudo apt install eyewitness
+# sudo apt install eyewitness (-d Directory Name)
 eyewitness --web -x web_discovery.xml -d inlanefreight_eyewitness
 ```
 #### Using Aquatone

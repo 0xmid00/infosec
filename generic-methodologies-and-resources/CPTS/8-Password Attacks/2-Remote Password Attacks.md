@@ -20,6 +20,9 @@ hydra -L user.list -P password.list smb://10.129.42.197
 msf6 auxiliary(scanner/smb/smb_login)
 smbclient -U '<user>%pass' -L  //<ip> # list folder
 smbclient -U user \\\\10.129.42.197\\<folder> # CONNECT 
+
+
+# -s PORT   if the service is on a different default port, define it here
 ```
 
 ### 

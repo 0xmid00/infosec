@@ -23,7 +23,7 @@ mysql -u julio -pPassword123 -h 10.129.20.13
 
 #### connect to MSSQL  (mixed mode (use the sql server to auth))
 sqlcmd -S <server> -U julio -P 'MyPassword!' -y 30 -Y 30 -C # connect to MSSQL 
-sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h # conect to MSSQL
+sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h # conect to MSSQL , -d specifies the database (Hub_DB)
 impacket-mssqlclient -p 1433 julio@10.129.203.7
 
 #### connect to MSSQL server (windows auth mode)
