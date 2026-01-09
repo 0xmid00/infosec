@@ -96,6 +96,9 @@ arp -a
 ```bash
 cat /etc/passwd
   # username:x:UID:GID:info:home:shell
+  
+# last users login
+last  
 ```
 **Linux hash algorithms:**
 
@@ -285,9 +288,10 @@ find / -type f -name "*.sh" 2>/dev/null | grep -v "src\|snap\|share"
 The process list shows which scripts or binaries are running and by whom, and poorly restricted admin scripts may be executable by us.
 ```bash
 ps aux | grep root
+
+# list running services
+service --status-all # or systemctl list-units --type=service --state=running
 ```
-
-
 ## 3-Credential Hunting
 During enumeration, always collect credentials from configs, scripts, histories, backups, or files, as they can enable user or root escalation and further access.
 

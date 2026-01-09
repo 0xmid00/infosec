@@ -9,11 +9,13 @@ Identify the distribution and kernel version to find compatible tools and known 
 Focus on services running as root, especially misconfigured or outdated ones (Nagios, Exim, Samba, ProFTPd). Vulnerable services often lead directly to privesc.  
 `ps aux | grep root` , `ps au`
 #### Installed Packages
-
 Outdated packages may contain known privilege escalation vulnerabilities (e.g., screen 4.05.00).
 
 #### Logged-In Users
 Identify active users and their activity for possible lateral movement or credential reuse.
+```bash
+last 
+```
 #### User Home Directories
 Check accessible home folders for config files, scripts, credentials, SSH keys, and readable `.bash_history`.  
 `ls /home` , `ls -la /home/user`
