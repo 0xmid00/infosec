@@ -2,10 +2,13 @@
   "version": "2.0",
   "layout": [
     null,
+    null,
+    null,
+    null,
     null
   ],
   "settings": {
-    "splitDirection": "vertical",
+    "splitDirection": "horizontal",
     "nodeMinHeight": 16,
     "lineHeight": "1em",
     "spacingVertical": 5,

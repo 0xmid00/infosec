@@ -4,39 +4,79 @@
     "type": "split",
     "children": [
       {
-        "id": "69f7362cf28b7abb",
+        "id": "9c817c50ca474f03",
         "type": "tabs",
         "children": [
           {
-            "id": "18aaac2a3abae64f",
+            "id": "3c3d65c0134c02e8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux-hardening/privilege-escalation/README.md",
+                "file": "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/2-Scans/2-Web/10.129.229.147.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "10.129.229.147"
             }
           },
           {
-            "id": "92aff71092969ebe",
+            "id": "9753f8e6ef8ba9a2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/8-Linux Hardening.md",
+                "file": "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/10.status.inlanefreight.local/H11. SQL  injection.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "H11. SQL  injection"
+            }
+          },
+          {
+            "id": "b7e860bf84348a15",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/4-Notes/6. Credentials.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "6. Credentials"
+            }
+          },
+          {
+            "id": "2b1c5de353002b11",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/4-Notes/7. Web Application Research.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "8-Linux Hardening"
+              "title": "7. Web Application Research"
+            }
+          },
+          {
+            "id": "74d92052ff8d3436",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "generic-methodologies-and-resources/CPTS/0-Methodology.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "0-Methodology"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -68,11 +108,11 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "escaping-from-restricted-shells",
+                "query": "imap",
                 "matchingCase": true,
-                "explainSearch": false,
+                "explainSearch": true,
                 "collapseAll": true,
-                "extraContext": false,
+                "extraContext": true,
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
@@ -93,7 +133,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 403.5
+    "width": 534.5
   },
   "right": {
     "id": "a1a2e8cbdd8adac0",
@@ -109,13 +149,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/8-Linux Hardening.md",
+                "file": "generic-methodologies-and-resources/CPTS/0-Methodology.pdf",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 8-Linux Hardening"
+              "title": "Outline of 0-Methodology"
             }
           },
           {
@@ -170,7 +210,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 326.5
+    "width": 469.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -184,54 +224,54 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "92aff71092969ebe",
+  "active": "63fbe1d6766e4684",
   "lastOpenFiles": [
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/7-Recent 0-Days.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/6-Linux Internals-based Privilege Escalation.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/5-Service-based Privilege Escalation.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/4-Permissions-based Privilege Escalation.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/3-Environment-based Privilege Escalation.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/2-Information Gathering.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/1-Introduction to Linux Privilege Escalation.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation/8-Linux Hardening.md",
-    "linux-hardening/privilege-escalation/README.md",
-    "linux-hardening/linux-privilege-escalation-checklist short(oscp).md",
-    "generic-methodologies-and-resources/Exfiltration.md",
-    "generic-methodologies-and-resources/CPTS/5-File Transfers/Linux File Transfer Methods.md",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/8-Miscellaneous Applications.md",
-    "post-exploitation.md",
-    "generic-methodologies-and-resources/CPTS/0-todo.md",
-    "linux-hardening/privilege-escalation/escaping-from-limited-bash.md",
-    "linux-hardening/linux-privilege-escalation-checklist.md",
-    "privilege-escalation.md",
-    "privilege-escalation 1.md",
-    "windows-hardening/authentication-credentials-uac-and-efs/README.md",
-    "macos-hardening/macos-security-and-privilege-escalation/macos-proces-abuse/macos-library-injection/README.md",
-    "windows-hardening/authentication-credentials-uac-and-efs.md",
-    "mobile-pentesting/android-app-pentesting/spoofing-your-location-in-play-store.md",
-    "windows-hardening/basic-powershell-for-pentesters/powerview.md",
-    "windows-hardening/stealing-credentials/credentials-protections.md",
-    "generic-methodologies-and-resources/CPTS/8-Password Attacks/6-Windows Lateral Movement.md",
-    "generic-methodologies-and-resources/CPTS/32-Linux Privilege Escalation",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251126215857.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151508.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151446.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151700.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151653.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151650.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151637.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151622.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151608.png",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/images/Pasted image 20251228151555.png",
-    "generic-methodologies-and-resources/ECPPT- System Security/files/nasmx-1.4.zip",
-    "generic-methodologies-and-resources/ECPPT- System Security/files/Dev-Cpp 5.11 TDM-GCC 4.9.2 Setup.exe",
-    "generic-methodologies-and-resources/ECPPT- System Security/files/1- files.zip",
-    "generic-methodologies-and-resources/ECPPT- System Security/files/1- System Security.zip",
-    "generic-methodologies-and-resources/ECPPT- System Security/files",
-    "generic-methodologies-and-resources/ECPPT- System Security/images",
-    "generic-methodologies-and-resources/ECPPT- System Security",
-    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications",
+    "generic-methodologies-and-resources/CPTS/35-Attacking Enterprise Networks/0.NOTES.md",
+    "generic-methodologies-and-resources/CPTS/0-Methodology.pdf",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/10.status.inlanefreight.local/H11. SQL  injection.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/4-Notes/7. Web Application Research.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/4-Notes/6. Credentials.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/9.tracking.inlanefreight.local/H10. Arbitrary Local File Read via XSS and SSRF in PDF Generator.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/10.status.inlanefreight.local",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/Untitled.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/8.support.inlanefreight.local/H9.(XSS) in Support Ticket System Leads to Session Hijacking.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/9.tracking.inlanefreight.local",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/9.tracking.inlanefreight.local.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 1/Inlanefreight Penetration Test/3-Evidence/1-Findings/H5.SSRF to Local File Read.md",
+    "Pasted image 20260213004011.png",
+    "Pasted image 20260213003900.png",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/2-Scans/2-Web/10.129.229.147.md",
+    "Pasted image 20260212234220.png",
+    "Pasted image 20260212234043.png",
+    "generic-methodologies-and-resources/CPTS/17-Cross-Site Scripting (XSS)/2-XSS Attacks.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/8.support.inlanefreight.local",
+    "Pasted image 20260212213841.png",
+    "Pasted image 20260212213612.png",
+    "Pasted image 20260212213439.png",
+    "Pasted image 20260212212848.png",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/5-Customer Service Mgmt & Configuration Management.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/7-Thick Client Applications.md",
+    "generic-methodologies-and-resources/CPTS/22-Attacking Common Applications/2-Content Management Systems (CMS).md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/7. monitoring.inlanefreight.local/H8. commmad injection.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/2-Scans/1-Service/inlanefreight.local/nmap.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/1-inlanefreight.local/H3. commmad injection.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/1-inlanefreight.local/H2.Weak password Authentication in web login  panel.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/7. monitoring.inlanefreight.local/Untitled.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/7. monitoring.inlanefreight.local",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/6.ir.inlanefreight.local/H7.mail masta 1.0 LFI.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/6.ir.inlanefreight.local/H6. Weak WordPress Credentials.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/6.ir.inlanefreight.local",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/2-Scans/2-Web/ir.inlanefreight.local.md",
+    "Pasted image 20260212195712.png",
+    "Pasted image 20260212195650.png",
+    "generic-methodologies-and-resources/CPTS/21-Web Attacks/4-XML.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/4.gitlab.inlanefreight.local/H4.Misconfigured GitLab Instance.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/5.shopdev2.inlanefreight.local",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/4.gitlab.inlanefreight.local",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/5.shopdev2.inlanefreight.local/H5.XML External Entity (XXE) Injection Leading to Arbitrary File Read.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/1-inlanefreight.local/M1 ftp anonymous login.md",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/3.dev.inlanefreight.local",
+    "generic-methodologies-and-resources/CPTS/34-Documentation & Reporting/sample_Obsidian_notebook 2/Inlanefreight Penetration Test/3-Evidence/1-Findings/2-careers.inlanefreight.local",
     "Untitled.canvas",
     "generic-methodologies-and-resources/Untitled.canvas"
   ]

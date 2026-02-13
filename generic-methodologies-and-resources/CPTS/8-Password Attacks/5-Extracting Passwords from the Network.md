@@ -27,6 +27,12 @@
   eth.addr == 00:11:22:33:44:55 # Filters packets from/to a specific MAC address.
   ip.src == 192.168.24.3 && ip.dst == 56.48.210.3 # Filters traffic between two specific IP addresses. Helps track communication between specific hosts.
 
+
+## tcpdump (must have root priv on machine)
+tcpdump -i ens192 -s 65535 -w ilfreight_pcap  # -s = max packet length
+wireshark ilfreight_pcap  # Later analysis
+
+
 ## Pcredz (https://github.com/lgandx/PCredz)
   /Pcredz -f <file.pcapng> -t -v
   # Credit card numbers

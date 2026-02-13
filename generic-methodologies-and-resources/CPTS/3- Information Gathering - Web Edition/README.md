@@ -2,7 +2,7 @@
 ## [[generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/Introduction| introduction]]
 ## [[generic-methodologies-and-resources/external-recon-methodology/README#WHOIS|WHOIS]]
 ## subdomains & DNS 
- ### [[DNS|DNS ]]
+ ### [[generic-methodologies-and-resources/CPTS/3- Information Gathering - Web Edition/DNS|DNS ]]
  ### [[generic-methodologies-and-resources/external-recon-methodology/README#**DNS**|DIGGING DNS ]]
  
 DNS reconnaissance involves utilizing specialized tools designed to query DNS servers and extract valuable information. Here are some of the most popular and versatile tools in the arsenal of web recon professionals.

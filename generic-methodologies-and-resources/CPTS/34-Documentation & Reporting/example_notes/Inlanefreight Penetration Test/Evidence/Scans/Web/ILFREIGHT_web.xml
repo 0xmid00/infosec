@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.92 scan initiated Thu Jun  2 19:03:30 2022 as: nmap -A -p 80 -oA ILFREIGHT_web 172.16.5.127 -->
+<nmaprun scanner="nmap" args="nmap -A -p 80 -oA ILFREIGHT_web 172.16.5.127" start="1654211010" startstr="Thu Jun  2 19:03:30 2022" version="7.92" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="80"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="172.16.5.127" addrtype="ipv4"/>
+<address addr="00:50:56:B9:4D:F5" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1654211011" endtime="1654211019"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="172.16.5.127" addrtype="ipv4"/>
+<address addr="00:50:56:B9:4D:F5" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.4.41" extrainfo="(Ubuntu)" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.4.41</cpe></service><script id="http-title" output="Inlanefreight - DEV"><elem key="title">Inlanefreight - DEV</elem>
+</script><script id="http-server-header" output="Apache/2.4.41 (Ubuntu)"><elem>Apache/2.4.41 (Ubuntu)</elem>
+</script></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="80"/>
+<portused state="closed" proto="udp" portid="40216"/>
+<osmatch name="Linux 5.0 - 5.3" accuracy="100" line="68085">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="5.X" accuracy="100"><cpe>cpe:/o:linux:linux_kernel:5</cpe></osclass>
+</osmatch>
+</os>
+<uptime seconds="4001191" lastboot="Sun Apr 17 11:37:08 2022"/>
+<distance value="1"/>
+<tcpsequence index="248" difficulty="Good luck!" values="985FEC05,4A4FF2A0,A3D39DD0,5B2FAA8C,25F7F928,724CABB5"/>
+<ipidsequence class="All zeros" values="0,0,0,0,0,0"/>
+<tcptssequence class="1000HZ" values="EE7D4D2C,EE7D4D90,EE7D4DF4,EE7D4E58,EE7D4EBB,EE7D4F20"/>
+<trace>
+<hop ttl="1" ipaddr="172.16.5.127" rtt="2.25"/>
+</trace>
+<times srtt="2247" rttvar="2089" to="100000"/>
+</host>
+<runstats><finished time="1654211019" timestr="Thu Jun  2 19:03:39 2022" summary="Nmap done at Thu Jun  2 19:03:39 2022; 1 IP address (1 host up) scanned in 8.92 seconds" elapsed="8.92" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

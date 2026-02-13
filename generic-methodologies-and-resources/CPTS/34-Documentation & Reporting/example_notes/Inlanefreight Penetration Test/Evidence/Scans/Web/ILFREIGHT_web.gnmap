@@ -1,0 +1,4 @@
+# Nmap 7.92 scan initiated Thu Jun  2 19:03:30 2022 as: nmap -A -p 80 -oA ILFREIGHT_web 172.16.5.127
+Host: 172.16.5.127 ()	Status: Up
+Host: 172.16.5.127 ()	Ports: 80/open/tcp//http//Apache httpd 2.4.41 ((Ubuntu))/	OS: Linux 5.0 - 5.3	Seq Index: 248	IP ID Seq: All zeros
+# Nmap done at Thu Jun  2 19:03:39 2022 -- 1 IP address (1 host up) scanned in 8.92 seconds

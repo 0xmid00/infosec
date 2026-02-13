@@ -25,7 +25,7 @@ smbclient -U user \\\\10.129.42.197\\<folder> # CONNECT
 # -s PORT   if the service is on a different default port, define it here
 ```
 
-### 
+
 ### Password Reuse / Default Passwords
 ```bash
 # Credential Stuffing

@@ -99,6 +99,7 @@ cat /etc/passwd
   
 # last users login
 last  
+lastlog
 ```
 **Linux hash algorithms:**
 
@@ -144,7 +145,8 @@ find / -type f \( -name "*.conf" -o -name "*.config" -o -name ".env" -o -name "i
 ```bash
 grep -R -iE "password|passwd|secret|key" / 2>/dev/null | head
   # possible secrets
-  
+
+grep -Irl "flag{" / 2>/dev/null   # find flag
 grep -r -l 'search-query-here' /path/to/search
 ```
 

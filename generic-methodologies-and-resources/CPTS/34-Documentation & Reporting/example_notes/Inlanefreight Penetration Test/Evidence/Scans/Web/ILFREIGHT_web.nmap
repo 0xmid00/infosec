@@ -1,0 +1,22 @@
+# Nmap 7.92 scan initiated Thu Jun  2 19:03:30 2022 as: nmap -A -p 80 -oA ILFREIGHT_web 172.16.5.127
+Nmap scan report for 172.16.5.127
+Host is up (0.0022s latency).
+
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+|_http-title: Inlanefreight - DEV
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+MAC Address: 00:50:56:B9:4D:F5 (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: Linux 5.X
+OS CPE: cpe:/o:linux:linux_kernel:5
+OS details: Linux 5.0 - 5.3
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   2.25 ms 172.16.5.127
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Jun  2 19:03:39 2022 -- 1 IP address (1 host up) scanned in 8.92 seconds

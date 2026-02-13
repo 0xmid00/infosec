@@ -114,10 +114,22 @@ Users within the disk group have full access to any devices contained within `/d
 Members of the adm group are able to read all logs stored in `/var/log`. This does not directly grant root access, but could be leveraged to gather sensitive data stored in log files or enumerate user actions and running cron jobs.
 
 ```bash
-cd /varlog
+cd /var/log
 grep -r flag # apache2/access.log: /flag%20=%20ch3ck_th0se_gr0uP_m3mb3erSh1Ps
 ```
 
+We can use [aureport](https://linux.die.net/man/8/aureport) to read audit logs on Linux systems, with the man page describing it as "aureport is a tool that produces summary reports of the audit system logs."
+```bash
+ aureport --tty | less
+
+1. 06/01/22 07:12:53 349 1004 ? 4 sh "bash",<nl>
+2. 06/01/22 07:13:14 350 1004 ? 4 su "ILFreightnixadm!",<nl>
+3. 06/01/22 07:13:16 355 1004 ? 4 sh "sudo su srvadm",<nl>
+4. 06/01/22 07:13:28 356 1004 ? 4 sudo "ILFreightnixadm!"
+5. 06/01/22 07:13:28 360 1004 ? 4 sudo <nl>
+6. 06/01/22 07:13:28 361 1004 ? 4 sh "exit",<nl>
+7. 06/01/22 07:13:36 364 1004 ? 4 bash "su srvadm",<ret>,"exit",<ret>
+```
 ---
 
 ## 4- Capabilities
