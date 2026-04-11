@@ -80,6 +80,9 @@ Here is your cleaned notes:
 Read & write system files + OS command execution through SQLi.
 #### Check DBA Privileges
 ```bash
+--current-user # Retrieves the current user connected to the database
+--privileges # Lists privileges for all database users.
+
 sqlmap -u "http://www.example.com/?id=1" --is-dba
   # if db admin we probable that we have file-read/write privileges.
 # LOAD DATA and INSERT priv  --> read files 

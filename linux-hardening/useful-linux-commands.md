@@ -47,6 +47,9 @@ netstat -rn # Show networks accessible
 ss -tulnp # list the open ports
 ss -twurp  # List the live processes & ports
 lsof  # List the live processes & ports
+for i in $(seq 1 254); do ping -c1 -W1 192.168.1.$i &>/dev/null && echo "UP: 192.168.1.$i"; done
+for i in $(seq 1 254); do curl -s -o /dev/null -w "HTTP %{http_code} — 192.168.1.$i\n" --max-time 1 http://192.168.1.$i; done
+for i in $(seq 254);do curl -s --connect-timeout 1 http://172.18.0.$i | grep -v Failed; done
 
 ip route  # Displays current routing table
 netstat -r # Displays current routing table
@@ -128,7 +131,10 @@ lsof -n  # List open files
 dpkg -l  # List installed packages
 sudo dpkg -i nessus.deb # install pkg 
 
-systemctl list-units --type=service -all # list all active services
+systemctl list-units --type=service --state=running # running srv
+systemctl status <NAME.service> # view service info
+ls /etc/systemd/system/ # services folder
+systemctl list-units --type=service -all # list all active services ,start at boot
 systemctl list-unit-files | grep -i nessusd #  list all  services
 service --status-all # list all servies 
 
@@ -292,6 +298,7 @@ openssl rsa -in key.ssh.enc -out key.ssh
 #Decrypt
 openssl enc -aes256 -k <KEY> -d -in backup.tgz.enc -out b.tgz
 
+
 #Count number of instructions executed by a program, need a host based linux (not working in VM)
 perf stat -x, -e instructions:u "ls"
 
@@ -321,6 +328,369 @@ Get Access Today:
 
 {% embed url="https://trickest.com/?utm_campaign=hacktrics&utm_medium=banner&utm_source=hacktricks" %}
 
+
+## ssh 
+```bash
+═══════════════════════════════════════════════════════
+              SSH AUTH — CTF CHEAT SHEET
+═══════════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ TYPE 1 — PASSWORD AUTH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ How: you send password → server checks /etc/shadow
+
+ CONNECT:
+   ssh user@IP
+   ssh root@10.10.10.5 -p 2222          # custom port
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ TYPE 2 — KEY AUTH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ How: server sends challenge → you sign with private key
+      → server verifies with your public key in authorized_keys
+      private key NEVER leaves your machine
+
+ GENERATE:
+   ssh-keygen -t ed25519
+   ┌─────────────────────────────────────────────────┐
+   │ creates 2 files:                                │
+   │                                                 │
+   │  id_ed25519        ← PRIVATE KEY               │
+   │                       your secret, never share  │
+   │                       used to SIGN challenges   │
+   │                                                 │
+   │  id_ed25519.pub    ← PUBLIC KEY                │
+   │                       safe to share            │
+   │                       goes into authorized_keys │
+   │                       on the server            │
+   └─────────────────────────────────────────────────┘
+
+   ssh-keygen -t rsa -b 4096
+   ┌─────────────────────────────────────────────────┐
+   │  id_rsa            ← PRIVATE KEY               │
+   │  id_rsa.pub        ← PUBLIC KEY                │
+   └─────────────────────────────────────────────────┘
+
+   ssh-keygen -t ed25519 -f ~/.ssh/mykey            # custom name
+   ┌─────────────────────────────────────────────────┐
+   │  mykey             ← PRIVATE KEY               │
+   │  mykey.pub         ← PUBLIC KEY                │
+   └─────────────────────────────────────────────────┘
+
+ SETUP ON SERVER:
+   ssh-copy-id user@IP                              # auto copy pubkey
+   cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys  # manual
+
+ CONNECT:
+   ssh -i ~/.ssh/id_ed25519 user@IP
+   chmod 600 id_rsa && ssh -i id_rsa user@IP        # CTF: found a key
+
+ USEFUL:
+   ssh-keygen -y -f id_rsa                          # extract pubkey from private
+   ssh-keygen -l -f id_rsa.pub                      # show fingerprint
+   ssh-keygen -p -f id_rsa   # change/Remove the passphrase
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ TYPE 3 — CERTIFICATE AUTH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ How: CA signs your public key → becomes a cert
+      server trusts CA → accepts any valid cert
+      cert has: principal (username) + expiry baked in
+
+ STEP 1 — create the CA (once):
+   ssh-keygen -t ed25519 -f ca_key 
+   ┌─────────────────────────────────────────────────┐
+   │  ca_key            ← CA PRIVATE KEY            │
+   │                       the stamp maker secret   │
+   │                       used to SIGN other keys  │
+   │                       🔥 if stolen = game over │
+   │                                                 │
+   │  ca_key.pub        ← CA PUBLIC KEY             │
+   │                       goes on the SERVER       │
+   │                       tells server "trust       │
+   │                       anything i signed"       │
+   └─────────────────────────────────────────────────┘
+
+ STEP 2 — server trusts CA:
+   # add to /etc/ssh/sshd_config:
+   TrustedUserCAKeys /etc/ssh/ca_key.pub            # ← ca_key.pub goes here
+   systemctl reload sshd
+
+ STEP 3 — user generates their key (normal):
+   ssh-keygen -t ed25519 -f id_ed25519
+   ┌─────────────────────────────────────────────────┐
+   │  id_ed25519        ← USER PRIVATE KEY          │
+   │                       kept by the user         │
+   │                       used to login            │
+   │                                                 │
+   │  id_ed25519.pub    ← USER PUBLIC KEY           │
+   │                       send this to CA admin    │
+   │                       so they can sign it      │
+   └─────────────────────────────────────────────────┘
+
+ STEP 4 — CA signs the user pubkey:
+   ssh-keygen -s ca_key -I "label" -n alice -V +30d id_ed25519.pub
+   #            ↑ca key   ↑label    ↑principal ↑expiry  ↑what to sign
+   ┌─────────────────────────────────────────────────┐
+   │  id_ed25519-cert.pub  ← THE CERTIFICATE        │
+   │                          user's pubkey +       │
+   │                          principal (alice) +   │
+   │                          expiry date +         │
+   │                          CA signature          │
+   │                          send back to user     │
+   └─────────────────────────────────────────────────┘
+
+ STEP 5 — connect:
+   # user needs BOTH files in same folder:
+   #   id_ed25519          ← private key  (to sign challenge)
+   #   id_ed25519-cert.pub ← certificate  (to prove identity)
+
+   ssh -i id_ed25519 alice@IP                       # auto loads cert (id_ed25519-cert.pub)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ ALL FILES — ONE PLACE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  FILE                   WHO HOLDS IT   WHAT IT DOES
+  ───────────────────────────────────────────────────
+  id_rsa                 YOU            your private key → signs
+  id_rsa.pub             SERVER         your public key → verifies
+  id_rsa-cert.pub        YOU            your signed certificate
+  ca_key                 CA MACHINE     signs other people's keys
+  ca_key.pub             SERVER         tells server who to trust
+  authorized_keys        SERVER         list of allowed public keys
+  known_hosts            YOU            servers you've seen before
+
+  RULE: anything ending in .pub = safe to share
+        anything WITHOUT .pub  = secret, never share
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SIGN OPTIONS & INSPECT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   -n root                    # principal = login as root
+   -n alice,bob               # multiple principals
+   -V +1h                     # expires in 1 hour
+   -V +30d                    # expires in 30 days
+   -O source-address=IP/24    # lock cert to IP range
+
+   ssh-keygen -L -f id_ed25519-cert.pub             # read cert contents
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ CTF ATTACK — found ca_key + no AuthorizedPrincipalsFile
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ssh-keygen -t ed25519 -f pwn_key
+   # creates: pwn_key + pwn_key.pub
+
+   ssh-keygen -s ca_key -I "pwn" -n root pwn_key.pub
+   # creates: pwn_key-cert.pub  (signed as root)
+
+   ssh -i pwn_key root@IP
+   # pwn_key + pwn_key-cert.pub in same folder = root shell 🔥
+═══════════════════════════════════════════════════════
+```
+
+## openssl
+
+```bash
+╔══════════════════════════════════════════════════════════════════╗
+║                 OPENSSL COMPLETE NOTES — BEGINNER                ║
+╚══════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ CORE CONCEPT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ Private Key  =  your secret  (like a house key)
+ Public Key   =  the lock     (give to everyone)
+
+ Public key LOCKS → only private key can OPEN
+ That is it. Everything else is built on this.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ FILE FORMATS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ .pem  →  most common, base64 text, has -----BEGIN-----
+ .key  →  same as .pem just renamed (used in web servers)
+ .crt  →  certificate (public key + identity info)
+
+ They are ALL just text files. Extension is just a hint.
+ You can literally:  cat anything.pem
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ THE 3 THINGS OPENSSL MAKES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ 1) PRIVATE KEY
+    -----BEGIN RSA PRIVATE KEY-----
+    never share | used to decrypt or sign things
+
+ 2) PUBLIC KEY
+    -----BEGIN PUBLIC KEY-----
+    share freely | used to encrypt or verify things
+
+ 3) CERTIFICATE
+    -----BEGIN CERTIFICATE-----
+    public key + name ("this key belongs to google.com")
+    signed by a trusted authority (CA)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ HOW TO IDENTIFY ANY FILE INSTANTLY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ Just cat the file and read the BEGIN line:
+
+ BEGIN RSA PRIVATE KEY      →  private key
+ BEGIN PUBLIC KEY           →  public key
+ BEGIN CERTIFICATE          →  certificate
+ BEGIN CERTIFICATE REQUEST  →  CSR (asking a CA to sign your key)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ WHERE EACH IS USED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ SSH login       →  id_rsa (private)   +  id_rsa.pub (public)
+ HTTPS website   →  server.key         +  server.crt
+ JWT tokens      →  private.pem        +  public.pem
+ Encrypt file    →  public.pem (lock)  +  private.pem (unlock)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ KEY CHAIN (how they relate)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ PRIVATE KEY
+      │
+      │  generates
+      ▼
+ PUBLIC KEY
+      │
+      │  + your name / domain
+      ▼
+ CERTIFICATE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ WHAT IS A CA?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ CA = Certificate Authority = a trusted third party
+      examples: DigiCert, Let's Encrypt, your company
+
+ They SIGN certificates so browsers and apps TRUST them.
+ Think of them like a notary — they verify identity and stamp it.
+
+ Self-Signed = you sign your own cert (no CA)
+               browsers will warn, but fine for HTB/testing
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ CERTIFICATE FIELDS — WHAT TO LOOK FOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ Issuer    →  WHO signed it         (the CA)
+ Subject   →  WHO it belongs to     (the domain or server)
+ Validity  →  expiry dates
+ Public Key→  the actual key inside
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ BASIC COMMANDS — KEYS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ # generate private key (2048 = key size in bits)
+ openssl genrsa -out private.pem 2048
+
+ # extract public key FROM private key
+ openssl rsa -in private.pem -pubout -out public.pem
+
+ # view private key details (human readable)
+ openssl rsa -in private.pem -text -noout
+
+ # view public key details
+ openssl pkey -in public.pem -pubin -text -noout
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ BASIC COMMANDS — CERTIFICATES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ # view a certificate file
+ openssl x509 -in server.crt -text -noout
+
+ # extract public key from a certificate
+ openssl x509 -in server.crt -pubkey -noout
+
+ # check expiry dates only
+ openssl x509 -in server.crt -noout -dates
+
+ # check issuer and subject
+ openssl x509 -in server.crt -noout -issuer -subject
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ BASIC COMMANDS — LIVE SERVER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ # connect and dump certificate from a server
+ echo | openssl s_client -connect site.com:443
+
+ # grab ONLY the public key silently
+ echo | openssl s_client -connect site.com:443 2>/dev/null \
+   | openssl x509 -pubkey -noout
+
+ # save the public key to a file
+ echo | openssl s_client -connect site.com:443 2>/dev/null \
+   | openssl x509 -pubkey -noout > pub.pem
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ BASIC COMMANDS — CREATE SELF-SIGNED CERT (for testing/HTB)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ # private key + self-signed cert in ONE command
+ openssl req -x509 -newkey rsa:2048 \
+   -keyout server.key \
+   -out server.crt \
+   -days 365 -nodes
+
+ # -nodes    = no passphrase
+ # -days 365 = valid for 1 year
+ # -x509     = self-signed (skip CSR step)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ BASIC COMMANDS — SSH KEYS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ # best way — use ssh-keygen directly
+ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
+
+ # openssl way — then convert to SSH format
+ openssl genrsa -out id_rsa 4096
+ ssh-keygen -y -f id_rsa > id_rsa.pub
+ chmod 600 id_rsa
+
+ # copy public key to a server
+ ssh-copy-id -i ~/.ssh/id_rsa.pub user@server
+
+ # connect using a specific key
+ ssh -i ~/.ssh/id_rsa user@server
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ FLAGS CHEATSHEET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ -in          →  input file
+ -out         →  output file
+ -text        →  show human readable details
+ -noout       →  hide the raw base64 blob
+ -pubout      →  output as public key format
+ -pubin       →  input is a public key (not private)
+ -nodes       →  no passphrase on the key
+ -days N      →  certificate valid for N days
+ 2>/dev/null  →  hide errors and noise
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+```
 ## Domain
 
 ```bash
@@ -375,6 +745,9 @@ gcc -O3 -static -o exploit exploit.c
 ```bash
 #Extract emails from file
 grep -E -o "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" file.txt
+
+# extract secrets 
+grep -riE "jdbc|mysql|postgres|password|user|secret|token|auth" .
 
 #Extract valid IP addresses
 grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" file.txt
@@ -516,6 +889,11 @@ find / -maxdepth 5 -type f -printf "%T@ %Tc | %p \n" 2>/dev/null | grep -v "| /p
 
 # Found Newer directory only and sort by time. (depth = 5)
 find / -maxdepth 5 -type d -printf "%T@ %Tc | %p \n" 2>/dev/null | grep -v "| /proc" | grep -v "| /dev" | grep -v "| /run" | grep -v "| /var/log" | grep -v "| /boot"  | grep -v "| /sys/" | sort -n -r | less
+
+
+# FULL DUMP 
+( echo "=== [1] CONFIGS ===" ; for l in .conf .config .cnf .xml .cfg .ini .env .bak .backup; do echo -e "\nExtension: $l"; find / -name "*$l" | grep -v "lib\|fonts\|share\|core"; done ; echo -e "\n--- Searching creds in .cnf files ---" ; for i in $(find / -name "*.cnf" | grep -v "doc\|lib"); do echo -e "\nFile: $i"; grep "user\|password\|pass" $i | grep -v "#"; done ; echo "=== [2] DATABASES ===" ; for l in .sql .db .*db .db*; do echo -e "\nExtension: $l"; find / -name "*$l" | grep -v "doc\|lib\|headers\|share\|man"; done ; echo "=== [3] TEXT/NOTES ===" ; find /home/* -path /usr -prune -o -type f \( -name "*.txt" -o -name "*.log" -o -name "*.bak" -o -name "*.notes" -o -name "*.md" -o ! -name "*.*" \) ; echo "=== [4] SCRIPTS ===" ; for l in .py .pyc .pl .go .jar .c .sh .php .rb .ps1; do echo -e "\nExtension: $l"; find / -name "*$l" | grep -v "doc\|lib\|headers\|share"; done ; echo "=== [5] CRONJOBS ===" ; cat /etc/crontab ; ls -la /etc/cron.*/ ; echo "=== [6] SSH KEYS ===" ; grep -rnw "PRIVATE KEY" /home/* | grep ":1" ; grep -rnw "ssh-rsa" /home/* | grep ":1" ; echo "=== [7] BASH HISTORY ===" ; tail -n5 /home/*/.bash* ; echo "=== [8] LOGS ===" ; for i in $(ls /var/log/*); do GREP=$(grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=" $i); if [[ $GREP ]]; then echo -e "\n#### Log file: $i"; grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=" $i; fi; done ) 2>/dev/null
+
 ```
 
 ## Nmap search help

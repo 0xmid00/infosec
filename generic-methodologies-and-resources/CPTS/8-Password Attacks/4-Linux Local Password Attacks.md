@@ -6,18 +6,19 @@
 1- # Files
 
 ## configs 
-for l in $(echo ".conf .config .cnf");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "lib\|fonts\|share\|core" ;done
+for l in $(echo ".conf .config .cnf .xml");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "lib\|fonts\|share\|core" ;done
 
 for i in $(find / -name *.cnf 2>/dev/null | grep -v "doc\|lib");do echo -e "\nFile: " $i; grep "user\|password\|pass" $i 2>/dev/null | grep -v "\#";done # auto search for  (user, password, pass) in conf file 
 
 ## Database
 for l in $(echo ".sql .db .*db .db*");do echo -e "\nDB File extension: " $l; find / -name *$l 2>/dev/null | grep -v "doc\|lib\|headers\|share\|man";done
 
-## notes 
-find /home/* -type f -name "*.txt" -o ! -name "*.*"
+## text / notes 
+find /home/* -path /usr -prune -o -type f \( -name "*.txt" -o ! -name "*.*" \) 2>/dev/null
+
 
 ## scripts
-for l in $(echo ".py .pyc .pl .go .jar .c .sh");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "doc\|lib\|headers\|share";done
+for l in $(echo ".py .pyc .pl .go .jar .c .sh .php");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "doc\|lib\|headers\|share";done
 
 ## Cronjobs
 cat /etc/crontab
@@ -47,6 +48,12 @@ cat .mozilla/firefox/1bplpd86.default-release/logins.json | jq .
 
 python3.9 firefox_decrypt.py #  Decrypting Firefox Credentials
 python3 laZagne.py browsers
+
+
+##########################################################################
+# FULL DUMP 
+( echo "=== [1] CONFIGS ===" ; for l in .conf .config .cnf .xml .cfg .ini .env .bak .backup; do echo -e "\nExtension: $l"; find / -name "*$l" | grep -v "lib\|fonts\|share\|core"; done ; echo -e "\n--- Searching creds in .cnf files ---" ; for i in $(find / -name "*.cnf" | grep -v "doc\|lib"); do echo -e "\nFile: $i"; grep "user\|password\|pass" $i | grep -v "#"; done ; echo "=== [2] DATABASES ===" ; for l in .sql .db .*db .db*; do echo -e "\nExtension: $l"; find / -name "*$l" | grep -v "doc\|lib\|headers\|share\|man"; done ; echo "=== [3] TEXT/NOTES ===" ; find /home/* -path /usr -prune -o -type f \( -name "*.txt" -o -name "*.log" -o -name "*.bak" -o -name "*.notes" -o -name "*.md" -o ! -name "*.*" \) ; echo "=== [4] SCRIPTS ===" ; for l in .py .pyc .pl .go .jar .c .sh .php .rb .ps1; do echo -e "\nExtension: $l"; find / -name "*$l" | grep -v "doc\|lib\|headers\|share"; done ; echo "=== [5] CRONJOBS ===" ; cat /etc/crontab ; ls -la /etc/cron.*/ ; echo "=== [6] SSH KEYS ===" ; grep -rnw "PRIVATE KEY" /home/* | grep ":1" ; grep -rnw "ssh-rsa" /home/* | grep ":1" ; echo "=== [7] BASH HISTORY ===" ; tail -n5 /home/*/.bash* ; echo "=== [8] LOGS ===" ; for i in $(ls /var/log/*); do GREP=$(grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=" $i); if [[ $GREP ]]; then echo -e "\n#### Log file: $i"; grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=" $i; fi; done ) 2>/dev/null
+
 ```
 
 ##  Passwd, Shadow & Opasswd

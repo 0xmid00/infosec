@@ -131,7 +131,10 @@ cat /etc/group
 getent group sudo
   # sudo:x:27:mrb3n
 ```
-
+list all files can be execute with a specific group
+```
+find / -group bugtracker
+```
 
 
 #### Creds Discovery

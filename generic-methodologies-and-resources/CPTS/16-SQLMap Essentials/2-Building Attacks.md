@@ -163,7 +163,19 @@ sqlmap -u "www.example.com/?id=1" -v 3 --level=5 --risk=3
 - `--titles` — compare `<title>` values to detect differences.
 - `--string=<STR>` — base detection on presence of a string.
 - `--text-only` — strip HTML, compare text only.
-- `--technique=BEUT` — limit techniques (B=Boolean, E=Error, U=UNION, T=Time).
+- `--technique=BEUS` — limit techniques (B=Boolean, E=Error, U=UNION, T=Time).
+```bash
+B: Boolean-based blind
+E: Error-based
+U: Union query-based
+S: Stacked queries
+T: Time-based blind
+Q: Inline queries
+
+# for fast injection remove T and Q and instead use BEUS 
+--technique=BEUS --level 5 --risk 3
+```
+
 - `--flush-session` removes saved session data for the target so sqlmap will re-run discovery and data retrieval.
 #### UNION tuning
 - `--union-cols=<n>` — set column count for UNION.

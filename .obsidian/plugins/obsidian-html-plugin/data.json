@@ -1,0 +1,9 @@
+{
+  "bgColorEnabled": false,
+  "bgColor": "#ffffff",
+  "opMode": "UnestrictedMode",
+  "zoomByWheelAndGesture": true,
+  "zoomValue": 0.7,
+  "extraFileExt": "",
+  "mhtmlSupport": false
+}

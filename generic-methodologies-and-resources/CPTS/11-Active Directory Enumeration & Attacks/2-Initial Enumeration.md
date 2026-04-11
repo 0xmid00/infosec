@@ -68,6 +68,7 @@ fping -asgq 172.16.5.0/23
 
 # ping  
 for i in {5..6}; do for j in {1..254}; do ping -c1 -W1 172.16.$i.$j &>/dev/null && echo 172.16.$i.$j; done; done
+for j in {1..254}; do ping -c1 -W1 172.16.9.$j &>/dev/null && echo 172.16.9.$j; done     172.16.9.0/23 # 1 subnet
 
 # ping - windows 
 for /l %i in (1,1,254) do @ping -n 1 -w 1000 172.16.5.%i | find "TTL=" # 5.x

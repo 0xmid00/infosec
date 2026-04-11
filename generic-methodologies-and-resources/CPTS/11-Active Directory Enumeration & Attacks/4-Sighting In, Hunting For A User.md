@@ -286,6 +286,8 @@ With valid credentials **or  System access to windows domain host** , we can use
 ```bash
 # Using CrackMapExec with Valid domain User Credentials
 sudo crackmapexec smb <DC-IP> -u <USER> -p <PASS> --users 
+awk -F'\\\\' '{print $2}' file.txt | awk '{print $1}' > users.txt # save users
+
 
 # Using CrackMapExec with System access to windows domain host
 crackmapexec smb <DC-IP> -u <COMPUTER-NAME> -H <NTLM_HASH>--users 

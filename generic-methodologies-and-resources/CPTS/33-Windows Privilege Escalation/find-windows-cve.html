@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windows PrivEsc Recon — Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1c2330;
+    --bg4: #21262d;
+    --border: #30363d;
+    --border2: #3d4451;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --blue: #58a6ff;
+    --blue-bg: #1f3a5f;
+    --blue-bg2: #142840;
+    --green: #3fb950;
+    --green-bg: #1a3a24;
+    --red: #f85149;
+    --red-bg: #3d1a1a;
+    --amber: #e3b341;
+    --amber-bg: #3a2e10;
+    --purple: #bc8cff;
+    --purple-bg: #2d1f4e;
+    --teal: #39d353;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    gap: 1rem;
+  }
+  .header-badge {
+    background: var(--blue-bg);
+    color: var(--blue);
+    border: 1px solid #1f4070;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+  }
+  header h1 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .header-right {
+    margin-left: auto;
+    color: var(--text3);
+    font-size: 12px;
+    font-family: var(--mono);
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(88,166,255,.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--blue-bg);
+    color: var(--blue);
+    border: 1px solid #1f4070;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: .5rem;
+    line-height: 1.3;
+  }
+  .hero p {
+    color: var(--text2);
+    font-size: 14px;
+    max-width: 620px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    margin-bottom: 3rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    background: var(--blue-bg);
+    color: var(--blue);
+    border: 1px solid #1f4070;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: .75rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-blue  { background: var(--blue); }
+  .dot-green { background: var(--green); }
+  .dot-amber { background: var(--amber); }
+  .dot-red   { background: var(--red); }
+  .dot-purple{ background: var(--purple); }
+
+  /* ─── CODE BLOCKS ─── */
+  .cmd-wrap { position: relative; margin: .5rem 0; }
+  .cmd {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+    white-space: pre;
+    color: #cdd9e5;
+  }
+  .cmd .ps-prompt { color: var(--blue); }
+  .cmd .ps-string { color: var(--amber); }
+  .cmd .ps-pipe   { color: var(--purple); }
+  .cmd .ps-param  { color: var(--green); }
+  .copy-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-family: var(--mono);
+    cursor: pointer;
+    color: var(--text2);
+    transition: all .15s;
+  }
+  .copy-btn:hover { background: var(--bg4); color: var(--text); }
+  .copy-btn.copied { background: var(--green-bg); color: var(--green); border-color: #1e4a28; }
+
+  /* ─── OUTPUT BOX ─── */
+  .output {
+    background: #0a0f16;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.8;
+    margin: .5rem 0;
+    overflow-x: auto;
+    white-space: pre;
+    color: #cdd9e5;
+  }
+  .output-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ─── EXPLAIN TABLE ─── */
+  .explain-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: .75rem 0;
+  }
+  .explain-table th {
+    text-align: left;
+    padding: 7px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .explain-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .explain-table tr:last-child td { border-bottom: none; }
+  .explain-table tr:hover td { background: var(--bg3); }
+  .explain-table .key-cell {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .explain-table .val-cell {
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .explain-table .val-cell strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ─── BUILD ANATOMY ─── */
+  .build-display {
+    text-align: center;
+    padding: 1.5rem 0 1rem;
+    font-family: var(--mono);
+  }
+  .build-big {
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .build-major { color: var(--text); }
+  .build-dot   { color: var(--border2); }
+  .build-ubr   { color: var(--blue); }
+  .build-labels {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 14px;
+    font-size: 12px;
+  }
+  .build-label-group { text-align: center; }
+  .build-label-group .label { color: var(--text3); margin-bottom: 4px; }
+  .build-label-group .value { font-weight: 600; }
+  .build-label-group .note  { color: var(--text3); font-size: 11px; margin-top: 3px; line-height: 1.5; }
+  .blue-val  { color: var(--blue); }
+  .green-val { color: var(--green); }
+
+  /* ─── BADGE ─── */
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2px;
+  }
+  .badge-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid #1f4070; }
+  .badge-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid #1e4a28; }
+  .badge-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid #5a2020; }
+  .badge-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid #4a3c12; }
+  .badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid #3d2a6e; }
+  .badge-me     { background: #1a2a3a; color: #58a6ff; border: 2px solid var(--blue); }
+
+  /* ─── ALERT BOXES ─── */
+  .alert {
+    display: flex;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: .75rem 0;
+  }
+  .alert-icon { font-size: 15px; flex-shrink: 0; line-height: 1.6; }
+  .alert-blue  { background: var(--blue-bg2); border: 1px solid #1f4070; color: #93c5fd; }
+  .alert-green { background: var(--green-bg); border: 1px solid #1e4a28; color: #86efac; }
+  .alert-amber { background: var(--amber-bg); border: 1px solid #4a3c12; color: #fcd34d; }
+  .alert-red   { background: var(--red-bg);   border: 1px solid #5a2020; color: #fca5a5; }
+
+  /* ─── BUILD TABLE ─── */
+  .build-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: .75rem 0; }
+  .build-table th {
+    text-align: left; padding: 8px 12px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--text3); background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .build-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .build-table tr:last-child td { border-bottom: none; }
+  .build-table tr.highlight td { background: #1a2640; }
+  .mono-cell { font-family: var(--mono); font-size: 12px; }
+
+  /* ─── TABS ─── */
+  .tab-container { margin-bottom: 1rem; }
+  .tab-bar {
+    display: flex; gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 7px 16px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--text2);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all .15s;
+    border-radius: 6px 6px 0 0;
+  }
+  .tab-btn:hover { color: var(--text); background: var(--bg3); }
+  .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ─── SITE CARDS ─── */
+  .site-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:600px) { .site-grid { grid-template-columns: 1fr; } }
+  .site-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    text-decoration: none;
+    display: block;
+  }
+  .site-card:hover { border-color: var(--blue); background: var(--bg3); }
+  .site-card-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  }
+  .site-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .site-card-name { font-size: 14px; font-weight: 600; }
+  .site-card-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+  .site-card-url  { font-size: 11px; font-family: var(--mono); color: var(--text3); margin-top: 6px; }
+
+  /* ─── SEARCH QUERIES ─── */
+  .query-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .query-card-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text2); }
+
+  /* ─── FLOW (workflow) ─── */
+  .flow { display: flex; flex-direction: column; }
+  .flow-item { display: flex; gap: 14px; }
+  .flow-spine { display: flex; flex-direction: column; align-items: center; }
+  .flow-circle {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--blue-bg);
+    border: 1px solid #1f4070;
+    color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .flow-line-v {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    min-height: 20px;
+    margin: 4px 0;
+  }
+  .flow-body { flex: 1; padding-bottom: 24px; }
+  .flow-body h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; margin-top: 4px; }
+  .flow-body p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  /* ─── TWO COL ─── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: .5rem 0; }
+  @media(max-width:500px){ .two-col { grid-template-columns: 1fr; } }
+
+  /* ─── KERNEL VISUAL ─── */
+  .kernel-box {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .kernel-box .k-build {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .kernel-box .k-label { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .kernel-box .k-sub { font-size: 12px; color: var(--text2); }
+  .kernel-center {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin: 12px 0;
+    color: var(--text3); font-size: 12px;
+  }
+  .kernel-arrow { color: var(--green); font-size: 18px; }
+
+  /* ─── CHEAT TABLE ─── */
+  .cheat-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .cheat-table th {
+    text-align: left; padding: 8px 14px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--text3); background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .cheat-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .cheat-table tr:last-child td { border-bottom: none; }
+  .cheat-table tr:hover td { background: var(--bg3); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text3);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+  }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-badge">SEC NOTES</span>
+  <h1>Windows Privilege Escalation — Recon & Research Guide</h1>
+  <span class="header-right">build 17763.6893</span>
+</header>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-tag">Beginner Friendly</div>
+    <h2>From zero shell access to finding PrivEsc exploits</h2>
+    <p>One command to gather all system info, how to read the output, and exactly where and how to search for CVEs and proof-of-concept exploits.</p>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PART 1 — THE ONE COMMAND
+  ══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>The one command you need</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Run this in PowerShell on the target</div>
+      <div class="cmd-wrap">
+        <pre class="cmd"><span class="ps-param">Get-ItemProperty</span> <span class="ps-string">'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'</span> <span class="ps-pipe">|</span>
+  <span class="ps-param">Select</span> ProductName, CurrentBuild, UBR, ReleaseId</pre>
+        <button class="copy-btn" onclick="copyText(this, `Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion' | Select ProductName, CurrentBuild, UBR, ReleaseId`)">copy</button>
+      </div>
+
+      <div class="output-label">Example output</div>
+      <pre class="output">ProductName                   CurrentBuild   UBR    ReleaseId
+-----------                   ------------   ---    ---------
+Windows Server 2019 Standard  17763          6893   1809</pre>
+
+      <div class="alert alert-blue">
+        <span class="alert-icon">&#9432;</span>
+        <span>These 4 values are everything you need to identify the system, find its patch date, and search for unpatched vulnerabilities.</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PART 2 — UNDERSTANDING THE OUTPUT
+  ══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>Understanding the output — what each field means</h2>
+    </div>
+
+    <div class="card">
+      <table class="explain-table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Your value</th>
+            <th>What it means &amp; how to use it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key-cell">ProductName</td>
+            <td><span class="badge badge-blue">Windows Server 2019 Standard</span></td>
+            <td class="val-cell">
+              <strong>The exact product name.</strong> Use this when searching CVE databases. Search for <code style="color:var(--amber);background:var(--bg3);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px">"Windows Server 2019"</code> — not just "Windows". Being specific gives you results that actually apply to your system.
+            </td>
+          </tr>
+          <tr>
+            <td class="key-cell">CurrentBuild</td>
+            <td><span class="badge badge-purple">17763</span></td>
+            <td class="val-cell">
+              <strong>The kernel build number.</strong> This identifies the OS release (not the patch level). Windows 10 version 1809 AND Windows Server 2019 both share build <strong>17763</strong>. This means kernel-level exploits affect BOTH. Always search CVEs for both product names when using this number.
+            </td>
+          </tr>
+          <tr>
+            <td class="key-cell">UBR</td>
+            <td><span class="badge badge-amber">6893</span></td>
+            <td class="val-cell">
+              <strong>Update Build Revision — the most important number.</strong> Combined with CurrentBuild, your full patch level is <strong>17763.6893</strong>. Higher UBR = more patches installed. You are vulnerable to any CVE patched in a UBR higher than yours. UBR of <strong>1</strong> means zero patches installed.
+            </td>
+          </tr>
+          <tr>
+            <td class="key-cell">ReleaseId</td>
+            <td><span class="badge badge-green">1809</span></td>
+            <td class="val-cell">
+              <strong>The version name.</strong> 1809 = October 2018 release. Useful as a search term. You can search <code style="color:var(--amber);background:var(--bg3);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px">"1809"</code> or <code style="color:var(--amber);background:var(--bg3);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px">"Windows 10 1809"</code> interchangeably with "Server 2019" since they share the same kernel.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PART 3 — BUILD ANATOMY
+  ══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>Build anatomy — how to read the full version number</h2>
+    </div>
+
+    <div class="card">
+      <div class="build-display">
+        <div class="build-big">
+          <span class="build-major">17763</span><span class="build-dot">.</span><span class="build-ubr">6893</span>
+        </div>
+        <div class="build-labels">
+          <div class="build-label-group">
+            <div class="label">Major build</div>
+            <div class="value">OS release</div>
+            <div class="note">
+              Server 2019 = <strong>17763</strong><br>
+              Server 2022 = 20348<br>
+              Server 2016 = 14393
+            </div>
+          </div>
+          <div class="build-label-group">
+            <div class="label" style="color:var(--blue)">UBR (Update Build Revision)</div>
+            <div class="value blue-val">Cumulative patch level</div>
+            <div class="note">
+              <strong style="color:var(--blue)">.6893</strong> = Feb 2025 patches<br>
+              .1 = zero patches ever<br>
+              Higher = more patched
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text2)">Build → KB article → Release date (Server 2019 examples)</div>
+      <table class="build-table">
+        <thead>
+          <tr>
+            <th>Full Build</th>
+            <th>KB Article</th>
+            <th>Release Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono-cell">17763.8389</td>
+            <td class="mono-cell">KB5075904</td>
+            <td>March 2026</td>
+            <td><span class="badge badge-green">Latest</span></td>
+          </tr>
+          <tr>
+            <td class="mono-cell">17763.7136</td>
+            <td class="mono-cell">KB5055519</td>
+            <td>April 2025</td>
+            <td><span class="badge badge-amber">Missing</span></td>
+          </tr>
+          <tr class="highlight">
+            <td class="mono-cell" style="color:var(--blue);font-weight:600">17763.6893</td>
+            <td class="mono-cell">KB5052000</td>
+            <td>February 11, 2025</td>
+            <td><span class="badge badge-me">Your system</span></td>
+          </tr>
+          <tr>
+            <td class="mono-cell">17763.6775</td>
+            <td class="mono-cell">KB5050008</td>
+            <td>January 14, 2025</td>
+            <td><span class="badge badge-green">Patched</span></td>
+          </tr>
+          <tr>
+            <td class="mono-cell">17763.1</td>
+            <td class="mono-cell">—</td>
+            <td>October 2018 (RTM)</td>
+            <td><span class="badge badge-red">No patches</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-amber" style="margin-top:12px">
+        <span class="alert-icon">&#9888;</span>
+        <span><strong>The key rule:</strong> Any CVE patched in a build number higher than yours = you are vulnerable. For this system (17763.6893), every CVE patched from March 2025 onwards is still open.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-purple"></span>Windows 10 vs Server 2019 — same kernel, search both</div>
+      <div class="kernel-center">
+        <div class="kernel-box" style="flex:1">
+          <div class="k-build">17763</div>
+          <div class="k-label">Windows 10</div>
+          <div class="k-sub">version 1809<br>Desktop / personal use</div>
+        </div>
+        <div style="font-size:24px;color:var(--green)">&#61;</div>
+        <div class="kernel-box" style="flex:1">
+          <div class="k-build">17763</div>
+          <div class="k-label">Windows Server 2019</div>
+          <div class="k-sub">Infrastructure / enterprise</div>
+        </div>
+      </div>
+      <div class="alert alert-green">
+        <span class="alert-icon">&#10003;</span>
+        <span>Same build = same kernel. A kernel exploit written for Windows 10 1809 almost always works on Server 2019 too. Always search CVEs using BOTH product names.</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PART 4 — WHERE TO SEARCH
+  ══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>Where to search and what to search for</h2>
+    </div>
+
+    <div class="tab-container">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('official', this)">Official CVE sources</button>
+        <button class="tab-btn" onclick="switchTab('poc', this)">PoC &amp; exploit sources</button>
+        <button class="tab-btn" onclick="switchTab('queries', this)">Exact search queries</button>
+      </div>
+
+      <!-- OFFICIAL -->
+      <div class="tab-panel active" id="panel-official">
+        <div class="site-grid">
+          <a class="site-card" href="https://msrc.microsoft.com/update-guide" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--blue-bg);color:var(--blue)">MSRC</div>
+              <div class="site-card-name">Microsoft MSRC Update Guide</div>
+            </div>
+            <div class="site-card-desc">Official Microsoft security advisories. Lists every CVE by Patch Tuesday date. Filter by: product = Server 2019, type = Elevation of Privilege. This is your primary source.</div>
+            <div class="site-card-url">msrc.microsoft.com/update-guide</div>
+          </a>
+          <a class="site-card" href="https://support.microsoft.com/en-us/topic/windows-10-and-windows-server-2019-update-history-725fc2e1-4443-6831-a5ca-51ff5cbcb059" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--green-bg);color:var(--green)">HIST</div>
+              <div class="site-card-name">Server 2019 Update History</div>
+            </div>
+            <div class="site-card-desc">Maps every UBR to a KB article and release date. Use this to find your cutoff date from the UBR number. Bookmark this page.</div>
+            <div class="site-card-url">support.microsoft.com → Windows Server 2019 update history</div>
+          </a>
+          <a class="site-card" href="https://nvd.nist.gov/vuln/search" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--amber-bg);color:var(--amber)">NVD</div>
+              <div class="site-card-name">NVD — National Vulnerability DB</div>
+            </div>
+            <div class="site-card-desc">US government database. Every CVE has a CVSS score, description, affected versions, and links. Use to check severity (look for CVSS ≥ 7) and read technical details.</div>
+            <div class="site-card-url">nvd.nist.gov/vuln/search</div>
+          </a>
+          <a class="site-card" href="https://cvedetails.com/product/50662/Microsoft-Windows-Server-2019.html?vendor_id=26" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--red-bg);color:var(--red)">CVE</div>
+              <div class="site-card-name">CVE Details — Server 2019</div>
+            </div>
+            <div class="site-card-desc">Aggregates all CVEs for Server 2019. Filter by type (Privilege Escalation), year, and CVSS score. Fast way to browse the full attack surface.</div>
+            <div class="site-card-url">cvedetails.com → Windows Server 2019</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- POC -->
+      <div class="tab-panel" id="panel-poc">
+        <div class="site-grid">
+          <a class="site-card" href="https://github.com/search?q=CVE+Windows+Server+2019+privilege+escalation&type=repositories" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--bg3);color:var(--text)">GH</div>
+              <div class="site-card-name">GitHub</div>
+            </div>
+            <div class="site-card-desc">Most PoC exploits are published here. Search by CVE number. Look for repos with recent commits and README files showing tested build versions.</div>
+            <div class="site-card-url">github.com/search?q=CVE-XXXX-XXXXX+windows</div>
+          </a>
+          <a class="site-card" href="https://www.exploit-db.com" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--red-bg);color:var(--red)">EDB</div>
+              <div class="site-card-name">Exploit-DB</div>
+            </div>
+            <div class="site-card-desc">Curated exploit database. Search by platform (Windows), type (Local), and CVE number. Has Metasploit modules and standalone PoC code ready to use.</div>
+            <div class="site-card-url">exploit-db.com</div>
+          </a>
+          <a class="site-card" href="https://packetstormsecurity.com" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--amber-bg);color:var(--amber)">PS</div>
+              <div class="site-card-name">Packet Storm Security</div>
+            </div>
+            <div class="site-card-desc">Archive of exploits, advisories, and tools. Good for finding older PoCs and alternative implementations of known Windows CVEs.</div>
+            <div class="site-card-url">packetstormsecurity.com</div>
+          </a>
+          <a class="site-card" href="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--purple-bg);color:var(--purple)">HT</div>
+              <div class="site-card-name">HackTricks — Windows PrivEsc</div>
+            </div>
+            <div class="site-card-desc">Comprehensive community guide covering all known Windows privilege escalation techniques, CVEs, service abuses, and misconfigurations. Essential reference.</div>
+            <div class="site-card-url">book.hacktricks.xyz → Windows local privilege escalation</div>
+          </a>
+          <a class="site-card" href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--blue-bg);color:var(--blue)">PAT</div>
+              <div class="site-card-name">PayloadsAllTheThings</div>
+            </div>
+            <div class="site-card-desc">Community cheat sheet of all Windows PrivEsc techniques and CVEs with PoC links. Great starting point for any engagement.</div>
+            <div class="site-card-url">github.com/swisskyrepo/PayloadsAllTheThings</div>
+          </a>
+          <a class="site-card" href="https://github.com/bitsadmin/wesng" target="_blank">
+            <div class="site-card-head">
+              <div class="site-icon" style="background:var(--green-bg);color:var(--green)">WES</div>
+              <div class="site-card-name">WES-NG (Exploit Suggester)</div>
+            </div>
+            <div class="site-card-desc">Automated tool. Feed it your systeminfo output and it lists every unpatched CVE with exploit availability. The most efficient way to find missing patches.</div>
+            <div class="site-card-url">github.com/bitsadmin/wesng</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- QUERIES -->
+      <div class="tab-panel" id="panel-queries">
+        <div class="query-card">
+          <div class="query-card-title">Step 1 — Confirm your patch date (Google or Bing)</div>
+          <div class="cmd-wrap">
+            <pre class="cmd">"17763.6893" site:support.microsoft.com</pre>
+            <button class="copy-btn" onclick="copyText(this,'\"17763.6893\" site:support.microsoft.com')">copy</button>
+          </div>
+          <div class="alert alert-green" style="margin-top:8px">
+            <span class="alert-icon">&#10003;</span>
+            <span>Result tells you: 17763.6893 = KB5052000 = <strong>February 11, 2025</strong>. This is your cutoff. Every CVE after this date is potentially open.</span>
+          </div>
+        </div>
+
+        <div class="query-card">
+          <div class="query-card-title">Step 2 — Find unpatched CVEs on MSRC (replace the year as needed)</div>
+          <div class="cmd-wrap">
+            <pre class="cmd">site:msrc.microsoft.com "Windows Server 2019" "Elevation of Privilege" 2025</pre>
+            <button class="copy-btn" onclick="copyText(this,'site:msrc.microsoft.com \"Windows Server 2019\" \"Elevation of Privilege\" 2025')">copy</button>
+          </div>
+          <div class="cmd-wrap">
+            <pre class="cmd">site:msrc.microsoft.com "17763" "Elevation of Privilege"</pre>
+            <button class="copy-btn" onclick="copyText(this,'site:msrc.microsoft.com \"17763\" \"Elevation of Privilege\"')">copy</button>
+          </div>
+        </div>
+
+        <div class="query-card">
+          <div class="query-card-title">Step 3 — Find PoC code on GitHub (replace CVE number)</div>
+          <div class="cmd-wrap">
+            <pre class="cmd">site:github.com CVE-2025-21204 Windows privilege escalation</pre>
+            <button class="copy-btn" onclick="copyText(this,'site:github.com CVE-2025-21204 Windows privilege escalation')">copy</button>
+          </div>
+          <div class="cmd-wrap">
+            <pre class="cmd">site:github.com CVE-2025-21204 PoC</pre>
+            <button class="copy-btn" onclick="copyText(this,'site:github.com CVE-2025-21204 PoC')">copy</button>
+          </div>
+        </div>
+
+        <div class="query-card">
+          <div class="query-card-title">Step 4 — Search Exploit-DB by build number</div>
+          <div class="cmd-wrap">
+            <pre class="cmd">site:exploit-db.com "17763" local privilege escalation</pre>
+            <button class="copy-btn" onclick="copyText(this,'site:exploit-db.com \"17763\" local privilege escalation')">copy</button>
+          </div>
+          <div class="cmd-wrap">
+            <pre class="cmd">site:exploit-db.com "Windows Server 2019" privilege escalation</pre>
+            <button class="copy-btn" onclick="copyText(this,'site:exploit-db.com \"Windows Server 2019\" privilege escalation')">copy</button>
+          </div>
+        </div>
+
+        <div class="query-card">
+          <div class="query-card-title">Step 5 — Broad hunt with keyword combos</div>
+          <div class="cmd-wrap">
+            <pre class="cmd">"build 17763" exploit PoC 2025 "privilege escalation"</pre>
+            <button class="copy-btn" onclick="copyText(this,'\"build 17763\" exploit PoC 2025 \"privilege escalation\"')">copy</button>
+          </div>
+          <div class="cmd-wrap">
+            <pre class="cmd">CVE-2025 "Windows Server 2019" LPE "proof of concept"</pre>
+            <button class="copy-btn" onclick="copyText(this,'CVE-2025 \"Windows Server 2019\" LPE \"proof of concept\"')">copy</button>
+          </div>
+          <div class="cmd-wrap">
+            <pre class="cmd">Windows 10 1809 kernel exploit github 2025</pre>
+            <button class="copy-btn" onclick="copyText(this,'Windows 10 1809 kernel exploit github 2025')">copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PART 5 — FULL WORKFLOW
+  ══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>The full research workflow — step by step</h2>
+    </div>
+
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-spine"><div class="flow-circle">1</div><div class="flow-line-v"></div></div>
+        <div class="flow-body">
+          <h4>Run the command and collect 4 values</h4>
+          <p>Run the one command. Write down: ProductName, CurrentBuild, UBR, ReleaseId. Build your full version string: <span style="font-family:var(--mono);color:var(--blue);font-size:13px">17763.6893</span></p>
+          <div class="cmd-wrap" style="margin-top:8px">
+            <pre class="cmd"><span class="ps-param">Get-ItemProperty</span> <span class="ps-string">'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'</span> <span class="ps-pipe">|</span>
+  <span class="ps-param">Select</span> ProductName, CurrentBuild, UBR, ReleaseId</pre>
+            <button class="copy-btn" onclick="copyText(this,`Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion' | Select ProductName, CurrentBuild, UBR, ReleaseId`)">copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-spine"><div class="flow-circle">2</div><div class="flow-line-v"></div></div>
+        <div class="flow-body">
+          <h4>Find your exact patch date (your cutoff)</h4>
+          <p>Search your full build on Microsoft's update history page. The date you get is your cutoff — everything patched after that date is still open on your system.</p>
+          <div class="alert alert-amber" style="margin-top:8px">
+            <span class="alert-icon">&#9654;</span>
+            <span>17763.6893 → KB5052000 → <strong>February 11, 2025</strong> = your cutoff date</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-spine"><div class="flow-circle">3</div><div class="flow-line-v"></div></div>
+        <div class="flow-body">
+          <h4>Find CVEs patched after your cutoff</h4>
+          <p>Go to MSRC Update Guide. Filter: Product = Windows Server 2019, Type = Elevation of Privilege, Date = after your cutoff. Note every CVE number that appears.</p>
+          <div class="alert alert-red" style="margin-top:8px">
+            <span class="alert-icon">&#9888;</span>
+            <span>Any CVE with patch date <strong>after Feb 11, 2025</strong> = potentially vulnerable on this system</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-spine"><div class="flow-circle">4</div><div class="flow-line-v"></div></div>
+        <div class="flow-body">
+          <h4>Check CVSS score and attack requirements</h4>
+          <p>Look up each CVE on NVD. Focus on CVEs where: CVSS score ≥ 7, Attack Vector = Local, Privileges Required = Low. These are exploitable with only a normal user shell.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <span class="badge badge-red">CVSS 9–10 = Critical</span>
+            <span class="badge badge-amber">CVSS 7–8 = High — focus here</span>
+            <span class="badge badge-green">Local + Low priv = easiest</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-spine"><div class="flow-circle">5</div><div class="flow-line-v"></div></div>
+        <div class="flow-body">
+          <h4>Search for a public PoC exploit</h4>
+          <p>Search GitHub and Exploit-DB for the CVE number. Check the repo README to confirm it was tested on your build. A PoC tested on 17763.7136 works on 17763.6893 too since 6893 is older (less patched).</p>
+          <div class="cmd-wrap" style="margin-top:8px">
+            <pre class="cmd">site:github.com CVE-2025-21204</pre>
+            <button class="copy-btn" onclick="copyText(this,'site:github.com CVE-2025-21204')">copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-spine"><div class="flow-circle">6</div><div class="flow-line-v"></div></div>
+        <div class="flow-body">
+          <h4>Check PoC requirements before running</h4>
+          <p>Every exploit has preconditions. Read the README carefully.</p>
+          <table class="explain-table" style="margin-top:8px">
+            <thead><tr><th>Question to ask</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="key-cell">Local or remote?</td>
+                <td class="val-cell">Local = you need an existing shell on the target first. Remote = works over the network.</td>
+              </tr>
+              <tr>
+                <td class="key-cell">User level needed?</td>
+                <td class="val-cell">Low = any normal user. Medium = needs some rights already (like a service account).</td>
+              </tr>
+              <tr>
+                <td class="key-cell">Which builds tested?</td>
+                <td class="val-cell">If PoC says "tested on 17763.6893" = confirmed. If higher UBR = still likely works on yours.</td>
+              </tr>
+              <tr>
+                <td class="key-cell">Service required?</td>
+                <td class="val-cell">Some exploits need Edge, Print Spooler, WMI, or specific services running.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-spine"><div class="flow-circle">7</div></div>
+        <div class="flow-body" style="padding-bottom:0">
+          <h4>Use automated tools to find more</h4>
+          <p>Tools like WinPEAS and WES-NG scan automatically and list all unpatched CVEs based on your system info. Run these on every engagement.</p>
+          <div class="cmd-wrap" style="margin-top:8px">
+            <pre class="cmd">.\winPEASx64.exe</pre>
+            <button class="copy-btn" onclick="copyText(this,'.\\winPEASx64.exe')">copy</button>
+          </div>
+          <div class="cmd-wrap">
+            <pre class="cmd">python wesng.py --update
+python wesng.py sysinfo.txt</pre>
+            <button class="copy-btn" onclick="copyText(this,'python wesng.py --update\npython wesng.py sysinfo.txt')">copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PART 6 — CHEAT SHEET
+  ══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>Cheat sheet — all Windows build numbers</h2>
+    </div>
+    <div class="card">
+      <table class="cheat-table">
+        <thead>
+          <tr>
+            <th>Desktop version</th>
+            <th>Server pair</th>
+            <th>Build</th>
+            <th>ReleaseId</th>
+            <th>Search terms</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Windows 10 1507</td>
+            <td>—</td>
+            <td class="mono-cell">10240</td>
+            <td class="mono-cell">1507</td>
+            <td class="mono-cell" style="font-size:11px">"Windows 10" "10240"</td>
+          </tr>
+          <tr>
+            <td>Windows 10 1607</td>
+            <td>Server 2016</td>
+            <td class="mono-cell">14393</td>
+            <td class="mono-cell">1607</td>
+            <td class="mono-cell" style="font-size:11px">"Server 2016" OR "1607"</td>
+          </tr>
+          <tr style="background:var(--blue-bg2)">
+            <td><strong>Windows 10 1809</strong></td>
+            <td><strong>Server 2019</strong></td>
+            <td class="mono-cell" style="color:var(--blue);font-weight:600">17763</td>
+            <td class="mono-cell" style="color:var(--blue)">1809</td>
+            <td class="mono-cell" style="font-size:11px;color:var(--blue)">"Server 2019" OR "1809"</td>
+          </tr>
+          <tr>
+            <td>Windows 10 2004</td>
+            <td>—</td>
+            <td class="mono-cell">19041</td>
+            <td class="mono-cell">2004</td>
+            <td class="mono-cell" style="font-size:11px">"Windows 10" "19041"</td>
+          </tr>
+          <tr>
+            <td>Windows 10 21H2</td>
+            <td>Server 2022</td>
+            <td class="mono-cell">20348</td>
+            <td class="mono-cell">21H2</td>
+            <td class="mono-cell" style="font-size:11px">"Server 2022" OR "21H2"</td>
+          </tr>
+          <tr>
+            <td>Windows 11 22H2</td>
+            <td>—</td>
+            <td class="mono-cell">22621</td>
+            <td class="mono-cell">22H2</td>
+            <td class="mono-cell" style="font-size:11px">"Windows 11" "22621"</td>
+          </tr>
+          <tr>
+            <td>Windows 11 24H2</td>
+            <td>Server 2025</td>
+            <td class="mono-cell">26100</td>
+            <td class="mono-cell">24H2</td>
+            <td class="mono-cell" style="font-size:11px">"Server 2025" OR "24H2"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  windows-privesc-notes.html &nbsp;|&nbsp; for educational and authorized security research use only
+</footer>
+
+<script>
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'copy';
+      btn.classList.remove('copied');
+    }, 1800);
+  }).catch(() => {
+    btn.textContent = 'error';
+    setTimeout(() => btn.textContent = 'copy', 1500);
+  });
+}
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -190,7 +190,7 @@ tasklist
 ```
 Here we can target `winlogon.exe` running under PID 612, which we know runs as SYSTEM on Windows hosts.
 ```powershell
-.\psgetsys.ps1 `[MyProcess]::CreateProcessFromParent(612,c:\Windows\System32\cmd.exe,"")`
+.\psgetsys.ps1; [MyProcess]::CreateProcessFromParent(552,"C:\Windows\System32\cmd.exe","")
 ```
 ![[Pasted image 20260114151209.png]]
 We could also use the [Get-Process](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process?view=powershell-7.2) cmdlet to grab the PID of a well-known process that runs as SYSTEM (such as LSASS) and pass the PID directly to the script, cutting down on the number of steps required.
@@ -226,6 +226,7 @@ Import-Module .\Enable-Privilege.ps1
 whoami /priv
   # SeTakeOwnershipPrivilege  Take ownership of files or other objects Enabled
 ```
+you can use this script too : https://github.com/proxb/PoshPrivilege/blob/master/PoshPrivilege/Scripts/Enable-Privilege.ps1
 #### Choosing a Target File
 Choose a target file and check its ownership. **File shares** often contain **Public** and **Private** directories, sometimes with misconfigured permissions. After gaining (or even without) AD access, these shares can reveal valuable information. In this scenario, we can browse both Public and Private shares. Public contains nothing interesting, but in Private we can list some directories without reading most files. During enumeration, we discover a file named **cred.txt** in the **IT** subdirectory of the Private share.
 

@@ -76,7 +76,7 @@ responder -h
 -----------------------------
 
 ## Starting Responder with Default Settings
-  sudo responder -I ens224 
+  sudo responder -I ens224 -w -d
     # hashes saved in /usr/share/responder/logs , formate (MODULE_NAME)-(HASH_TYPE)-(CLIENT_IP).txt
   # we can pass these hashes to Hashcat using hash modes:
     # NetNTLMv2 => 5600 
