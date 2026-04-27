@@ -347,11 +347,11 @@ ls
 zip -r ilfreight_bh.zip *.json # creat full zip file
 
 # or auto zip 
-bloodhound-ce-python -c All -ns 172.16.7.3 -d INLANEFREIGHT.LOCAL -u 'mssqlsvc@INLANEFREIGHT.LOCAL' -p 'Sup3rS3cur3maY5ql$3rverE' --zip
+bloodhound-ce-python -c All -ns <DC-IP> -d INLANEFREIGHT.LOCAL -u 'mssqlsvc@INLANEFREIGHT.LOCAL' -p 'Sup3rS3cur3maY5ql$3rverE' --zip
 
 # with kerbrouse tgt ticket
 ntpdate <DC-IP> # get time IN DC ex. +25200
-faketime '+25200 sec' bloodhound-ce-python -u CA_SVC -d fluffy.htb -dc DC01.fluffy.htb  -c All --zip -ns 10.129.232.88 -k -no-pass 
+faketime '+25200 sec' bloodhound-ce-python -u CA_SVC -d fluffy.htb -dc DC01.fluffy.htb  -c All --zip -ns <DC-IP> -k -no-pass 
 ```
 #### Upload the Zip File into the BloodHound GUI
 ```bash
@@ -389,6 +389,9 @@ Get-Module #=> DOne !!
 ### Get AD domain info
 ```powershell
 Get-ADDomain #  Get Domain Info
+
+# get all deleted objects 
+Get-ADObject -Filter 'isDeleted -eq $true' -IncludeDeletedObjects -Properties cn,objectSid,isDeleted
 ```
 ### Enum Users
 ```powershell
@@ -412,6 +415,7 @@ Get-ADGroup -Filter * | select name # list all domain groups
 Get-ADGroup -Identity "Backup Operators" # more info of particular group
 Get-ADGroupMember -Identity "Backup Operators" # List group members
 ```
+
 
 ## PowerView
 

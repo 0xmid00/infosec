@@ -64,6 +64,15 @@ Enumeration is critical. After initial access, we must identify OS version, patc
 - **Version**: Some exploits work only on specific Windows versions. Be careful—exploits can crash systems.  
 - **Running Services**: Check services running as SYSTEM or admin. Misconfigured services can allow easy privilege escalation.
 ### System Information
+```bash
+systeminfo
+
+# bypass Access denied 
+powershell -c "Get-ComputerInfo" 
+# ProductName, CurrentBuild, UBR, ReleaseId
+Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' | Select ProductName, CurrentBuild, UBR, ReleaseId
+
+```
 Checking the system shows the OS version, hardware, installed programs, and updates. This helps find missing patches and CVEs that can be used for privilege escalation.
 #### Tasklist
 View running processes to understand what apps and services are active.

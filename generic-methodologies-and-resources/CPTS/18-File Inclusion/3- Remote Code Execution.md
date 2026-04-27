@@ -225,6 +225,66 @@ Default Config Files (CentOS/RHEL):
 
 Default Web Root:
 /var/www/html
+
+
+
+--------------------------------------------------
+# windows
+--------------------------------------------------
+# IIS (Internet Information Services) - WINDOWS
+# ------------------------------
+Default Config Files:
+C:\Windows\System32\inetsrv\config\applicationHost.config
+C:\Windows\System32\inetsrv\config\redirection.config
+C:\inetpub\temp\apppools\
+
+Default Web Root:
+C:\inetpub\wwwroot\
+
+Default Log Location:
+C:\inetpub\logs\LogFiles\
+
+Virtual Host Configs:
+C:\Windows\System32\inetsrv\config\applicationHost.config  # all sites defined here
+
+Bindings/Sites Config:
+# All managed via applicationHost.config or IIS Manager GUI
+
+Default Error Pages:
+C:\Windows\System32\inetsrv\config\
+
+# XAMPP (Windows - Apache)
+# ------------------------------
+Default Config Files:
+C:\xampp\apache\conf\httpd.conf
+C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+Default Web Root:
+C:\xampp\htdocs\
+
+Default Log Location:
+C:\xampp\apache\logs\
+
+# WAMP (Windows - Apache/MySQL/PHP)
+# ------------------------------
+Default Config Files:
+C:\wamp\bin\apache\apacheX.X.X\conf\httpd.conf
+
+Default Web Root:
+C:\wamp\www\
+
+# Tomcat (Windows)
+# ------------------------------
+Default Config Files:
+C:\Program Files\Apache Software Foundation\Tomcat X.X\conf\server.xml
+C:\Program Files\Apache Software Foundation\Tomcat X.X\conf\web.xml
+
+Default Web Root:
+C:\Program Files\Apache Software Foundation\Tomcat X.X\webapps\ROOT\
+
+Default Log Location:
+C:\Program Files\Apache Software Foundation\Tomcat X.X\logs\
+
 ```
 
 After upload, check the page source for the image URL:

@@ -227,6 +227,11 @@ whoami /priv
   # SeTakeOwnershipPrivilege  Take ownership of files or other objects Enabled
 ```
 you can use this script too : https://github.com/proxb/PoshPrivilege/blob/master/PoshPrivilege/Scripts/Enable-Privilege.ps1
+
+**better:** https://github.com/fashionproof/EnableAllTokenPrivs
+```bash
+.\EnableAllTokenPrivs.ps1
+```
 #### Choosing a Target File
 Choose a target file and check its ownership. **File shares** often contain **Public** and **Private** directories, sometimes with misconfigured permissions. After gaining (or even without) AD access, these shares can reveal valuable information. In this scenario, we can browse both Public and Private shares. Public contains nothing interesting, but in Private we can list some directories without reading most files. During enumeration, we discover a file named **cred.txt** in the **IT** subdirectory of the Private share.
 
